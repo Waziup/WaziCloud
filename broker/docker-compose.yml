@@ -1,0 +1,15 @@
+version: "2"
+services:
+  waziupkafka:
+    container_name: "waziupbroker"
+    image: pandaconstantin/waziupkafka
+    ports:
+      - 9092:9092
+      - 2181:2181
+  waziupwildfly:
+    image: pandaconstantin/waziupwildfly
+    depends_on:
+      - waziupkafka
+    ports:
+      - 8088:8088
+      - 9990:9990
