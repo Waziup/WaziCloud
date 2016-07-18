@@ -60,5 +60,8 @@ Remove container </br>
 Rather executing the images one by one , you can run all of them at once thank to docker-composer. Then you only need to download the file  **docker-compose.yml**  in repository  **Plaform/broker**.</br>
 Go to the directory where you download the docker-compose.yml and execute the command below:</br>
 `$ docker-compose up `
-
+</br>
+Here the screenshot of probable result of the command :
+</br>
+![image docker-compose command](https://github.com/Waziup/Platform/blob/master/broker/compose.png)
 
