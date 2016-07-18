@@ -65,4 +65,12 @@ Here the screenshot of probable result of the command :
 ![image docker-compose command](https://github.com/Waziup/Platform/blob/master/broker/compose.png)
 
 ## Containers ready ! How to use resources ? 
+:one: **Use the brokers container** </br>
+You can connect to the container by executing the command : </br>
+`$ docker exec -it <Container ID> bash` where **Container ID** is the broker container identifier(can be found in the result of the command `docker ps -a` . It corresponds to the first column).
+</br>
+For example we have `$ docker exec -it c3d56b284447 bash`  </br>
+Once you have the shell prompt, execute the  `listtopic` that will show the topics created. Whenever the result is empty that means you have no topic created. You have choice between two commands for this purpose : **createdefaulttopic** and **createtopic** . </br>
+* **createdefaulttopic** will create one default topic name **waziupfarmingtopic** </br>
+* **createtopic** will create a topic that name has been provided at prompt </br>
 
