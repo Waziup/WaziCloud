@@ -32,6 +32,10 @@ The platform offer the possibility to run indeividually the docker images  and u
   `cd Platform/broker/WAZIUPWildfly`
 </br>
   `$ docker build -t waziupwildfly .`
+</br>
+List the images built with the command `$ docker images`. The result should be like the picture below : 
+</br>
+![Images list](https://github.com/Waziup/Platform/blob/master/broker/dockerimage.png)
  3. Run the images </br>
   `$ docker run -it <image name> `where **image name** is the name of container image.
 </br>
@@ -40,6 +44,10 @@ The platform offer the possibility to run indeividually the docker images  and u
   `$ docker run -it waziupmongodb`
 </br>
   `$ docker run -it waziupwildfly`
+</br>
+List of running containers with the command `$ docker ps -a`. The result should show the picture below :
+</br>
+![Containers running](https://github.com/Waziup/Platform/blob/master/broker/runningcontainer.png)
 
 * Run all docker images all at once with docker-compose
 
