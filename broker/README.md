@@ -8,8 +8,8 @@ This repository contains three main directories that correspond to three main co
 </center>
 
 #Prerequisites to use in local 
-You need to have installed  [Docker](https://docs.docker.com/)  and [docker-compose](https://docs.docker.com/compose/install/) in your local computer. 
-On Linux based machines here the link on how to install it  : [Docker installation on Linux](https://docs.docker.com/engine/installation/linux/).
+You need to have installed  [Docker](https://docs.docker.com/)  and [docker-compose](https://docs.docker.com/compose/install/) in your local computer. </br>
+On Linux based machines here the link on how to install it  : [Docker installation on Linux](https://docs.docker.com/engine/installation/linux/). </br>
 If you are on a Windows or Mac it is recommanded to install the all-in-one tool [Docker Toolbox](https://docs.docker.com/toolbox/overview/)
 
 
