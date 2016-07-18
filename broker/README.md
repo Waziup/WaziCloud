@@ -25,6 +25,14 @@ The platform offer the possibility to run indeividually the docker images  and u
   `$ docker build -t <image name>  .` where **image name** is the name of the container image.
 </br> 
   For example  `$ docker build -t  waziupkafka .` .  Do not forget the dot at the end of the command.  
+</br>
+  `cd Platform/broker/WAZIUPDatabase`
+</br>
+  `$ docker build -t waziupmongodb .`
+</br>
+  `cd Platform/broker/WAZIUPWildfly`
+</br>
+  `$ docker build -t waziupwildfly`
 
 * Run all docker images all at once with docker-compose
 
