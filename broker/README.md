@@ -73,6 +73,13 @@ For example we have `$ docker exec -it c3d56b284447 bash`  </br>
 Once you have the shell prompt, execute the  `listtopic` that will show the topics created. Whenever the result is empty that means you have no topic created. You have choice between two commands for this purpose : **createdefaulttopic** and **createtopic** . </br>
 * **createdefaulttopic** will create one default topic name **waziupfarmingtopic** </br>
 * **createtopic** will create a topic that name has been provided at prompt </br>
+The `createdefaulttopic` command gives this : </br>
+![create default topic](https://github.com/Waziup/Platform/blob/master/broker/createdefaulttopic.png) </br>
+The `createtopic` command gives this : </br>
+![create a topic](https://github.com/Waziup/Platform/blob/master/broker/createtopic.png) </br>
+
+
+
 
 :two: **Use database container** </br>
 
