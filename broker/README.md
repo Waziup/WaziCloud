@@ -32,6 +32,10 @@ The platform offer the possibility to run indeividually the docker images  and u
   `cd Platform/broker/WAZIUPWildfly`
 </br>
   `$ docker build -t waziupwildfly .`
+</br>
+List the images built with the command `$ docker images`. The result should be like the picture below : 
+</br>
+![Images list](https://github.com/Waziup/Platform/blob/master/broker/dockerimage.png)
  3. Run the images </br>
   `$ docker run -it <image name> `where **image name** is the name of container image.
 </br>
@@ -40,7 +44,21 @@ The platform offer the possibility to run indeividually the docker images  and u
   `$ docker run -it waziupmongodb`
 </br>
   `$ docker run -it waziupwildfly`
+</br>
+List of running containers with the command `$ docker ps -a`. The result should show the picture below :
+</br>
+![Containers running](https://github.com/Waziup/Platform/blob/master/broker/runningcontainer.png)
+</br> Usefull commands : 
+List the IP address of a container : </br>
+`$ docker inspect --format '{{ .NetworkSettings.IPAddress }}' <Container_ID>`
+</br>
+Remove container </br>
+`$ docker rm <Container ID>` 
 
-* Run all docker images all at once with docker-compose
+
+* Run all docker images all at once with docker-compose </br>
+Rather executing the images one by one , you can run all of them at once thank to docker-composer. Then you only need to download the file  **docker-compose.yml**  in repository  **Plaform/broker**.</br>
+Go to the directory where you download the docker-compose.yml and execute the command below:</br>
+`$ docker-compose up `
 
 
