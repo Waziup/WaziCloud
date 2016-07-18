@@ -22,7 +22,7 @@ The platform offer the possibility to run indeividually the docker images  and u
 </br>
   `cd  Platform/broker/WAZIUPKafka`
 </br>
-  `$ docker build -t <image name>  .` where <image name> is the name of the container image
+  `$ docker build -t <image name>  .` where **image name** is the name of the container image
 
 * Run all docker images all at once with docker-compose
 
