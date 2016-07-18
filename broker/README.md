@@ -17,9 +17,10 @@ If you are on a Windows or Mac it is recommanded to install the all-in-one tool 
 The platform offer the possibility to run indeividually the docker images  and using docker-compose as well. 
 </br>
 * Run each docker image individually
-  1. Download the docker image from WAZIUP github repository
-     https://github.com/Waziup/Platform.git
+  1. Download the docker image from [WAZIUP platform](https://github.com/Waziup/Platform.git) github repository.
   2. Build the docker images 
+  </br>
+  
 
 
 
