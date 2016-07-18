@@ -48,6 +48,9 @@ List the images built with the command `$ docker images`. The result should be l
 List of running containers with the command `$ docker ps -a`. The result should show the picture below :
 </br>
 ![Containers running](https://github.com/Waziup/Platform/blob/master/broker/runningcontainer.png)
+</br> Usefull commands : 
+List the IP address of a container : </br>
+`docker inspect --format '{{ .NetworkSettings.IPAddress }}' <Container_ID>`
 
 * Run all docker images all at once with docker-compose
 
