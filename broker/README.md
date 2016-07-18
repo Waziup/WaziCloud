@@ -75,8 +75,10 @@ Once you have the shell prompt, execute the  `listtopic` that will show the topi
 * **createtopic** will create a topic that name has been provided at prompt </br>
 </br>
 The `createdefaulttopic` command gives this : </br>
+</br>
 ![create default topic](https://github.com/Waziup/Platform/blob/master/broker/createdefaulttopic.png) </br>
 The `createtopic` command gives this : </br>
+</br>
 ![create a topic](https://github.com/Waziup/Platform/blob/master/broker/createtopic.png) </br>
 
 
