@@ -17,12 +17,12 @@ If you are on a Windows or Mac it is recommanded to install the all-in-one tool 
 The platform offer the possibility to run indeividually the docker images  and using docker-compose as well. 
 </br>
 * Run each docker image individually
-  1. Download the docker image from [WAZIUP platform](https://github.com/Waziup/Platform.git) github repository.
+  1. Download the docker images from [WAZIUP platform](https://github.com/Waziup/Platform.git) github repository.
   2. Build the docker images 
-  </br>
-  
-
-
+</br>
+  `cd  Platform/broker/WAZIUPKafka`
+</br>
+  `$ docker build -t <image name>  .` where <image name> is the name of the container image
 
 * Run all docker images all at once with docker-compose
 
