@@ -4,6 +4,9 @@ This repository contains three main directories that correspond to three main co
 * The repository **Platform/broker/WAZIUPDatabase/** contains the Dockerfile to build an [MongoDB](https://www.mongodb.com/) container that will host the WZAIUP big data nosql based database system.
 * The repository **Platform/broker/WAZIUPWildfly/** contains the  Dockerfile to build a web server container based on JBOSS community version ; [wildfly](https://www.mongodb.com/). It will help to host application based on JavaEE and/or other frameworks.
 
+![Image of containers and their orchestration](https://github.com/Waziup/Platform/blob/master/broker/container.png)
+
+
 #Prerequisites to use in local 
 You need to have installed  [Docker](https://docs.docker.com/)  and [docker-compose](https://docs.docker.com/compose/install/) in your local computer. 
 On Linux based machines here the link on how to install it  : [Docker installation on Linux](https://docs.docker.com/engine/installation/linux/).
