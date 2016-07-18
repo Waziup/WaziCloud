@@ -1,15 +1,27 @@
-version: "2"
+version: '2'
 services:
-  waziupkafka:
+ waziupbroker:
     container_name: "waziupbroker"
     image: pandaconstantin/waziupkafka
     ports:
       - 9092:9092
       - 2181:2181
-  waziupwildfly:
+
+ waziupmongodb:
+    container_name: "waziupmongodb"
+    image: pandaconstantin/waziupmongodb
+    ports:
+      - 27017:27017
+      - 28017:28017
+      
+ waziupwildfly:
+    container_name: "waziupwildfly"
     image: pandaconstantin/waziupwildfly
     depends_on:
-      - waziupkafka
+      - waziupmongodb
+    environment:
+      - MONGODB_URI=waziupmongodb
     ports:
       - 8088:8088
       - 9990:9990
+
