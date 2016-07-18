@@ -55,7 +55,6 @@ List the IP address of a container : </br>
 Remove container </br>
 `$ docker rm <Container ID>` 
 
-
 * Run all docker images all at once with docker-compose </br>
 Rather executing the images one by one , you can run all of them at once thank to docker-composer. Then you only need to download the file  **docker-compose.yml**  in repository  **Plaform/broker**.</br>
 Go to the directory where you download the docker-compose.yml and execute the command below:</br>
@@ -64,4 +63,6 @@ Go to the directory where you download the docker-compose.yml and execute the co
 Here the screenshot of probable result of the command :
 </br>
 ![image docker-compose command](https://github.com/Waziup/Platform/blob/master/broker/compose.png)
+
+## Containers ready ! How to use resources ? 
 
