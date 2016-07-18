@@ -50,8 +50,15 @@ List of running containers with the command `$ docker ps -a`. The result should 
 ![Containers running](https://github.com/Waziup/Platform/blob/master/broker/runningcontainer.png)
 </br> Usefull commands : 
 List the IP address of a container : </br>
-`docker inspect --format '{{ .NetworkSettings.IPAddress }}' <Container_ID>`
+`$ docker inspect --format '{{ .NetworkSettings.IPAddress }}' <Container_ID>`
+</br>
+Remove container </br>
+`$ docker rm <Container ID>` 
 
-* Run all docker images all at once with docker-compose
+
+* Run all docker images all at once with docker-compose </br>
+Rather executing the images one by one , you can run all of them at once thank to docker-composer. Then you only need to download the file  **docker-compose.yml**  in repository  **Plaform/broker**.</br>
+Go to the directory where you download the docker-compose.yml and execute the command below:</br>
+`$ docker-compose up `
 
 
