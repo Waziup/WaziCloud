@@ -1,5 +1,3 @@
-This folder contains the configuration files for the IoT broker (Orion and Kafka).
-
 #WAZIUP containers images overview
 This repository contains three main directories that correspond to three main containers (**broker**,**database** and **web server**) that will run in WAZIUP cloud.
 * The repository **Platform/broker/WAZIUPKafka/** contains the Dockerfile and scripts to build an environment based on [Apache Kafka](http://kafka.apache.org/). It help to create brokers and topics
