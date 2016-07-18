@@ -24,7 +24,7 @@ The platform offer the possibility to run indeividually the docker images  and u
 </br>
   `$ docker build -t <image name>  .` where **image name** is the name of the container image.
 </br> 
-  For example  `$ docker build -t  waziupkafka .`.Do not forget the dot at the end of the command.
+  For example  `$ docker build -t  waziupkafka .`.Do not forget the dot at the end of the command !</br>
   `cd Platform/broker/WAZIUPDatabase`
 </br>
   `$ docker build -t waziupmongodb .`
@@ -32,6 +32,14 @@ The platform offer the possibility to run indeividually the docker images  and u
   `cd Platform/broker/WAZIUPWildfly`
 </br>
   `$ docker build -t waziupwildfly .`
+ 3. Run the images
+  `$ docker run -it <image name> `where **image name** is the name of container image.
+</br>
+  `$ docker run -it waziupkafka`
+</br>
+  `$ docker run -it waziupmongodb`
+</br>
+  `$ docker run -it waziupwildfly`
 
 * Run all docker images all at once with docker-compose
 
