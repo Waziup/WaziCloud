@@ -32,7 +32,7 @@ The platform offer the possibility to run indeividually the docker images  and u
   `cd Platform/broker/WAZIUPWildfly`
 </br>
   `$ docker build -t waziupwildfly .`
- 3. Run the images
+ 3. Run the images </br>
   `$ docker run -it <image name> `where **image name** is the name of container image.
 </br>
   `$ docker run -it waziupkafka`
