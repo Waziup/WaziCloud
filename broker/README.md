@@ -22,7 +22,7 @@ The platform offer the possibility to run indeividually the docker images  and u
 </br>
   `cd  Platform/broker/WAZIUPKafka`
 </br>
-  `$ docker build -t <image name>  .` where **image name** is the name of the container image.
+  ```$ docker build -t <image name>  .``` where **image name** is the name of the container image.
 </br> 
   For example  `$ docker build -t  waziupkafka .`.Do not forget the dot at the end of the command !</br>
   `cd Platform/broker/WAZIUPDatabase`
