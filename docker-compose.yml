@@ -2,21 +2,24 @@ version: '2'
 services:
  waziupbroker:
     container_name: "waziupbroker"
-    image: pandaconstantin/waziupkafka
+    #image: pandaconstantin/waziupkafka
+    build: ./broker/kafka
     ports:
       - 9092:9092
       - 2181:2181
 
  waziupmongodb:
     container_name: "waziupmongodb"
-    image: pandaconstantin/waziupmongodb
+    #image: pandaconstantin/waziupmongodb
+    build: ./database
     ports:
       - 27017:27017
       - 28017:28017
       
  waziupwildfly:
     container_name: "waziupwildfly"
-    image: pandaconstantin/waziupwildfly
+    #image: pandaconstantin/waziupwildfly
+    build: ./exec_env
     depends_on:
       - waziupmongodb
     environment:
