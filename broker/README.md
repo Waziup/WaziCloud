@@ -5,7 +5,7 @@ This repository contains three main directories that correspond to three main co
 * The repository **Platform/broker/WAZIUPWildfly/** contains the  Dockerfile to build a web server container based on JBOSS community version ; [wildfly](https://www.mongodb.com/). It will help to host application based on JavaEE and/or other frameworks.
 </br>
 </br>
-![Image of containers and their orchestration](https://github.com/Waziup/Platform/blob/master/broker/container.png)
+![Image of containers and their orchestration](https://github.com/Waziup/Platform/blob/master/broker/doc/images/container.png)
 
 
 ##Prerequisites to use in local 
@@ -35,7 +35,7 @@ The platform offer the possibility to run indeividually the docker images  and u
 </br>
 List the images built with the command `$ docker images`. The result should be like the picture below : 
 </br>
-![Images list](https://github.com/Waziup/Platform/blob/master/broker/dockerimage.png)
+![Images list](https://github.com/Waziup/Platform/blob/master/broker/doc/images/dockerimage.png)
  3. Run the images </br>
   `$ docker run -it <image name> `where **image name** is the name of container image.
 </br>
@@ -47,7 +47,7 @@ List the images built with the command `$ docker images`. The result should be l
 </br>
 List of running containers with the command `$ docker ps -a`. The result should show the picture below :
 </br>
-![Containers running](https://github.com/Waziup/Platform/blob/master/broker/runningcontainer.png)
+![Containers running](https://github.com/Waziup/Platform/blob/master/broker/doc/images/runningcontainer.png)
 </br> Usefull commands : 
 List the IP address of a container : </br>
 `$ docker inspect --format '{{ .NetworkSettings.IPAddress }}' <Container_ID>`
@@ -62,7 +62,7 @@ Go to the directory where you download the docker-compose.yml and execute the co
 </br>
 Here the screenshot of probable result of the command :
 </br>
-![image docker-compose command](https://github.com/Waziup/Platform/blob/master/broker/compose.png)
+![image docker-compose command](https://github.com/Waziup/Platform/blob/master/broker/doc/images/compose.png)
 
 ## Containers ready ! How to use resources ? 
 :one: **Use the brokers container** </br>
@@ -76,10 +76,10 @@ Once you have the shell prompt, execute the  `listtopic` that will show the topi
 </br>
 The `createdefaulttopic` command gives this : </br>
 </br>
-![create default topic](https://github.com/Waziup/Platform/blob/master/broker/createdefaulttopic.png) </br>
+![create default topic](https://github.com/Waziup/Platform/blob/master/broker/doc/images/createdefaulttopic.png) </br>
 The `createtopic` command gives this : </br>
 </br>
-![create a topic](https://github.com/Waziup/Platform/blob/master/broker/createtopic.png) </br>
+![create a topic](https://github.com/Waziup/Platform/blob/master/broker/doc/images/createtopic.png) </br>
 
 
 
