@@ -1,0 +1,64 @@
+Deis is an open source PaaS that makes it easy to deploy and manage applications on your own servers. 
+
+Deis Installation:
+
+Prerequisites
+
+The Vagrantfile requires the plugin vagrant-triggers. To install the plugin run:
+
+
+
+1. Install Vagrant
+	Step-1: Download Vagrant from the link: https://www.vagrantup.com/downloads.html
+	Step-2: Run the command on Ubuntu:  $ sudo dpkg -i vagrant_1.8.4_x86_64.deb
+	Step-3: the plugin vagrant-triggers. To install the plugin run:
+
+	
+Generate a New Discovery URL: ????
+
+	Boot CoreOS
+	Step-4: Run following two command:
+		$ vagrant init hashicorp/precise64
+		$ vagrant up 
+	for destroying:
+		vagrant destroy 
+
+	
+
+		$ vagrant plugin install vagrant-triggers
+
+	Step-5: For checking run virtualbox and see the vagrant is running.
+	Step-6: Command for working with vagrant: vagrant ssh
+	
+2. In VM install deis
+	Get the Source:
+		$ git clone https://github.com/deis/deis.git
+		$ cd deis
+		$ git checkout v1.13.2 
+
+3. Install deisctl
+		$ cd ~/bin
+		$ curl -sSL http://deis.io/deisctl/install.sh | sh -s 1.13.2
+
+		# on CoreOS, add "sudo" to install to /opt/bin/deisctl
+		$ curl -sSL http://deis.io/deisctl/install.sh | sudo sh -s 1.13.2
+		$ sudo ln -fs $PWD/deisctl /usr/local/bin/deisctl
+
+4. Generate SSH Key
+
+5. Install the Deis Platform
+	Checking deis:
+		$ deisctl --version
+
+???6. Ensure SSH agent is running and select the private key that corresponds to the SSH key added to CoreOS nodes:
+
+	$ eval `ssh-agent -s`
+	$ ssh-add ~/.ssh/deis
+
+
+
+
+	
+		
+	
+	
