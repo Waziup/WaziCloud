@@ -2,9 +2,10 @@
 WAZIUP CLI
 ==========
 
-
 This document describes the command line interface for WAZIUP.
-There are the top level commands:
+The command line is named "waziup".
+It is used by the end users and developers to interact with the WAZIUP platform.
+Here are the top level commands:
 
 - auth
 - apps
@@ -24,7 +25,7 @@ $ waziup auth register --name=cdupont --password=**** http://www.waziup.io
 
 ### register
 
-This sub-command allows to register with the platform.
+This sub-command allows to create a new user in the platform.
 The request will be forwarded to the identity manager.
 
 ```
@@ -46,6 +47,7 @@ Options:
 
 This sub-command allows to login into the platform.
 The request will be forwarded to the identity manager.
+After the login, all other commands will user that identity (until the logout or a delay is elapsed).
 
 ```
 Usage: waziup auth login <controller> [--username] [--password]
@@ -63,7 +65,7 @@ Options:
 
 ### logout
 
-This sub-command allows to login into the platform.
+This sub-command allows to logout from the platform.
 The request will be forwarded to the identity manager.
 
 ```
@@ -81,7 +83,7 @@ $ waziup apps create
 ```
 This command will register the application present in the current directory with the DEIS controller.
 
-subcommands:
+Subcommands:
 
 - create
 - list
@@ -93,12 +95,13 @@ subcommands:
 
 Creates an application in WAZIUP platform using the current folder.
 
+```
 Usage: waziup apps create
 
 Options:
   -b --buildpack BUILDPACK
     a buildpack url to use for this app
-
+```
 
 ###list
 
@@ -145,7 +148,7 @@ This will remove the corresponding running application from WAZIUP.
 
 ```
 Usage: waziup apps destroy
-
+```
 
 
 gateways
