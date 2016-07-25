@@ -78,36 +78,42 @@ Start the CoreOS cluster on VirtualBox. From a command prompt, switch directorie
 		
 		$ sudo ln -fs $PWD/deisctl /usr/local/bin/deisctl
 
-	8.2 Check that you have deisctl installed and the version is correct.
-	
+
+
+
+
+
+
+
+2. In VM install deis
+	Get the Source:
+		$ git clone https://github.com/deis/deis.git
+		$ cd deis
+		$ git checkout v1.13.2 
+
+3. Install deisctl
+		$ cd ~/bin
+		$ curl -sSL http://deis.io/deisctl/install.sh | sh -s 1.13.2
+
+		# on CoreOS, add "sudo" to install to /opt/bin/deisctl
+		$ curl -sSL http://deis.io/deisctl/install.sh | sudo sh -s 1.13.2
+		$ sudo ln -fs $PWD/deisctl /usr/local/bin/deisctl
+
+4. Generate SSH Key
+
+5. Install the Deis Platform
+	Checking deis:
 		$ deisctl --version
 
-	8.3 Ensure your SSH agent is running and select the private key that corresponds to the SSH key added to your CoreOS nodes:
+???6. Ensure SSH agent is running and select the private key that corresponds to the SSH key added to CoreOS nodes:
 
-		$ eval `ssh-agent -s`
-		$ ssh-add ~/.ssh/deis
-
-	8.4 Find the public IP address of one of your nodes, and export it to the DEISCTL_TUNNEL environment variable
-
-		$ export DEISCTL_TUNNEL= <your own IP address>
-
-			For Vagrant clusters: export DEISCTL_TUNNEL=172.17.8.100
-
-		This is the IP address where deisctl will attempt to communicate with the cluster. You can test that it is working properly by running deisctl list. If you see a single line of output, the control utility is communicating with the nodes.
-
-		Before provisioning the platform, we’ll need to add the SSH key to Deis so it can connect to remote hosts during deis run:
+	$ eval `ssh-agent -s`
+	$ ssh-add ~/.ssh/deis
 
 
-			$ deisctl config platform set sshPrivateKey=~/.ssh/deis
-
-				For Vagrant clusters: deisctl config platform set sshPrivateKey=${HOME}/.vagrant.d/insecure_private_key
 
 
-	8.5  Run this command to provision the Deis platform:
-		$ deisctl install platform
-
-	8.6 Run this command to start the Deis platform:
-		$ deisctl start platform
-
-		Once you see “Deis started.”, your Deis platform is running on a cluster! You may verify that all of the Deis units are loaded and active by running the following command:
-			$ deisctl list
+	
+		
+	
+	
