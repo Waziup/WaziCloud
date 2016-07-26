@@ -242,7 +242,7 @@ $ waziup data observations
 
 This command lists the observations currently in the database.
 
-subcommands:
+Subcommands:
 
 - observations
 
