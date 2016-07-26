@@ -121,3 +121,11 @@ Configuration
 -------------
 
 A configuration file allows to store the configuration of the platform for the next start.
+The Controller will launch and configure the components of the platform using a Dockerfile.
+The configuration contains:
+- DEIS endpoint
+- Orion endpoint
+- gateway manager endpoint
+- user manager endpoint
+- database endpoint
+
