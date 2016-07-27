@@ -29,7 +29,7 @@ Install the low-level LoRa gateway
 
 Log as **pi** user on your Raspberry using ssh or connect a display and a keyboard. To get all the low-level LoRa gateway files you can use svn:
 
-	> svn checkout https://github.com/Waziup/trunk/Platform/gateway/IoTBridge/low_level_lora_gw lora_gateway
+	> svn checkout https://github.com/Waziup/Platform/trunk/gateway/IoTBridge/low_level_lora_gw lora_gateway
 	
 That will create the lora_gateway folder and get all the file of (GitHub) Waziup/Platform/gateway/IoTBridge/low_level_lora_gw in it. Then:
 

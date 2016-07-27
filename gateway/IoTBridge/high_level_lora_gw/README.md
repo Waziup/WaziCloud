@@ -76,7 +76,7 @@ Install the high-level LoRa gateway
 
 Get the high-level gateway files with:
 
-	> svn checkout https://github.com/Waziup/trunk/Platform/gateway/IoTBridge/high_level_lora_gw high_level_gw
+	> svn checkout https://github.com/Waziup/Platform/trunk/gateway/IoTBridge/high_level_lora_gw high_level_gw
 
 That will create the high_level_gw folder and get all the file of (GitHub) Waziup/Platform/gateway/IoTBridge/high_level_lora_gw in it. Then, copy all the content (all the files including sub-folders) of high_level_gw into your existing lora_gateway folder:
 
