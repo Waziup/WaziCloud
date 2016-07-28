@@ -51,9 +51,10 @@ import urllib2
 import ssl
 import socket
 
-#GroveStreams Settings
-api_key = "298b637f-2655-3c68-9b9b-a8466dae6d6d"    #Change This!!!
-#api_key = "21983054-6f07-3a03-a4f0-fed063dd9858"
+### Change This!!!
+api_key = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+### 
+
 base_url = '/api/feed?'
 channel_name="temperature"
 

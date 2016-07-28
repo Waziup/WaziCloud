@@ -8,12 +8,12 @@ Install Raspbian Wheezy or Jessie
 
 Fisrt install a Raspberry with Raspbian, Jessie is recommended. 
 
-then
+then (you need to have Internet access on your Raspberry):
 
 	> sudo apt-get update
 	> sudo apt-get upgrade
 
-Jessie has been tested on RPI2 and RPI3 and works great.
+Jessie has been tested on RPI1, RPI2 and RPI3, and works great.
 
 Wheezy has been tested on RPI1 and RPI2 and works great. Wheezy on RPI3 is not recommended because built-in WiFi and Bluetooth will not work properly.
 
@@ -22,7 +22,7 @@ We recommend buying either RPI2 or RPI3. RPI3 with Jessie has built-in WiFi and 
 Connect a radio module to Raspberry
 ===================================
 
-You have to connect a LoRa radio module to the Raspberry's GPIO header. Just connect the corresponding SPI pin (MOSI, MISO, CLK, CS). Of course you also need to provide the power (3.3v) to the radio module. You can have a look at the "Low-cost-LoRa-GW-step-by-step" tutorial in the tutorial repository (https://github.com/CongducPham/tutorials).
+You have to connect a LoRa radio module to the Raspberry's GPIO header. Just connect the corresponding SPI pin (MOSI, MISO, CLK, CS). Of course you also need to provide the power (3.3v) to the radio module. You can have a look at the "Low-cost-LoRa-GW-step-by-step" tutorial in our tutorial repository (https://github.com/CongducPham/tutorials).
 
 Install the low-level LoRa gateway
 ==================================
@@ -58,7 +58,7 @@ On Raspberry v2 or v3 a symbolic link will be created that will point to lora_ga
 
 By default, the gateway runs in LoRa mode 1 and has address 1.
 
-You can have a look at the "Low-cost-LoRa-GW-step-by-step" tutorial in the tutorial repository (https://github.com/CongducPham/tutorials).
+You can have a look at the "Low-cost-LoRa-GW-step-by-step" tutorial in our tutorial repository (https://github.com/CongducPham/tutorials).
 
 Adding LoRa gateway's post-processing features
 ==============================================
