@@ -1,0 +1,144 @@
+swagger: '2.0'
+info:
+  version: ''
+  title: ''
+host: 127.0.0.1:8001
+
+# Data structure definitions:
+definitions:
+  App:
+    required:
+      - appName
+    type: object
+    properties:
+      appName:
+        type: string
+  Gateway:
+    required:
+      - gatewayName
+    type: object
+    properties:
+      gatewayName:
+        type: string
+paths:
+# Apps API
+  /apps:
+    post:
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Create an app'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/App'
+        in: body
+        name: body
+    get:
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/App'
+            type: array
+          description: 'get list of all apps'
+      produces:
+      - application/json
+  /apps/{id}:
+    get:
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/App'
+          description: 'Get details of one application'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+    delete:
+      responses:
+        404:
+          description: ! '`id` not found'
+        204:
+          description: 'remove one application'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+    post:
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Update details of app'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/App'
+        in: body
+        name: body
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+  /apps/{id}/containers:
+    get:
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Container'
+            type: array
+          description: 'Get containers of app'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+  /gateways:
+    post:
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        201:
+          schema:
+            $ref: ! '#/definitions/Gateway'
+          description: 'Create a gateway'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/Gateway'
+        in: body
+        name: body

@@ -1,0 +1,113 @@
+Deis is an open source PaaS that makes it easy to deploy and manage applications on your own servers. 
+
+This installation document is for install deis in local machine on Linux Ubuntu distribution:
+
+Deis Installation:
+
+1. Get the Source
+
+Download an archive file from the releases page, or use git to clone the repository:
+		
+		$ git clone https://github.com/deis/deis.git
+		$ cd deis
+		$ git checkout v1.13.2
+
+2. Generate SSH Key
+
+The deisctl utility communicates with remote machines over an SSH tunnel. If you don’t already have an SSH key, the following command will generate a new keypair named “deis”:
+
+		$ ssh-keygen -q -t rsa -f ~/.ssh/deis -N '' -C deis
+
+3. Generate a New Discovery URL
+
+A discovery URL links etcd instances together by storing their peer addresses and metadata under a unique identifier. Run this command from the root of the repository to generate a contrib/coreos/user-data file with a new discovery URL:
+
+		$ make discovery-url
+
+
+4. Choose a Provider
+
+Vagrant is a tool for building complete development environments with a focus on automation. Deis cluster for development purposes use Vagrant.
+
+	Install Prerequisites: Install Vagrant v1.6.5+ and VirtualBox.
+
+	
+
+	4.1. Install Vagrant
+		Step-1: Download Vagrant from the link: https://www.vagrantup.com/downloads.html
+		Step-2: Run the command on Ubuntu:  $ sudo dpkg -i vagrant_1.8.4_x86_64.deb
+		Step-3: the plugin vagrant-triggers. To install the plugin run: 
+				
+				$ vagrant plugin install vagrant-triggers
+	4.2 Install VirtualBox
+		Install VirtualBox from the source: https://www.virtualbox.org/wiki/Downloads
+
+	
+5. Generate a New Discovery URL
+
+A discovery URL links etcd instances together by storing their peer addresses and metadata under a unique identifier. Run this command from the root of the repository to generate a contrib/coreos/user-data file with a new discovery URL:
+
+	$ make discovery-url
+
+
+6. Generate SSH Key
+
+
+7. Boot CoreOS
+
+Start the CoreOS cluster on VirtualBox. From a command prompt, switch directories to the root of the Deis project and type:
+
+	$ vagrant up
+
+		
+	This instructs Vagrant to spin up 3 VMs. To be able to connect to the VMs, you must add your Vagrant-generated SSH key 
+	to the ssh-agent (deisctl requires the agent to have this key):
+
+
+		$ ssh-add ~/.vagrant.d/insecure_private_key
+
+8. Install Deis Platform
+	
+	8.1 Install deisctl
+		$ cd ~/bin
+		$ curl -sSL http://deis.io/deisctl/install.sh | sh -s 1.13.2
+		$ # on CoreOS, add "sudo" to install to /opt/bin/deisctl
+		$ curl -sSL http://deis.io/deisctl/install.sh | sudo sh -s 1.13.2
+
+	Link deisctl into /usr/local/bin, so it will be in your $PATH:
+		
+		$ sudo ln -fs $PWD/deisctl /usr/local/bin/deisctl
+
+	8.2 Check that you have deisctl installed and the version is correct.
+	
+		$ deisctl --version
+
+	8.3 Ensure your SSH agent is running and select the private key that corresponds to the SSH key added to your CoreOS nodes:
+
+		$ eval `ssh-agent -s`
+		$ ssh-add ~/.ssh/deis
+
+	8.4 Find the public IP address of one of your nodes, and export it to the DEISCTL_TUNNEL environment variable
+
+		$ export DEISCTL_TUNNEL= <your own IP address>
+
+			For Vagrant clusters: export DEISCTL_TUNNEL=172.17.8.100
+
+		This is the IP address where deisctl will attempt to communicate with the cluster. You can test that it is working properly by running deisctl list. If you see a single line of output, the control utility is communicating with the nodes.
+
+		Before provisioning the platform, we’ll need to add the SSH key to Deis so it can connect to remote hosts during deis run:
+
+
+			$ deisctl config platform set sshPrivateKey=~/.ssh/deis
+
+				For Vagrant clusters: deisctl config platform set sshPrivateKey=${HOME}/.vagrant.d/insecure_private_key
+
+
+	8.5  Run this command to provision the Deis platform:
+		$ deisctl install platform
+
+	8.6 Run this command to start the Deis platform:
+		$ deisctl start platform
+
+		Once you see “Deis started.”, your Deis platform is running on a cluster! You may verify that all of the Deis units are loaded and active by running the following command:
+			$ deisctl list
