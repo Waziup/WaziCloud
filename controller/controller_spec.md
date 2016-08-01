@@ -60,10 +60,8 @@ POST apps/: create an application
 DELETE apps/example/: delete application "example"
 GET apps/example/: get details of application "example"
 POST apps/example/: update details of application "example"
-
-POST apps/example/deploy/: deploy an application
+PUT apps/example/: actions an application (deploy, scale)
 GET apps/example/containers/: get all containers from a specific application
-POST apps/example/scale/: scale an application
 ```
 
 ###gateways
