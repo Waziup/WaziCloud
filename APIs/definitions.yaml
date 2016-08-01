@@ -1,0 +1,63 @@
+App:
+  required:
+    - appName
+  type: object
+  properties:
+    appName:
+      type: string
+AppAction:
+  required:
+    - action
+  type: object
+  properties:
+    appAction:
+      type: string
+Gateway:
+  required:
+    - gatewayName
+  type: object
+  properties:
+    gatewayName:
+      type: string
+GatewayAction:
+  required:
+    - gatewayAction
+  type: object
+  properties:
+    gatewayAction:
+      type: string
+Container:
+  required:
+    - containerName
+  type: object
+  properties:
+    containerName:
+      type: string
+Device:
+  required:
+    - sensorName
+  type: object
+  properties:
+    sensorName:
+      type: string
+Entity:
+  required:
+    - entityName
+  type: object
+  properties:
+    entityName:
+      type: string
+Subscription:
+  required:
+    - subscriptionName
+  type: object
+  properties:
+    subscriptionName:
+      type: string
+Observations:
+  required:
+    - observationName
+  type: object
+  properties:
+    observationName:
+      type: string

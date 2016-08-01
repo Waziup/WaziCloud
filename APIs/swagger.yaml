@@ -1,71 +1,17 @@
 swagger: '2.0'
 info:
-  version: ''
-  title: ''
-host: 127.0.0.1:8001
+  version: '1.0'
+  title: 'WAZIUP API'
+host: waziup.io
 
 # Data structure definitions:
 definitions:
-  App:
-    required:
-      - appName
-    type: object
-    properties:
-      appName:
-        type: string
-  AppAction:
-    required:
-      - action
-    type: object
-    properties:
-      appAction:
-        type: string
-  Gateway:
-    required:
-      - gatewayName
-    type: object
-    properties:
-      gatewayName:
-        type: string
-  GatewayAction:
-    required:
-      - gatewayAction
-    type: object
-    properties:
-      gatewayAction:
-        type: string
-  Container:
-    required:
-      - containerName
-    type: object
-    properties:
-      containerName:
-        type: string
-  Sensor:
-    required:
-      - sensorName
-    type: object
-    properties:
-      sensorName:
-        type: string
-  Entity:
-    required:
-      - entityName
-    type: object
-    properties:
-      entityName:
-        type: string
-  Subscription:
-    required:
-      - subscriptionName
-    type: object
-    properties:
-      subscriptionName:
-        type: string
+  $ref: 'definitions.yaml'
 paths:
 # Apps API
   /apps:
     get:
+      tags: [apps]
       responses:
         200:
           schema:
@@ -76,6 +22,7 @@ paths:
       produces:
       - application/json
     post:
+      tags: [apps]
       consumes:
       - application/json
       responses:
@@ -93,6 +40,7 @@ paths:
         name: body
   /apps/{id}:
     get:
+      tags: [apps]
       responses:
         404:
           description: ! '`id` not found'
@@ -110,6 +58,7 @@ paths:
         name: id
         type: integer
     post:
+      tags: [apps]
       consumes:
       - application/json
       responses:
@@ -132,6 +81,7 @@ paths:
         name: id
         type: integer
     put:
+      tags: [apps]
       consumes:
       - application/json
       responses:
@@ -154,6 +104,7 @@ paths:
         name: id
         type: integer
     delete:
+      tags: [apps]
       responses:
         404:
           description: ! '`id` not found'
@@ -170,6 +121,7 @@ paths:
         type: integer
   /apps/{id}/containers:
     get:
+      tags: [apps]
       responses:
         404:
           description: ! '`id` not found'
@@ -187,8 +139,79 @@ paths:
         in: path
         name: id
         type: integer
+
+# Data API
+## Entities
+  /data/observations:
+    get:
+      tags: [data]
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/Observations'
+            type: array
+          description: 'get list of all observations'
+      produces:
+      - application/json
+  /data/observations/{id}:
+    get:
+      tags: [data]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Observations'
+          description: 'Get details of an entity'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+  /data/subscriptions:
+    get:
+      tags: [data]
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/Subscription'
+            type: array
+          description: 'get list of all subscriptions'
+      produces:
+      - application/json
+  /data/subscriptions/{id}:
+    get:
+      tags: [data]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Subscription'
+          description: 'Get details of a subscription'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+
+
+
+
+#Gateways API
   /gateways:
     get:
+      tags: [gateways]
       responses:
         200:
           schema:
@@ -199,6 +222,7 @@ paths:
       produces:
       - application/json
     post:
+      tags: [gateways]
       consumes:
       - application/json
       responses:
@@ -218,6 +242,7 @@ paths:
         name: body
   /gateways/{id}:
     get:
+      tags: [gateways]
       responses:
         404:
           description: ! '`id` not found'
@@ -235,6 +260,7 @@ paths:
         name: id
         type: integer
     put:
+      tags: [gateways]
       consumes:
       - application/json
       responses:
@@ -257,6 +283,7 @@ paths:
         name: id
         type: integer
     delete:
+      tags: [gateways]
       responses:
         404:
           description: ! '`id` not found'
@@ -271,77 +298,17 @@ paths:
         in: path
         name: id
         type: integer
-  /gateways/{id}/sensors:
+  /gateways/{id}/devices:
     get:
+      tags: [gateways]
       responses:
         404:
           description: ! '`id` not found'
         200:
           schema:
-            $ref: ! '#/definitions/Sensor'
+            $ref: ! '#/definitions/Device'
             type: array
-          description: 'Get sensors of a gateway'
-      produces:
-      - application/json
-      parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
-        required: true
-        in: path
-        name: id
-        type: integer
-
-# Data API
-## Entities
-  /data/entities:
-    get:
-      responses:
-        200:
-          schema:
-            items:
-              $ref: ! '#/definitions/Entity'
-            type: array
-          description: 'get list of all entities'
-      produces:
-      - application/json
-  /data/entities{id}:
-    get:
-      responses:
-        404:
-          description: ! '`id` not found'
-        200:
-          schema:
-            $ref: ! '#/definitions/Entity'
-          description: 'Get details of an entity'
-      produces:
-      - application/json
-      parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
-        required: true
-        in: path
-        name: id
-        type: integer
-  /data/subscriptions:
-    get:
-      responses:
-        200:
-          schema:
-            items:
-              $ref: ! '#/definitions/Subscription'
-            type: array
-          description: 'get list of all subscriptions'
-      produces:
-      - application/json
-  /data/subscriptions/{id}:
-    get:
-      responses:
-        404:
-          description: ! '`id` not found'
-        200:
-          schema:
-            $ref: ! '#/definitions/Subscription'
-          description: 'Get details of a subscription'
+          description: 'Get devices of a gateway'
       produces:
       - application/json
       parameters:
