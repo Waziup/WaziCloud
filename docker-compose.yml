@@ -7,11 +7,12 @@ services:
     ports:
       - 9092:9092
       - 2181:2181
+      - 9000:9000
 
  waziupmongodb:
     container_name: "waziupmongodb"
-    #image: pandaconstantin/waziupmongodb
-    build: ./database
+    image: pandaconstantin/waziupmongodb
+    #build: ./database
     ports:
       - 27017:27017
       - 28017:28017
@@ -27,4 +28,11 @@ services:
     ports:
       - 8088:8088
       - 9990:9990
-
+      
+ orion:
+   image: fiware/orion
+   links:
+     - waziupmongodb
+   ports:
+     - "1026:1026"
+   command: -dbhost waziupmongodb
