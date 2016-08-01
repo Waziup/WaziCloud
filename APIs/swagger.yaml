@@ -13,6 +13,13 @@ definitions:
     properties:
       appName:
         type: string
+  AppAction:
+    required:
+      - action
+    type: object
+    properties:
+      appAction:
+        type: string
   Gateway:
     required:
       - gatewayName
@@ -20,9 +27,54 @@ definitions:
     properties:
       gatewayName:
         type: string
+  GatewayAction:
+    required:
+      - gatewayAction
+    type: object
+    properties:
+      gatewayAction:
+        type: string
+  Container:
+    required:
+      - containerName
+    type: object
+    properties:
+      containerName:
+        type: string
+  Sensor:
+    required:
+      - sensorName
+    type: object
+    properties:
+      sensorName:
+        type: string
+  Entity:
+    required:
+      - entityName
+    type: object
+    properties:
+      entityName:
+        type: string
+  Subscription:
+    required:
+      - subscriptionName
+    type: object
+    properties:
+      subscriptionName:
+        type: string
 paths:
 # Apps API
   /apps:
+    get:
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/App'
+            type: array
+          description: 'get list of all apps'
+      produces:
+      - application/json
     post:
       consumes:
       - application/json
@@ -39,16 +91,6 @@ paths:
           $ref: ! '#/definitions/App'
         in: body
         name: body
-    get:
-      responses:
-        200:
-          schema:
-            items:
-              $ref: ! '#/definitions/App'
-            type: array
-          description: 'get list of all apps'
-      produces:
-      - application/json
   /apps/{id}:
     get:
       responses:
@@ -58,21 +100,6 @@ paths:
           schema:
             $ref: ! '#/definitions/App'
           description: 'Get details of one application'
-      produces:
-      - application/json
-      parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
-        required: true
-        in: path
-        name: id
-        type: integer
-    delete:
-      responses:
-        404:
-          description: ! '`id` not found'
-        204:
-          description: 'remove one application'
       produces:
       - application/json
       parameters:
@@ -104,6 +131,43 @@ paths:
         in: path
         name: id
         type: integer
+    put:
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Actions on apps (deploy, scale...)'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/AppAction'
+        in: body
+        name: body
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+    delete:
+      responses:
+        404:
+          description: ! '`id` not found'
+        204:
+          description: 'remove one application'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
   /apps/{id}/containers:
     get:
       responses:
@@ -124,6 +188,16 @@ paths:
         name: id
         type: integer
   /gateways:
+    get:
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/Gateway'
+            type: array
+          description: 'get list of all gateways'
+      produces:
+      - application/json
     post:
       consumes:
       - application/json
@@ -142,3 +216,138 @@ paths:
           $ref: ! '#/definitions/Gateway'
         in: body
         name: body
+  /gateways/{id}:
+    get:
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Gateway'
+          description: 'Get details of a gateway'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+    put:
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Actions on gateways'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/GatewayAction'
+        in: body
+        name: body
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+    delete:
+      responses:
+        404:
+          description: ! '`id` not found'
+        204:
+          description: 'remove one gateway'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+  /gateways/{id}/sensors:
+    get:
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Sensor'
+            type: array
+          description: 'Get sensors of a gateway'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+
+# Data API
+## Entities
+  /data/entities:
+    get:
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/Entity'
+            type: array
+          description: 'get list of all entities'
+      produces:
+      - application/json
+  /data/entities{id}:
+    get:
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Entity'
+          description: 'Get details of an entity'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+  /data/subscriptions:
+    get:
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/Subscription'
+            type: array
+          description: 'get list of all subscriptions'
+      produces:
+      - application/json
+  /data/subscriptions/{id}:
+    get:
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Subscription'
+          description: 'Get details of a subscription'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
