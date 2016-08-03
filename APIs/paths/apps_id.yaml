@@ -30,7 +30,7 @@ post:
   parameters:
   - required: true
     schema:
-      $ref: ! '../definitions.yaml#/App'
+      $ref: ! '../definitions.yaml#/AppUpdateRequest'
     in: body
     name: body
   - maximum: 9223372036854775807
@@ -47,13 +47,13 @@ put:
     400:
       description: Invalid `body`
     204:
-      description: 'Actions on apps (deploy, scale...)'
+      description: 'Actions on apps (deploy, run, scale...)'
   produces:
   - application/json
   parameters:
   - required: true
     schema:
-      $ref: ! '../definitions.yaml#/AppAction'
+      $ref: ! '../definitions.yaml#/AppActionRequest'
     in: body
     name: body
   - maximum: 9223372036854775807

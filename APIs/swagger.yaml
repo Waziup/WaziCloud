@@ -18,10 +18,10 @@ tags:
 
 paths:
 # Apps API
-  /apps/{id}:
-    $ref: 'paths/apps_id.yaml'
   /apps:
     $ref: 'paths/apps.yaml'
+  /apps/{id}:
+    $ref: 'paths/apps_id.yaml'
   /apps/{id}/containers:
     $ref: 'paths/apps_id_containers.yaml'
 

@@ -5,7 +5,7 @@ get:
       description: ! '`id` not found'
     200:
       schema:
-        $ref: ! '../definitions.yaml#/Container'
+        $ref: ! '../definitions.yaml#/Process'
         type: array
       description: 'Get containers of app'
   produces:

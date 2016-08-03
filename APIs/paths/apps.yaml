@@ -1,5 +1,4 @@
 get:
-  tags: [apps]
   responses:
     200:
       schema:
@@ -23,6 +22,6 @@ post:
   parameters:
   - required: true
     schema:
-      $ref: ! '../definitions.yaml#/App'
+      $ref: ! '../definitions.yaml#/AppCreateRequest'
     in: body
     name: body

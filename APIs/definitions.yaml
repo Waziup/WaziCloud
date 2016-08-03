@@ -20,13 +20,70 @@ App:
       type: string
     UUID:
       type: string
-AppAction:
+AppCreateRequest:
   required:
-    - action
+    - ID
   type: object
   properties:
-    appAction:
+    ID:
       type: string
+AppUpdateRequest:
+  required:
+    - Owner
+  type: object
+  properties:
+    Owner:
+      type: string
+AppActionRequest:
+  required:
+    - Command
+  type: object
+  properties:
+    Command:
+      type: string
+AppActionResponse:
+  required:
+    - Output
+    - ReturnCode
+  type: object
+  properties:
+    Output:
+      type: string
+    ReturnCode:
+      type: string
+Process:
+  required:
+    - Owner
+    - App
+    - Release
+    - Created
+    - Updated
+    - UUID
+    - Type
+    - Num
+    - State
+  type: object
+  properties:
+    Owner:
+      type: string
+    App:
+      type: string
+    Release:
+      type: string
+    Created:
+      type: string
+    Updated:
+      type: string
+    UUID:
+      type: string
+    Type:
+      type: string
+    Num:
+      type: integer
+    State:
+      type: string
+
+
 Gateway:
   required:
     - gatewayName
