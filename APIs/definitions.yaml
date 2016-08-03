@@ -1,9 +1,24 @@
 App:
   required:
-    - appName
+    - Created
+    - ID
+    - Owner
+    - Updated
+    - URL
+    - UUID
   type: object
   properties:
-    appName:
+    Created:
+      type: string
+    ID:
+      type: string
+    Owner:
+      type: string
+    Updated:
+      type: string
+    URL:
+      type: string
+    UUID:
       type: string
 AppAction:
   required:
