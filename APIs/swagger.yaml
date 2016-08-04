@@ -16,6 +16,7 @@ paths:
 # Apps API
   /apps:
     get:
+      tags: [apps]
       responses:
         200:
           schema:
