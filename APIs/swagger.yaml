@@ -4,10 +4,6 @@ info:
   title: 'WAZIUP API'
 host: waziup.io
 
-# Data structure definitions:
-definitions:
-  $ref: 'definitions.yaml'
-
 tags: 
   - name: apps
     description: Applications API
@@ -19,26 +15,448 @@ tags:
 paths:
 # Apps API
   /apps:
-    $ref: 'paths/apps.yaml'
+    get:
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/App'
+            type: array
+          description: 'get list of all apps'
+      produces:
+      - application/json
+    post:
+      tags: [apps]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Create an app'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/AppCreateRequest'
+        in: body
+        name: body
   /apps/{id}:
-    $ref: 'paths/apps_id.yaml'
+    get:
+      tags: [apps]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/App'
+          description: 'Get details of one application'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+    post:
+      tags: [apps]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Update details of app'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/AppUpdateRequest'
+        in: body
+        name: body
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+    put:
+      tags: [apps]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Actions on apps (deploy, run, scale...)'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/AppActionRequest'
+        in: body
+        name: body
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+    delete:
+      tags: [apps]
+      responses:
+        404:
+          description: ! '`id` not found'
+        204:
+          description: 'remove one application'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
   /apps/{id}/containers:
-    $ref: 'paths/apps_id_containers.yaml'
+    get:
+      tags: [apps]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Process'
+            type: array
+          description: 'Get containers of app'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+
+
 
 # Data API
   /data/observations:
-    $ref: 'paths/data_observations.yaml'
+    get:
+      tags: [data]
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/Observations'
+            type: array
+          description: 'get list of all observations'
+      produces:
+      - application/json
   /data/observations/{id}:
-    $ref: 'paths/data_observations_id.yaml'
+    get:
+      tags: [data]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Observations'
+          description: 'Get details of an observation'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
   /data/subscriptions:
-    $ref: 'paths/data_subscriptions.yaml'
+    get:
+      tags: [data]
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/Subscription'
+            type: array
+          description: 'get list of all subscriptions'
+      produces:
+      - application/json
   /data/subscriptions/{id}:
-    $ref: 'paths/data_subscriptions_id.yaml'
+    get:
+      tags: [data]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Subscription'
+          description: 'Get details of a subscription'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
 
 #Gateways API
   /gateways:
-    $ref: 'paths/gateways.yaml'
+    get:
+      tags: [gateways]
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/Gateway'
+            type: array
+          description: 'get list of all gateways'
+      produces:
+      - application/json
+    post:
+      tags: [gateways]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        201:
+          schema:
+            $ref: ! '#/definitions/Gateway'
+          description: 'Create a gateway'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/Gateway'
+        in: body
+        name: body
   /gateways/{id}:
-    $ref: 'paths/gateways_id.yaml'
+    get:
+      tags: [gateways]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Gateway'
+          description: 'Get details of a gateway'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+    put:
+      tags: [gateways]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Actions on gateways'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/GatewayAction'
+        in: body
+        name: body
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+    delete:
+      tags: [gateways]
+      responses:
+        404:
+          description: ! '`id` not found'
+        204:
+          description: 'remove one gateway'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
   /gateways/{id}/devices:
-    $ref: 'paths/gateways_id_devices.yaml'
+    get:
+      tags: [gateways]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Device'
+            type: array
+          description: 'Get devices of a gateway'
+      produces:
+      - application/json
+      parameters:
+      - maximum: 9223372036854775807
+        minimum: -9223372036854775808
+        required: true
+        in: path
+        name: id
+        type: integer
+
+
+# Data structure definitions:
+definitions:
+  App:
+    required:
+      - Created
+      - ID
+      - Owner
+      - Updated
+      - URL
+      - UUID
+    type: object
+    properties:
+      Created:
+        type: string
+      ID:
+        type: string
+      Owner:
+        type: string
+      Updated:
+        type: string
+      URL:
+        type: string
+      UUID:
+        type: string
+  AppCreateRequest:
+    required:
+      - ID
+    type: object
+    properties:
+      ID:
+        type: string
+  AppUpdateRequest:
+    required:
+      - Owner
+    type: object
+    properties:
+      Owner:
+        type: string
+  AppActionRequest:
+    required:
+      - Command
+    type: object
+    properties:
+      Command:
+        type: string
+  AppActionResponse:
+    required:
+      - Output
+      - ReturnCode
+    type: object
+    properties:
+      Output:
+        type: string
+      ReturnCode:
+        type: string
+  Process:
+    required:
+      - Owner
+      - App
+      - Release
+      - Created
+      - Updated
+      - UUID
+      - Type
+      - Num
+      - State
+    type: object
+    properties:
+      Owner:
+        type: string
+      App:
+        type: string
+      Release:
+        type: string
+      Created:
+        type: string
+      Updated:
+        type: string
+      UUID:
+        type: string
+      Type:
+        type: string
+      Num:
+        type: integer
+      State:
+        type: string
+  
+  
+  Gateway:
+    required:
+      - gatewayName
+    type: object
+    properties:
+      gatewayName:
+        type: string
+  GatewayAction:
+    required:
+      - gatewayAction
+    type: object
+    properties:
+      gatewayAction:
+        type: string
+  Container:
+    required:
+      - containerName
+    type: object
+    properties:
+      containerName:
+        type: string
+  Device:
+    required:
+      - sensorName
+    type: object
+    properties:
+      sensorName:
+        type: string
+  Entity:
+    required:
+      - entityName
+    type: object
+    properties:
+      entityName:
+        type: string
+  Subscription:
+    required:
+      - subscriptionName
+    type: object
+    properties:
+      subscriptionName:
+        type: string
+  Observations:
+    required:
+      - observationName
+    type: object
+    properties:
+      observationName:
+        type: string
+
