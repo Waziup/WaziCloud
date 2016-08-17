@@ -14,15 +14,11 @@ This repository contains three main directories that correspond to three main co
 * platform/exec_env/wildfly/ contains the  Dockerfile to build a web server container based on JBOSS community version ; [wildfly](https://www.mongodb.com/). It will help to host application based on JavaEE and/or other frameworks.
 
 
-Prerequisites to use in local
------------------------------
+Local installation
+------------------
 
 Install [Docker](https://docs.docker.com/) and [docker-compose](https://docs.docker.com/compose/install/) in your local computer.
-On Linux based machines here the link on how to install it  : [Docker installation on Linux](https://docs.docker.com/engine/installation/linux/). </br>
-If you are on a Windows or Mac it is recommanded to install the all-in-one tool [Docker Toolbox](https://docs.docker.com/toolbox/overview/).
 
-Running
--------
 
 Run all docker images all at once with docker-compose:
 ```
@@ -31,7 +27,7 @@ Run all docker images all at once with docker-compose:
   docker-compose up
 ```
 
-Usage
+###Usage
 -----
 
 You can connect to the container by executing the command:
@@ -46,5 +42,27 @@ You have choice between two commands for this purpose : **createdefaulttopic** a
 
 - **createdefaulttopic** will create one default topic name **waziupfarmingtopic**.
 - **createtopic** will create a topic that name has been provided at prompt.
+
+
+Cloud deployment
+----------------
+
+WAZIUP Cloud is a DEIS PaaS installed at deis.waziup.io (currently deis.217.77.95.64.xip.io).
+
+To deploy the platform, first compile all the containers:
+
+```
+docker-compose build
+```
+You then need to tag each containers correspondingly:
+```
+docker tag <images_ID> waziup/<repo_name>
+docker push waziup/<repo_name>
+```
+You can finally deploy them in DEIS:
+```
+deis pull waziup/<repo_name>
+```
+
 
 
