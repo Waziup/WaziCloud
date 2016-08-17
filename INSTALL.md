@@ -2,16 +2,16 @@
 WAZIUP platform installation
 ============================
 
-This document describes how to install the WAZIUP platform in the Cloud.
+This document describes how to install the WAZIUP platform in local or on the Cloud.
 
 Overview
 --------
 
-This repository contains three main directories that correspond to three main containers (**broker**,**database** and **web server**) that will run in WAZIUP cloud.
+This repository contains several directories that each corresponds to a container:
 
-* platform/broker/ contains the Dockerfile and scripts to build an environment based on [Apache Kafka](http://kafka.apache.org/) or FIWARE Orion. It helps to create brokers and topics
-* platform/database/ contains the Dockerfile to build an [MongoDB](https://www.mongodb.com/) container that will host the WZAIUP big data nosql based database system.
-* platform/exec_env/wildfly/ contains the  Dockerfile to build a web server container based on JBOSS community version ; [wildfly](https://www.mongodb.com/). It will help to host application based on JavaEE and/or other frameworks.
+* platform/broker: Dockerfile and scripts to build an environment based on [Apache Kafka](http://kafka.apache.org/) or FIWARE Orion. It also to creates topics/entities.
+* platform/database: Dockerfile to build an [MongoDB](https://www.mongodb.com/) container that will host the WAZIUP data models.
+* platform/exec_env: Dockerfile to build a web server container based on JBOSS community version; [wildfly](https://www.mongodb.com/).
 
 
 Local installation
@@ -20,7 +20,7 @@ Local installation
 Install [Docker](https://docs.docker.com/) and [docker-compose](https://docs.docker.com/compose/install/) in your local computer.
 
 
-Run all docker images all at once with docker-compose:
+Run all docker images at once with docker-compose:
 ```
   git clone git@github.com:Waziup/Platform.git
   cd platform
@@ -32,7 +32,7 @@ Run all docker images all at once with docker-compose:
 
 You can connect to the container by executing the command:
 ```
-docker exec -it <Container ID> bash
+  docker exec -it <Container ID> bash
 ```
 where **Container ID** is the broker container identifier (can be found in the result of the command `docker ps -a`.
 It corresponds to the first column).
@@ -48,7 +48,6 @@ Cloud deployment
 ----------------
 
 WAZIUP Cloud is a DEIS PaaS installed at deis.waziup.io (currently deis.217.77.95.64.xip.io).
-
 To deploy the platform, first compile all the containers:
 
 ```
