@@ -53,9 +53,8 @@ To deploy the platform, first compile all the containers:
 ```
 docker-compose build
 ```
-You then need to tag each containers correspondingly:
+You then need to push each containers individually on dockerhub:
 ```
-docker tag <images_ID> waziup/<repo_name>
 docker push waziup/<repo_name>
 ```
 You can finally deploy them in DEIS:
