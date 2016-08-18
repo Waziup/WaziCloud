@@ -66,6 +66,8 @@ GET apps/example/containers/: get all containers from a specific application
 
 ###gateways
 
+Inspiration: https://github.com/resin-io/resin-supervisor/blob/master/docs/API.md
+
 REST end point:
 ```
 http://<ctrl-url>/<version>/gateways
