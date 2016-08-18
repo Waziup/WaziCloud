@@ -2,7 +2,7 @@ version: '2'
 services:
  waziupbroker:
     container_name: "waziupbroker"
-    #image: pandaconstantin/waziupkafka
+    image: waziup/broker
     build: ./broker/kafka
     ports:
       - 9092:9092
@@ -11,7 +11,7 @@ services:
 
  waziupmongodb:
     container_name: "waziupmongodb"
-    #image: pandaconstantin/waziupmongodb
+    image: waziup/database
     build: ./database
     ports:
       - 27017:27017
