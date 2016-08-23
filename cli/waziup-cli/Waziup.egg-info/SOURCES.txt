@@ -1,0 +1,11 @@
+Waziup.egg-info/PKG-INFO
+Waziup.egg-info/SOURCES.txt
+Waziup.egg-info/dependency_links.txt
+Waziup.egg-info/entry_points.txt
+Waziup.egg-info/requires.txt
+Waziup.egg-info/top_level.txt
+waziup/__init__.py
+waziup/cli.py
+waziup/commands/__init__.py
+waziup/commands/cmd_init.py
+waziup/commands/cmd_status.py
