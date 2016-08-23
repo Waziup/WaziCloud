@@ -18,6 +18,7 @@ The Gateway platform has the following requirements:
 Installation
 ------------
 
+See [this file](INSTALL.md) for the installation instructions of the platform.
 
 Copyright
 ---------
