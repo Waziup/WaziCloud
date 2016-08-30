@@ -1,6 +1,7 @@
 import os
 import sys
 import click
+import connexion
 
 
 CONTEXT_SETTINGS = dict(auto_envvar_prefix='WAZIUP')
@@ -25,8 +26,7 @@ class Context(object):
 
 
 pass_context = click.make_pass_decorator(Context, ensure=True)
-cmd_folder = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                          'commands'))
+cmd_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), 'commands'))
 
 
 class WaziupCTRL(click.MultiCommand):
@@ -51,9 +51,15 @@ class WaziupCTRL(click.MultiCommand):
         return mod.ctrl
 
 
-@click.command(cls=WaziupCTRL, context_settings=CONTEXT_SETTINGS)
-@click.option('-v', '--verbose', is_flag=True, help='Enables verbose mode.')
-@pass_context
-def ctrl(ctx, verbose):
-    """ Waziup controller interface."""
-    ctx.verbose = verbose
+#@click.option('-v', '--verbose', is_flag=True, help='Enables verbose mode.')
+#@pass_context
+@click.command()
+def ctrl():
+    click.echo('Waziup controller starting')
+    app = connexion.App(__name__, specification_dir='./swagger/')
+    app.add_api('swagger.yaml', arguments={'title': 'WAZIUP API'})
+    app.run(port=8080)
+
+
+if __name__ == '__main__':
+    ctrl()
