@@ -56,8 +56,7 @@ paths:
       produces:
       - application/json
       parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
         required: true
         in: path
         name: id
@@ -79,8 +78,7 @@ paths:
           $ref: ! '#/definitions/AppUpdateRequest'
         in: body
         name: body
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
         required: true
         in: path
         name: id
@@ -102,8 +100,7 @@ paths:
           $ref: ! '#/definitions/AppActionRequest'
         in: body
         name: body
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
         required: true
         in: path
         name: id
@@ -118,8 +115,7 @@ paths:
       produces:
       - application/json
       parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
         required: true
         in: path
         name: id
@@ -138,8 +134,7 @@ paths:
       produces:
       - application/json
       parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
         required: true
         in: path
         name: id
@@ -173,8 +168,7 @@ paths:
       produces:
       - application/json
       parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
         required: true
         in: path
         name: id
@@ -204,8 +198,7 @@ paths:
       produces:
       - application/json
       parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
         required: true
         in: path
         name: id
@@ -256,8 +249,7 @@ paths:
       produces:
       - application/json
       parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
         required: true
         in: path
         name: id
@@ -279,8 +271,7 @@ paths:
           $ref: ! '#/definitions/GatewayAction'
         in: body
         name: body
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
         required: true
         in: path
         name: id
@@ -295,8 +286,7 @@ paths:
       produces:
       - application/json
       parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
         required: true
         in: path
         name: id
@@ -315,8 +305,7 @@ paths:
       produces:
       - application/json
       parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
         required: true
         in: path
         name: id
@@ -454,10 +443,47 @@ definitions:
       subscriptionName:
         type: string
   Observations:
-    required:
-      - observationName
     type: object
     properties:
-      observationName:
+      id:
         type: string
+      type:
+        type: string
+      measure:
+        type: object
+        $ref: ! '#/definitions/Measure'
+      location:
+        type: object
+        $ref: ! '#/definitions/ValueType'
+      platform:
+        type: object
+        $ref: ! '#/definitions/ValueType'
 
+  Measure:
+    type: object
+    properties:
+      value:
+        type: string
+      type:
+        type: string
+      metadata:
+        type: object
+        $ref: ! '#/definitions/MeasureMetadata'
+
+  MeasureMetadata:
+    type: object
+    properties:
+      unit:
+        type: object
+        $ref: ! '#/definitions/ValueType'
+      timestamp:
+        type: object
+        $ref: ! '#/definitions/ValueType'
+
+  ValueType:
+    type: object
+    properties:
+      value:
+        type: string
+      type:
+        type: string
