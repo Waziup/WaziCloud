@@ -32,6 +32,34 @@ if [ "$#" -ne 1 ]
     exit
 fi
 
+board=`cat /proc/cpuinfo | grep "Revision" | cut -d ':' -f 2 | tr -d " \t\n\r"`
+
+echo "********************************************"
+echo "*** compile lora_gateway executable Y/N  ***"
+echo "********************************************"
+read ouinon
+
+if [ "$ouinon" = "y" ] || [ "$ouinon" = "Y" ]
+	then
+		cd ..
+		if [ "$board" = "a01041" ] || [ "$board" = "a21041" ]
+			then
+				echo "You have a Raspberry 2"
+				echo "Compiling for Raspberry 2 and 3"
+				make lora_gateway_pi2
+		elif [ "$board" = "a02082" ] || [ "$board" = "a22082" ]
+			then
+				echo "You have a Raspberry 3"
+				echo "Compiling for Raspberry 2 and 3"
+				make lora_gateway_pi2
+		else
+			echo "You have a Raspberry 1"		
+			echo "Compiling for Raspberry 1"
+			make lora_gateway
+		fi
+		cd scripts
+fi
+
 echo "Creating ../gateway_id.txt file"
 echo "Writing 000000$1"
 echo "000000$1" > ../gateway_id.txt
@@ -42,21 +70,33 @@ sed -i -- 's/"000000.*"/"000000'"$1"'"/g' ../local_conf.json
 echo "Done"
 
 if [ ! -d ~/Dropbox/LoRa-test ]
-        then
-                echo "*****************************************************"
-                echo "*** create ~/Dropbox/LoRa-test (recommended) Y/N  ***"
-                echo "*****************************************************"
-                read ouinon
+	then
+		echo "*****************************************************"
+		echo "*** create ~/Dropbox/LoRa-test (recommended) Y/N  ***"
+		echo "*****************************************************"
+		read ouinon
 
-                if [ "$ouinon" = "y" ] || [ "$ouinon" = "Y" ]
-                        then
-                                echo "Creating ~/Dropbox/LoRa-test"
-                                mkdir -p ~/Dropbox/LoRa-test
-                                echo "Done"
-                fi
-        else
-                echo "~/Dropbox/LoRa-test already exist. OK."
-fi				
+		if [ "$ouinon" = "y" ] || [ "$ouinon" = "Y" ]
+			then
+				echo "Creating ~/Dropbox/LoRa-test"
+				mkdir -p ~/Dropbox/LoRa-test
+				echo "Done"
+		fi
+	else
+		echo "~/Dropbox/LoRa-test already exist. OK."
+fi
+				
+echo "********************************************************"
+echo "*** create log symb link to ~/Dropbox/LoRa-test Y/N  ***"
+echo "********************************************************"
+read ouinon
+
+if [ "$ouinon" = "y" ] || [ "$ouinon" = "Y" ]
+	then
+		echo "Creating log -> ~/Dropbox/LoRa-test"
+		ln -s ~/Dropbox/LoRa-test ../log
+		echo "Done"		
+fi	
 	
 echo "***********************************"
 echo "*** configure hostapd.conf Y/N  ***"
@@ -159,10 +199,10 @@ if [ "$ouinon" = "y" ] || [ "$ouinon" = "Y" ]
 fi
 
 if [ "$ouinon" = "n" ] || [ "$ouinon" = "N" ]
-        then
-                echo "Deactivating MongoDB in global_conf.json"
-                sed -i 's/"is_used".*:.*true/"is_used" : false/g' ../global_conf.json
-                echo "Done"
+	then
+		echo "Deactivating MongoDB in global_conf.json"
+		sed -i 's/"is_used".*:.*true/"is_used" : false/g' ../global_conf.json
+		echo "Done"
 fi
 
 echo "*******************************"
@@ -176,13 +216,10 @@ sudo sed -i 's/\/home\/pi\/lora_gateway\/scripts\/start_gw.sh//g' /etc/rc.local
 echo "Done"
 
 if [ "$ouinon" = "y" ] || [ "$ouinon" = "Y" ]
-        then
-		echo "Creating /root/Dropbox/LoRa-test folder if needed"
-		sudo mkdir -p /root/Dropbox/LoRa-test
+	then
+		echo "Add /home/pi/lora_gateway/scripts/start_gw.sh in /etc/rc.local"
+		sudo sed -i 's/^exit 0/\/home\/pi\/lora_gateway\/scripts\/start_gw.sh\nexit 0/g' /etc/rc.local
 		echo "Done"
-                echo "Add /home/pi/lora_gateway/scripts/start_gw.sh in /etc/rc.local"
-                sudo sed -i 's/^exit 0/\/home\/pi\/lora_gateway\/scripts\/start_gw.sh\nexit 0/g' /etc/rc.local
-                echo "Done"
 fi
 
 		
@@ -193,9 +230,9 @@ read ouinon
 
 if [ "$ouinon" = "y" ] || [ "$ouinon" = "Y" ]
 	then
-                echo "Displaying ../gateway_id.txt with less command. Press key to start. Scroll with Space, Q to quit."
-                read k
-                less ../gateway_id.txt
+		echo "Displaying ../gateway_id.txt with less command. Press key to start. Scroll with Space, Q to quit."
+		read k
+		less ../gateway_id.txt
 
 		echo "Displaying ../global_conf.json with less command. Press key to start. Scroll with Space, Q to quit."
 		read k

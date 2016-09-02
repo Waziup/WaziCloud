@@ -29,10 +29,11 @@ import datetime
 import json
 import getopt
 
-_filename_path = "local_conf.json"
+#use "os.path.expanduser(path)" to allow use of "~"
+_folder_path = "/home/pi/Dropbox/LoRa-test/"
 
 #open json file to recover gateway_address
-f = open(os.path.expanduser(_filename_path),"r")
+f = open(os.path.expanduser("local_conf.json"),"r")
 lines = f.readlines()
 f.close()
 array = ""
@@ -45,6 +46,10 @@ json_array = json.loads(array)
 
 #set the gateway_address for having different log filenames
 _gwaddr = json_array["gateway_conf"]["gateway_ID"]
+
+#log files
+_parselog_filename = _folder_path+"post-processing_"+str(_gwaddr)+".log"
+_prefix_filename = _folder_path+"post-processing_"+str(_gwaddr)+"_"
 
 #recovering if we use weekly logs and monthly logs or just monthly logs
 _use_weekly_log = json_array["log_conf"]["log_weekly"]
@@ -79,11 +84,6 @@ def main(argv):
 		
 if __name__ == "__main__":
 	main(sys.argv[1:])
-	
-#use "os.path.expanduser(path)" to allow use of "~"
-_parselog_filename = "~/Dropbox/LoRa-test/post-processing_"+str(_gwaddr)+".log"
-_prefix_filename = "~/Dropbox/LoRa-test/post-processing_"+str(_gwaddr)+"_"
-_folder_path = "~/Dropbox/LoRa-test/"
 
 the_line=sys.stdin.readline()
 	
