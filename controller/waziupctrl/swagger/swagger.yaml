@@ -504,5 +504,36 @@ definitions:
     required:
     - "observationName"
     properties:
-      observationName:
+      id:
+        type: "string"
+      type:
+        type: "string"
+      measure:
+        $ref: "#/definitions/Measure"
+      location:
+        $ref: "#/definitions/ValueType"
+      platform:
+        $ref: "#/definitions/ValueType"
+  Measure:
+    type: "object"
+    properties:
+      value:
+        type: "string"
+      type:
+        type: "string"
+      metadata:
+        $ref: "#/definitions/MeasureMetadata"
+  MeasureMetadata:
+    type: "object"
+    properties:
+      unit:
+        $ref: "#/definitions/ValueType"
+      timestamp:
+        $ref: "#/definitions/ValueType"
+  ValueType:
+    type: "object"
+    properties:
+      value:
+        type: "string"
+      type:
         type: "string"
