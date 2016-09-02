@@ -1,86 +1,224 @@
 swagger: '2.0'
 info:
-  version: ''
-  title: ''
-host: 127.0.0.1:8001
-definitions:
-  App:
-    required:
-      - appName
-    type: object
-    properties:
-      appName:
-        type: string
-  Gateway:
-    required:
-      - gatewayName
-    type: object
-    properties:
-      gatewayName:
-        type: string
+  version: '1.0'
+  title: 'WAZIUP API'
+host: waziup.io
+
+tags: 
+  - name: apps
+    description: Applications API
+  - name: data
+    description: data management API
+  - name: gateways
+    description: gateway management API
+
 paths:
+# Apps API
   /apps:
-    post:
-      consumes:
-      - application/json
-      responses:
-        400:
-          description: Invalid `body`
-        204:
-          description: ''
-      produces:
-      - application/json
-      parameters:
-      - required: true
-        schema:
-          $ref: ! '#/definitions/App'
-        in: body
-        name: body
     get:
+      tags: [apps]
       responses:
         200:
           schema:
             items:
               $ref: ! '#/definitions/App'
             type: array
-          description: ''
+          description: 'get list of all apps'
       produces:
       - application/json
+    post:
+      tags: [apps]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Create an app'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/AppCreateRequest'
+        in: body
+        name: body
   /apps/{id}:
     get:
+      tags: [apps]
       responses:
         404:
           description: ! '`id` not found'
         200:
           schema:
             $ref: ! '#/definitions/App'
-          description: ''
+          description: 'Get details of one application'
       produces:
       - application/json
       parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
+        required: true
+        in: path
+        name: id
+        type: integer
+    post:
+      tags: [apps]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Update details of app'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/AppUpdateRequest'
+        in: body
+        name: body
+      - minimum: 0
+        required: true
+        in: path
+        name: id
+        type: integer
+    put:
+      tags: [apps]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Actions on apps (deploy, run, scale...)'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/AppActionRequest'
+        in: body
+        name: body
+      - minimum: 0
         required: true
         in: path
         name: id
         type: integer
     delete:
+      tags: [apps]
       responses:
         404:
           description: ! '`id` not found'
         204:
-          description: ''
+          description: 'remove one application'
       produces:
       - application/json
       parameters:
-      - maximum: 9223372036854775807
-        minimum: -9223372036854775808
+      - minimum: 0
         required: true
         in: path
         name: id
         type: integer
+  /apps/{id}/containers:
+    get:
+      tags: [apps]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Process'
+            type: array
+          description: 'Get containers of app'
+      produces:
+      - application/json
+      parameters:
+      - minimum: 0
+        required: true
+        in: path
+        name: id
+        type: integer
+
+
+
+# Data API
+  /data/observations:
+    get:
+      tags: [data]
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/Observations'
+            type: array
+          description: 'get list of all observations'
+      produces:
+      - application/json
+  /data/observations/{id}:
+    get:
+      tags: [data]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Observations'
+          description: 'Get details of an observation'
+      produces:
+      - application/json
+      parameters:
+      - minimum: 0
+        required: true
+        in: path
+        name: id
+        type: integer
+  /data/subscriptions:
+    get:
+      tags: [data]
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/Subscription'
+            type: array
+          description: 'get list of all subscriptions'
+      produces:
+      - application/json
+  /data/subscriptions/{id}:
+    get:
+      tags: [data]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Subscription'
+          description: 'Get details of a subscription'
+      produces:
+      - application/json
+      parameters:
+      - minimum: 0
+        required: true
+        in: path
+        name: id
+        type: integer
+
+#Gateways API
   /gateways:
+    get:
+      tags: [gateways]
+      responses:
+        200:
+          schema:
+            items:
+              $ref: ! '#/definitions/Gateway'
+            type: array
+          description: 'get list of all gateways'
+      produces:
+      - application/json
     post:
+      tags: [gateways]
       consumes:
       - application/json
       responses:
@@ -89,7 +227,7 @@ paths:
         201:
           schema:
             $ref: ! '#/definitions/Gateway'
-          description: ''
+          description: 'Create a gateway'
       produces:
       - application/json
       parameters:
@@ -98,3 +236,254 @@ paths:
           $ref: ! '#/definitions/Gateway'
         in: body
         name: body
+  /gateways/{id}:
+    get:
+      tags: [gateways]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Gateway'
+          description: 'Get details of a gateway'
+      produces:
+      - application/json
+      parameters:
+      - minimum: 0
+        required: true
+        in: path
+        name: id
+        type: integer
+    put:
+      tags: [gateways]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Actions on gateways'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/GatewayAction'
+        in: body
+        name: body
+      - minimum: 0
+        required: true
+        in: path
+        name: id
+        type: integer
+    delete:
+      tags: [gateways]
+      responses:
+        404:
+          description: ! '`id` not found'
+        204:
+          description: 'remove one gateway'
+      produces:
+      - application/json
+      parameters:
+      - minimum: 0
+        required: true
+        in: path
+        name: id
+        type: integer
+  /gateways/{id}/devices:
+    get:
+      tags: [gateways]
+      responses:
+        404:
+          description: ! '`id` not found'
+        200:
+          schema:
+            $ref: ! '#/definitions/Device'
+            type: array
+          description: 'Get devices of a gateway'
+      produces:
+      - application/json
+      parameters:
+      - minimum: 0
+        required: true
+        in: path
+        name: id
+        type: integer
+
+
+# Data structure definitions:
+definitions:
+  App:
+    required:
+      - Created
+      - ID
+      - Owner
+      - Updated
+      - URL
+      - UUID
+    type: object
+    properties:
+      Created:
+        type: string
+      ID:
+        type: string
+      Owner:
+        type: string
+      Updated:
+        type: string
+      URL:
+        type: string
+      UUID:
+        type: string
+  AppCreateRequest:
+    required:
+      - ID
+    type: object
+    properties:
+      ID:
+        type: string
+  AppUpdateRequest:
+    required:
+      - Owner
+    type: object
+    properties:
+      Owner:
+        type: string
+  AppActionRequest:
+    required:
+      - Command
+    type: object
+    properties:
+      Command:
+        type: string
+  AppActionResponse:
+    required:
+      - Output
+      - ReturnCode
+    type: object
+    properties:
+      Output:
+        type: string
+      ReturnCode:
+        type: string
+  Process:
+    required:
+      - Owner
+      - App
+      - Release
+      - Created
+      - Updated
+      - UUID
+      - Type
+      - Num
+      - State
+    type: object
+    properties:
+      Owner:
+        type: string
+      App:
+        type: string
+      Release:
+        type: string
+      Created:
+        type: string
+      Updated:
+        type: string
+      UUID:
+        type: string
+      Type:
+        type: string
+      Num:
+        type: integer
+      State:
+        type: string
+  
+  
+  Gateway:
+    required:
+      - gatewayName
+    type: object
+    properties:
+      gatewayName:
+        type: string
+  GatewayAction:
+    required:
+      - gatewayAction
+    type: object
+    properties:
+      gatewayAction:
+        type: string
+  Container:
+    required:
+      - containerName
+    type: object
+    properties:
+      containerName:
+        type: string
+  Device:
+    required:
+      - sensorName
+    type: object
+    properties:
+      sensorName:
+        type: string
+  Entity:
+    required:
+      - entityName
+    type: object
+    properties:
+      entityName:
+        type: string
+  Subscription:
+    required:
+      - subscriptionName
+    type: object
+    properties:
+      subscriptionName:
+        type: string
+  Observations:
+    type: object
+    properties:
+      id:
+        type: string
+      type:
+        type: string
+      measure:
+        type: object
+        $ref: ! '#/definitions/Measure'
+      location:
+        type: object
+        $ref: ! '#/definitions/ValueType'
+      platform:
+        type: object
+        $ref: ! '#/definitions/ValueType'
+
+  Measure:
+    type: object
+    properties:
+      value:
+        type: string
+      type:
+        type: string
+      metadata:
+        type: object
+        $ref: ! '#/definitions/MeasureMetadata'
+
+  MeasureMetadata:
+    type: object
+    properties:
+      unit:
+        type: object
+        $ref: ! '#/definitions/ValueType'
+      timestamp:
+        type: object
+        $ref: ! '#/definitions/ValueType'
+
+  ValueType:
+    type: object
+    properties:
+      value:
+        type: string
+      type:
+        type: string

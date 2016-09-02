@@ -1,0 +1,11 @@
+get:
+  tags: [data]
+  responses:
+    200:
+      schema:
+        items:
+          $ref: ! '../definitions.yaml#/Subscription'
+        type: array
+      description: 'get list of all subscriptions'
+  produces:
+  - application/json
