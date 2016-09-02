@@ -4,4 +4,4 @@ Version alpha1.0
 Usage:
 
   $ pip install --editable .
-  $ waziup-ctl --help
+  $ waziup-ctrl --help
