@@ -6,7 +6,7 @@ setup(
     packages=['waziup', 'waziup.commands'],
     include_package_data=True,
     install_requires=[
-        'click',
+      'click', 'urllib3 >= 1.15', 'six >= 1.10', 'certifi', 'python-dateutil'
     ],
     entry_points='''
         [console_scripts]
