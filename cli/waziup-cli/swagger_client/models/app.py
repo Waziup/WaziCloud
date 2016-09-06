@@ -51,12 +51,12 @@ class App(object):
         }
 
         self.attribute_map = {
-            'created': 'Created',
-            'id': 'ID',
-            'owner': 'Owner',
-            'updated': 'Updated',
-            'url': 'URL',
-            'uuid': 'UUID'
+            'created': 'created',
+            'id': 'id',
+            'owner': 'owner',
+            'updated': 'updated',
+            'url': 'url',
+            'uuid': 'uuid'
         }
 
         self._created = created
