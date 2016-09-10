@@ -1,8 +1,19 @@
-MongoDB in WAZIUP: save data from local gateway to remote cloud
+# Pull mongo image from docker hub
 
-MongoDB database will be run in Local gateway and remote Cloud.
+	docker pull mongo:latest
 
-In local cloud:
+
+# Launch MongoDB container:
+
+	docker run -v "$(pwd)":/data --name mongo -d mongo mongod --smallfiles
+
+# Connecting to Mongo database
+
+	docker run -it --link mongo:mongo --rm mongo sh -c 'exec mongo "$MONGO_PORT_27017_TCP_ADDR:$MONGO_PORT_27017_TCP_PORT/test"'
+
+# MongoDB in WAZIUP: save data from local gateway to remote cloud. MongoDB database will be run in Local gateway and remote Cloud.
+
+# In local cloud:
 
 Step-1:
 import text/json/csv file to mongodb waziup database.
