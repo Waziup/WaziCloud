@@ -618,12 +618,3 @@ definitions:
           type: array
           items:
             type: number
-
-  StatusCode:
-    type: object
-    properties:
-      code:
-        type: number
-        example: 200
-      reasonPhrase:
-        type: string
