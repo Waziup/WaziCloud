@@ -239,6 +239,21 @@ paths:
         in: path
         name: id
         type: integer
+    delete:
+      tags: [data]
+      responses:
+        404:
+          description: ! '`id` not found'
+        204:
+          description: 'subscription removed'
+      produces:
+      - application/json
+      parameters:
+      - minimum: 0
+        required: true
+        in: path
+        name: id
+        type: integer
 
 #Gateways API
   /gateways:
@@ -477,10 +492,13 @@ definitions:
     properties:
       type:
         type: string
+        example: "Room"
       isPattern:
         type: string
+        example: "false"
       id:
         type: string
+        example: "Room1"
 
   SubscriptionRequest:
     type: object
@@ -494,10 +512,13 @@ definitions:
         type: array
         items:
           type: string
+          example: "temperature"
       reference:
         type: string
+        example: "http://waziup.io/api/v1/subscriptions"
       duration:
         type: string
+        example: "P1M"
       notifyConditions:
         type: array
         items:
@@ -515,8 +536,10 @@ definitions:
     properties:
       duration:
         type: string
+        example: "P1M"
       subscriptionId:
         type: string
+        example: "552f7481983d79a38fbd5a74"
     required:
     - subscribeResponse
 
@@ -525,56 +548,42 @@ definitions:
     properties:
       type:
         type: string
+        example: "ONTIMEINTERVAL"
+        enum:
+        - ONTIMEINTERVAL
+        - ONCHANGE
       condValues:
         type: array
         items:
           type: string
+          example: "PT10S"
 
   Observation:
     type: object
     properties:
       id:
         type: string
+        example: "TemperatureSensor1"
       type:
         type: string
+        example: "SensingDevice"
       measure:
         type: object
         $ref: ! '#/definitions/Measure'
       location:
         type: object
-        $ref: ! '#/definitions/ValueType'
+        $ref: ! '#/definitions/Location'
       platform:
-        type: object
-        $ref: ! '#/definitions/ValueType'
-
-  CancelSubscriptionRequest:
-    title: Cancel a subscription request
-    type: object
-    properties:
-      subscriptionId:
         type: string
-    required:
-    - subscriptionId
-
-  CancelSubscriptionResponse:
-    title: Cancel a subscription response
-    type: object
-    properties:
-      statusCode:
-        type: object
-      subscriptionId:
-        type: string
-    required:
-    - statusCode
-    - subscriptionId
+        example: "UGB Field"
 
   Measure:
     type: object
     properties:
       value:
-        type: string
-      type:
-        type: string
+        type: number
+        example: 27
+        format: float
       metadata:
         type: object
         $ref: ! '#/definitions/MeasureMetadata'
@@ -583,16 +592,38 @@ definitions:
     type: object
     properties:
       unit:
-        type: object
-        $ref: ! '#/definitions/ValueType'
+        type: string
+        example: "Celcius"
       timestamp:
-        type: object
-        $ref: ! '#/definitions/ValueType'
+        type: string
+        example: "2016-06-08T18:20:27.873Z"
+        format: dateTime
 
-  ValueType:
+  Location:
+    type: object
+    description: Geometry as in GeoJSON.
+    externalDocs:
+      url: http://geojson.org/geojson-spec.html#geometry-objects
+    properties:
+      type:
+        type: string
+        enum:
+        - MultiPolygon
+        - Point
+        example: "Point"
+      coordinates:
+        type: array
+        example: "[[14.52839, 35.89389]]"
+        items:
+          type: array
+          items:
+            type: number
+
+  StatusCode:
     type: object
     properties:
-      value:
-        type: string
-      type:
+      code:
+        type: number
+        example: 200
+      reasonPhrase:
         type: string
