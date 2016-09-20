@@ -3,7 +3,7 @@ info:
   version: '1.0'
   title: 'WAZIUP API'
 host: waziup.io
-
+basePath: /api/v1
 tags: 
   - name: apps
     description: Applications API
@@ -150,11 +150,28 @@ paths:
         200:
           schema:
             items:
-              $ref: ! '#/definitions/Observations'
+              $ref: ! '#/definitions/Observation'
             type: array
           description: 'get list of all observations'
       produces:
       - application/json
+    post:
+      tags: [data]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Observation created'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/Observation'
+        in: body
+        name: body
   /data/observations/{id}:
     get:
       tags: [data]
@@ -163,7 +180,7 @@ paths:
           description: ! '`id` not found'
         200:
           schema:
-            $ref: ! '#/definitions/Observations'
+            $ref: ! '#/definitions/Observation'
           description: 'Get details of an observation'
       produces:
       - application/json
@@ -180,11 +197,30 @@ paths:
         200:
           schema:
             items:
-              $ref: ! '#/definitions/Subscription'
+              $ref: ! '#/definitions/SubscribeResponse'
             type: array
           description: 'get list of all subscriptions'
       produces:
       - application/json
+    post:
+      tags: [data]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        200:
+          description: 'Subscribed on a stream'
+          schema:
+            $ref: ! '#/definitions/SubscribeResponse'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/SubscriptionRequest'
+        in: body
+        name: body
   /data/subscriptions/{id}:
     get:
       tags: [data]
@@ -193,7 +229,7 @@ paths:
           description: ! '`id` not found'
         200:
           schema:
-            $ref: ! '#/definitions/Subscription'
+            $ref: ! '#/definitions/SubscribeResponse'
           description: 'Get details of a subscription'
       produces:
       - application/json
@@ -336,6 +372,7 @@ definitions:
         type: string
       UUID:
         type: string
+
   AppCreateRequest:
     required:
       - ID
@@ -343,6 +380,7 @@ definitions:
     properties:
       ID:
         type: string
+
   AppUpdateRequest:
     required:
       - Owner
@@ -350,6 +388,7 @@ definitions:
     properties:
       Owner:
         type: string
+
   AppActionRequest:
     required:
       - Command
@@ -357,6 +396,7 @@ definitions:
     properties:
       Command:
         type: string
+
   AppActionResponse:
     required:
       - Output
@@ -367,6 +407,7 @@ definitions:
         type: string
       ReturnCode:
         type: string
+
   Process:
     required:
       - Owner
@@ -398,8 +439,7 @@ definitions:
         type: integer
       State:
         type: string
-  
-  
+
   Gateway:
     required:
       - gatewayName
@@ -407,6 +447,7 @@ definitions:
     properties:
       gatewayName:
         type: string
+
   GatewayAction:
     required:
       - gatewayAction
@@ -414,6 +455,7 @@ definitions:
     properties:
       gatewayAction:
         type: string
+
   Container:
     required:
       - containerName
@@ -421,6 +463,7 @@ definitions:
     properties:
       containerName:
         type: string
+
   Device:
     required:
       - sensorName
@@ -428,21 +471,66 @@ definitions:
     properties:
       sensorName:
         type: string
+
   Entity:
-    required:
-      - entityName
     type: object
     properties:
-      entityName:
+      type:
         type: string
-  Subscription:
-    required:
-      - subscriptionName
+      isPattern:
+        type: string
+      id:
+        type: string
+
+  SubscriptionRequest:
     type: object
     properties:
-      subscriptionName:
+      entities:
+        type: array
+        items:
+          $ref: ! '#/definitions/Entity'
+          type: object
+      attributes:
+        type: array
+        items:
+          type: string
+      reference:
         type: string
-  Observations:
+      duration:
+        type: string
+      notifyConditions:
+        type: array
+        items:
+          $ref: ! '#/definitions/NotifyCondition'
+          type: object
+    required:
+    - entities
+    - attributes
+    - reference
+    - duration
+    - notifyConditions
+
+  SubscribeResponse:
+    type: object
+    properties:
+      duration:
+        type: string
+      subscriptionId:
+        type: string
+    required:
+    - subscribeResponse
+
+  NotifyCondition:
+    type: object
+    properties:
+      type:
+        type: string
+      condValues:
+        type: array
+        items:
+          type: string
+
+  Observation:
     type: object
     properties:
       id:
@@ -458,6 +546,27 @@ definitions:
       platform:
         type: object
         $ref: ! '#/definitions/ValueType'
+
+  CancelSubscriptionRequest:
+    title: Cancel a subscription request
+    type: object
+    properties:
+      subscriptionId:
+        type: string
+    required:
+    - subscriptionId
+
+  CancelSubscriptionResponse:
+    title: Cancel a subscription response
+    type: object
+    properties:
+      statusCode:
+        type: object
+      subscriptionId:
+        type: string
+    required:
+    - statusCode
+    - subscriptionId
 
   Measure:
     type: object
