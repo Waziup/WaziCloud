@@ -1,7 +1,7 @@
 import click
 import time
-import swagger_client
 from swagger_client.rest import ApiException
+from swagger_client import AppsApi
 from pprint import pprint
 from waziup.cli import pass_context
 
@@ -11,11 +11,8 @@ from waziup.cli import pass_context
 def cli(ctx):
     """Waziup apps management command"""
     ctx.log('Waziup status debug')
-    # create an instance of the API class
-    api_instance = swagger_client.AppsApi()
-
     try:
-        api_response = api_instance.apps_get()
+        api_response = AppsApi().apps_get()
         pprint(api_response)
     except ApiException as e:
-        print "Exception when calling AppsApi->apps_get: %s\n" % e
+        print("Exception when calling AppsApi->apps_get: %s\n", e)

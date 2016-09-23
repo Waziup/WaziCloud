@@ -1,6 +1,8 @@
+from waziup_commons.models.app import App
 
 def apps_get() -> str:
-    return 'do some magic!'
+  print(str(App('test','','','','','')))
+  return [App('test','','','','','').to_dict()]
 
 def apps_id_containers_get(id) -> str:
     return 'do some magic!'

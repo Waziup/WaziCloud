@@ -21,26 +21,25 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 """
-
 from __future__ import absolute_import
 
 # import models into sdk package
-from .models.app import App
-from .models.app_action_request import AppActionRequest
-from .models.app_action_response import AppActionResponse
-from .models.app_create_request import AppCreateRequest
-from .models.app_update_request import AppUpdateRequest
-from .models.container import Container
-from .models.device import Device
-from .models.entity import Entity
-from .models.gateway import Gateway
-from .models.gateway_action import GatewayAction
-from .models.measure import Measure
-from .models.measure_metadata import MeasureMetadata
-from .models.observations import Observations
-from .models.process import Process
-from .models.subscription import Subscription
-from .models.value_type import ValueType
+from waziup_commons.models.app import App
+from waziup_commons.models.app_action_request import AppActionRequest
+from waziup_commons.models.app_action_response import AppActionResponse
+from waziup_commons.models.app_create_request import AppCreateRequest
+from waziup_commons.models.app_update_request import AppUpdateRequest
+from waziup_commons.models.container import Container
+from waziup_commons.models.device import Device
+from waziup_commons.models.entity import Entity
+from waziup_commons.models.gateway import Gateway
+from waziup_commons.models.gateway_action import GatewayAction
+from waziup_commons.models.measure import Measure
+from waziup_commons.models.measure_metadata import MeasureMetadata
+from waziup_commons.models.observations import Observations
+from waziup_commons.models.process import Process
+from waziup_commons.models.subscription import Subscription
+from waziup_commons.models.value_type import ValueType
 
 # import apis into sdk package
 from .apis.apps_api import AppsApi

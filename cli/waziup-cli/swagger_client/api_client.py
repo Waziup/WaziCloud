@@ -17,9 +17,8 @@ Copyright 2016 SmartBear Software
 
    ref: https://github.com/swagger-api/swagger-codegen
 """
-
 from __future__ import absolute_import
-from . import models
+from waziup_commons import models
 from .rest import RESTClientObject
 from .rest import ApiException
 
