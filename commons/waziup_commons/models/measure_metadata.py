@@ -42,8 +42,8 @@ class MeasureMetadata(object):
                                   and the value is json key in definition.
         """
         self.swagger_types = {
-            'unit': 'ValueType',
-            'timestamp': 'ValueType'
+            'unit': 'str',
+            'timestamp': 'str'
         }
 
         self.attribute_map = {
@@ -61,7 +61,7 @@ class MeasureMetadata(object):
 
 
         :return: The unit of this MeasureMetadata.
-        :rtype: ValueType
+        :rtype: str
         """
         return self._unit
 
@@ -72,7 +72,7 @@ class MeasureMetadata(object):
 
 
         :param unit: The unit of this MeasureMetadata.
-        :type: ValueType
+        :type: str
         """
 
         self._unit = unit
@@ -84,7 +84,7 @@ class MeasureMetadata(object):
 
 
         :return: The timestamp of this MeasureMetadata.
-        :rtype: ValueType
+        :rtype: str
         """
         return self._timestamp
 
@@ -95,7 +95,7 @@ class MeasureMetadata(object):
 
 
         :param timestamp: The timestamp of this MeasureMetadata.
-        :type: ValueType
+        :type: str
         """
 
         self._timestamp = timestamp

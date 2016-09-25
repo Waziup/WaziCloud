@@ -35,9 +35,11 @@ from .device import Device
 from .entity import Entity
 from .gateway import Gateway
 from .gateway_action import GatewayAction
+from .location import Location
 from .measure import Measure
 from .measure_metadata import MeasureMetadata
-from .observations import Observations
+from .notify_condition import NotifyCondition
+from .observation import Observation
 from .process import Process
-from .subscription import Subscription
-from .value_type import ValueType
+from .subscribe_response import SubscribeResponse
+from .subscription_request import SubscriptionRequest

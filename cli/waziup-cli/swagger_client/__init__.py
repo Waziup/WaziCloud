@@ -36,10 +36,10 @@ from waziup_commons.models.gateway import Gateway
 from waziup_commons.models.gateway_action import GatewayAction
 from waziup_commons.models.measure import Measure
 from waziup_commons.models.measure_metadata import MeasureMetadata
-from waziup_commons.models.observations import Observations
+from waziup_commons.models.observation import Observation
 from waziup_commons.models.process import Process
-from waziup_commons.models.subscription import Subscription
-from waziup_commons.models.value_type import ValueType
+#from waziup_commons.models.subscription import Subscription
+#from waziup_commons.models.value_type import ValueType
 
 # import apis into sdk package
 from .apis.apps_api import AppsApi
