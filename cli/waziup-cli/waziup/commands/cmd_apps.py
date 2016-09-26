@@ -1,8 +1,4 @@
 import click
-import time
-from swagger_client.rest import ApiException
-from swagger_client import AppsApi
-from pprint import pprint
 from waziup.cli import pass_context
 
 @click.group()
@@ -13,7 +9,7 @@ def cli(ctx):
 
 @cli.command('create')
 @click.argument('<type>')
-@click.argument('<num>',help='the number of processes.')
+@click.argument('<num>')
 @click.option('--app', '-a',help='a buildpack url to use for this app')
 @click.pass_obj
 def cli_create(ctx):
