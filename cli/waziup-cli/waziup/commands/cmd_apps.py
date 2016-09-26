@@ -1,4 +1,8 @@
 import click
+import time
+from swagger_client.rest import ApiException
+from swagger_client import AppsApi
+from pprint import pprint
 from waziup.cli import pass_context
 
 @click.group()

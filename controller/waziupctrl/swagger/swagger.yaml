@@ -1,0 +1,539 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "WAZIUP API"
+host: "waziup.io"
+tags:
+- name: "apps"
+  description: "Applications API"
+- name: "data"
+  description: "data management API"
+- name: "gateways"
+  description: "gateway management API"
+paths:
+  /apps:
+    get:
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_get"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "get list of all apps"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/App"
+      x-tags:
+      - tag: "apps"
+    post:
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_post"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/AppCreateRequest"
+      responses:
+        204:
+          description: "Create an app"
+        400:
+          description: "Invalid `body`"
+      x-tags:
+      - tag: "apps"
+  /apps/{id}:
+    get:
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_id_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        200:
+          description: "Get details of one application"
+          schema:
+            $ref: "#/definitions/App"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "apps"
+    post:
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_id_post"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/AppUpdateRequest"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        204:
+          description: "Update details of app"
+        400:
+          description: "Invalid `body`"
+      x-tags:
+      - tag: "apps"
+    put:
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_id_put"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/AppActionRequest"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        204:
+          description: "Actions on apps (deploy, run, scale...)"
+        400:
+          description: "Invalid `body`"
+      x-tags:
+      - tag: "apps"
+    delete:
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_id_delete"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        204:
+          description: "remove one application"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "apps"
+  /apps/{id}/containers:
+    get:
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_id_containers_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        200:
+          description: "Get containers of app"
+          schema:
+            $ref: "#/definitions/Process"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "apps"
+  /data/observations:
+    get:
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_observations_get"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "get list of all observations"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Observations"
+      x-tags:
+      - tag: "data"
+  /data/observations/{id}:
+    get:
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_observations_id_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        200:
+          description: "Get details of an observation"
+          schema:
+            $ref: "#/definitions/Observations"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "data"
+  /data/subscriptions:
+    get:
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_subscriptions_get"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "get list of all subscriptions"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Subscription"
+      x-tags:
+      - tag: "data"
+  /data/subscriptions/{id}:
+    get:
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_subscriptions_id_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        200:
+          description: "Get details of a subscription"
+          schema:
+            $ref: "#/definitions/Subscription"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "data"
+  /gateways:
+    get:
+      tags:
+      - "gateways"
+      operationId: "controllers.default_controller.gateways_get"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "get list of all gateways"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Gateway"
+      x-tags:
+      - tag: "gateways"
+    post:
+      tags:
+      - "gateways"
+      operationId: "controllers.default_controller.gateways_post"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/Gateway"
+      responses:
+        201:
+          description: "Create a gateway"
+          schema:
+            $ref: "#/definitions/Gateway"
+        400:
+          description: "Invalid `body`"
+      x-tags:
+      - tag: "gateways"
+  /gateways/{id}:
+    get:
+      tags:
+      - "gateways"
+      operationId: "controllers.default_controller.gateways_id_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        200:
+          description: "Get details of a gateway"
+          schema:
+            $ref: "#/definitions/Gateway"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "gateways"
+    put:
+      tags:
+      - "gateways"
+      operationId: "controllers.default_controller.gateways_id_put"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/GatewayAction"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        204:
+          description: "Actions on gateways"
+        400:
+          description: "Invalid `body`"
+      x-tags:
+      - tag: "gateways"
+    delete:
+      tags:
+      - "gateways"
+      operationId: "controllers.default_controller.gateways_id_delete"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        204:
+          description: "remove one gateway"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "gateways"
+  /gateways/{id}/devices:
+    get:
+      tags:
+      - "gateways"
+      operationId: "controllers.default_controller.gateways_id_devices_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        200:
+          description: "Get devices of a gateway"
+          schema:
+            $ref: "#/definitions/Device"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "gateways"
+definitions:
+  App:
+    type: "object"
+    required:
+    - "Created"
+    - "ID"
+    - "Owner"
+    - "URL"
+    - "UUID"
+    - "Updated"
+    properties:
+      Created:
+        type: "string"
+      ID:
+        type: "string"
+      Owner:
+        type: "string"
+      Updated:
+        type: "string"
+      URL:
+        type: "string"
+      UUID:
+        type: "string"
+  AppCreateRequest:
+    type: "object"
+    required:
+    - "ID"
+    properties:
+      ID:
+        type: "string"
+  AppUpdateRequest:
+    type: "object"
+    required:
+    - "Owner"
+    properties:
+      Owner:
+        type: "string"
+  AppActionRequest:
+    type: "object"
+    required:
+    - "Command"
+    properties:
+      Command:
+        type: "string"
+  AppActionResponse:
+    type: "object"
+    required:
+    - "Output"
+    - "ReturnCode"
+    properties:
+      Output:
+        type: "string"
+      ReturnCode:
+        type: "string"
+  Process:
+    type: "object"
+    required:
+    - "App"
+    - "Created"
+    - "Num"
+    - "Owner"
+    - "Release"
+    - "State"
+    - "Type"
+    - "UUID"
+    - "Updated"
+    properties:
+      Owner:
+        type: "string"
+      App:
+        type: "string"
+      Release:
+        type: "string"
+      Created:
+        type: "string"
+      Updated:
+        type: "string"
+      UUID:
+        type: "string"
+      Type:
+        type: "string"
+      Num:
+        type: "integer"
+      State:
+        type: "string"
+  Gateway:
+    type: "object"
+    required:
+    - "gatewayName"
+    properties:
+      gatewayName:
+        type: "string"
+  GatewayAction:
+    type: "object"
+    required:
+    - "gatewayAction"
+    properties:
+      gatewayAction:
+        type: "string"
+  Container:
+    type: "object"
+    required:
+    - "containerName"
+    properties:
+      containerName:
+        type: "string"
+  Device:
+    type: "object"
+    required:
+    - "sensorName"
+    properties:
+      sensorName:
+        type: "string"
+  Entity:
+    type: "object"
+    required:
+    - "entityName"
+    properties:
+      entityName:
+        type: "string"
+  Subscription:
+    type: "object"
+    required:
+    - "subscriptionName"
+    properties:
+      subscriptionName:
+        type: "string"
+  Observations:
+    type: "object"
+    required:
+    - "observationName"
+    properties:
+      id:
+        type: "string"
+      type:
+        type: "string"
+      measure:
+        $ref: "#/definitions/Measure"
+      location:
+        $ref: "#/definitions/ValueType"
+      platform:
+        $ref: "#/definitions/ValueType"
+  Measure:
+    type: "object"
+    properties:
+      value:
+        type: "string"
+      type:
+        type: "string"
+      metadata:
+        $ref: "#/definitions/MeasureMetadata"
+  MeasureMetadata:
+    type: "object"
+    properties:
+      unit:
+        $ref: "#/definitions/ValueType"
+      timestamp:
+        $ref: "#/definitions/ValueType"
+  ValueType:
+    type: "object"
+    properties:
+      value:
+        type: "string"
+      type:
+        type: "string"

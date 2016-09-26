@@ -28,13 +28,11 @@
 # END
 #////////////////////////////////////////////////////////////
 
-
 import sys
 import select
 import threading
 from threading import Timer
 import time
-from collections import deque
 import datetime
 import getopt
 import os
@@ -47,11 +45,21 @@ import re
 #////////////////////////////////////////////////////////////
 
 #------------------------------------------------------------
+#with firebase support?
+#------------------------------------------------------------
+_firebase=False
+
+#------------------------------------------------------------
 #with thingspeak support?
 #------------------------------------------------------------
 _thingspeak=False
 #plot snr instead of seq
 _thingspeaksnr=False
+
+#------------------------------------------------------------
+#with sensorcloud support?
+#------------------------------------------------------------
+_sensorcloud=False
 
 #------------------------------------------------------------
 #with grovestreams support?
@@ -70,7 +78,7 @@ _fiware=False
 # a list of list, to a list of string that will be process as 
 # a byte array. Doing so wilL allow for dictionary construction
 # using the appkey to retrieve information such as encryption key,...
-		
+
 app_key_list = [
 	#for testing
 	'****',
@@ -148,8 +156,6 @@ _mongodb = False
 #log gateway message?
 #------------------------------------------------------------
 _logGateway=0
-#path of json file containing the gateway address
-_filename_path = "local_conf.json"
 
 #------------------------------------------------------------
 #raw output from gateway?
@@ -179,7 +185,7 @@ _hasClearData=0
 #------------------------------------------------------------
 #open json file to recover gateway_address
 #------------------------------------------------------------
-f = open(os.path.expanduser(_filename_path),"r")
+f = open(os.path.expanduser("local_conf.json"),"r")
 lines = f.readlines()
 f.close()
 array = ""
@@ -192,6 +198,16 @@ json_array = json.loads(array)
 
 #set the gateway_address for having different log filenames
 _gwaddr = json_array["gateway_conf"]["gateway_ID"]
+
+#////////////////////////////////////////////////////////////
+# CHANGE HERE THE VARIOUS PATHS FOR YOUR LOG FILES
+#////////////////////////////////////////////////////////////
+_folder_path = "/home/pi/Dropbox/LoRa-test/"
+_gwlog_filename = _folder_path+"gateway_"+str(_gwaddr)+".log"
+_telemetrylog_filename = _folder_path+"telemetry_"+str(_gwaddr)+".log"
+
+# END
+#////////////////////////////////////////////////////////////
 
 
 #------------------------------------------------------------
@@ -245,8 +261,9 @@ def dht22_target():
 		save_dht22_values()
 		sys.stdout.flush()	
 		global _gw_dht22
-		time.sleep(_gw_dht22)	
-		
+		time.sleep(_gw_dht22)
+
+
 #------------------------------------------------------------
 #for managing the input data when we can have aes encryption
 #------------------------------------------------------------
@@ -289,12 +306,6 @@ def fillLinebuf(n):
 	# fill in our _linebuf from stdin
 	_linebuf=sys.stdin.read(n)
 
-#////////////////////////////////////////////////////////////
-# CHANGE HERE THE VARIOUS PATHS FOR YOUR LOG FILES
-#////////////////////////////////////////////////////////////
-
-_gwlog_filename = "~/Dropbox/LoRa-test/gateway_"+str(_gwaddr)+".log"
-_telemetrylog_filename = "~/Dropbox/LoRa-test/telemetry_"+str(_gwaddr)+".log"
 
 #////////////////////////////////////////////////////////////
 # ADD HERE OPTIONS THAT YOU MAY WANT TO ADD
@@ -308,12 +319,14 @@ _telemetrylog_filename = "~/Dropbox/LoRa-test/telemetry_"+str(_gwaddr)+".log"
 
 def main(argv):
 	try:
-		opts, args = getopt.getopt(argv,'itLam:',[\
+		opts, args = getopt.getopt(argv,'iftLam:',[\
 		'ignorecomment',\
+		'firebase',\
 		'thingspeak',\
 		'retrythsk',\
 		'thingspeaksnr',\
 		'fiware',\
+		'sensorcloud',\
 		'grovestreams',\
 		'loggw',\
 		'addr',\
@@ -325,10 +338,12 @@ def main(argv):
 	except getopt.GetoptError:
 		print 'post_processing_gw '+\
 		'-i/--ignorecomment '+\
+		'-f/--firebase '+\
 		'-t/--thingspeak '+\
 		'--retrythsk '+\
 		'--thingspeaksnr '+\
 		'--fiware '+\
+		'--sensorcloud '+\
 		'--grovestreams '+\
 		'-L/--loggw '+\
 		'-a/--addr '+\
@@ -344,6 +359,13 @@ def main(argv):
 			print("will ignore commented lines")
 			global _ignoreComment
 			_ignoreComment = 1
+			
+		elif opt in ("-f", "--firebase"):
+			print("will enable firebase support")
+			global _firebase
+			_firebase = True
+			global firebase_uploadSingleData
+			from FireBase import firebase_uploadSingleData
 
 		elif opt in ("-t", "--thingspeak"):
 			print("will enable thingspeak support")
@@ -367,7 +389,14 @@ def main(argv):
 		elif opt in ("--fiware"):
 			print("will enable fiware support")
 			global _fiware
-			_fiware = True	
+			_fiware = True
+
+		elif opt in ("--sensorcloud"):
+			print("will enable sensorcloud support")
+			global _sensorcloud
+			_sensorcloud = True
+			global sensorcloud_uploadSingleData
+			from SensorCloud import sensorcloud_uploadSingleData
 
 		elif opt in ("--grovestreams"):
 			print("will enable grovestreams support")
@@ -404,7 +433,7 @@ def main(argv):
 			global AES
 			from Crypto.Cipher import AES
 			print("enable AES encrypted data")
-			
+						
 		elif opt in ("-m", "--mongodb"):
 			print("will enable local MongoDB support, max months to store is "+arg)
 			global _mongodb
@@ -428,9 +457,7 @@ if (_gw_dht22):
 	t.daemon = True
 	t.start()
 
-#------------------------------------------------------------
-#main loop
-#------------------------------------------------------------
+print "Current working directory: "+os.getcwd()
 
 while True:
 
@@ -438,7 +465,6 @@ while True:
   	ch = getSingleChar()
 
 #expected prefixes
-#
 #	^p 	indicates a ctrl pkt info ^pdst(%d),ptype(%d),src(%d),seq(%d),len(%d),SNR(%d),RSSI=(%d) for the last received packet
 #		example: ^p1,16,3,0,234,8,-45
 #
@@ -459,7 +485,7 @@ while True:
 #	\&	indicates a message that should be logged in the firebase cloud database
 #		example: \&hello ->	hello will be logged in json format
 #
-#	\!	indicates a message that should be logged on a cloud such thingspeak channel, grovestream, ...
+#	\!	indicates a message that should be logged on a thingspeak channel
 #		example: \!SGSH52UGPVAUYG3S#9.4 ->	9.4 will be logged in the SGSH52UGPVAUYG3S ThingSpeak channel at default field, i.e. field 1
 #				 \!2#9.4 -> 9.4 will be logged in the default channel at field 2
 #				 \!SGSH52UGPVAUYG3S#2#9.4 -> 9.4 will be logged in the SGSH52UGPVAUYG3S ThingSpeak channel at field 2
@@ -467,6 +493,7 @@ while True:
 #		you can log other information such as src, seq, len, SNR and RSSI on specific fields
 #
 #	\xFF\xFE		indicates radio data prefix
+#
 #
 
 #------------------------------------------------------------
@@ -570,8 +597,90 @@ while True:
 			# WE PROVIDE EXAMPLES FOR THINGSPEAK, GROVESTREAM
 			# IT IS ADVISED TO USE A SEPERATE PYTHON SCRIPT PER CLOUD
 			#////////////////////////////////////////////////////////////
+											
+			elif (ch=='&' and _firebase): #log on Firebase
+				
+				ldata = getAllLine()
+				
+				print 'rcv msg to log (\&) on firebase: '+data
+				firebase_msg = {
+					'dst':dst,
+					'type':ptypestr,
+					'gateway_eui' : _gwaddr,					
+					'node_eui':src,
+					'seq':seq,
+					'len':datalen,
+					'snr':SNR,
+					'rssi':RSSI,
+					'cr' : cr, 
+					'datarate' : "SF"+str(sf)+"BW"+str(bw),
+					'time':now.isoformat(),
+					'info_str':info_str+' '+now.isoformat()+'> '+ldata,					
+					'data':ldata
+				}
+				
+				if _mongodb :
+					#------------------
+					#saving in MongoDB
+					#------------------
 					
-			elif (ch=='!'): #log on thingspeak, grovestreams, ...
+					#get the data
+					data = ldata.split('/')
+				
+					#change data in two arrays : nomenclature_array and value_array
+					iteration = 0
+					nomenclature_array = []
+					value_array = []
+					while iteration<len(data) :
+						if (iteration == 0 or iteration%2 == 0) :
+						   	nomenclature_array.append(data[iteration])
+						else :
+						   	value_array.append(data[iteration])
+						   	
+						iteration += 1
+				
+					#check if new month
+					remove_if_new_month(now)
+				
+					print("MongoDB: saving the document in the collection...")
+				
+					#saving data in a JSON var
+					str_json_data = "{"
+					iteration = 0
+					while iteration < len(nomenclature_array) :
+						#last iteration, do not add "," at the end
+						if iteration == len(nomenclature_array)-1 :
+							str_json_data += "\""+nomenclature_array[iteration]+"\" : "+value_array[iteration]
+						else :
+							str_json_data += "\""+nomenclature_array[iteration]+"\" : "+value_array[iteration]+", "
+						iteration += 1
+					str_json_data += "}"
+				
+					#creating document to add
+					doc = {
+						"type" : ptypestr,
+						"gateway_eui" : _gwaddr, 
+						"node_eui" : src,
+						"snr" : SNR, 
+						"rssi" : RSSI, 
+						"cr" : cr, 
+						"datarate" : "SF"+str(sf)+"BW"+str(bw), 
+						"time" : now,
+						"data" : json.dumps(json.loads(str_json_data))
+					}
+				
+					#adding the document
+					add_document(doc)
+				
+					print("MongoDB: saving done")
+				
+				sensor_entry='sensor%d'% (src)
+				msg_entry='msg%d' % (seq)	
+				
+				#upload data to firebase
+				firebase_uploadSingleData(firebase_msg, sensor_entry, msg_entry, now)
+				
+			elif (ch=='!'): #log on thingspeak, grovestreams, sensorcloud and connectingnature
 	
 				ldata = getAllLine()
 				
@@ -713,6 +822,13 @@ while True:
 						print("FiWare: Entity update failed")
 
 				#------------------
+				#test for sensorcloud 
+				#------------------
+				if (_sensorcloud) :
+					#send the first sensor value in data_array
+					sensorcloud_uploadSingleData(data_array[index_first_data])
+
+				#------------------
 				#test for grovestreams 
 				#------------------				 
 				if (_grovestreams):
@@ -735,8 +851,9 @@ while True:
 					#upload data to grovestreams
 					grovestreams_uploadSingleData(nomenclatures, data, str(src))
 					
+
 			# END
-			#////////////////////////////////////////////////////////////	
+			#////////////////////////////////////////////////////////////				
 															
 			else: # not a known data logging prefix
 				#you may want to upload to a default service
@@ -879,8 +996,7 @@ while True:
 						_validappkey=1
 						print("but app key disabled")				
 				
-			continue	
-					
+			continue
 			
 	if (ch == '?' and _ignoreComment==1):
 		sys.stdin.readline()
