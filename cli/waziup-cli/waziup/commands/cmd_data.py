@@ -2,8 +2,15 @@ import click
 from waziup.cli import pass_context
 
 
-@click.command('apps', short_help='Waziup data management command')
-@pass_context
+@click.group()
+@click.pass_context
 def cli(ctx):
-    """Waziup data management command"""
-    ctx.log('Waziup status debug')
+    """Waziup data command"""
+    pass
+
+@cli.command('obervations')
+@click.pass_obj
+def cli_observations(ctx):
+    """Waziup data observation command"""
+    pass
+

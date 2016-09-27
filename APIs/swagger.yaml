@@ -3,7 +3,7 @@ info:
   version: '1.0'
   title: 'WAZIUP API'
 host: waziup.io
-
+basePath: /api/v1
 tags: 
   - name: apps
     description: Applications API
@@ -150,11 +150,28 @@ paths:
         200:
           schema:
             items:
-              $ref: ! '#/definitions/Observations'
+              $ref: ! '#/definitions/Observation'
             type: array
           description: 'get list of all observations'
       produces:
       - application/json
+    post:
+      tags: [data]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        204:
+          description: 'Observation created'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/Observation'
+        in: body
+        name: body
   /data/observations/{id}:
     get:
       tags: [data]
@@ -163,7 +180,7 @@ paths:
           description: ! '`id` not found'
         200:
           schema:
-            $ref: ! '#/definitions/Observations'
+            $ref: ! '#/definitions/Observation'
           description: 'Get details of an observation'
       produces:
       - application/json
@@ -180,11 +197,30 @@ paths:
         200:
           schema:
             items:
-              $ref: ! '#/definitions/Subscription'
+              $ref: ! '#/definitions/SubscribeResponse'
             type: array
           description: 'get list of all subscriptions'
       produces:
       - application/json
+    post:
+      tags: [data]
+      consumes:
+      - application/json
+      responses:
+        400:
+          description: Invalid `body`
+        200:
+          description: 'Subscribed on a stream'
+          schema:
+            $ref: ! '#/definitions/SubscribeResponse'
+      produces:
+      - application/json
+      parameters:
+      - required: true
+        schema:
+          $ref: ! '#/definitions/SubscriptionRequest'
+        in: body
+        name: body
   /data/subscriptions/{id}:
     get:
       tags: [data]
@@ -193,8 +229,23 @@ paths:
           description: ! '`id` not found'
         200:
           schema:
-            $ref: ! '#/definitions/Subscription'
+            $ref: ! '#/definitions/SubscribeResponse'
           description: 'Get details of a subscription'
+      produces:
+      - application/json
+      parameters:
+      - minimum: 0
+        required: true
+        in: path
+        name: id
+        type: integer
+    delete:
+      tags: [data]
+      responses:
+        404:
+          description: ! '`id` not found'
+        204:
+          description: 'subscription removed'
       produces:
       - application/json
       parameters:
@@ -336,6 +387,7 @@ definitions:
         type: string
       UUID:
         type: string
+
   AppCreateRequest:
     required:
       - ID
@@ -343,6 +395,7 @@ definitions:
     properties:
       ID:
         type: string
+
   AppUpdateRequest:
     required:
       - Owner
@@ -350,6 +403,7 @@ definitions:
     properties:
       Owner:
         type: string
+
   AppActionRequest:
     required:
       - Command
@@ -357,6 +411,7 @@ definitions:
     properties:
       Command:
         type: string
+
   AppActionResponse:
     required:
       - Output
@@ -367,6 +422,7 @@ definitions:
         type: string
       ReturnCode:
         type: string
+
   Process:
     required:
       - Owner
@@ -398,8 +454,7 @@ definitions:
         type: integer
       State:
         type: string
-  
-  
+
   Gateway:
     required:
       - gatewayName
@@ -407,6 +462,7 @@ definitions:
     properties:
       gatewayName:
         type: string
+
   GatewayAction:
     required:
       - gatewayAction
@@ -414,6 +470,7 @@ definitions:
     properties:
       gatewayAction:
         type: string
+
   Container:
     required:
       - containerName
@@ -421,6 +478,7 @@ definitions:
     properties:
       containerName:
         type: string
+
   Device:
     required:
       - sensorName
@@ -428,44 +486,104 @@ definitions:
     properties:
       sensorName:
         type: string
+
   Entity:
-    required:
-      - entityName
     type: object
     properties:
-      entityName:
+      type:
         type: string
-  Subscription:
-    required:
-      - subscriptionName
+        example: "Room"
+      isPattern:
+        type: string
+        example: "false"
+      id:
+        type: string
+        example: "Room1"
+
+  SubscriptionRequest:
     type: object
     properties:
-      subscriptionName:
+      entities:
+        type: array
+        items:
+          $ref: ! '#/definitions/Entity'
+          type: object
+      attributes:
+        type: array
+        items:
+          type: string
+          example: "temperature"
+      reference:
         type: string
-  Observations:
+        example: "http://waziup.io/api/v1/subscriptions"
+      duration:
+        type: string
+        example: "P1M"
+      notifyConditions:
+        type: array
+        items:
+          $ref: ! '#/definitions/NotifyCondition'
+          type: object
+    required:
+    - entities
+    - attributes
+    - reference
+    - duration
+    - notifyConditions
+
+  SubscribeResponse:
+    type: object
+    properties:
+      duration:
+        type: string
+        example: "P1M"
+      subscriptionId:
+        type: string
+        example: "552f7481983d79a38fbd5a74"
+    required:
+    - subscribeResponse
+
+  NotifyCondition:
+    type: object
+    properties:
+      type:
+        type: string
+        example: "ONTIMEINTERVAL"
+        enum:
+        - ONTIMEINTERVAL
+        - ONCHANGE
+      condValues:
+        type: array
+        items:
+          type: string
+          example: "PT10S"
+
+  Observation:
     type: object
     properties:
       id:
         type: string
+        example: "TemperatureSensor1"
       type:
         type: string
+        example: "SensingDevice"
       measure:
         type: object
         $ref: ! '#/definitions/Measure'
       location:
         type: object
-        $ref: ! '#/definitions/ValueType'
+        $ref: ! '#/definitions/Location'
       platform:
-        type: object
-        $ref: ! '#/definitions/ValueType'
+        type: string
+        example: "UGB Field"
 
   Measure:
     type: object
     properties:
       value:
-        type: string
-      type:
-        type: string
+        type: number
+        example: 27
+        format: float
       metadata:
         type: object
         $ref: ! '#/definitions/MeasureMetadata'
@@ -474,16 +592,29 @@ definitions:
     type: object
     properties:
       unit:
-        type: object
-        $ref: ! '#/definitions/ValueType'
-      timestamp:
-        type: object
-        $ref: ! '#/definitions/ValueType'
-
-  ValueType:
-    type: object
-    properties:
-      value:
         type: string
+        example: "Celcius"
+      timestamp:
+        type: string
+        example: "2016-06-08T18:20:27.873Z"
+        format: dateTime
+
+  Location:
+    type: object
+    description: Geometry as in GeoJSON.
+    externalDocs:
+      url: http://geojson.org/geojson-spec.html#geometry-objects
+    properties:
       type:
         type: string
+        enum:
+        - MultiPolygon
+        - Point
+        example: "Point"
+      coordinates:
+        type: array
+        example: "[[14.52839, 35.89389]]"
+        items:
+          type: array
+          items:
+            type: number

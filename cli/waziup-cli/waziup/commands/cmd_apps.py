@@ -1,21 +1,41 @@
 import click
-import time
-import swagger_client
-from swagger_client.rest import ApiException
-from pprint import pprint
 from waziup.cli import pass_context
 
-
-@click.command('apps', short_help='Waziup apps management command')
-@pass_context
+@click.group()
+@click.pass_context
 def cli(ctx):
     """Waziup apps management command"""
-    ctx.log('Waziup status debug')
-    # create an instance of the API class
-    api_instance = swagger_client.AppsApi()
+    pass
 
-    try:
-        api_response = api_instance.apps_get()
-        pprint(api_response)
-    except ApiException as e:
-        print "Exception when calling AppsApi->apps_get: %s\n" % e
+@cli.command('create')
+@click.argument('<type>')
+@click.argument('<num>')
+@click.option('--app', '-a',help='a buildpack url to use for this app')
+@click.pass_obj
+def cli_create(ctx):
+    """Waziup apps creation command"""
+    pass
+
+@cli.command('list')
+@click.pass_obj
+def cli_list(ctx):
+    """Waziup apps list apps command"""
+    pass
+
+@cli.command('deploy')
+@click.pass_obj
+def cli_deploy(ctx):
+    """Waziup apps deploy app command"""
+    pass
+
+@cli.command('scale')
+@click.pass_obj
+def cli_scale(ctx):
+    """Waziup apps scale app command"""
+    pass
+
+@cli.command('destroy')
+@click.pass_obj
+def cli_destroy(ctx):
+    """Waziup apps destroy app command"""
+    pass

@@ -61,7 +61,8 @@ class Configuration(object):
         Constructor
         """
         # Default Base url
-        self.host = "https://waziup.io"
+        self.host = "http://localhost:8080"
+        # "https://waziup.io"
         # Default api client
         self.api_client = None
         # Temp file folder for downloading files
@@ -94,7 +95,7 @@ class Configuration(object):
 
         # SSL/TLS verification
         # Set this to false to skip verifying SSL certificate when calling API from https server.
-        self.verify_ssl = True
+        self.verify_ssl = False #True
         # Set this to customize the certificate file to verify the peer.
         self.ssl_ca_cert = None
         # client certificate file
