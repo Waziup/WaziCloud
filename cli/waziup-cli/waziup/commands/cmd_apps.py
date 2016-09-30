@@ -1,5 +1,10 @@
 import click
 from waziup.cli import pass_context
+from swagger_client.rest import ApiException
+from swagger_client import AppsApi
+from pprint import pprint
+
+api = AppsApi()
 
 @click.group()
 @click.pass_context
@@ -14,13 +19,16 @@ def cli(ctx):
 @click.pass_obj
 def cli_create(ctx):
     """Waziup apps creation command"""
-    pass
 
 @cli.command('list')
 @click.pass_obj
 def cli_list(ctx):
     """Waziup apps list apps command"""
-    pass
+    try:
+       r = api.apps_get()
+       pprint(r)
+    except ApiException as e:
+       print("Exception when calling AppsApi->apps_get: %s\n", e)
 
 @cli.command('deploy')
 @click.pass_obj
