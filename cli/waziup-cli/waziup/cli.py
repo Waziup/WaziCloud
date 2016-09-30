@@ -55,3 +55,7 @@ class WaziupCLI(click.MultiCommand):
 def cli(ctx, verbose):
     """ Waziup command line interface."""
     ctx.verbose = verbose
+
+
+if __name__ == '__main__':
+    cli()
