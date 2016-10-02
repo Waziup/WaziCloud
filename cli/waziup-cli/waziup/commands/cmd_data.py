@@ -8,7 +8,7 @@ def cli(ctx):
     """Waziup data command"""
     pass
 
-@cli.command('obervations')
+@cli.command('observations')
 @click.pass_obj
 def cli_observations(ctx):
     """Waziup data observation command"""

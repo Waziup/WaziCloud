@@ -14,7 +14,7 @@ def cli_add(ctx):
     """Waziup user add command"""
     pass
 
-@cli.command('lsit')
+@cli.command('list')
 @click.pass_obj
 def cli_list(ctx):
     """Waziup list user command"""
