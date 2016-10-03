@@ -4,6 +4,7 @@ info:
   version: "1.0"
   title: "WAZIUP API"
 host: "waziup.io"
+basePath: "/api/v1"
 tags:
 - name: "apps"
   description: "Applications API"
@@ -179,7 +180,28 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Observations"
+              $ref: "#/definitions/Observation"
+      x-tags:
+      - tag: "data"
+    post:
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_observations_post"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/Observation"
+      responses:
+        204:
+          description: "Observation created"
+        400:
+          description: "Invalid `body`"
       x-tags:
       - tag: "data"
   /data/observations/{id}:
@@ -199,7 +221,7 @@ paths:
         200:
           description: "Get details of an observation"
           schema:
-            $ref: "#/definitions/Observations"
+            $ref: "#/definitions/Observation"
         404:
           description: "`id` not found"
       x-tags:
@@ -218,7 +240,30 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Subscription"
+              $ref: "#/definitions/SubscribeResponse"
+      x-tags:
+      - tag: "data"
+    post:
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_subscriptions_post"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SubscriptionRequest"
+      responses:
+        200:
+          description: "Subscribed on a stream"
+          schema:
+            $ref: "#/definitions/SubscribeResponse"
+        400:
+          description: "Invalid `body`"
       x-tags:
       - tag: "data"
   /data/subscriptions/{id}:
@@ -238,7 +283,26 @@ paths:
         200:
           description: "Get details of a subscription"
           schema:
-            $ref: "#/definitions/Subscription"
+            $ref: "#/definitions/SubscribeResponse"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "data"
+    delete:
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_subscriptions_id_delete"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        204:
+          description: "subscription removed"
         404:
           description: "`id` not found"
       x-tags:
@@ -487,53 +551,117 @@ definitions:
         type: "string"
   Entity:
     type: "object"
-    required:
-    - "entityName"
     properties:
-      entityName:
+      type:
         type: "string"
-  Subscription:
+        example: "Room"
+      isPattern:
+        type: "string"
+        example: "false"
+      id:
+        type: "string"
+        example: "Room1"
+  SubscriptionRequest:
     type: "object"
     required:
-    - "subscriptionName"
+    - "attributes"
+    - "duration"
+    - "entities"
+    - "notifyConditions"
+    - "reference"
     properties:
-      subscriptionName:
+      entities:
+        type: "array"
+        items:
+          $ref: "#/definitions/Entity"
+      attributes:
+        type: "array"
+        items:
+          type: "string"
+          example: "temperature"
+      reference:
         type: "string"
-  Observations:
+        example: "http://waziup.io/api/v1/subscriptions"
+      duration:
+        type: "string"
+        example: "P1M"
+      notifyConditions:
+        type: "array"
+        items:
+          $ref: "#/definitions/NotifyCondition"
+  SubscribeResponse:
     type: "object"
-    required:
-    - "observationName"
+    properties:
+      duration:
+        type: "string"
+        example: "P1M"
+      subscriptionId:
+        type: "string"
+        example: "552f7481983d79a38fbd5a74"
+  NotifyCondition:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        example: "ONTIMEINTERVAL"
+        enum:
+        - "ONTIMEINTERVAL"
+        - "ONCHANGE"
+      condValues:
+        type: "array"
+        items:
+          type: "string"
+          example: "PT10S"
+  Observation:
+    type: "object"
     properties:
       id:
         type: "string"
+        example: "TemperatureSensor1"
       type:
         type: "string"
+        example: "SensingDevice"
       measure:
         $ref: "#/definitions/Measure"
       location:
-        $ref: "#/definitions/ValueType"
+        $ref: "#/definitions/Location"
       platform:
-        $ref: "#/definitions/ValueType"
+        type: "string"
+        example: "UGB Field"
   Measure:
     type: "object"
     properties:
       value:
-        type: "string"
-      type:
-        type: "string"
+        type: "number"
+        format: "float"
+        example: "27"
       metadata:
         $ref: "#/definitions/MeasureMetadata"
   MeasureMetadata:
     type: "object"
     properties:
       unit:
-        $ref: "#/definitions/ValueType"
+        type: "string"
+        example: "Celcius"
       timestamp:
-        $ref: "#/definitions/ValueType"
-  ValueType:
+        type: "string"
+        format: "dateTime"
+        example: "2016-06-08T18:20:27.873Z"
+  Location:
     type: "object"
     properties:
-      value:
-        type: "string"
       type:
         type: "string"
+        example: "Point"
+        enum:
+        - "MultiPolygon"
+        - "Point"
+      coordinates:
+        type: "array"
+        items:
+          type: "array"
+          items:
+            type: "number"
+    externalDocs:
+      url: "http://geojson.org/geojson-spec.html#geometry-objects"
+    description: "Geometry as in GeoJSON."

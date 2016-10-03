@@ -6,7 +6,7 @@ setup(
     packages=['waziupctrl'],
     include_package_data=True,
     install_requires=[
-        'click',
+        'click','connexion'
     ],
     entry_points='''
         [console_scripts]
