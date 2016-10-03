@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: broker
+  labels:
+    name: broker
+spec:
+  containers:
+  - name: mongo
+    image: waziup/mongodb:latest
+    args: ["--nojournal"]
+
+  - name: orion
+    image: waziup/orion:latest
+    ports:
+       - containerPort: 1026
+    args: ["-dbhost mongo"]
+
+  - name: cygnus
+    image: waziup/cygnus:latest
+    ports:
+       - containerPort: 8081
+       - containerPort: 5050
+
+----
+apiVersion: v1
+kind: Service
+metadata:
+  name: broker
+spec:
+  type: NodePort
+  ports:
+    - port: 1026
+      targetPort: 1026
+      protocol: TCP
+      nodePort: 30026
+  # label keys and values that must match in order to receive traffic for this service
+  selector:
+    app: broker
+
+
