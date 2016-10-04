@@ -2,9 +2,9 @@
 WAZIUP Broker
 =============
 
-
-The internal broker is Orion, using a Mongo database and Cygnus as adapter.
-
+The WAZIUP platform uses an internal data broker to manage the data from the sensors and other sources.
+In practice, the data broker is Orion, using a Mongo database and Cygnus as adapter.
+The specification of the broker and data model can be found [here](broker_spec.md).
 
 Install
 -------
@@ -23,7 +23,7 @@ kubectl apply -f broker.yaml
 Test
 ----
 
-Test if teh broker is present:
+Test if the broker is present:
 ```
 $ curl www.waziup.io:30026/version
 ```
