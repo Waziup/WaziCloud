@@ -9,12 +9,12 @@ The specification of the broker and data model can be found [here](broker_spec.m
 Install
 -------
 
-To install Orion/Cygnus/Mongo locally:
+To install WAZIUP broker locally:
 ```
 docker-compose up
 ```
 
-To install Orion/Cygnus/Mongo on Waziup platform:
+To install directly on WAZIUP Cloud platform:
 
 ```
 kubectl apply -f broker.yaml
