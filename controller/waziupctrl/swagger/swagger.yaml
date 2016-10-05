@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   version: "1.0"
   title: "WAZIUP API"
-host: "waziup.io"
+host: "localhost:8080"
 basePath: "/api/v1"
 tags:
 - name: "apps"
@@ -215,8 +215,8 @@ paths:
       - name: "id"
         in: "path"
         required: true
-        type: "integer"
-        minimum: 0.0
+        type: "string"
+#        minimum: 0.0
       responses:
         200:
           description: "Get details of an observation"
@@ -634,12 +634,15 @@ definitions:
       value:
         type: "number"
         format: "float"
-        example: "27"
+        example: 27
       metadata:
         $ref: "#/definitions/MeasureMetadata"
   MeasureMetadata:
     type: "object"
     properties:
+      dimension:
+        type: "string"
+        example: "temperature"
       unit:
         type: "string"
         example: "Celcius"

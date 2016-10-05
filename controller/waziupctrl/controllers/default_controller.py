@@ -6,6 +6,7 @@ from waziup_commons.models.measure_metadata import MeasureMetadata
 from subprocess import call
 import requests
 import json
+import config as CONFIG
 
 def gateways_get() -> str:
     return 'do some magic!'
@@ -27,28 +28,74 @@ def gateways_id_devices_get(id) -> str:
 
 
 def data_observations_get() -> str:
-    r = requests.get('http://localhost:1026/v2/entities')
-    j = json.loads(r.text)
-    print(json.dumps(j))
-    print(r)
-    measure = Measure(value = '20',
-                      metadata = MeasureMetadata(unit = 'Degree', timestamp = '2016-06-08T18:20:27.873Z'))
-    location = Location(type = "Point", 
-                        coordinates = [[14.52839, 35.89389]])
-    resp = Observation(id = 'id',
-                       type = 'SensingDevice',
-                       measure = measure,
-                       location = location,
-                       platform = 'UGB field')
-    return [resp.to_dict()]
+
+    r = requests.get(CONFIG.conf.brokerurl + '/v2/entities')
+    resp = []
+    for entity in r.json():
+
+        resp.append(get_observation(entity))
+
+    return str(resp)
+
+def get_observation(entity: dict) -> Observation:
+    measure = entity['measure']
+    value            = measure['value']
+    measure_metadata = measure['metadata']
+    dimension = measure_metadata['dimension']['value']
+    unit      = measure_metadata['unit']['value']
+    timestamp = measure_metadata['timestamp']['value']
+
+    my_measure = Measure(value = value,
+                         metadata = MeasureMetadata(dimension = dimension,
+                                                    unit = unit,
+                                                    timestamp = timestamp))
+    my_obs = Observation(id = entity['id'],
+                         type = entity['type'],
+                         measure = measure)
+    return my_obs
+
 
 def data_observations_post(body) -> str:
-    r = requests.post('http://localhost:1026/v2/entities')
-    print(r)
+
+    print(body)
+    id = body['id']
+    type = body['type']
+    measure_value = body.get('measure').get('value')
+
+    #first check if the entity exists
+    r = requests.get(CONFIG.conf.brokerurl + '/v2/entities/' + id )
+    if(r.status_code == requests.codes.ok):
+
+        #update the entity
+        r = requests.put(CONFIG.conf.brokerurl + '/v2/entities/' + body.get('id') + '/attrs/measure/', json = {'value': str(measure_value)})
+    else:
+
+        #create a new entity
+        measure = dict()
+        measure['value'] = body.get('measure').get('value')
+        measure['type'] = 'Number'
+        measure['metadata'] = dict()
+        measure['metadata']['dimension'] = dict()
+        measure['metadata']['dimension']['value'] = body['measure']['metadata']['dimension']
+        measure['metadata']['unit'] = dict()
+        measure['metadata']['unit']['value'] = body['measure']['metadata']['unit']
+        measure['metadata']['timestamp'] = dict()
+        measure['metadata']['timestamp']['value'] = body['measure']['metadata']['timestamp']
+        data = dict()
+        data['id'] = body['id']
+        data['type'] = body['type']
+        data['measure'] = measure
+        print(data)
+        r = requests.post(CONFIG.conf.brokerurl + '/v2/entities', json=data)
+        print(r.text)
+
     return r.text
 
 def data_observations_id_get(id) -> str:
-    return 'do some magic!'
+
+    r = requests.get(CONFIG.conf.brokerurl + '/v2/entities/' + id)
+
+    return str(get_observation(r.json()))
 
 def data_subscriptions_get() -> str:
     return 'do some magic!'
