@@ -1,0 +1,26 @@
+
+version: '2'
+
+services:
+
+  mongo:
+    image: waziup/mongodb:latest
+    command: --nojournal
+
+  orion:
+    image: waziup/orion:latest
+    ports:
+      - "1026:1026"
+    command: -dbhost mongo
+
+  cygnus:
+    image: waziup/cygnus:latest
+    hostname: cygnus
+    container_name: cygnus
+    links:
+      - orion
+      - mongo
+    expose:
+      - "5050"
+    ports:
+      - "8081:8081"

@@ -1,6 +1,14 @@
 
+WAZIUP broker and data model
+============================
+
+In Waziup, the data management is done using FIWARE Orion context broker.
+The data model is IoT-Lite.
+
+
 IoT-Lite
-===========
+--------
+
 IoT lite is a lightweight data model based on semantic sensor network (SSN) ontology . This ontology describes IoT concepts that allow interoperability and discovery of sensory data in heterogeneous IoT platforms. IoT-lite reduces the complexity of other IoT models describing only the main concepts of the IoT domain. Moreover, IoT-Lite can be extended by different models to increment its expressiveness.
 
 The figure below depicts the key concepts of the ontology and the main relationships between them.
@@ -31,30 +39,36 @@ IoT Lite ontology is based on 18 Concepts
 
 
 Orion Context Broker
-===============
+--------------------
+
 Orion is an implementation of the NGSI9/10 REST API binding developed as a part of the FIWARE platform. Orion allows to
 manage lifecycle of context information through: updates, queries, registrations and subscriptions. This table below summarizes descriptions of different operations in Orion.
 
 ![Orion Description](https://github.com/DiopBabacarEdu/test-GIT/blob/master/OrionImg.tiff)
 
-Building an Orion image 
-----------------
-Download Orion's source code from Github 
- 
-    $ git clone https://github.com/telefonicaid/fiware-orion/)
-    $ cd fiware-orion/docker
+###Building an Orion image###
+
+Download Orion's source code from Github:
+
+```
+$ git clone https://github.com/telefonicaid/fiware-orion/)
+$ cd fiware-orion/docker
+```
 
 Using an automated scenario with docker-compose and building your new image: sudo docker-compose up. You may also modify the provided docker-compose.yml file if you need so.
 
 Manually, running MongoDB on another container: 1. sudo docker run --name mongodb -d mongo:3.2
-    $ sudo docker build -t orion .
+```
+$ sudo docker build -t orion .
+```
 
 Check that everything works with
+```
+$ curl localhost:1026/version
+```
 
-    $ curl localhost:1026/version
+###Mapping between IoT-Lite - Orion###
 
-Mapping between IoT-Lite - Orion
------------
 Entity describes the same concept in IoT-lite and Orion. In IoT-lite, entity is the virtual representation of devices
 They have location, attributes, services and meta-data.
 
@@ -67,45 +81,48 @@ For each entity, we have the following attributes and meta-data:
 * Attribute location
 * Attribute plateform
 * System and subsystem (Fiware-ServicePath)
-Example:  
+Example:
 System (e.g. : SmartCampus), Subsystem (ex: PrecisionAgric)
 
 
 cygnus-common
-===========
-Before starting ...
------------
-You will need docker installed and running in your machine. Please, check this link (https://docs.docker.com) for official start guide.
+-------------
 
+You will need docker installed and running in your machine. Please, check this link (https://docs.docker.com) for official start guide.
 The installation of cygnus-ngsi must be preceeded by the installation of cygnus-common. Follow this next section to do so.
 
-Installing cygnus-common
------------
+###Installing cygnus-common###
+
 Start by cloning the `fiware-cygnus` repository:
 
-    $ git clone https://github.com/telefonicaid/fiware-cygnus.git
-    
-Point into the directory of cygnus-common :
+```
+$ git clone https://github.com/telefonicaid/fiware-cygnus.git
+```
 
-    $ cd fiware-cygnus/docker/cygnus-common
+Point into the directory of cygnus-common :
+```
+$ cd fiware-cygnus/docker/cygnus-common
+```
 
 And run the following command:
-
-    $ docker build -t cygnus-common .
+```
+$ docker build -t cygnus-common .
+```
 
 One could check whether the image has been built by typing:
 ```
 $ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
 cygnus-common       latest              0d2e537ac922        41 minutes ago      673.8 MB
-centos              6                   61bf77ab8841        6 weeks ago         228.9 MB                          
+centos              6                   61bf77ab8841        6 weeks ago         228.9 MB
 ```
 
-Using the cygnus-common image
------------
-Start a container for this image by typing in a terminal:
+###Using the cygnus-common image###
 
-    $ docker run cygnus-common
+Start a container for this image by typing in a terminal:
+```
+$ docker run cygnus-common
+```
 
 Logging traces:
 
@@ -129,24 +146,24 @@ $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 ```
 
-Using a specific configuration
------------
 In order to use a specific configuration, one must edit both the `Dockerfile` and/or `agent.conf` file under `docker/cygnus-common` and building the cygnus-common image from the scratch.
 
 
 cygnus-ngsi
-===============
+-----------
 
-Building cygnus-ngsi from sources ...
----------------
+###Building cygnus-ngsi from sources###
 
 Change directory:
 
-    $ cd fiware-cygnus
+```
+$ cd fiware-cygnus
+```
 
 And run the following command:
-
-    $ sudo docker build -f docker/cygnus-ngsi/Dockerfile -t cygnus-ngsi .
+```
+$ sudo docker build -f docker/cygnus-ngsi/Dockerfile -t cygnus-ngsi .
+```
 
 Once finished (it may take a while), you can check the available images at your docker by typing:
 
@@ -157,12 +174,12 @@ cygnus-ngsi         latest              6a9e16550c82        10 seconds ago      
 centos              6                   273a1eca2d3a        2 weeks ago         194.6 MB
 ```
 
-Using docker hub image
----------------
+###Using docker hub image###
 
 Instead of building an image from the scratch, you may download it from [hub.docker.com](docker pull fiware/cygnus-ngsi):
-
-    $ docker pull fiware/cygnus-ngsi
+```
+$ docker pull fiware/cygnus-ngsi
+```
 
 It can be listed the same way than above:
 
@@ -172,13 +189,15 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 cygnus-ngsi         latest              6a9e16550c82        10 seconds ago      462.1 MB
 centos              6                   273a1eca2d3a        2 weeks ago         194.6 MB
 ```
-Running the image ...
----------------
+
+###Running the image###
+
 The cygnus-ngsi image (either built or downloaded from hub.docker.com) allows running a Cygnus agent in charge of receiving NGSI-like notifications and persisting them into a database (MySQL by default).
 
 Start a container for this image by typing in a terminal
-
-    $ docker run cygnus-ngsi
+```
+$ docker run cygnus-ngsi
+```
 
 Logging traces:
 
@@ -224,8 +243,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 ```
 
 
-Using a specific configuration ...
--------------------------
+###Using a specific configuration###
 
 The default configuration distributed with the image is tied to certain values that may not be suitable for our tests. Specifically:
 

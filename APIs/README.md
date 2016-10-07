@@ -12,5 +12,5 @@ java -jar /home/cdupont/.local/bin/swagger-codegen-cli.jar generate -l python-fl
 
 To generate the client:
 ```
-java -jar /home/cdupont/.local/bin/swagger-codegen-cli.jar generate -l python-flask -o test -i swagger.yaml
+java -jar /home/cdupont/.local/bin/swagger-codegen-cli.jar generate -l python -o test -i swagger.yaml
 ```
