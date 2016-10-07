@@ -3,7 +3,7 @@ Low-cost LoRa gateway with Raspberry
 
 Please consult the web page: http://cpham.perso.univ-pau.fr/LORA/RPIgateway.html
 
-NEW: get the zipped SD card image (Raspbian Jessie) with all the advanced features already installed and working out-of-the-box with the Arduino_LoRa_Simple_temp example on a demo ThingSpeak channel.
+**NEW**: get the zipped SD card image (Raspbian Jessie) with all the advanced features already installed and working out-of-the-box with the Arduino_LoRa_Simple_temp example on a demo ThingSpeak channel.
 
 [raspberrypi-jessie-WAZIUP-demo.dmg.zip](http://cpham.perso.univ-pau.fr/LORA/WAZIUP/raspberrypi-jessie-WAZIUP-demo.dmg.zip)
 
@@ -17,6 +17,13 @@ NEW: get the zipped SD card image (Raspbian Jessie) with all the advanced featur
 - The LoRa gateway starts automatically when RPI is powered on
 - By default, incoming data are uploaded to the [WAZIUP ThingSpeak demo channel](https://thingspeak.com/channels/123986)
 - Works out-of-the-box with the [Arduino_LoRa_Simple_temp sketch](https://github.com/CongducPham/LowCostLoRaGw/tree/master/Arduino/Arduino_LoRa_Simple_temp)
+
+There are also 2 tutorial videos on YouTube:
+
+- [Build your low-cost, long-range IoT device with WAZIUP](https://www.youtube.com/watch?v=YsKbJeeav_M)
+- [Build your low-cost LoRa gateway with WAZIUP](https://www.youtube.com/watch?v=peHkDhiH3lE)
+
+that show in images all the steps to build the whole framework from scratch.
 
 Install Raspbian Wheezy or Jessie
 =================================
