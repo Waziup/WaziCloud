@@ -1,7 +1,7 @@
 Re-design of the cloud support module for the low-cost LoRa gateway
 ===================================================================
 
-Important: You should have the advanced version of the gateway. Then update it as described below if you want to use the new cloud management approach.
+**IMPORTANT**: You should have the **advanced** version of the gateway. Then update it as described below if you want to use the new cloud management approach.
 
 WHY: The purpose of this update is to simplify cloud management with data upload on various clouds performed in a more generic manner.
 
@@ -200,7 +200,7 @@ Files that will be obsoleted (not used anymore)
 How to update your gateway
 ==========================
 
-Copy all the files of the new_cloud_design forder into your lora_gateway folder (which normally is on your Raspberry). Use scp as follow if you want:
+Copy all the files of the new_cloud_design folder into your lora_gateway folder (which normally is on your Raspberry). Use scp as follow if you want:
 
 	cd new_cloud_design
 	scp -r * pi@my_gw_ip_addr:/home/pi/lora_gateway
