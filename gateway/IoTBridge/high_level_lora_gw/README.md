@@ -6,18 +6,18 @@ IMPORTANT: We should start first with the low-level LoRa gateway installation. T
 **NEW**: new cloud management approach: simpler, more generic
 =============================================================
 
-https://github.com/CongducPham/LowCostLoRaGw/tree/master/gw_advanced/new_cloud_design
+https://github.com/Waziup/Platform/tree/master/gateway/IoTBridge/high_level_lora_gw/new_cloud_design
 
-[README](https://github.com/CongducPham/LowCostLoRaGw/blob/master/gw_advanced/new_cloud_design/README-NewCloud.md)
+[README](https://github.com/Waziup/Platform/blob/master/gateway/IoTBridge/high_level_lora_gw/new_cloud_design/README-NewCloud.md)
 
 Install this upgrade **before** the downlink upgrade
 
 **NEW**: new downlink features: to send from gateway to end-device
 ==================================================================
 
-https://github.com/CongducPham/LowCostLoRaGw/tree/master/gw_advanced/downlink
+https://github.com/Waziup/Platform/tree/master/gateway/IoTBridge/high_level_lora_gw/downlink
 
-[README](https://github.com/CongducPham/LowCostLoRaGw/blob/master/gw_advanced/downlink/README-downlink.md)
+[README](https://github.com/Waziup/Platform/blob/master/gateway/IoTBridge/high_level_lora_gw/downlink/README-downlink.md)
 
 Install this upgrade **after** the new cloud management upgrade
 
