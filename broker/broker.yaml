@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: broker
+  namespace: waziup
   labels:
     name: broker
 spec:
@@ -11,6 +12,7 @@ spec:
     args: ["--nojournal"]
     ports:
     - containerPort: 27017
+    - containerPort: 28017
 
   - name: orion
     image: waziup/orion:latest
@@ -29,6 +31,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: broker
+  namespace: waziup
 spec:
   type: NodePort
   ports:
@@ -37,3 +40,19 @@ spec:
   # label keys and values that must match in order to receive traffic for this service
   selector:
     name: broker
+
+----
+apiVersion: v1
+kind: Service
+metadata:
+  name: brokerdb
+  namespace: waziup
+spec:
+  type: NodePort
+  ports:
+    - port: 27017
+      nodePort: 30017
+  # label keys and values that must match in order to receive traffic for this service
+  selector:
+    name: broker
+
