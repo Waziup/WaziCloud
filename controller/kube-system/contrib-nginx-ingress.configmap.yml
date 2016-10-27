@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: contrib-nginx-ingress
+  namespace: kube-system
+data:
+#  use-proxy-protocol: "true"
