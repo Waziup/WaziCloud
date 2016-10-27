@@ -26,12 +26,11 @@ Edit kube-master file /etc/hosts:
 127.0.0.1 localhost kube-master
 <worker-IP> kube-worker1
 ```
-Do the same on kube-worker1.
-
 Edit /etc/dhcp/dhcpclient.conf and add:
 ```
 prepend domain-name-servers 8.8.8.8, 8.8.8.4;
 ```
+Do the same on kube-worker1. You should be able to ping google.com and each-other VMs.
 
 Follow the instructions at: http://kubernetes.io/docs/getting-started-guides/kubeadm/
 
@@ -91,3 +90,10 @@ Remove annotations:
 ```
 kubectl annotate namespace default net.beta.kubernetes.io/network-policy-
 ```
+
+Kill/restart DEIS pods:
+```
+kubectl scale
+```
+
+
