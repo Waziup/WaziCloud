@@ -1,620 +1,686 @@
-swagger: '2.0'
+---
+swagger: "2.0"
 info:
-  version: '1.0'
-  title: 'WAZIUP API'
-host: waziup.io
-basePath: /api/v1
-tags: 
-  - name: apps
-    description: Applications API
-  - name: data
-    description: data management API
-  - name: gateways
-    description: gateway management API
-
+  version: "1.0"
+  title: "WAZIUP API"
+host: "www.waziup.io:30333"
+basePath: "/api/v1"
+tags:
+- name: "apps"
+  description: "Applications API"
+- name: "data"
+  description: "data management API"
+- name: "gateways"
+  description: "gateway management API"
 paths:
-# Apps API
   /apps:
     get:
-      tags: [apps]
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_get"
+      produces:
+      - "application/json"
+      parameters: []
       responses:
         200:
+          description: "get list of all apps"
           schema:
+            type: "array"
             items:
-              $ref: ! '#/definitions/App'
-            type: array
-          description: 'get list of all apps'
-      produces:
-      - application/json
+              $ref: "#/definitions/App"
+      x-tags:
+      - tag: "apps"
     post:
-      tags: [apps]
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_post"
       consumes:
-      - application/json
-      responses:
-        400:
-          description: Invalid `body`
-        204:
-          description: 'Create an app'
+      - "application/json"
       produces:
-      - application/json
+      - "application/json"
       parameters:
-      - required: true
+      - in: "body"
+        name: "body"
+        required: true
         schema:
-          $ref: ! '#/definitions/AppCreateRequest'
-        in: body
-        name: body
+          $ref: "#/definitions/AppCreateRequest"
+      responses:
+        204:
+          description: "Create an app"
+        400:
+          description: "Invalid `body`"
+      x-tags:
+      - tag: "apps"
   /apps/{id}:
     get:
-      tags: [apps]
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_id_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
       responses:
-        404:
-          description: ! '`id` not found'
         200:
+          description: "Get details of one application"
           schema:
-            $ref: ! '#/definitions/App'
-          description: 'Get details of one application'
-      produces:
-      - application/json
-      parameters:
-      - minimum: 0
-        required: true
-        in: path
-        name: id
-        type: integer
-    post:
-      tags: [apps]
-      consumes:
-      - application/json
-      responses:
-        400:
-          description: Invalid `body`
-        204:
-          description: 'Update details of app'
-      produces:
-      - application/json
-      parameters:
-      - required: true
-        schema:
-          $ref: ! '#/definitions/AppUpdateRequest'
-        in: body
-        name: body
-      - minimum: 0
-        required: true
-        in: path
-        name: id
-        type: integer
-    put:
-      tags: [apps]
-      consumes:
-      - application/json
-      responses:
-        400:
-          description: Invalid `body`
-        204:
-          description: 'Actions on apps (deploy, run, scale...)'
-      produces:
-      - application/json
-      parameters:
-      - required: true
-        schema:
-          $ref: ! '#/definitions/AppActionRequest'
-        in: body
-        name: body
-      - minimum: 0
-        required: true
-        in: path
-        name: id
-        type: integer
-    delete:
-      tags: [apps]
-      responses:
+            $ref: "#/definitions/App"
         404:
-          description: ! '`id` not found'
-        204:
-          description: 'remove one application'
+          description: "`id` not found"
+      x-tags:
+      - tag: "apps"
+    post:
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_id_post"
+      consumes:
+      - "application/json"
       produces:
-      - application/json
+      - "application/json"
       parameters:
-      - minimum: 0
+      - in: "body"
+        name: "body"
         required: true
-        in: path
-        name: id
-        type: integer
+        schema:
+          $ref: "#/definitions/AppUpdateRequest"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        204:
+          description: "Update details of app"
+        400:
+          description: "Invalid `body`"
+      x-tags:
+      - tag: "apps"
+    put:
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_id_put"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/AppActionRequest"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        204:
+          description: "Actions on apps (deploy, run, scale...)"
+        400:
+          description: "Invalid `body`"
+      x-tags:
+      - tag: "apps"
+    delete:
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_id_delete"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        204:
+          description: "remove one application"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "apps"
   /apps/{id}/containers:
     get:
-      tags: [apps]
-      responses:
-        404:
-          description: ! '`id` not found'
-        200:
-          schema:
-            $ref: ! '#/definitions/Process'
-            type: array
-          description: 'Get containers of app'
+      tags:
+      - "apps"
+      operationId: "controllers.default_controller.apps_id_containers_get"
       produces:
-      - application/json
+      - "application/json"
       parameters:
-      - minimum: 0
+      - name: "id"
+        in: "path"
         required: true
-        in: path
-        name: id
-        type: integer
+        type: "integer"
+        minimum: 0.0
+      responses:
+        200:
+          description: "Get containers of app"
+          schema:
+            $ref: "#/definitions/Process"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "apps"
 
 
 
-# Data API
+
+
+
+
+
   /data/observations:
     get:
-      tags: [data]
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_observations_get"
+      produces:
+      - "application/json"
+      parameters: []
       responses:
         200:
+          description: "get list of all observations"
           schema:
+            type: "array"
             items:
-              $ref: ! '#/definitions/Observation'
-            type: array
-          description: 'get list of all observations'
-      produces:
-      - application/json
+              $ref: "#/definitions/Observation"
+      x-tags:
+      - tag: "data"
     post:
-      tags: [data]
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_observations_post"
       consumes:
-      - application/json
-      responses:
-        400:
-          description: Invalid `body`
-        204:
-          description: 'Observation created'
+      - "application/json"
       produces:
-      - application/json
+      - "application/json"
       parameters:
-      - required: true
+      - in: "body"
+        name: "body"
+        required: true
         schema:
-          $ref: ! '#/definitions/Observation'
-        in: body
-        name: body
+          $ref: "#/definitions/Observation"
+      responses:
+        204:
+          description: "Observation created"
+        400:
+          description: "Invalid `body`"
+      x-tags:
+      - tag: "data"
   /data/observations/{id}:
     get:
-      tags: [data]
-      responses:
-        404:
-          description: ! '`id` not found'
-        200:
-          schema:
-            $ref: ! '#/definitions/Observation'
-          description: 'Get details of an observation'
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_observations_id_get"
       produces:
-      - application/json
+      - "application/json"
       parameters:
-      - minimum: 0
+      - name: "id"
+        in: "path"
         required: true
-        in: path
-        name: id
-        type: integer
+        type: "string"
+#        minimum: 0.0
+      responses:
+        200:
+          description: "Get details of an observation"
+          schema:
+            $ref: "#/definitions/Observation"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "data"
   /data/subscriptions:
     get:
-      tags: [data]
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_subscriptions_get"
+      produces:
+      - "application/json"
+      parameters: []
       responses:
         200:
+          description: "get list of all subscriptions"
           schema:
+            type: "array"
             items:
-              $ref: ! '#/definitions/SubscribeResponse'
-            type: array
-          description: 'get list of all subscriptions'
-      produces:
-      - application/json
+              $ref: "#/definitions/SubscribeResponse"
+      x-tags:
+      - tag: "data"
     post:
-      tags: [data]
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_subscriptions_post"
       consumes:
-      - application/json
-      responses:
-        400:
-          description: Invalid `body`
-        200:
-          description: 'Subscribed on a stream'
-          schema:
-            $ref: ! '#/definitions/SubscribeResponse'
+      - "application/json"
       produces:
-      - application/json
+      - "application/json"
       parameters:
-      - required: true
+      - in: "body"
+        name: "body"
+        required: true
         schema:
-          $ref: ! '#/definitions/SubscriptionRequest'
-        in: body
-        name: body
+          $ref: "#/definitions/SubscriptionRequest"
+      responses:
+        200:
+          description: "Subscribed on a stream"
+          schema:
+            $ref: "#/definitions/SubscribeResponse"
+        400:
+          description: "Invalid `body`"
+      x-tags:
+      - tag: "data"
   /data/subscriptions/{id}:
     get:
-      tags: [data]
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_subscriptions_id_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
       responses:
-        404:
-          description: ! '`id` not found'
         200:
+          description: "Get details of a subscription"
           schema:
-            $ref: ! '#/definitions/SubscribeResponse'
-          description: 'Get details of a subscription'
-      produces:
-      - application/json
-      parameters:
-      - minimum: 0
-        required: true
-        in: path
-        name: id
-        type: integer
-    delete:
-      tags: [data]
-      responses:
+            $ref: "#/definitions/SubscribeResponse"
         404:
-          description: ! '`id` not found'
-        204:
-          description: 'subscription removed'
+          description: "`id` not found"
+      x-tags:
+      - tag: "data"
+    delete:
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_subscriptions_id_delete"
       produces:
-      - application/json
+      - "application/json"
       parameters:
-      - minimum: 0
+      - name: "id"
+        in: "path"
         required: true
-        in: path
-        name: id
-        type: integer
+        type: "integer"
+        minimum: 0.0
+      responses:
+        204:
+          description: "subscription removed"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "data"
 
-#Gateways API
+
+
+
   /gateways:
     get:
-      tags: [gateways]
+      tags:
+      - "gateways"
+      operationId: "controllers.default_controller.gateways_get"
+      produces:
+      - "application/json"
+      parameters: []
       responses:
         200:
+          description: "get list of all gateways"
           schema:
+            type: "array"
             items:
-              $ref: ! '#/definitions/Gateway'
-            type: array
-          description: 'get list of all gateways'
-      produces:
-      - application/json
+              $ref: "#/definitions/Gateway"
+      x-tags:
+      - tag: "gateways"
     post:
-      tags: [gateways]
+      tags:
+      - "gateways"
+      operationId: "controllers.default_controller.gateways_post"
       consumes:
-      - application/json
-      responses:
-        400:
-          description: Invalid `body`
-        201:
-          schema:
-            $ref: ! '#/definitions/Gateway'
-          description: 'Create a gateway'
+      - "application/json"
       produces:
-      - application/json
+      - "application/json"
       parameters:
-      - required: true
+      - in: "body"
+        name: "body"
+        required: true
         schema:
-          $ref: ! '#/definitions/Gateway'
-        in: body
-        name: body
+          $ref: "#/definitions/Gateway"
+      responses:
+        201:
+          description: "Create a gateway"
+          schema:
+            $ref: "#/definitions/Gateway"
+        400:
+          description: "Invalid `body`"
+      x-tags:
+      - tag: "gateways"
   /gateways/{id}:
     get:
-      tags: [gateways]
+      tags:
+      - "gateways"
+      operationId: "controllers.default_controller.gateways_id_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
       responses:
-        404:
-          description: ! '`id` not found'
         200:
+          description: "Get details of a gateway"
           schema:
-            $ref: ! '#/definitions/Gateway'
-          description: 'Get details of a gateway'
-      produces:
-      - application/json
-      parameters:
-      - minimum: 0
-        required: true
-        in: path
-        name: id
-        type: integer
-    put:
-      tags: [gateways]
-      consumes:
-      - application/json
-      responses:
-        400:
-          description: Invalid `body`
-        204:
-          description: 'Actions on gateways'
-      produces:
-      - application/json
-      parameters:
-      - required: true
-        schema:
-          $ref: ! '#/definitions/GatewayAction'
-        in: body
-        name: body
-      - minimum: 0
-        required: true
-        in: path
-        name: id
-        type: integer
-    delete:
-      tags: [gateways]
-      responses:
+            $ref: "#/definitions/Gateway"
         404:
-          description: ! '`id` not found'
-        204:
-          description: 'remove one gateway'
+          description: "`id` not found"
+      x-tags:
+      - tag: "gateways"
+    put:
+      tags:
+      - "gateways"
+      operationId: "controllers.default_controller.gateways_id_put"
+      consumes:
+      - "application/json"
       produces:
-      - application/json
+      - "application/json"
       parameters:
-      - minimum: 0
+      - in: "body"
+        name: "body"
         required: true
-        in: path
-        name: id
-        type: integer
+        schema:
+          $ref: "#/definitions/GatewayAction"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        204:
+          description: "Actions on gateways"
+        400:
+          description: "Invalid `body`"
+      x-tags:
+      - tag: "gateways"
+    delete:
+      tags:
+      - "gateways"
+      operationId: "controllers.default_controller.gateways_id_delete"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        minimum: 0.0
+      responses:
+        204:
+          description: "remove one gateway"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "gateways"
   /gateways/{id}/devices:
     get:
-      tags: [gateways]
-      responses:
-        404:
-          description: ! '`id` not found'
-        200:
-          schema:
-            $ref: ! '#/definitions/Device'
-            type: array
-          description: 'Get devices of a gateway'
+      tags:
+      - "gateways"
+      operationId: "controllers.default_controller.gateways_id_devices_get"
       produces:
-      - application/json
+      - "application/json"
       parameters:
-      - minimum: 0
+      - name: "id"
+        in: "path"
         required: true
-        in: path
-        name: id
-        type: integer
+        type: "integer"
+        minimum: 0.0
+      responses:
+        200:
+          description: "Get devices of a gateway"
+          schema:
+            $ref: "#/definitions/Device"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "gateways"
 
 
-# Data structure definitions:
+
+
 definitions:
   App:
+    type: "object"
     required:
-      - Created
-      - ID
-      - Owner
-      - Updated
-      - URL
-      - UUID
-    type: object
+    - "Created"
+    - "ID"
+    - "Owner"
+    - "URL"
+    - "UUID"
+    - "Updated"
     properties:
       Created:
-        type: string
+        type: "string"
       ID:
-        type: string
+        type: "string"
       Owner:
-        type: string
+        type: "string"
       Updated:
-        type: string
+        type: "string"
       URL:
-        type: string
+        type: "string"
       UUID:
-        type: string
-
+        type: "string"
   AppCreateRequest:
+    type: "object"
     required:
-      - ID
-    type: object
+    - "ID"
     properties:
       ID:
-        type: string
-
+        type: "string"
   AppUpdateRequest:
+    type: "object"
     required:
-      - Owner
-    type: object
+    - "Owner"
     properties:
       Owner:
-        type: string
-
+        type: "string"
   AppActionRequest:
+    type: "object"
     required:
-      - Command
-    type: object
+    - "Command"
     properties:
       Command:
-        type: string
-
+        type: "string"
   AppActionResponse:
+    type: "object"
     required:
-      - Output
-      - ReturnCode
-    type: object
+    - "Output"
+    - "ReturnCode"
     properties:
       Output:
-        type: string
+        type: "string"
       ReturnCode:
-        type: string
-
+        type: "string"
   Process:
+    type: "object"
     required:
-      - Owner
-      - App
-      - Release
-      - Created
-      - Updated
-      - UUID
-      - Type
-      - Num
-      - State
-    type: object
+    - "App"
+    - "Created"
+    - "Num"
+    - "Owner"
+    - "Release"
+    - "State"
+    - "Type"
+    - "UUID"
+    - "Updated"
     properties:
       Owner:
-        type: string
+        type: "string"
       App:
-        type: string
+        type: "string"
       Release:
-        type: string
+        type: "string"
       Created:
-        type: string
+        type: "string"
       Updated:
-        type: string
+        type: "string"
       UUID:
-        type: string
+        type: "string"
       Type:
-        type: string
+        type: "string"
       Num:
-        type: integer
+        type: "integer"
       State:
-        type: string
-
+        type: "string"
   Gateway:
+    type: "object"
     required:
-      - gatewayName
-    type: object
+    - "gatewayName"
     properties:
       gatewayName:
-        type: string
-
+        type: "string"
   GatewayAction:
+    type: "object"
     required:
-      - gatewayAction
-    type: object
+    - "gatewayAction"
     properties:
       gatewayAction:
-        type: string
-
+        type: "string"
   Container:
+    type: "object"
     required:
-      - containerName
-    type: object
+    - "containerName"
     properties:
       containerName:
-        type: string
-
+        type: "string"
   Device:
+    type: "object"
     required:
-      - sensorName
-    type: object
+    - "sensorName"
     properties:
       sensorName:
-        type: string
-
+        type: "string"
   Entity:
-    type: object
+    type: "object"
     properties:
       type:
-        type: string
+        type: "string"
         example: "Room"
       isPattern:
-        type: string
+        type: "string"
         example: "false"
       id:
-        type: string
+        type: "string"
         example: "Room1"
-
   SubscriptionRequest:
-    type: object
+    type: "object"
+    required:
+    - "attributes"
+    - "duration"
+    - "entities"
+    - "notifyConditions"
+    - "reference"
     properties:
       entities:
-        type: array
+        type: "array"
         items:
-          $ref: ! '#/definitions/Entity'
-          type: object
+          $ref: "#/definitions/Entity"
       attributes:
-        type: array
+        type: "array"
         items:
-          type: string
+          type: "string"
           example: "temperature"
       reference:
-        type: string
+        type: "string"
         example: "http://waziup.io/api/v1/subscriptions"
       duration:
-        type: string
+        type: "string"
         example: "P1M"
       notifyConditions:
-        type: array
+        type: "array"
         items:
-          $ref: ! '#/definitions/NotifyCondition'
-          type: object
-    required:
-    - entities
-    - attributes
-    - reference
-    - duration
-    - notifyConditions
-
+          $ref: "#/definitions/NotifyCondition"
   SubscribeResponse:
-    type: object
+    type: "object"
     properties:
       duration:
-        type: string
+        type: "string"
         example: "P1M"
       subscriptionId:
-        type: string
+        type: "string"
         example: "552f7481983d79a38fbd5a74"
-    required:
-    - subscribeResponse
-
   NotifyCondition:
-    type: object
+    type: "object"
     properties:
       type:
-        type: string
+        type: "string"
         example: "ONTIMEINTERVAL"
         enum:
-        - ONTIMEINTERVAL
-        - ONCHANGE
+        - "ONTIMEINTERVAL"
+        - "ONCHANGE"
       condValues:
-        type: array
+        type: "array"
         items:
-          type: string
+          type: "string"
           example: "PT10S"
-
   Observation:
-    type: object
+    type: "object"
     properties:
       id:
-        type: string
+        type: "string"
         example: "TemperatureSensor1"
       type:
-        type: string
+        type: "string"
         example: "SensingDevice"
       measure:
-        type: object
-        $ref: ! '#/definitions/Measure'
+        $ref: "#/definitions/Measure"
       location:
-        type: object
-        $ref: ! '#/definitions/Location'
+        $ref: "#/definitions/Location"
       platform:
-        type: string
+        type: "string"
         example: "UGB Field"
-
   Measure:
-    type: object
+    type: "object"
     properties:
       value:
-        type: number
+        type: "number"
+        format: "float"
         example: 27
-        format: float
       metadata:
-        type: object
-        $ref: ! '#/definitions/MeasureMetadata'
-
+        $ref: "#/definitions/MeasureMetadata"
   MeasureMetadata:
-    type: object
+    type: "object"
     properties:
+      dimension:
+        type: "string"
+        example: "temperature"
       unit:
-        type: string
+        type: "string"
         example: "Celcius"
       timestamp:
-        type: string
+        type: "string"
+        format: "dateTime"
         example: "2016-06-08T18:20:27.873Z"
-        format: dateTime
-
   Location:
-    type: object
-    description: Geometry as in GeoJSON.
-    externalDocs:
-      url: http://geojson.org/geojson-spec.html#geometry-objects
+    type: "object"
     properties:
       type:
-        type: string
-        enum:
-        - MultiPolygon
-        - Point
+        type: "string"
         example: "Point"
+        enum:
+        - "MultiPolygon"
+        - "Point"
       coordinates:
-        type: array
-        example: "[[14.52839, 35.89389]]"
+        type: "array"
         items:
-          type: array
+          type: "array"
           items:
-            type: number
+            type: "number"
+    externalDocs:
+      url: "http://geojson.org/geojson-spec.html#geometry-objects"
+    description: "Geometry as in GeoJSON."

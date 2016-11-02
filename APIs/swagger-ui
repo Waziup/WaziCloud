@@ -1,0 +1,6 @@
+set +H
+
+firefox file:///home/cdupont/workspace/swagger-ui-2.1.4/dist/index.html
+http-server --cors
+
+#Once firefox is opened, change the URL in swagger to http://localhost:8080/swagger.yaml
