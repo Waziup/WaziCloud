@@ -13,7 +13,7 @@ def ctrl(verbose, port, brokerurl):
     click.echo('Waziup controller starting')
 
     CONFIG.conf.brokerurl = brokerurl
-    app = connexion.App(__name__, specification_dir='./swagger/')
+    app = connexion.App(__name__, specification_dir='../../APIs/')
     app.add_api('swagger.yaml', arguments={'title': 'WAZIUP API'})
     app.run(port=port)
 
