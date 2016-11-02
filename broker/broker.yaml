@@ -56,3 +56,19 @@ spec:
   selector:
     name: broker
 
+----
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: broker
+  namespace: waziup
+spec:
+  rules:
+  - host: broker.waziup.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: broker
+          servicePort: 1026
+

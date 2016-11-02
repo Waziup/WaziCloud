@@ -25,12 +25,12 @@ Test
 
 Test if the broker is present:
 ```
-$ curl www.waziup.io:30026/version
+$ curl broker.waziup.io/version
 ```
 
 You can create a sensor measuring temperature and pressure (with initial values) like that:
 ```
-$ curl http://www.waziup.io:30026/v2/entities -s -S --header 'Content-Type: application/json' -X POST -d @- <<EOF
+$ curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' -X POST -d @- <<EOF
 {
   "id": "Sensor1",
   "type": "SensingDevice",
@@ -48,10 +48,10 @@ EOF
 
 Further updates of the values are like that:
 ```
-$ curl http://www.waziup.io:30026/v2/entities/Sensor1/attrs/temperature/value -s -S --header 'Content-Type: text/plain' -X PUT -d 27
+$ curl http://broker.waziup.io/v2/entities/Sensor1/attrs/temperature/value -s -S --header 'Content-Type: text/plain' -X PUT -d 27
 ```
 
 To retrieve the last data point inserted:
 ```
-$ curl http://www.waziup.io:30026/v2/entities/Sensor1/attrs/temperature/value -X GET
+$ curl http://broker.waziup.io/v2/entities/Sensor1/attrs/temperature/value -X GET
 ```
