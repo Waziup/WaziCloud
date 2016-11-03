@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: freeboard
+  namespace: waziup-test
+  labels:
+    name: freeboard
+spec:
+  containers:
+    - name: freeboard
+      image: mainflux/freeboard
+      ports:
+      - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: freeboard
+  namespace: waziup-test
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: 30880
+  selector:
+    name: freeboard
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: freeboard
+  namespace: waziup-test
+spec:
+  rules:
+  - host: freeboard.waziup.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: freeboard
+          servicePort: 8080
+
