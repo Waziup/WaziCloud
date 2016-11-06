@@ -25,13 +25,9 @@ After fetching the deis-workflow, you need to edit the configuration for the Swi
 
 ```
 $ helmc fetch deis/workflow-v2.8.0
-
 $ edit deis/workflow-v2.8.0/tpl/generate_params.toml
-
 $ cp deis/workflow-v2.8.0/tpl/generate_params.toml ~/.helmc/workspace/charts/workflow-v2.8.0/tpl/
-
 $ helmc generate -x manifests workflow-v2.8.0
-
 $ helmc install workflow-v2.8.0
 ```
 

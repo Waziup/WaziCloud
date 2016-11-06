@@ -18,7 +18,7 @@
 # - gcs: Store persistent data in Google Cloud Storage
 # - minio: Store persistent data on in-cluster Minio server
 # - swift: Store persistent data in OpenStack Swift storage cluster
-storage = "minio"
+storage = "swift"
 
 # Set the location of Workflow's PostgreSQL database
 #
@@ -112,15 +112,15 @@ database_bucket = "your-database-bucket-name"
 builder_bucket = "your-builder-bucket-name"
 
 [swift]
-username = "Your OpenStack Swift Username"
 password = "Your OpenStack Swift Password"
-authurl = "Swift auth URL for obtaining an auth token"
+username = "cdupont" #"Your OpenStack Swift Username"
+authurl = "http://siris.create-net.org:5000/v2.0" #"Swift auth URL for obtaining an auth token"
 # Your OpenStack tenant name if you are using auth version 2 or 3.
-tenant = ""
-authversion = "Your OpenStack swift auth version"
-registry_container = "your-registry-container-name"
-database_container = "your-database-container-name"
-builder_container = "your-builder-container-name"
+tenant = "waziup"
+authversion = "2"
+registry_container = "waziup_registry"
+database_container = "waziup_database"
+builder_container = "waziup_builder"
 
 [builder]
 org = "deis"
