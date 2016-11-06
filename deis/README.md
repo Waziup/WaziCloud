@@ -2,7 +2,9 @@
 DEIS
 ====
 
-DEIS for Waziup is installed inside Kubernetes.
+Waziup uses DEIS to provide a Platform as a Service layer.
+DEIS allows end users to 'push' there source code programs, which is compiled and deployed on Kubernetes.
+DEIS is itself installed inside [Kubernetes](../kubernetes/INSTALL.md).
 
 Installation
 ------------
