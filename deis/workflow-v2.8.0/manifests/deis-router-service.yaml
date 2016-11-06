@@ -8,19 +8,39 @@ metadata:
   annotations:
     helm-keep: "true"
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: deis-router
   ports:
     - name: http
       port: 80
       targetPort: 8080
+      nodePort: 30080
     - name: https
       port: 443
       targetPort: 6443
+      nodePort: 30443
     - name: builder
       port: 2222
       targetPort: 2222
+      nodePort: 30222
     - name: healthz
       port: 9090
       targetPort: 9090
+      nodePort: 30090
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: deis-router
+  namespace: deis
+spec:
+  rules:
+  - host: deis.waziup.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: deis-router
+          servicePort: 80
