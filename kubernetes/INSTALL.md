@@ -1,23 +1,13 @@
 
-Orchestrator
-============
+Kubernetes and OpenStack
+========================
 
-The selected orchestrator is DEIS.
-DEIS is installed on top of Kubernetes, itself installed on OpenStack.
+In Waziup, OpenStack is used as the infrastructure virtualization mechanism (Infrastructure as a Service).
+OpenStack provides and manages the Virtual Machines in which Kubernetes is running.
+Kubernetes is used to provide the container orchestrator infrastructure (Container as a Service).
 
 Installation
 ------------
-
-#On a local PC#
-We will execute DEIS using Vagrant.
-It requires a relatively powerful PC.
-
-Follow the instructions at http://docs.deis.io/en/latest/installing_deis/vagrant/
-Then at http://docs.deis.io/en/latest/installing_deis/install-platform/#install-deis-platform
-Taking care of executing the instructions in the "Note" boxes for vagrant.
-
-#In a Cloud#
-The supported IaaS is OpenStack.
 
 Start 2 VM m1.large with names "kube-master" and "kube-worker1".
 
@@ -49,39 +39,11 @@ $ scp ubuntu@<masterIP>:~/kubelet.conf .
 mv kubelet.conf ~/.kube/config
 ```
 
-
-Pushing an application
-----------------------
-
-Register with the platform:
-```
-deis register http://deis.waziup.io:30378
-deis keys:add ~/.ssh/id_deis.pub
-```
-
-Download the application and associate it with deis:
-```
-$ git clone https://github.com/deis/example-go.git
-$ cd example-go
-$ deis create
-```
-
-We need to change the NodePort of the builder, as shown in the describe command:
-```
-kubectl --namespace=deis describe svc deis-router
-git remote remove deis
-git remote add waziup ssh://git@deis-builder.waziup.io:30235/vanity-magician.git
-```
-
-Push the application:
-```
-git push waziup master
-```
+For installing Kubernetes, follow the instructions [here](../deis/README.md).
 
 Troubleshooting
 ---------------
 
-Installing and removing the test app 'sock shop' in kubernetes currently leaves default deny network policy.
 See annotations:
 ```
 kubectl get ns default -o yaml
