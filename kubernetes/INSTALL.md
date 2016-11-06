@@ -6,9 +6,11 @@ In Waziup, OpenStack is used as the infrastructure virtualization mechanism (Inf
 OpenStack provides and manages the Virtual Machines in which Kubernetes is running.
 Kubernetes is used to provide the container orchestrator infrastructure (Container as a Service).
 
-Installation
-------------
 
+OpenStack Installation
+----------------------
+
+This section describes how to configure 2 VMs for Kubernetes.
 Start 2 VM m1.large with names "kube-master" and "kube-worker1".
 
 Edit kube-master file /etc/hosts:
@@ -21,6 +23,10 @@ Edit /etc/dhcp/dhcpclient.conf and add:
 prepend domain-name-servers 8.8.8.8, 8.8.8.4;
 ```
 Do the same on kube-worker1. You should be able to ping google.com and each-other VMs.
+
+
+Kubenetes installation
+----------------------
 
 Follow the instructions at: http://kubernetes.io/docs/getting-started-guides/kubeadm/
 
@@ -39,7 +45,9 @@ $ scp ubuntu@<masterIP>:~/kubelet.conf .
 mv kubelet.conf ~/.kube/config
 ```
 
-For installing Kubernetes, follow the instructions [here](../deis/README.md).
+You need also to install an [Ingress Controller](ingress-controller/README.md).
+
+For installing DEIS, follow the instructions [here](../deis/README.md).
 
 Troubleshooting
 ---------------
