@@ -38,12 +38,15 @@ from collections import deque
 import datetime
 import getopt
 import os
+import os.path
 import json
 import re
+import base64
 
 #////////////////////////////////////////////////////////////
 # ADD HERE VARIABLES FOR YOUR OWN NEEDS  
 #////////////////////////////////////////////////////////////
+
 
 
 #////////////////////////////////////////////////////////////
@@ -79,9 +82,9 @@ PKT_FLAG_DATA_ISBINARY=0x01
 #------------------------------------------------------------
 #last pkt information
 #------------------------------------------------------------
-pdata=""
-rdata=""
-tdata=""
+pdata="0,0,0,0,0,0,0,0"
+rdata="0,0,0"
+tdata="N/A"
 
 dst=0
 ptype=0
@@ -127,6 +130,15 @@ the_app_key = '\x00\x00\x00\x00'
 _validappkey=1
 
 #------------------------------------------------------------
+#for local AES decrypting
+#------------------------------------------------------------
+#we set local_aes to true because we have knowledge of the AppSKey and NwkSKey
+#upload of encrypted data to a cloud (with json features) is still to be implemented
+#in this case, set _local_aes=0 and use the "aes" field of global_conf.json to set _local_aes to 1 if needed	
+_local_aes=0
+_hasClearData=0
+
+#------------------------------------------------------------
 #open local_conf.json file to recover gateway_address
 #------------------------------------------------------------
 f = open(os.path.expanduser("local_conf.json"),"r")
@@ -154,17 +166,18 @@ _enabled_clouds=retrieve_enabled_clouds()
 
 print "post_processing_gw.py got cloud list: "
 print _enabled_clouds
-			
-#////////////////////////////////////////////////////////////
-# CHANGE HERE THE VARIOUS PATHS FOR YOUR LOG FILES
-#////////////////////////////////////////////////////////////
-_folder_path = "/home/pi/Dropbox/LoRa-test/"
-_gwlog_filename = _folder_path+"gateway_"+str(_gwid)+".log"
-_telemetrylog_filename = _folder_path+"telemetry_"+str(_gwid)+".log"
-_imagelog_filename = _folder_path+"image_"+str(_gwid)+".log"
 
-# END
-#////////////////////////////////////////////////////////////
+#------------------------------------------------------------
+#open clouds.json file to get clouds for encrypted data
+#------------------------------------------------------------
+
+_cloud_for_encrypted_data=retrieve_enabled_clouds("encrypted_clouds")
+print "post_processing_gw.py got encrypted cloud list: "
+print _cloud_for_encrypted_data
+
+_cloud_for_lorawan_encrypted_data=retrieve_enabled_clouds("lorawan_encrypted_clouds")
+print "post_processing_gw.py got LoRaWAN encrypted cloud list: "
+print _cloud_for_lorawan_encrypted_data
 
 #------------------------------------------------------------
 #initialize gateway DHT22 sensor
@@ -180,7 +193,7 @@ try:
 	_dht22_mongo = json_array["gateway_conf"]["dht22_mongo"]
 except KeyError:
 	_dht22_mongo = 0
-	
+
 if (_dht22_mongo):
 	global add_document	
 	from MongoDB import add_document
@@ -199,7 +212,7 @@ def save_dht22_values():
 	global _temperature, _humidity, _date_save_dht22
 	_humidity, _temperature = get_dht22_values()
 	
-	_date_save_dht22 = datetime.datetime.utcnow()
+	_date_save_dht22 = datetime.datetime.now()
 
 	print "Gateway TC : "+_temperature+" C | HU : "+_humidity+" % at "+str(_date_save_dht22)
 	
@@ -232,6 +245,81 @@ def dht22_target():
 		global _gw_dht22
 		time.sleep(_gw_dht22)
 
+#------------------------------------------------------------
+#for downlink features
+#------------------------------------------------------------
+
+try:
+	_gw_downlink = json_array["gateway_conf"]["downlink"]
+except KeyError:
+	_gw_downlink = 0
+
+_post_downlink_file = "downlink/downlink-post.txt"
+_post_downlink_queued_file = "downlink/downlink-post-queued.txt"
+_gw_downlink_file = "downlink/downlink.txt"
+
+pending_downlink_requests = []
+
+def check_downlink():
+
+	# - post_processing_gw.py checks and uses downlink/downlink_post.txt as input
+	# - post_processing_gw.py will maintain a list of downlink message requests by reading downlink/downlink_post.txt
+	# - valid requests will be appended to downlink/downlink-post_queued.txt
+	# - after reading downlink/downlink_post.txt, post_processing_gw.py deletes it
+	# - when a packet from device i is processed by post_processing_gw.py, it will check whether there is a queued message for i
+	# - if yes, then it generates a downlink/downlink.txt file with the queue message as content	
+	print datetime.datetime.now()
+	print "post downlink: checking for "+_post_downlink_file
+	
+	if os.path.isfile(os.path.expanduser(_post_downlink_file)):
+
+		lines = []
+		
+		print "post downlink: reading "+_post_downlink_file
+		
+		f = open(os.path.expanduser(_post_downlink_file),"r")
+		lines = f.readlines()
+		f.close()
+	
+		for line in lines:
+			#remove \r=0xOD from line if some are inserted by OS and various tools
+			line = line.replace('\r','')
+			if len(line) > 1 or line != '\n':
+				line_json=json.loads(line)
+				print line_json
+				
+				if line_json["status"]=="send_request":
+					pending_downlink_requests.append(line)		
+	
+		#print pending_downlink_request
+		
+		print "post downlink: writing to "+_post_downlink_queued_file
+		
+		f = open(os.path.expanduser(_post_downlink_queued_file),"w")
+		
+		for downlink_request in pending_downlink_requests:
+			f.write("%s" % downlink_request)
+		
+		os.remove(os.path.expanduser(_post_downlink_file))	
+		
+	else:
+		print "post downlink: no downlink requests"
+
+	print "post downlink: list of pending downlink requests"
+	
+	if len(pending_downlink_requests) == 0:
+		print "None"
+	else:	
+		for downlink_request in pending_downlink_requests:
+			print downlink_request.replace('\n','')		
+	
+def downlink_target():
+	while True:
+		check_downlink()
+		sys.stdout.flush()	
+		global _gw_downlink
+		time.sleep(_gw_downlink)
+		
 #------------------------------------------------------------
 #for handling images
 #------------------------------------------------------------
@@ -287,9 +375,9 @@ def image_timeout():
 	except subprocess.CalledProcessError:
 		print "launching image decoding failed!"
 
-#---------------------------
-#for managing the input data 
-#---------------------------
+#------------------------------------------------------------
+#for managing the input data when we can have aes encryption
+#------------------------------------------------------------
 _linebuf="the line buffer"
 _linebuf_idx=0
 _has_linebuf=0
@@ -330,6 +418,17 @@ def fillLinebuf(n):
 	_linebuf=sys.stdin.read(n)
 
 #////////////////////////////////////////////////////////////
+# CHANGE HERE THE VARIOUS PATHS FOR YOUR LOG FILES
+#////////////////////////////////////////////////////////////
+_folder_path = "/home/pi/Dropbox/LoRa-test/"
+_gwlog_filename = _folder_path+"gateway_"+str(_gwid)+".log"
+_telemetrylog_filename = _folder_path+"telemetry_"+str(_gwid)+".log"
+_imagelog_filename = _folder_path+"image_"+str(_gwid)+".log"
+
+# END
+#////////////////////////////////////////////////////////////
+
+#////////////////////////////////////////////////////////////
 # ADD HERE OPTIONS THAT YOU MAY WANT TO ADD
 # BE CAREFUL, IT IS NOT ADVISED TO REMOVE OPTIONS UNLESS YOU
 # REALLY KNOW WHAT YOU ARE DOING
@@ -346,7 +445,8 @@ def main(argv):
 		'loggw',\
 		'addr',\
 		'wappkey',\
-		'raw'])
+		'raw',\
+		'aes'])
 		
 	except getopt.GetoptError:
 		print 'post_processing_gw '+\
@@ -354,37 +454,43 @@ def main(argv):
 		'-L/--loggw '+\
 		'-a/--addr '+\
 		'--wappkey '+\
-		'--raw '
+		'--raw '+\
+		'--aes '
 		
 		sys.exit(2)
 	
 	for opt, arg in opts:
 		if opt in ("-i", "--ignorecomment"):
-			print("will ignore commented lines")
+			print "will ignore commented lines"
 			global _ignoreComment
 			_ignoreComment = 1
 															
 		elif opt in ("-L", "--loggw"):
-			print("will log gateway message prefixed by ^$")
+			print "will log gateway message prefixed by ^$"
 			global _logGateway
 			_logGateway = 1	
 
 		elif opt in ("-a", "--addr"):
 			global _gwid
 			_gwid = arg
-			print("overwrite: will use _"+str(_gwid)+" for gateway and telemetry log files")
+			print "overwrite: will use _"+str(_gwid)+" for gateway and telemetry log files"
 			
 		elif opt in ("--wappkey"):
 			global _wappkey
 			_wappkey = 1
 			global _validappkey
 			_validappkey=0
-			print("will check for correct app key")
+			print "will check for correct app key"
 
 		elif opt in ("--raw"):
 			global _rawFormat
 			_rawFormat = 1
-			print("raw output from gateway. post_processing_gw will handle packet format")
+			print "raw output from gateway. post_processing_gw will handle packet format"
+			
+		elif opt in ("--aes"):
+			global _local_aes
+			_local_aes = 1
+			print "enable local AES decryption"
 
 # END
 #////////////////////////////////////////////////////////////			
@@ -402,9 +508,48 @@ if (_gw_dht22):
 	t = threading.Thread(target=dht22_target)
 	t.daemon = True
 	t.start()
+
+#downlink feature
+if (_gw_downlink):
+
+	#check for an existing downlink-post-queued.txt file
+	#
+	print datetime.datetime.now()
+	print "post downlink: checking for existing "+_post_downlink_queued_file
+	
+	if os.path.isfile(os.path.expanduser(_post_downlink_queued_file)):
+
+		lines = []
+
+		print "post downlink: reading existing "+_post_downlink_queued_file
+		
+		f = open(os.path.expanduser(_post_downlink_queued_file),"r")
+		lines = f.readlines()
+		f.close()
+	
+		for line in lines:
+			if len(line) > 1 or line != '\n':
+				
+				line_json=json.loads(line)
+				#print line_json
+				
+				if line_json["status"]=="send_request":
+					pending_downlink_requests.append(line)		
+	
+		print "post downlink: start with current list of pending downlink requests"
+	
+		for downlink_request in pending_downlink_requests:
+			print downlink_request.replace('\n','')
+	else:
+		print "post downlink: none existing downlink-post-queued.txt"			
+	
+	print "Starting thread to check for downlink requests"
+	t = threading.Thread(target=downlink_target)
+	t.daemon = True
+	t.start()
 	time.sleep(1)
 
-print ''
+print ''	
 print "Current working directory: "+os.getcwd()
 
 #------------------------------------------------------------
@@ -461,7 +606,7 @@ while True:
 	#------------------------------------------------------------
 
 	if (ch=='^'):
-		now = datetime.datetime.utcnow()
+		now = datetime.datetime.now()
 		ch=sys.stdin.read(1)
 		
 		if (ch=='p'):		
@@ -497,7 +642,29 @@ while True:
 				info_str="rawFormat(len=%d SNR=%d RSSI=%d)" % (datalen,SNR,RSSI)	
 			print info_str
 			#TODO: maintain statistics from received messages and periodically add these informations in the gateway.log file
-
+			
+			#here we check for pending downlink message that need to be sent back to the end-device
+			#
+			for downlink_request in pending_downlink_requests:
+				request_json=json.loads(downlink_request)
+				if src == request_json["dst"]:
+					print "post downlink: receive from %d with pending request" % src
+					print "post downlink: downlink data is \"%s\"" % request_json["data"]
+					print "post downlink: generate "+_gw_downlink_file
+					print downlink_request
+					f = open(os.path.expanduser(_gw_downlink_file),"a")
+					f.write(downlink_request)
+					f.close()
+					pending_downlink_requests.remove(downlink_request)
+					#update downlink-post-queued.txt
+					f = open(os.path.expanduser(_post_downlink_queued_file),"w")
+					for downlink_request in pending_downlink_requests:
+						f.write("%s" % downlink_request)
+					#TODO: should we write all pending request for this node
+					#or only the first one?
+					#currently, we do only the first one					
+					break;
+	
 		if (ch=='r'):		
 			rdata = sys.stdin.readline()
 			print "rcv ctrl radio info (^r): "+rdata,
@@ -516,7 +683,7 @@ while True:
 									
 		if (ch=='l'):
 			#TODO: LAS service	
-			print 'not implemented yet'
+			print "not implemented yet"
 			
 		if (ch=='$' and _logGateway==1):
 			data = sys.stdin.readline()
@@ -534,11 +701,11 @@ while True:
 #------------------------------------------------------------
 
 	if (ch=='\\'):
-		now = datetime.datetime.utcnow()
+		now = datetime.datetime.now()
 		
 		if _validappkey==1:
 
-			print 'valid app key: accept data'
+			print "valid app key: accept data"
 					
 			ch=getSingleChar()			
 					
@@ -577,7 +744,8 @@ while True:
 					cloud_script=_enabled_clouds[cloud_index]
 					print "uploading with "+cloud_script
 					sys.stdout.flush()
-					cmd_arg=cloud_script+" \""+ldata+"\""+" \""+pdata+"\""+" \""+rdata+"\""+" \""+tdata+"\""+" \""+_gwid+"\""
+					cmd_arg=cloud_script+" \""+ldata.replace('\n','')+"\""+" \""+pdata.replace('\n','')+"\""+" \""+rdata.replace('\n','')+"\""+" \""+tdata.replace('\n','')+"\""+" \""+_gwid.replace('\n','')+"\""
+					print cmd_arg
 					os.system(cmd_arg) 
 
 				print "--> cloud end"
@@ -589,11 +757,11 @@ while True:
 				#not a known data logging prefix
 				#you may want to upload to a default service
 				#so just implement it here
-				print('unrecognized data logging prefix: discard data')
+				print "unrecognized data logging prefix: discard data"
 				getAllLine() 
 					
 		else:
-			print('invalid app key: discard data')
+			print "invalid app key: discard data"
 			getAllLine()
 
 		continue
@@ -602,7 +770,7 @@ while True:
 	if (ch == '\xFF' or ch == '+'):
 	#if (ch == '\xFF'):
 	
-		print("got first framing byte")
+		print "got first framing byte"
 		ch=getSingleChar()	
 		
 		#data prefix for non-encrypted data
@@ -610,7 +778,7 @@ while True:
 		#if (ch == '\xFE'):
 			#the data prefix is inserted by the gateway
 			#do not modify, unless you know what you are doing and that you modify lora_gateway (comment WITH_DATA_PREFIX)
-			print("--> got data prefix")
+			print "--> got data prefix"
 			
 			#we actually need to use DATA_PREFIX in order to differentiate data from radio coming to the post-processing stage
 			#if _wappkey is set then we have to first indicate that _validappkey=0
@@ -620,20 +788,23 @@ while True:
 				_validappkey=1	
 
 			#if we have raw output from gw, then try to determine which kind of packet it is
+			#
 			if (_rawFormat==1):
-				print("raw format from gateway")
+				print "raw format from gateway"
 				ch=getSingleChar()
 				
-				#probably our modified Libelium header where the destination is the gateway
+				#probably our modified Libelium header where the destination (1) is the gateway
 				#dissect our modified Libelium format
-				if ch==1:			
+				if ord(ch)==1:			
 					dst=ord(ch)
 					ptype=ord(getSingleChar())
 					src=ord(getSingleChar())
 					seq=ord(getSingleChar())
-					print("Libelium[dst=%d ptype=0x%.2X src=%d seq=%d]" % (dst,ptype,src,seq))
+					print "Header[dst=%d ptype=0x%.2X src=%d seq=%d]" % (dst,ptype,src,seq)
 					#now we read datalen-4 (the header length) bytes in our line buffer
-					fillLinebuf(datalen-HEADER_SIZE)				
+					fillLinebuf(datalen-HEADER_SIZE)
+					datalen=datalen-HEADER_SIZE
+					pdata="%d,%d,%d,%d,%d,%d,%d" % (dst,ptype,src,seq,datalen,SNR,RSSI)				
 				
 				#LoRaWAN uses the MHDR(1B)
 				#----------------------------
@@ -644,30 +815,119 @@ while True:
 				#the main MType is unconfirmed data up b010 or confirmed data up b100
 				#and packet format is as follows, payload starts at byte 9
 				#MHDR[1] | DevAddr[4] | FCtrl[1] | FCnt[2] | FPort[1] | EncryptedPayload | MIC[4]
-				if (ch & 0x40)==0x40:
+				if ord(ch) & 0x40 == 0x40 or ord(ch) & 0x80 == 0x80:
 					#Do the LoRaWAN decoding
-					print("LoRaWAN?")
-					#for the moment just discard the data
+					print "LoRaWAN?"
+					
 					fillLinebuf(datalen-1)
-					getAllLine()
+					lorapktstr=ch+getAllLine()
+					
+					if _local_aes==1:	
+						
+						lorapkt=[]
+						for i in range (0,len(lorapktstr)):
+							lorapkt.append(ord(lorapktstr[i]))
+							
+						#you can comment this display if you want
+						#print [hex(x) for x in lorapkt]
+						
+						from loraWAN import loraWAN_process_pkt
+						plain_payload=loraWAN_process_pkt(lorapkt)
+						
+						if plain_payload=="###BADMIC###":
+							print plain_payload
+						else:	
+							print "plain payload is : "+plain_payload
+							_linebuf = plain_payload
+							_has_linebuf=1
+							_hasClearData=1
+					else:
+						print "--> DATA encrypted: local aes not activated"
+						lorapktstr_b64=base64.b64encode(lorapktstr)
+						print "--> FYI base64 of LoRaWAN frame w/MIC: "+lorapktstr_b64
+						
+						print "--> number of enabled clouds is %d" % len(_cloud_for_lorawan_encrypted_data)
+						
+						if len(_cloud_for_lorawan_encrypted_data)==0:
+							print "--> discard encrypted data"
+						else:					
+							#loop over all enabled clouds to upload data
+							#once again, it is up to the corresponding cloud script to handle the data format
+							#
+							for cloud_index in range(0,len(_cloud_for_lorawan_encrypted_data)):
+								
+								print "--> LoRaWAN encrypted cloud[%d]" % cloud_index
+								cloud_script=_cloud_for_lorawan_encrypted_data[cloud_index]
+								print "uploading with "+cloud_script
+								sys.stdout.flush()
+								cmd_arg=cloud_script+" \""+lorapktstr_b64.replace('\n','')+"\""+" \""+pdata.replace('\n','')+"\""+" \""+rdata.replace('\n','')+"\""+" \""+tdata.replace('\n','')+"\""+" \""+_gwid.replace('\n','')+"\""
+								print cmd_arg
+								os.system(cmd_arg) 
+							print "--> LoRaWAN encrypted cloud end"					
+						
+					continue	
+					
 			else:								
 				#now we read datalen bytes in our line buffer
 				fillLinebuf(datalen)				
 				
-			# encrypted data payload?
+			#encrypted data payload?
 			if ((ptype & PKT_FLAG_DATA_ENCRYPTED)==PKT_FLAG_DATA_ENCRYPTED):
-				print("--> DATA encrypted: encrypted payload size is %d" % datalen)
+				print "--> DATA encrypted: encrypted payload size is %d" % datalen
+				
 				_hasClearData=0
-				print("--> DATA encrypted not supported")
-				# drain stdin of all the encrypted data
-				enc_data=getAllLine()
-				print("--> discard encrypted data")
+				lorapktstr=getAllLine()
+				
+				if _local_aes==1:
+						print "--> decrypting in AES-CTR mode (LoRaWAN version)"
+						
+						lorapkt=[]
+						for i in range (0,len(lorapktstr)):
+							lorapkt.append(ord(lorapktstr[i]))
+						
+						from loraWAN import loraWAN_process_pkt
+						plain_payload=loraWAN_process_pkt(lorapkt)
+						
+						if plain_payload=="###BADMIC###":
+							print plain_payload
+						else:	
+							print "plain payload is : "+plain_payload
+							_linebuf = plain_payload
+							_has_linebuf=1
+							_hasClearData=1						
+						
+				else:
+						print "--> DATA encrypted: local aes not activated"
+						lorapktstr_b64=base64.b64encode(lorapktstr)
+						print "--> FYI base64 of LoRaWAN frame w/MIC: "+lorapktstr_b64
+						
+						print "--> number of enabled clouds is %d" % len(_cloud_for_encrypted_data)
+						
+						if len(_cloud_for_encrypted_data)==0:
+							print "--> discard encrypted data"
+						else:					
+							#update pdata with new data length
+							pdata="%d,%d,%d,%d,%d,%d,%d" % (dst,ptype,src,seq,datalen,SNR,RSSI)
+							
+							#loop over all enabled clouds to upload data
+							#once again, it is up to the corresponding cloud script to handle the data format
+							#							
+							for cloud_index in range(0,len(_cloud_for_encrypted_data)):
+								
+								print "--> encrypted cloud[%d]" % cloud_index
+								cloud_script=_cloud_for_encrypted_data[cloud_index]
+								print "uploading with "+cloud_script
+								sys.stdout.flush()
+								cmd_arg=cloud_script+" \""+lorapktstr_b64.replace('\n','')+"\""+" \""+pdata.replace('\n','')+"\""+" \""+rdata.replace('\n','')+"\""+" \""+tdata.replace('\n','')+"\""+" \""+_gwid.replace('\n','')+"\""
+								print cmd_arg
+								os.system(cmd_arg) 
+							print "--> encrypted cloud end"	
 			else:
 				_hasClearData=1
 										
 			#with_appkey?
 			if ((ptype & PKT_FLAG_DATA_WAPPKEY)==PKT_FLAG_DATA_WAPPKEY and _hasClearData==1): 
-				print("--> DATA with_appkey: read app key sequence")
+				print "--> DATA with_appkey: read app key sequence"
 				
 				the_app_key = getSingleChar()
 				the_app_key = the_app_key + getSingleChar()
@@ -678,23 +938,23 @@ while True:
 				print " ".join("0x{:02x}".format(ord(c)) for c in the_app_key)
 				
 				if the_app_key in app_key_list:
-					print("in app key list")
+					print "in app key list"
 					if _wappkey==1:
 						_validappkey=1
 				else:		
-					print("not in app key list")
+					print "not in app key list"
 					if _wappkey==1:
 						_validappkey=0
 					else:	
 						#we do not check for app key
 						_validappkey=1
-						print("but app key disabled")				
+						print "but app key disabled"				
 				
 			continue	
 					
 					
 		if (ch >= '\x50' and ch <= '\x54'):
-			print("--> got image packet")
+			print "--> got image packet"
 			
 			cam_id=ord(ch)-0x50;
 			src_addr_msb = ord(getSingleChar())
@@ -717,8 +977,8 @@ while True:
 				#new image packet from this node
 				nodeL.append(src_addr)
 				filename =(_folder_path+"images/ucam_%d-node#%.4d-cam#%d-Q%d.dat" % (imgSN,src_addr,cam_id,Q))
-				print("first pkt from node %d" % src_addr)
-				print("creating file %s" % filename)
+				print "first pkt from node %d" % src_addr
+				print "creating file %s" % filename
 				theFile=open(os.path.expanduser(filename),"w")
 				#associates the file handler to this node
 				fileH.update({src_addr:theFile})
@@ -738,8 +998,8 @@ while True:
 				f.write(filename+'\n')
 				f.close()				
 							
-			print("pkt %d from node %d data size is %d" % (seq_num,src_addr,data_len))
-			print("write to file")
+			print "pkt %d from node %d data size is %d" % (seq_num,src_addr,data_len)
+			print "write to file"
 			
 			theFile.write(format(data_len, '04X')+' ')
 	
@@ -750,7 +1010,7 @@ while True:
 				print (hex(ord(ch))),
 				theFile.write(format(ord(ch), '02X')+' ')
 				
-			print("End")
+			print "End"
 			sys.stdout.flush()
 			theFile.flush()
 			continue

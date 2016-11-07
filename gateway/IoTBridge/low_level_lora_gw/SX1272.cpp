@@ -2465,8 +2465,12 @@ boolean	SX1272::isChannel(uint32_t ch)
     case CH_08_900:
     case CH_09_900:
     case CH_10_900:
-    case CH_11_900:	return true;
-        break;
+    case CH_11_900:
+        //added by C. Pham
+    case CH_12_900:
+    case CH_00_433:
+        //end
+        return true;
 
     default:			return false;
     }
@@ -3023,7 +3027,14 @@ int8_t SX1272::setPacketLength()
 {
     uint16_t length;
 
-    length = _payloadlength + OFFSET_PAYLOADLENGTH;
+    // added by C. Pham
+    // if gateway is in rawFormat mode for packet reception, it will also send in rawFormat
+    // unless we switch it back to normal format just for transmission, e.g. for downlink transmission
+    if (_rawFormat)
+        length = _payloadlength;
+    else
+        length = _payloadlength + OFFSET_PAYLOADLENGTH;
+
     return setPacketLength(length);
 }
 
