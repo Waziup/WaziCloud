@@ -316,7 +316,45 @@ paths:
       x-tags:
       - tag: "data"
 
-
+  /data/db/history:
+    get:
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_history_get"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "get historical data"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Observation"
+      x-tags:
+      - tag: "data"
+  
+  /data/db/history/{id}:
+    get:
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_history_id_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Get history data of a given entity"
+          schema:
+            $ref: "#/definitions/Observation"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "data"
 
 
   /gateways:
