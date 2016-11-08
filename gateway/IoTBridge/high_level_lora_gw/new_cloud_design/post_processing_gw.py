@@ -62,31 +62,6 @@ app_key_list = [
 	'\x05\x06\x07\x08' 
 ]
 
-#////////////////////////////////////////////////////////////
-#FOR AES DECRYPTION
-#////////////////////////////////////////////////////////////
-
-#put your key here, should match the end-device's key
-aes_key="0123456789010123"
-#put your initialisation vector here, should match the end-device's initialisation vector
-aes_iv="\x9a\xd0\x30\x02\x00\x00\x00\x00\x9a\xd0\x30\x02\x00\x00\x00\x00"
-#aes_iv="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
-
-#association between appkey and aes_key
-appkey_aeskey = {
-	'\x01\x02\x03\x04':"0123456789010123",
-	'\x05\x06\x07\x08':"0123456789010123"
-}
-
-#association between appkey and aes_iv
-appkey_aesiv = {
-	'\x01\x02\x03\x04':"\x9a\xd0\x30\x02\x00\x00\x00\x00\x9a\xd0\x30\x02\x00\x00\x00\x00",
-	'\x05\x06\x07\x08':"\x9a\xd0\x30\x02\x00\x00\x00\x00\x9a\xd0\x30\x02\x00\x00\x00\x00"
-}
-
-# END
-#////////////////////////////////////////////////////////////
-
 #------------------------------------------------------------
 #header packet information
 #------------------------------------------------------------
@@ -140,10 +115,6 @@ _logGateway=0
 #raw output from gateway?
 #------------------------------------------------------------
 _rawFormat=0
-#------------------------------------------------------------
-_ourcustomFormat=0;
-_lorawanFormat=0
-#------------------------------------------------------------
 
 #------------------------------------------------------------
 #check for app key?
@@ -154,12 +125,6 @@ the_app_key = '\x00\x00\x00\x00'
 
 #valid app key? by default we do not check for the app key
 _validappkey=1
-
-#------------------------------------------------------------
-#for local AES decrypting
-#------------------------------------------------------------	
-_aes=0
-_hasClearData=0
 
 #------------------------------------------------------------
 #open local_conf.json file to recover gateway_address
@@ -204,10 +169,18 @@ _imagelog_filename = _folder_path+"image_"+str(_gwid)+".log"
 #------------------------------------------------------------
 #initialize gateway DHT22 sensor
 #------------------------------------------------------------
-_gw_dht22 = json_array["gateway_conf"]["dht22"]
+try:
+	_gw_dht22 = json_array["gateway_conf"]["dht22"]
+except KeyError:
+	_gw_dht22 = 0
+	
 _date_save_dht22 = None
-_dht22_mongo = json_array["gateway_conf"]["dht22_mongo"]
 
+try:
+	_dht22_mongo = json_array["gateway_conf"]["dht22_mongo"]
+except KeyError:
+	_dht22_mongo = 0
+	
 if (_dht22_mongo):
 	global add_document	
 	from MongoDB import add_document
@@ -314,9 +287,9 @@ def image_timeout():
 	except subprocess.CalledProcessError:
 		print "launching image decoding failed!"
 
-#------------------------------------------------------------
-#for managing the input data when we can have aes encryption
-#------------------------------------------------------------
+#---------------------------
+#for managing the input data 
+#---------------------------
 _linebuf="the line buffer"
 _linebuf_idx=0
 _has_linebuf=0
@@ -373,8 +346,7 @@ def main(argv):
 		'loggw',\
 		'addr',\
 		'wappkey',\
-		'raw',\
-		'aes'])
+		'raw'])
 		
 	except getopt.GetoptError:
 		print 'post_processing_gw '+\
@@ -382,8 +354,7 @@ def main(argv):
 		'-L/--loggw '+\
 		'-a/--addr '+\
 		'--wappkey '+\
-		'--raw '+\
-		'--aes '
+		'--raw '
 		
 		sys.exit(2)
 	
@@ -414,13 +385,6 @@ def main(argv):
 			global _rawFormat
 			_rawFormat = 1
 			print("raw output from gateway. post_processing_gw will handle packet format")
-			
-		elif opt in ("--aes"):
-			global _aes
-			_aes = 1
-			global AES
-			from Crypto.Cipher import AES
-			print("enable AES encrypted data")
 
 # END
 #////////////////////////////////////////////////////////////			
@@ -428,62 +392,73 @@ def main(argv):
 if __name__ == "__main__":
 	main(sys.argv[1:])
 
+#------------------------------------------------------------
+#start various threads
+#------------------------------------------------------------
+
 #gateway dht22
 if (_gw_dht22):
 	print "Starting thread to measure gateway temperature"
 	t = threading.Thread(target=dht22_target)
 	t.daemon = True
 	t.start()
+	time.sleep(1)
 
+print ''
 print "Current working directory: "+os.getcwd()
+
+#------------------------------------------------------------
+#main loop
+#------------------------------------------------------------
 
 while True:
 
 	sys.stdout.flush()
+	
   	ch = getSingleChar()
 
-#expected prefixes
-#	^p 	indicates a ctrl pkt info ^pdst(%d),ptype(%d),src(%d),seq(%d),len(%d),SNR(%d),RSSI=(%d) for the last received packet
-#		example: ^p1,16,3,0,234,8,-45
-#
-#	^r	indicate a ctrl radio info ^rbw,cr,sf for the last received packet
-#		example: ^r500,5,12
-#
-#	^$	indicates an output (debug or log purposes) from the gateway that should be logged in the (Dropbox) gateway.log file 
-#		example: ^$Set LoRa mode 4
-#
-#	^l	indicates a ctrl LAS info ^lsrc(%d),type(%d)
-#		type is 1 for DSP_REG, 2 for DSP_INIT, 3 for DSP_UPDT, 4 for DSP_DATA 
-#		example: ^l3,4
-#
-#	\$	indicates a message that should be logged in the (Dropbox) telemetry.log file
-#		example: \$hello -> 	hello will be logged in the following format
-#					(src=3 seq=0 len=6 SNR=8 RSSI=-54) 2015-10-16T14:47:44.072230> hello    
-#
-#
-#	\!	indicates a message that should be logged on a cloud, see clouds.json
-#
-#		example for a ThingSpeak channel as implemented in CloudThinkSpeak.py
-#				\!SGSH52UGPVAUYG3S#9.4		-> 9.4 will be logged in the SGSH52UGPVAUYG3S ThingSpeak channel at default field, i.e. field 1
-#				\!2#9.4						-> 9.4 will be logged in the default channel at field 2
-#				\!SGSH52UGPVAUYG3S#2#9.4	-> 9.4 will be logged in the SGSH52UGPVAUYG3S ThingSpeak channel at field 2
-#				\!##9.4 or \!9.4			-> will be logged in default channel and field
-#
-#		you can add nomemclature codes:
-#				\!##TC/9.4/HU/85/DO/7		-> with ThingSpeak you can either upload only the first value or all values on several fields
-#											-> with an IoT cloud such as Grovestreams you will be able to store both nomenclatures and values 
-#
-#		you can log other information such as src, seq, len, SNR and RSSI on specific fields
-#
-#	\xFF\xFE		indicates radio data prefix
-#
-#	\xFF\x50-\x54 	indicates an image packet. Next fields are src_addr(2B), seq(1B), Q(1B), size(1B)
-#					cam id is coded with the second framing byte: i.e. \x50 means cam id = 0
-#
-
-#------------------------------------------------------------
-# '^' is reserved for control information from the gateway
-#------------------------------------------------------------
+	#expected prefixes
+	#	^p 	indicates a ctrl pkt info ^pdst(%d),ptype(%d),src(%d),seq(%d),len(%d),SNR(%d),RSSI=(%d) for the last received packet
+	#		example: ^p1,16,3,0,234,8,-45
+	#
+	#	^r	indicate a ctrl radio info ^rbw,cr,sf for the last received packet
+	#		example: ^r500,5,12
+	#
+	#	^$	indicates an output (debug or log purposes) from the gateway that should be logged in the (Dropbox) gateway.log file 
+	#		example: ^$Set LoRa mode 4
+	#
+	#	^l	indicates a ctrl LAS info ^lsrc(%d),type(%d)
+	#		type is 1 for DSP_REG, 2 for DSP_INIT, 3 for DSP_UPDT, 4 for DSP_DATA 
+	#		example: ^l3,4
+	#
+	#	\$	indicates a message that should be logged in the (Dropbox) telemetry.log file
+	#		example: \$hello -> 	hello will be logged in the following format
+	#					(src=3 seq=0 len=6 SNR=8 RSSI=-54) 2015-10-16T14:47:44.072230> hello    
+	#
+	#
+	#	\!	indicates a message that should be logged on a cloud, see clouds.json
+	#
+	#		example for a ThingSpeak channel as implemented in CloudThinkSpeak.py
+	#				\!SGSH52UGPVAUYG3S#9.4		-> 9.4 will be logged in the SGSH52UGPVAUYG3S ThingSpeak channel at default field, i.e. field 1
+	#				\!2#9.4						-> 9.4 will be logged in the default channel at field 2
+	#				\!SGSH52UGPVAUYG3S#2#9.4	-> 9.4 will be logged in the SGSH52UGPVAUYG3S ThingSpeak channel at field 2
+	#				\!##9.4 or \!9.4			-> will be logged in default channel and field
+	#
+	#		you can add nomemclature codes:
+	#				\!##TC/9.4/HU/85/DO/7		-> with ThingSpeak you can either upload only the first value or all values on several fields
+	#											-> with an IoT cloud such as Grovestreams you will be able to store both nomenclatures and values 
+	#
+	#		you can log other information such as src, seq, len, SNR and RSSI on specific fields
+	#
+	#	\xFF\xFE		indicates radio data prefix
+	#
+	#	\xFF\x50-\x54 	indicates an image packet. Next fields are src_addr(2B), seq(1B), Q(1B), size(1B)
+	#					cam id is coded with the second framing byte: i.e. \x50 means cam id = 0
+	#
+	
+	#------------------------------------------------------------
+	# '^' is reserved for control information from the gateway
+	#------------------------------------------------------------
 
 	if (ch=='^'):
 		now = datetime.datetime.utcnow()
@@ -549,7 +524,8 @@ while True:
 			f=open(os.path.expanduser(_gwlog_filename),"a")
 			f.write(now.isoformat()+'> ')
 			f.write(data)
-			f.close()					
+			f.close()		
+						
 		continue
 
 
@@ -600,6 +576,7 @@ while True:
 					print "--> cloud[%d]" % cloud_index
 					cloud_script=_enabled_clouds[cloud_index]
 					print "uploading with "+cloud_script
+					sys.stdout.flush()
 					cmd_arg=cloud_script+" \""+ldata+"\""+" \""+pdata+"\""+" \""+rdata+"\""+" \""+tdata+"\""+" \""+_gwid+"\""
 					os.system(cmd_arg) 
 
@@ -644,6 +621,7 @@ while True:
 
 			#if we have raw output from gw, then try to determine which kind of packet it is
 			if (_rawFormat==1):
+				print("raw format from gateway")
 				ch=getSingleChar()
 				
 				#probably our modified Libelium header where the destination is the gateway
@@ -657,17 +635,15 @@ while True:
 					#now we read datalen-4 (the header length) bytes in our line buffer
 					fillLinebuf(datalen-HEADER_SIZE)				
 				
-				#TODO: dissect LoRaWAN
-				#you can implement LoRaWAN decoding if this is necessary for your system
-				#look at the LoRaWAN packet format specification to dissect the packet in detail
-				# 
 				#LoRaWAN uses the MHDR(1B)
 				#----------------------------
 				#| 7  6  5 | 4  3  2 | 1  0 |
 				#----------------------------
 				#   MType      RFU     major
 				#
-				#the main MType is unconfirmed data up which value is 010
+				#the main MType is unconfirmed data up b010 or confirmed data up b100
+				#and packet format is as follows, payload starts at byte 9
+				#MHDR[1] | DevAddr[4] | FCtrl[1] | FCnt[2] | FPort[1] | EncryptedPayload | MIC[4]
 				if (ch & 0x40)==0x40:
 					#Do the LoRaWAN decoding
 					print("LoRaWAN?")
@@ -677,51 +653,15 @@ while True:
 			else:								
 				#now we read datalen bytes in our line buffer
 				fillLinebuf(datalen)				
-			
 				
-			#encrypted data payload?
+			# encrypted data payload?
 			if ((ptype & PKT_FLAG_DATA_ENCRYPTED)==PKT_FLAG_DATA_ENCRYPTED):
 				print("--> DATA encrypted: encrypted payload size is %d" % datalen)
-				
 				_hasClearData=0
-				
-				if _aes==1:
-					print("--> decrypting")
-					
-					decrypt_handler = AES.new(aes_key, AES.MODE_CBC, aes_iv)
-					#decrypt 
-					s = decrypt_handler.decrypt(_linebuf)
-					
-					for i in range(0, len(s)):
-						print "%.2X " % ord(s[i]),
-					
-					print "\nEnd"
-						
-					#get the real (decrypted) payload size
-					rsize = ord(s[APPKEY_SIZE])
-					
-					print("--> real payload size is %d" % rsize)
-					
-					#then add the appkey + the appkey framing bytes
-					rsize = rsize+APPKEY_SIZE+1
-					
-					_linebuf = s[:APPKEY_SIZE] + s[APPKEY_SIZE+1:rsize]
-					
-					for i in range(0, len(_linebuf)):
-						print "%.2X " % ord(_linebuf[i]),
-					
-					print "\nEnd"
-						
-					#normally next read from input will get data from the decrypted _linebuf
-					print "--> decrypted payload is: ",
-					print _linebuf[APPKEY_SIZE:]
-					
-					_hasClearData=1
-				else:
-					print("--> DATA encrypted: aes not activated")
-					#drain stdin of all the encrypted data
-					enc_data=getAllLine()
-					print("--> discard encrypted data")
+				print("--> DATA encrypted not supported")
+				# drain stdin of all the encrypted data
+				enc_data=getAllLine()
+				print("--> discard encrypted data")
 			else:
 				_hasClearData=1
 										

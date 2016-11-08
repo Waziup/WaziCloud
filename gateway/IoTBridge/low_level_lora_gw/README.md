@@ -123,24 +123,23 @@ Pre-defined LoRa modes (from initial Libelium SX1272.h)
 | 9    | 500|  7 |
 | 10   | 500|  8 |
 
-Pre-defined channels in 868MHz and 915MHz band (from initial Libelium SX1272.h)
+Pre-defined channels in 868MHz, 915MHz and 433MHz band (most of them from initial Libelium SX1272.h, except those marked with *)
 
-| ch | F(MHz) | ch | F(MHz) |
-|----|--------|----|--------|
-| 10 | 865.2  | 00 | 903.08 |
-| 11 | 865.5  | 01 | 905.24 |
-| 12 | 865.8  | 02 | 907.40 |
-| 13 | 866.1  | 03 | 909.56 |
-| 14 | 865.4  | 04 | 911.72 |
-| 15 | 865.7  | 05 | 913.88 |
-| 16 | 866.0  | 06 | 916.04 |
-| 17 | 868.0  | 07 | 918.20 |
-|  - |   -    | 08 | 920.36 |
-|  - |   -    | 09 | 922.52 | 
-|  - |   -    | 10 | 924.68 | 
-|  - |   -    | 11 | 926.84 | 
-|  - |   -    | 12 | 915.00 |
-
+| ch | F(MHz) | ch | F(MHz) | ch | F(MHz) |
+|----|--------|----|--------|----|--------|
+| 10 | 865.2  | 00 | 903.08 | 00 | 433.3* |
+| 11 | 865.5  | 01 | 905.24 | 01 | 433.6* |
+| 12 | 865.8  | 02 | 907.40 | 02 | 433.9* |
+| 13 | 866.1  | 03 | 909.56 | 03 | 434.3* |
+| 14 | 865.4  | 04 | 911.72 |  - |   -    |
+| 15 | 865.7  | 05 | 913.88 |  - |   -    |
+| 16 | 866.0  | 06 | 916.04 |  - |   -    |
+| 17 | 868.0  | 07 | 918.20 |  - |   -    |
+| 18 | 868.1* | 08 | 920.36 |  - |   -    |
+|  - |   -    | 09 | 922.52 |  - |   -    |
+|  - |   -    | 10 | 924.68 |  - |   -    |
+|  - |   -    | 11 | 926.84 |  - |   -    |
+|  - |   -    | 12 | 915.00 |  - |   -    |
 
 	
 WARNING
@@ -148,8 +147,7 @@ WARNING
 
 - There is currently no control on the transmit time for both gateway and end-device. When using the library to create devices, you have to ensure that the transmit time of your device is not exceeding the legal maximum transmit time defined in the regulation of your country.
 
-- Although 900MHz band is supported (mostly for the US ISM band), the library does not implement the frequency hopping mechanism.
-
+- Although 900MHz band is supported (mostly for the US ISM band), the library does not implement the frequency hopping mechanism nor the limited dwell time.
 
 Tutorial materials
 ==================
