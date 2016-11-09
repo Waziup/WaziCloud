@@ -4,6 +4,7 @@
 	"plugins": [],
 	"panes": [
 		{
+			"title": "Congduc sensor 3",
 			"width": 1,
 			"row": {
 				"3": 1
@@ -16,11 +17,75 @@
 				{
 					"type": "gauge",
 					"settings": {
-						"title": "Sensor111",
-						"value": "datasources[\"test\"].temperature",
+						"title": "Temperature",
+						"value": "datasources[\"Sensor3\"].temp",
 						"units": "Degrees",
-						"min_value": 0,
-						"max_value": 100
+						"min_value": "-22",
+						"max_value": "60"
+					}
+				},
+				{
+					"type": "sparkline",
+					"settings": {
+						"title": "Temperature history",
+						"value": [
+							"datasources[\"Sensor3\"].temp"
+						],
+						"include_legend": true,
+						"legend": "Degrees"
+					}
+				}
+			]
+		},
+		{
+			"title": "Congduc sensor 6",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Temperature",
+						"value": "datasources[\"Sensor6\"].temp",
+						"units": "Degrees",
+						"min_value": "-20",
+						"max_value": "60"
+					}
+				},
+				{
+					"type": "sparkline",
+					"settings": {
+						"title": "Temperature history",
+						"value": [
+							"datasources[\"Sensor6\"].temp"
+						],
+						"include_legend": true,
+						"legend": "Degrees"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 14
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "<img src=\"http://waziup.fbk.eu/wp-content/uploads/2016/03/logo-waziup.png\" style=\"width:600px;height:200x;\">",
+						"height": 3
 					}
 				}
 			]
@@ -28,15 +93,28 @@
 	],
 	"datasources": [
 		{
-			"name": "test",
+			"name": "Sensor3",
 			"type": "FIWARE Orion",
 			"settings": {
-				"cbhost": "217.77.95.64:30026",
+				"cbhost": "broker.waziup.io",
 				"use_thingproxy": true,
 				"service": "waziupservice",
 				"servicepath": "/waziupservicepath",
 				"type": "SensingDevice",
-				"id": "Sensor111",
+				"id": "Sensor3",
+				"refresh": 5
+			}
+		},
+		{
+			"name": "Sensor6",
+			"type": "FIWARE Orion",
+			"settings": {
+				"cbhost": "broker.waziup.io",
+				"use_thingproxy": true,
+				"service": "waziupservice",
+				"servicepath": "/waziupservicepath",
+				"type": "SensingDevice",
+				"id": "Sensor6",
 				"refresh": 5
 			}
 		}
