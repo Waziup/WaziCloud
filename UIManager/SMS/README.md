@@ -17,4 +17,4 @@ Here's a sample CURL to send a Test sms. Change the Phone number and message to 
 "sender_id" : "WAZIUP",
 "contacts" : ["+233262500105"],
   "message" : "Testing"
-}' "http://messaging.mergdata.dev/api/v1/sms/send"```
+}' "https://messaging.mergdata.com/api/v1/sms/send"```
