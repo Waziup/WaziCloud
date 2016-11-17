@@ -32,13 +32,22 @@ import re
 #server: CAUTION must exist
 waziup_server="http://broker.waziup.io/v2"
 
+#project name
+project_name="waziup"
+
 #your organization: CHANGE HERE
+#one of the following - "UPPA", "EGM", "IT21", "CREATENET", "CTIC", "UI", "ISPACE", "UGB", "WOELAB", "FARMERLINE", "C4A", "PUBD"
 organization_name="UPPA"
 
-#sensor name: CHANGE HERE
+#service path: CHANGE HERE at your convenience
+service_path="/UPPA/LIUPPA/T2I/CPHAM"
+
+#sensor name: CHANGE HERE but maybe better to leave it as Sensor
 sensor_name="Sensor"
 
-#the entity name will then be organization_name+sensor_name+scr_addr, e.g. "UPPASensor1"
+#the entity name will then be sensor_name+scr_addr, e.g. "Sensor1"
+#the Fiware-ServicePath will be service_path, e.g. "/UPPA/LIUPPA/T2I/CPHAM"
+#the Fiware-Service will be project_name+organization_name, e.g. "waziupUPPA"
 
 ####################################################
 
@@ -95,7 +104,7 @@ def create_new_entity(data, src, nomenclatures):
 	
 	print "WAZIUP: create new entity"
 	
-	cmd = 'curl '+waziup_server+'/entities -s -S --header Content-Type:application/json --header Fiware-ServicePath:/waziupservicepath --header Fiware-Service:waziupservice -X POST -d {\"id\":\"'+src+'\",\"type\":\"SensingDevice\",'
+	cmd = 'curl '+waziup_server+'/entities -s -S --header Content-Type:application/json --header Fiware-ServicePath:'+service_path+' --header Fiware-Service:'+project_name+organization_name+' -X POST -d {\"id\":\"'+src+'\",\"type\":\"SensingDevice\",'
 	
 	i=0
 	while i < len(data) :
@@ -133,7 +142,7 @@ def send_data(data, src, nomenclatures):
 	
 	i=0
 	while i < len(data)  and not entity_need_to_be_created:
-		cmd = 'curl '+waziup_server+'/entities/'+src+'/attrs/'+nomenclatures[i]+'/value -s -S --header Content-Type:text/plain --header Fiware-ServicePath:/waziupservicepath --header Fiware-Service:waziupservice -X PUT -d '+data[i]
+		cmd = 'curl '+waziup_server+'/entities/'+src+'/attrs/'+nomenclatures[i]+'/value -s -S --header Content-Type:text/plain --header Fiware-ServicePath:'+service_path+' --header Fiware-Service:'+project_name+organization_name+' -X PUT -d '+data[i]
 		i += 1
 
 		print "CloudWAZIUP: will issue curl cmd"
@@ -192,7 +201,7 @@ def WAZIUP_uploadData(nomenclatures, data, src):
 	if(connected):
 		#len(nomenclatures) == len(data)
 		print("WAZIUP: uploading")
-		send_data(data, organization_name+sensor_name+src, nomenclatures)
+		send_data(data, sensor_name+src, nomenclatures)
 	else:
 		print("WAZIUP: not uploading")
 		
