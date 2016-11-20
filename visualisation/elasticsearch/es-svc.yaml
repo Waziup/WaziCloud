@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: elasticsearch
-  namespace: waziup-test
+  namespace: waziup
   labels:
     component: elasticsearch
 spec:
@@ -23,7 +23,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: elasticsearch
-  namespace: waziup-test
+  namespace: waziup
 spec:
   rules:
   - host: elasticsearch.waziup.io
