@@ -24,15 +24,34 @@ The instructions are [here](https://deis.com/docs/workflow/installing-workflow).
 After fetching the deis-workflow, you need to edit the configuration for the Swift object storage:
 
 ```
+$ helmc repo add deis https://github.com/deis/charts
+$ cd platform/deis
 $ helmc fetch deis/workflow-v2.8.0
-$ edit deis/workflow-v2.8.0/tpl/generate_params.toml
-$ cp deis/workflow-v2.8.0/tpl/generate_params.toml ~/.helmc/workspace/charts/workflow-v2.8.0/tpl/
+```
+
+Edit the file workflow-v2.8.0/tpl/generate_params.toml to add you OpenStack password.
+The complete instructions for storage are [here](https://deis.com/docs/workflow/installing-workflow/configuring-object-storage/).
+
+```
+$ cp workflow-v2.8.0/tpl/generate_params.toml ~/.helmc/workspace/charts/workflow-v2.8.0/tpl/
+```
+
+Waziup platform does not currently support external LoadBalancer (see corresponding issue on github), so you need to copy the deis-router-service from Waziup:
+```
+$ cp workflow-v2.8.0/manifests/deis-router-service.yaml ~/.helmc/workspace/charts/workflow-v2.8.0/manifests
+```
+
+Generate and install:
+```
 $ helmc generate -x manifests workflow-v2.8.0
 $ helmc install workflow-v2.8.0
 ```
 
-Edit the generate_params.toml to add you OpenStack password.
-The complete instructions for storage are [here](https://deis.com/docs/workflow/installing-workflow/configuring-object-storage/).
+Check your deployement with:
+
+```
+kubectl get pods -n deis -w
+```
 
 Pushing an application
 ----------------------
