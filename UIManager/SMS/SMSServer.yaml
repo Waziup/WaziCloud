@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: smsserver
+  namespace: waziup
+  labels:
+    name: smsserver
+spec:
+  containers:
+  - name: smsserver
+    image: waziup/smsnginx
+    command: 
+    - nginx
+    args: 
+     - "-g"
+     - "daemon off;"
+    ports:
+    - containerPort: 80
+  
+  - name: php
+    image: waziup/smsphp
+    command: ["php-fpm"]
+    ports:
+    - containerPort: 9000
+    env:
+      - name: APP_ENV
+        value: local
+      - name: APP_DEBUG
+        value: 'true'
+      - name: APP_KEY
+        value: SomeRandomKey!!! 
+      - name: DB_CONNECTION
+        value: mysql 
+      - name: DB_HOST
+        value: db 
+      - name: DB_DATABASE
+        value: lumen 
+      - name: DB_USERNAME
+        value: lumen 
+      - name: DP_PASSWORD
+        value: secret 
+      - name: MEMCACHED_HOST
+        value: cache
+      - name: CACHE_DRIVER 
+        value: memcached
+
+  - name: mysql 
+    image: mysql
+    ports:
+    - containerPort: 3306
+    env:
+      - name:  MYSQL_ROOT_PASSWORD
+        value: secret
+      - name:  MYSQL_DATABASE
+        value: lumen
+      - name:  MYSQL_USER
+        value: lumen
+      - name:  MYSQL_PASSWORD
+        value: secret
+
+  - name: cache 
+    image: memcached
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: smsserver 
+  namespace: waziup
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: 31333
+  selector:
+    name: smsserver
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: smsserver
+  namespace: waziup
+spec:
+  rules:
+  - host: sms.waziup.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: smsserver
+          servicePort: 8080
+

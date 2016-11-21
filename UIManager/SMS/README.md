@@ -18,3 +18,19 @@ Here's a sample CURL to send a Test sms. Change the Phone number and message to 
 "contacts" : ["+233262500105"],
   "message" : "Testing"
 }' "https://messaging.mergdata.com/api/v1/sms/send"```
+
+
+## Install on Kubernetes
+
+```
+$ cd images/nginx
+$ docker build -t waziup/smsnginx .
+$ docker push waziup/smsnginx
+$ cd ../../images/php
+$ docker build -t waziup/smsphp .
+$ docker push waziup/smsphp
+$ cd ../..
+$ kubectl delete -f SMSServer.yaml
+$ kubectl apply -f SMSServer.yaml 
+```
+
