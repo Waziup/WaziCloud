@@ -18,6 +18,11 @@ spec:
         image: jboss/keycloak
         ports:
         - containerPort: 8080
+        env:
+        - name: KEYCLOAK_USER 
+          value: "admin"
+        - name: KEYCLOAK_PASSWORD 
+          value: "admin"
 
 ---
 apiVersion: v1
