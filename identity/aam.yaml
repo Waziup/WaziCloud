@@ -27,3 +27,27 @@ metadata:
     name: aam
   name: aam
   namespace: waziup
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: 31083
+  selector:
+    app: aam
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: aam
+  namespace: waziup
+spec:
+  rules:
+  - host: aam.waziup.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: aam
+          servicePort: 8080
+
