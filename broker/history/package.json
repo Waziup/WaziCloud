@@ -1,0 +1,16 @@
+{
+  "name": "waziup_mongo_nodejs",
+  "version": "1.0.0",
+  "description": "Read Data From DB",
+  "author": "Waziup Agent <www.waziup.org>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongodb": "^2.2.11",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3"
+  }
+}
