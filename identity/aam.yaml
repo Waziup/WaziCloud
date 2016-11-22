@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: aam
+  namespace: waziup
+spec:
+  replicas: 1 
+  selector:
+    app: aam
+  template:
+    metadata:
+      name: aam
+      labels:
+        app: aam
+    spec:
+      containers:
+      - name: aam
+        image: jboss/keycloak
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: aam
+  name: aam
+  namespace: waziup
