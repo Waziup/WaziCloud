@@ -84,5 +84,10 @@ git push waziup master
 Troubleshooting
 ---------------
 
-
-
+Removing DEIS:
+```
+kubectl delete ns deis
+swift --os-storage-url http://217.77.95.1:8080/v1/AUTH_f295bf3ecf554559a493e8df347e48de delete 'waziup_database'
+swift --os-storage-url http://217.77.95.1:8080/v1/AUTH_f295bf3ecf554559a493e8df347e48de delete 'waziup_registry'
+swift --os-storage-url http://217.77.95.1:8080/v1/AUTH_f295bf3ecf554559a493e8df347e48de delete 'waziup_builder'
+```
