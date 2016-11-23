@@ -56,6 +56,12 @@ kubectl get pods -n deis -w
 Pushing an application
 ----------------------
 
+Install Deis client:
+```
+$ curl -sSL http://deis.io/deis-cli/install-v2.sh | bash
+$ sudo ln -fs $PWD/deis /usr/local/bin/deis
+```
+
 Register with the platform:
 ```
 deis register http://deis.waziup.io
