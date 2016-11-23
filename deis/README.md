@@ -58,8 +58,8 @@ Pushing an application
 
 Register with the platform:
 ```
-deis register http://deis.waziup.io:30378
-deis keys:add ~/.ssh/id_deis.pub
+deis register http://deis.waziup.io
+deis keys:add ~/.ssh/<your public key>
 ```
 
 Download the application and associate it with deis:
@@ -67,13 +67,6 @@ Download the application and associate it with deis:
 $ git clone https://github.com/deis/example-go.git
 $ cd example-go
 $ deis create
-```
-
-We need to change the NodePort of the builder, as shown in the describe command:
-```
-kubectl --namespace=deis describe svc deis-router
-git remote remove deis
-git remote add waziup ssh://git@deis-builder.waziup.io:30235/vanity-magician.git
 ```
 
 Push the application:
