@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: platform-proxy
+  name: controller-proxy
   namespace: waziup
 spec:
   replicas: 1 
   selector:
-    app: platform-proxy
+    app: controller-proxy
   template:
     metadata:
-      name: platform-proxy
+      name: controller-proxy
       labels:
-        app: platform-proxy
+        app: controller-proxy
     spec:
       containers:
-      - name: platform-proxy
+      - name: controller-proxy
         image: waziup/controller-proxy
         ports:
         - containerPort: 80
@@ -24,8 +24,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    name: platform-proxy
-  name: platform-proxy
+    name: controller-proxy
+  name: controller-proxy
   namespace: waziup
 spec:
   type: NodePort
@@ -33,13 +33,13 @@ spec:
     - port: 80
       nodePort: 31082
   selector:
-    app: platform-proxy
+    app: controller-proxy
 
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: platform-proxy
+  name: controller-proxy
   namespace: waziup
 spec:
   rules:
@@ -48,6 +48,6 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: platform-proxy
+          serviceName: controller-proxy
           servicePort: 80
 
