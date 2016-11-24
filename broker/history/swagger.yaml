@@ -1,0 +1,112 @@
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "WAZIUP API Testing"
+host: "www.waziup.io:30333"
+basePath: "/api/v1"
+tags:
+- name: "apps"
+  description: "Applications API"
+- name: "data"
+  description: "data management API"
+- name: "gateways"
+  description: "gateway management API"
+paths:
+  /data/db/history:
+    get:
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_history_get"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "get historical data"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Observation"
+      x-tags:
+      - tag: "data"
+
+  /data/db/history/{id}:
+    get:
+      tags:
+      - "data"
+      operationId: "controllers.default_controller.data_history_id_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Get history data of a given entity"
+          schema:
+            $ref: "#/definitions/Observation"
+        404:
+          description: "`id` not found"
+      x-tags:
+      - tag: "data"
+
+definitions:
+
+  Observation:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "TemperatureSensor1"
+      type:
+        type: "string"
+        example: "SensingDevice"
+      measure:
+        $ref: "#/definitions/Measure"
+      location:
+        $ref: "#/definitions/Location"
+      platform:
+        type: "string"
+        example: "UGB Field"
+  Measure:
+    type: "object"
+    properties:
+      value:
+        type: "number"
+        format: "float"
+        example: 27
+      metadata:
+        $ref: "#/definitions/MeasureMetadata"
+  MeasureMetadata:
+    type: "object"
+    properties:
+      dimension:
+        type: "string"
+        example: "temperature"
+      unit:
+        type: "string"
+        example: "Celcius"
+      timestamp:
+        type: "string"
+        format: "dateTime"
+        example: "2016-06-08T18:20:27.873Z"
+  Location:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        example: "Point"
+        enum:
+        - "MultiPolygon"
+        - "Point"
+      coordinates:
+        type: "array"
+        items:
+          type: "array"
+          items:
+            type: "number"
+    externalDocs:
+      url: "http://geojson.org/geojson-spec.html#geometry-objects"
+    description: "Geometry as in GeoJSON."
