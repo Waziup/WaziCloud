@@ -8,8 +8,8 @@ Install
 
 Copy these files below in the same folder : 
 --------
-- server1.js (all history data)
-- server2.js (history for an entity)
+- history.js (all history data)
+- id_history.js (history for an entity)
 - package.json
 - Dockerfile
 
