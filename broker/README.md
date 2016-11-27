@@ -75,3 +75,8 @@ To retrieve the last data point inserted:
 ```
 $ curl http://broker.waziup.io/v2/entities/Sensor1/attrs/temperature/value --header 'Fiware-ServicePath:/TEST' --header 'Fiware-Service:waziup' -X GET
 ```
+
+To retrieve the list of sensors:
+```
+curl http://broker.waziup.io/v2/entities --header 'Fiware-ServicePath:/TEST' --header 'Fiware-Service:waziup' -X GET
+```
