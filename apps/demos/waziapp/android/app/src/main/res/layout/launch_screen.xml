@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splashRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_wallpaper"
+    >
+
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:layout_marginRight="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_50"
+        android:background="@drawable/splash_logo_container_background"
+        android:padding="@dimen/dimen_20">
+
+        <ImageView
+            android:id="@+id/splashLogoIcon"
+            android:layout_width="220dp"
+            android:layout_height="@dimen/dimen_50"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/contentDescription"
+            android:src="@drawable/splash_logo_icon" />
+
+        <TextView
+            android:id="@+id/splashCopyrightLabel"
+            style="@style/label.small.blue"
+            android:layout_below="@+id/splashLogoIcon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dimen_30"
+            android:text="@string/splash_copyright" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:background="@drawable/splash_welcome_container_background"
+        android:padding="@dimen/dimen_20">
+
+        <TextView
+            android:id="@+id/splashWelcomeLabel"
+            style="@style/label.blue"
+            android:gravity="center"
+            android:text="@string/splash_welcome_text" />
+    </RelativeLayout>
+</RelativeLayout>
