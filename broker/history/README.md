@@ -19,6 +19,8 @@ Type these two commands for building the image :
 ```
 $ docker build -t waziup/brokerhistory .
 $ docker push waziup/brokerhistory
+$ docker run -t waziup/brokerhistory
+
 ```
 Querying historical data ...
 -------
