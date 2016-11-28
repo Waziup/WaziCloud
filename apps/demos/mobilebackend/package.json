@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "main": "app.js",
   "dependencies": {
+    "axios": "^0.15.2",
     "bluebird": "^3.4.6",
     "hoek": "^4.1.0",
     "lodash": "^4.16.4",
@@ -17,8 +18,8 @@
     "sails-service-hash": "^3.2.1"
   },
   "devDependencies": {
-    "esdoc": "0.4.3",
     "chai": "3.4.1",
+    "esdoc": "0.4.3",
     "istanbul": "0.4.2",
     "mocha": "2.3.4",
     "sails-memory": "0.10.5",
