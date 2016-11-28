@@ -13,7 +13,7 @@ $ docker-compose up
 Create an entity:
 
 ```
-$ curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath:/TEST' --header 'Fiware-Service: waziup' -X POST -d @- <<EOF
+$ curl http://localhost:1026/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath:/TEST' --header 'Fiware-Service: waziup' -X POST -d @- <<EOF
 {
   "id": "Sensor1",
   "type": "SensingDevice",
