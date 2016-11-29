@@ -6,14 +6,14 @@
 			"script":"python CloudMongoDB.py",
 			"type":"database",
 			"max_months_to_store":2,
-			"enabled":false
+			"enabled":true
 		},
 		{	
 			"name":"WAZIUP Orion cloud",
 			"script":"python CloudWAZIUP.py",
 			"type":"iotcloud",			
 			"write_key":"",
-			"enabled":false
+			"enabled":true
 		},			
 		{	
 			"name":"ThingSpeak cloud",

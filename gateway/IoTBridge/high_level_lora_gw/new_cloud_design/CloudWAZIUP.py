@@ -36,18 +36,21 @@ waziup_server="http://broker.waziup.io/v2"
 project_name="waziup"
 
 #your organization: CHANGE HERE
-#one of the following - "UPPA", "EGM", "IT21", "CREATENET", "CTIC", "UI", "ISPACE", "UGB", "WOELAB", "FARMERLINE", "C4A", "PUBD"
+#choose one of the following: "UPPA", "EGM", "IT21", "CREATENET", "CTIC", "UI", "ISPACE", "UGB", "WOELAB", "FARMERLINE", "C4A", "PUBD"
 organization_name="UPPA"
 
-#service path: CHANGE HERE at your convenience
-service_path="/UPPA/LIUPPA/T2I/CPHAM"
+#service tree: CHANGE HERE at your convenience
+service_tree='/LIUPPA/T2I/CPHAM'
 
 #sensor name: CHANGE HERE but maybe better to leave it as Sensor
 sensor_name="Sensor"
 
+#service path: DO NOT CHANGE HERE
+service_path='/'+organization_name+service_tree
+
 #the entity name will then be sensor_name+scr_addr, e.g. "Sensor1"
-#the Fiware-ServicePath will be service_path, e.g. "/UPPA/LIUPPA/T2I/CPHAM"
-#the Fiware-Service will be project_name+organization_name, e.g. "waziupUPPA"
+#the Fiware-ServicePath will be service_path which is based on both organization_name and service_tree, e.g. "/UPPA/LIUPPA/T2I/CPHAM"
+#the Fiware-Service will be project_name, e.g. "waziup"
 
 ####################################################
 
@@ -104,7 +107,7 @@ def create_new_entity(data, src, nomenclatures):
 	
 	print "WAZIUP: create new entity"
 	
-	cmd = 'curl '+waziup_server+'/entities -s -S --header Content-Type:application/json --header Fiware-ServicePath:'+service_path+' --header Fiware-Service:'+project_name+organization_name+' -X POST -d {\"id\":\"'+src+'\",\"type\":\"SensingDevice\",'
+	cmd = 'curl '+waziup_server+'/entities -s -S --header Content-Type:application/json --header Fiware-ServicePath:'+service_path+' --header Fiware-Service:'+project_name+' -X POST -d {\"id\":\"'+src+'\",\"type\":\"SensingDevice\",'
 	
 	i=0
 	while i < len(data) :
@@ -142,7 +145,7 @@ def send_data(data, src, nomenclatures):
 	
 	i=0
 	while i < len(data)  and not entity_need_to_be_created:
-		cmd = 'curl '+waziup_server+'/entities/'+src+'/attrs/'+nomenclatures[i]+'/value -s -S --header Content-Type:text/plain --header Fiware-ServicePath:'+service_path+' --header Fiware-Service:'+project_name+organization_name+' -X PUT -d '+data[i]
+		cmd = 'curl '+waziup_server+'/entities/'+src+'/attrs/'+nomenclatures[i]+'/value -s -S --header Content-Type:text/plain --header Fiware-ServicePath:'+service_path+' --header Fiware-Service:'+project_name+' -X PUT -d '+data[i]
 		i += 1
 
 		print "CloudWAZIUP: will issue curl cmd"
