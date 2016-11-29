@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ReplicationController
 metadata:
   name: kibana
-  namespace: waziup-test
+  namespace: waziup
   labels:
     k8s-app: kibana
     version: v1
@@ -30,7 +30,7 @@ spec:
             cpu: 100m
         env:
           - name: "ELASTICSEARCH_URL"
-            value: "http://217.77.95.64:30920"
+            value: "http://217.77.95.123:30920"
         #            value: "http://elasticsearch.waziup.io"
         ports:
         - containerPort: 5601

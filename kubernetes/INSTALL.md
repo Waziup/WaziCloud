@@ -22,7 +22,17 @@ Edit /etc/dhcp/dhcpclient.conf and add:
 ```
 prepend domain-name-servers 8.8.8.8, 8.8.8.4;
 ```
-Do the same on kube-worker1. You should be able to ping google.com and each-other VMs.
+Do the same on kube-worker1. You should be able to ping google.com and each-other VMs by name.
+
+Storage
+-------
+
+Create two volumes in OpenStack, and attach them to each VMs.
+Mount them in the VMs:
+```
+sudo mkdir /mnt/vol
+sudo mount /dev/vdb /mnt/vol
+```
 
 
 Kubenetes installation
@@ -42,10 +52,10 @@ $ sudo cp /etc/kubernetes/kubelet.conf /home/ubuntu/
 $ sudo chown ubuntu.ubuntu /home/ubuntu/kubelet.conf
 Exit master: Ctrl-D
 $ scp ubuntu@<masterIP>:~/kubelet.conf .
-mv kubelet.conf ~/.kube/config
+$ mv kubelet.conf ~/.kube/config
 ```
 
-You need also to install an [Ingress Controller](ingress-controller/README.md).
+Next, install the [proxies](proxies/README.md).
 
 For installing DEIS, follow the instructions [here](../deis/README.md).
 

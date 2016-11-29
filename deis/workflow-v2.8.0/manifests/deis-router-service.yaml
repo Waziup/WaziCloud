@@ -15,19 +15,18 @@ spec:
     - name: http
       port: 80
       targetPort: 8080
-      nodePort: 30080
+      nodePort: 32070
     - name: https
       port: 443
       targetPort: 6443
-      nodePort: 30443
+      nodePort: 31892
     - name: builder
       port: 2222
       targetPort: 2222
-      nodePort: 30222
+      nodePort: 32214
     - name: healthz
       port: 9090
       targetPort: 9090
-      nodePort: 30090
 
 ---
 apiVersion: extensions/v1beta1

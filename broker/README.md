@@ -30,7 +30,7 @@ $ curl broker.waziup.io/version
 
 You can create a sensor measuring temperature and pressure (with initial values) like that:
 ```
-$ curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath: /waziupservicepath' --header 'Fiware-Service: waziupservice' -X POST -d @- <<EOF
+$ curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath:/TEST' --header 'Fiware-Service: waziup' -X POST -d @- <<EOF
 {
   "id": "Sensor1",
   "type": "SensingDevice",
@@ -46,12 +46,37 @@ $ curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: applica
 EOF
 ```
 
+For pilots, Fiware-ServicePath must be one of the following:
+- "UPPA"
+- "EGM"
+- "IT21"
+- "CREATENET"
+- "CTIC"
+- "UI"
+- "ISPACE"
+- "UGB"
+- "WOELAB" 
+- "FARMERLINE"
+- "C4A"
+- "PUBD" 
+
+For example:
+```
+--header 'Fiware-ServicePath:/UPPA'
+```
+
+
 Further updates of the values are like that:
 ```
-$ curl http://broker.waziup.io/v2/entities/Sensor1/attrs/temperature/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath: /waziupservicepath' --header 'Fiware-Service: waziupservice' -X PUT -d 27
+$ curl http://broker.waziup.io/v2/entities/Sensor1/attrs/temperature/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath:/TEST' --header 'Fiware-Service:waziup' -X PUT -d 27
 ```
 
 To retrieve the last data point inserted:
 ```
-$ curl http://broker.waziup.io/v2/entities/Sensor1/attrs/temperature/value --header 'Fiware-ServicePath: /waziupservicepath' --header 'Fiware-Service: waziupservice' -X GET
+$ curl http://broker.waziup.io/v2/entities/Sensor1/attrs/temperature/value --header 'Fiware-ServicePath:/TEST' --header 'Fiware-Service:waziup' -X GET
+```
+
+To retrieve the list of sensors:
+```
+curl http://broker.waziup.io/v2/entities --header 'Fiware-ServicePath:/TEST' --header 'Fiware-Service:waziup' -X GET
 ```

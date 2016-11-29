@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: freeboard
-  namespace: waziup-test
+  namespace: waziup
   labels:
     name: freeboard
 spec:
@@ -17,7 +17,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: freeboard
-  namespace: waziup-test
+  namespace: waziup
 spec:
   type: NodePort
   ports:
@@ -31,7 +31,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: freeboard
-  namespace: waziup-test
+  namespace: waziup
 spec:
   rules:
   - host: freeboard.waziup.io

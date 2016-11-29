@@ -1,0 +1,118 @@
+<resources>
+    <!-- ============================== GENERAL ============================== -->
+    <!-- base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <!-- toolbar -->
+    <style name="toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <!-- toolbar title -->
+    <style name="toolbar_title" parent="label.white">
+        <item name="android:textSize">@dimen/text_toolbar</item>
+    </style>
+
+    <!-- ============================== WIDGETS ============================== -->
+    <!-- label -->
+    <style name="label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/sample_label</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <!-- blue label -->
+    <style name="label.blue">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+    <!-- white label -->
+    <style name="label.white">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- small label -->
+    <style name="label.small">
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+    <!-- small blue label -->
+    <style name="label.small.blue">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+    <!-- small white label -->
+    <style name="label.small.white">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- large label -->
+    <style name="label.large">
+        <item name="android:textSize">@dimen/text_large</item>
+    </style>
+    <!-- large blue label -->
+    <style name="label.large.blue">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+    <!-- large white label -->
+    <style name="label.large.white">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- huge label -->
+    <style name="label.huge">
+        <item name="android:textSize">@dimen/text_huge</item>
+    </style>
+    <!-- huge blue label -->
+    <style name="label.huge.blue">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+    <!-- huge white label -->
+    <style name="label.huge.white">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- separator -->
+    <style name="separator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dimen_05</item>
+    </style>
+    <!-- white separator -->
+    <style name="separator.white">
+        <item name="android:background">@color/white</item>
+    </style>
+    <!-- blue separator -->
+    <style name="separator.blue">
+        <item name="android:background">@color/blue</item>
+    </style>
+
+    <!-- input -->
+    <style name="input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">@dimen/dimen_16</item>
+        <item name="android:layout_marginBottom">@dimen/dimen_10</item>
+        <item name="android:hint">@string/sample_hint</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHighlight">@color/orange</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:maxLength">50</item>
+    </style>
+
+    <!-- button -->
+    <style name="button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/sample_button</item>
+    </style>
+    <!-- dark button -->
+    <style name="button.dark">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+</resources>

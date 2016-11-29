@@ -24,23 +24,48 @@ The instructions are [here](https://deis.com/docs/workflow/installing-workflow).
 After fetching the deis-workflow, you need to edit the configuration for the Swift object storage:
 
 ```
+$ helmc repo add deis https://github.com/deis/charts
+$ cd platform/deis
 $ helmc fetch deis/workflow-v2.8.0
-$ edit deis/workflow-v2.8.0/tpl/generate_params.toml
-$ cp deis/workflow-v2.8.0/tpl/generate_params.toml ~/.helmc/workspace/charts/workflow-v2.8.0/tpl/
+```
+
+Edit the file workflow-v2.8.0/tpl/generate_params.toml to add you OpenStack password.
+The complete instructions for storage are [here](https://deis.com/docs/workflow/installing-workflow/configuring-object-storage/).
+
+```
+$ cp workflow-v2.8.0/tpl/generate_params.toml ~/.helmc/workspace/charts/workflow-v2.8.0/tpl/
+```
+
+Waziup platform does not currently support external LoadBalancer (see corresponding issue on github), so you need to copy the deis-router-service from Waziup:
+```
+$ cp workflow-v2.8.0/manifests/deis-router-service.yaml ~/.helmc/workspace/charts/workflow-v2.8.0/manifests
+```
+
+Generate and install:
+```
 $ helmc generate -x manifests workflow-v2.8.0
 $ helmc install workflow-v2.8.0
 ```
 
-Edit the generate_params.toml to add you OpenStack password.
-The complete instructions for storage are [here](https://deis.com/docs/workflow/installing-workflow/configuring-object-storage/).
+Check your deployement with:
+
+```
+kubectl get pods -n deis -w
+```
 
 Pushing an application
 ----------------------
 
+Install Deis client:
+```
+$ curl -sSL http://deis.io/deis-cli/install-v2.sh | bash
+$ sudo ln -fs $PWD/deis /usr/local/bin/deis
+```
+
 Register with the platform:
 ```
-deis register http://deis.waziup.io:30378
-deis keys:add ~/.ssh/id_deis.pub
+deis register http://deis.waziup.io
+deis keys:add ~/.ssh/<your public key>
 ```
 
 Download the application and associate it with deis:
@@ -48,13 +73,6 @@ Download the application and associate it with deis:
 $ git clone https://github.com/deis/example-go.git
 $ cd example-go
 $ deis create
-```
-
-We need to change the NodePort of the builder, as shown in the describe command:
-```
-kubectl --namespace=deis describe svc deis-router
-git remote remove deis
-git remote add waziup ssh://git@deis-builder.waziup.io:30235/vanity-magician.git
 ```
 
 Push the application:
@@ -65,5 +83,10 @@ git push waziup master
 Troubleshooting
 ---------------
 
-
-
+Removing DEIS:
+```
+kubectl delete ns deis
+swift --os-storage-url http://217.77.95.1:8080/v1/AUTH_f295bf3ecf554559a493e8df347e48de delete 'waziup_database'
+swift --os-storage-url http://217.77.95.1:8080/v1/AUTH_f295bf3ecf554559a493e8df347e48de delete 'waziup_registry'
+swift --os-storage-url http://217.77.95.1:8080/v1/AUTH_f295bf3ecf554559a493e8df347e48de delete 'waziup_builder'
+```

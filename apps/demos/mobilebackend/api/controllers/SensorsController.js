@@ -1,7 +1,7 @@
 "use strict";
 const axios = require('axios');
 const config = {
-  headers:{'Fiware-ServicePath': '/waziupservicepath','Fiware-Service': 'waziupservice'}
+  headers:{'Fiware-ServicePath': '/TEST','Fiware-Service': 'waziup'}
 }
 /**
  * SensorsController
@@ -31,7 +31,7 @@ module.exports = {
             res.serverError(error.response.data);
           });
       }else if(req.method==='GET'){
-        axios.get('http://broker.waziup.io/v2/entities/'+req.body.id+'/attrs/'+req.body.stype+'/value',config)
+        axios.get('http://broker.waziup.io/v2/entities/'+req.param.id+'/attrs/'+req.param.stype+'/value',config)
           .then(function(response) {
             res.ok(response.data);
           }).catch(function(error){
@@ -59,5 +59,15 @@ module.exports = {
                 res.serverError(error.response.data);
               });
 
+    },
+    getAll(req,res){
+      axios.get('http://broker.waziup.io/v2/entities',config)
+                .then(function(response) {
+                  console.log(response);
+                  res.ok(response.data);
+                })
+                .catch(function(error){
+                  res.serverError(error.response.data);
+                });
     }
   };
