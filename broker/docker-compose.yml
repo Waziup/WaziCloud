@@ -1,26 +1,25 @@
-mongo:
-  image: waziup/mongodb:latest
-  command: --nojournal
-  ports:
-    - "27017:27017"
+version: '2'
 
-orion:
-  image: waziup/orion:latest
-  ports:
-    - "1026:1026"
-  command: -dbhost mongo -logLevel INFO
-  links:
-    - mongo
-
-cygnus:
-  image: waziup/cygnus:latest
-  hostname: cygnus
-  container_name: cygnus
-  links:
-    - orion
-    - mongo
-  expose:
-    - "5050"
-  ports:
-    - "8081:8081"
-    - "5050:5050"
+services:
+  mongo:
+    image: waziup/mongodb:latest
+    command: --nojournal
+    ports:
+      - "27017:27017"
+  
+  orion:
+    image: waziup/orion:latest
+    ports:
+      - "1026:1026"
+    command: -dbhost mongo -logLevel INFO
+    links:
+      - mongo
+  
+  cygnus:
+    image: waziup/cygnus:latest
+    links:
+      - orion
+      - mongo
+    ports:
+      - "8081:8081"
+      - "5050:5050"

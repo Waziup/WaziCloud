@@ -13,7 +13,7 @@ $ docker-compose up
 Create an entity:
 
 ```
-$ curl http://localhost:1026/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath:/TEST' --header 'Fiware-Service: waziup' -X POST -d @- <<EOF
+$ curl http://localhost:1026/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X POST -d @- <<EOF
 {
   "id": "Sensor1",
   "type": "SensingDevice",
@@ -30,7 +30,7 @@ EOF
 ```
 Register the updates with Cygnus:
 ```
-(curl localhost:1026/v1/subscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath:/TEST' -d @- | python -mjson.tool) <<EOF
+(curl localhost:1026/v1/subscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' -d @- | python -mjson.tool) <<EOF
 {
     "entities": [
         {
@@ -42,7 +42,7 @@ Register the updates with Cygnus:
     "attributes": [
         "temperature"
     ],
-    "reference": "http://localhost:5050/notify",
+    "reference": "http://cygnus:5050/notify",
     "duration": "P1M",
     "notifyConditions": [
         {
@@ -59,7 +59,7 @@ EOF
 
 Update this entity:
 ```
-$ curl http://localhost:1026/v2/entities/Sensor1/attrs/temperature/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath:/TEST' --header 'Fiware-Service:waziup' -X PUT -d 27
+$ curl http://localhost:1026/v2/entities/Sensor1/attrs/temperature/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X PUT -d 27
 ```
 
 Connect to the DB:
