@@ -2,7 +2,7 @@ version: '2'
 
 services:
   mongo:
-    image: waziup/mongodb:latest
+    image: mongo:latest
     command: --nojournal
     ports:
       - "27017:27017"
