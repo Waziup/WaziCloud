@@ -28,6 +28,8 @@ $ curl http://localhost:1026/v2/entities -s -S --header 'Content-Type: applicati
 }
 EOF
 ```
+
+We need to tell Orion to inform Cygnus each time something changes with this entity.
 Register the updates with Cygnus:
 ```
 (curl localhost:1026/v1/subscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' -d @- | python -mjson.tool) <<EOF
@@ -57,15 +59,21 @@ Register the updates with Cygnus:
 EOF
 ```
 
-Update this entity:
+Update this entity, to have a new data point in the database:
 ```
 $ curl http://localhost:1026/v2/entities/Sensor1/attrs/temperature/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X PUT -d 27
 ```
 
-Connect to the DB:
+Start the broker history API:
 ```
-$ mongo localhost
-> show dbs
+cd history
+docker run -t --net=host waziup/brokerhistory
 ```
+
+Perform a test query:
+```
+curl -S -s 'http://127.0.0.1:8080/?colName=sth_/TEST_Sensor1_SensingDevice'
+```
+
 
 
