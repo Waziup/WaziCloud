@@ -9,9 +9,9 @@ Base end point:
 http://api.waziup.io/v1/data/history
 ```
 
-Get history of the value of a sensor:
+Get history of the value of a sensor between two dates:
 ```
-http://api.waziup.io/v1/data/history/entities/Sensor1/attrs/temperature/value
+http://api.waziup.io/v1/data/history/entities/Sensor1/attrs/temperature/value&startTime="01/01/2017-16:30"&endTime="02/01/2017-16:30"
 ```
 Example result:
 ```
