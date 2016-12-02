@@ -55,13 +55,16 @@ service_path='/'+organization_name+service_tree
 ####################################################
 
 #To create a new entitiy
-# curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' -X POST -d '{ "id": "UPPASensor1", "type": "SensingDevice", "temperature": { "value": 23, "type": "Number" }, "pressure": { "value": 720, "type": "Number" } }'
+# curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath:waziup' --header 'Fiware-Service:/UPPA' -X POST -d '{ "id": "Sensor1", "type": "SensingDevice", "TC": { "value": 23, "type": "Number" }, "PR": { "value": 720, "type": "Number" } }'
 
 #Further updates of the values are like that:
-# curl http://broker.waziup.io/v2/entities/UPPASensor1/attrs/temperature/value -s -S --header 'Content-Type: text/plain' -X PUT -d 27
+# curl http://broker.waziup.io/v2/entities/Sensor1/attrs/TC/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath:waziup' --header 'Fiware-Service:/UPPA' -X PUT -d 27
+# curl http://broker.waziup.io/v2/entities/Sensor1/attrs/PR/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath:waziup' --header 'Fiware-Service:/UPPA' -X PUT -d 722
 
 #To retrieve the last data point inserted:
-# curl http://broker.waziup.io/v2/entities/UPPASensor1/attrs/temperature/value -X GET
+# curl http://broker.waziup.io/v2/entities/Sensor1/attrs/TC/value --header 'Fiware-ServicePath:waziup' --header 'Fiware-Service:/UPPA' -X GET
+
+####################################################
 
 #error messages from server
 WAZIUP_entity_not_created="The requested entity has not been found"
@@ -107,13 +110,13 @@ def create_new_entity(data, src, nomenclatures):
 	
 	print "WAZIUP: create new entity"
 	
-	cmd = 'curl '+waziup_server+'/entities -s -S --header Content-Type:application/json --header Fiware-ServicePath:'+service_path+' --header Fiware-Service:'+project_name+' -X POST -d {\"id\":\"'+src+'\",\"type\":\"SensingDevice\",'
+	cmd = 'curl '+waziup_server+'/entities -s -S --header Content-Type:application/json --header Fiware-Service:'+data[0]+' --header Fiware-ServicePath:'+data[1]+' -X POST -d {\"id\":\"'+src+'\",\"type\":\"SensingDevice\",'
 	
 	i=0
-	while i < len(data) :
-		cmd = cmd+"\""+nomenclatures[i]+"\":{\"value\":"+data[i]+",\"type\":\"Number\"}"
+	while i < len(data)-2 :
+		cmd = cmd+"\""+nomenclatures[i]+"\":{\"value\":"+data[i+2]+",\"type\":\"Number\"}"
 		i += 1
-		if i < len(data):
+		if i < len(data)-2:
 			cmd = cmd+","
 	cmd = cmd+"}" 	
 	
@@ -144,8 +147,15 @@ def send_data(data, src, nomenclatures):
 	entity_need_to_be_created=False
 	
 	i=0
-	while i < len(data)  and not entity_need_to_be_created:
-		cmd = 'curl '+waziup_server+'/entities/'+src+'/attrs/'+nomenclatures[i]+'/value -s -S --header Content-Type:text/plain --header Fiware-ServicePath:'+service_path+' --header Fiware-Service:'+project_name+' -X PUT -d '+data[i]
+	
+	if data[0]=='':
+		data[0]=project_name
+
+	if data[1]=='':
+		data[1]=service_path
+			
+	while i < len(data)-2  and not entity_need_to_be_created:
+		cmd = 'curl '+waziup_server+'/entities/'+src+'/attrs/'+nomenclatures[i]+'/value -s -S --header Content-Type:text/plain --header Fiware-Service:'+data[0]+' --header Fiware-ServicePath:'+data[1]+' -X PUT -d '+data[i+2]
 		i += 1
 
 		print "CloudWAZIUP: will issue curl cmd"
@@ -153,7 +163,7 @@ def send_data(data, src, nomenclatures):
 		args = cmd.split()
 		print args
 		
-		#retry enabled
+		# retry enabled
 		if (retry) :
 			out = 'something'
 			iteration = 0
@@ -162,7 +172,7 @@ def send_data(data, src, nomenclatures):
 				try:
 					out = subprocess.check_output(args, shell=False)
 	
-					#if server return 0, we didn't wait 15sec, wait then
+					# if server return 0, we didn't wait 15sec, wait then
 					if out != '':
 						print 'WAZIUP: returned msg from server is'
 						print out
@@ -176,7 +186,7 @@ def send_data(data, src, nomenclatures):
 					print "WAZUP: curl command failed (maybe a disconnection)"
 					connection_failure = True
 					
-		#retry disabled
+		# retry disabled
 		else :
 			try:
 				out = subprocess.check_output(args, shell=False)
@@ -185,7 +195,7 @@ def send_data(data, src, nomenclatures):
 					print 'WAZIUP: returned msg from server is'
 					print out
 					
-					#the entity has not been created before
+					# the entity has not been created before
 					if WAZIUP_entity_not_created in out:
 						entity_need_to_be_created=True
 						create_new_entity(data, src, nomenclatures)						
@@ -202,19 +212,25 @@ def WAZIUP_uploadData(nomenclatures, data, src):
 	
 	# if we got a response from the server, send the data to it
 	if(connected):
-		#len(nomenclatures) == len(data)
 		print("WAZIUP: uploading")
 		send_data(data, sensor_name+src, nomenclatures)
 	else:
 		print("WAZIUP: not uploading")
 		
-	#update grovestreams_connection_failure value
+	# update grovestreams_connection_failure value
 	global connection_failure
 	connection_failure = not connected
 
 # main
 # -------------------
-
+#
+# ldata can be formatted to indicate a specifc Fiware-Service and Fiware-ServicePath. Options are:
+# 	TC/22.4/HU/85 -> use default Fiware-Service and Fiware-ServicePath
+#	/UPPA/test#TC/22.4/HU/85 -> use default Fiware-Service and Fiware-ServicePath=/UPPA/test
+#	mywaziup#/UPPA/test#TC/22.4/HU/85 -> Fiware-Service=mywaziup and Fiware-ServicePath=/UPPA/test
+#
+#	Fiware-Service and Fiware-ServicePath must BOTH have more than 2 characters
+#
 def main(ldata, pdata, rdata, tdata, gwid):
 
 	# this is common code to process packet information provided by the main gateway script (i.e. post_processing_gw.py)
@@ -231,72 +247,74 @@ def main(ldata, pdata, rdata, tdata, gwid):
 	# this part depends on the syntax used by the end-device
 	# we use: TC/22.4/HU/85...
 	#
-	# but we accept also a_str#b_str#TC/22.4/HU/85... for compatibility with ThingSpeak
+	# but we accept also a_str#b_str#TC/22.4/HU/85... to indicate a Fiware-Service and Fiware-ServicePath
 	 		
 	# get number of '#' separator
-	nsharp = ldata.count('#')			
-	#no separator
+	nsharp=ldata.count('#')
+	nslash=0
+				
+	# no separator
 	if nsharp==0:
-		#will use default channel and field
+		# will use default Fiware-Service and Fiware-ServicePath
 		data=['','']
-		
-		#contains ['', '', "s1", s1value, "s2", s2value, ...]
+
+		# get number of '/' separator on ldata
+		nslash = ldata.count('/')
+				
+		# contains ['', '', "s1", s1value, "s2", s2value, ...]
 		data_array = data + re.split("/", ldata)		
-	elif nsharp==1:
-		#only 1 separator
-		
-		data_array = re.split("#|/", ldata)
-		
-		#if the first item has length > 1 then we assume that it is a channel write key
-		if len(data_array[0])>1:
-			#insert '' to indicate default field
-			data_array.insert(1,'');		
-		else:
-			#insert '' to indicate default channel
-			data_array.insert(0,'');		
 	else:
-		#contains [channel, field, "s1", s1value, "s2", s2value, ...]
-		data_array = re.split("#|/", ldata)	
+		data_array = re.split("#", ldata)
 		
-	#just in case we have an ending CR or 0
+		# only 1 separator
+		if nsharp==1:
+			# insert '' to indicate default Fiware-Service
+			# as we assume that the only parameter indicate the Fiware-ServicePath
+			data_array.insert(0,'');
+			# if the length is greater than 2
+			if len(data_array[1])<3:
+				data_array[1]=''	
+
+		# we have 2 separators
+		if nsharp==2:
+			# if the length of BOTH fields is greater than 2 then we take them into account
+			if len(data_array[0])<3 or len(data_array[1])<3:
+				data_array[0]=''
+				data_array[1]=''
+									
+		# get number of '/' separator on data_array[2]
+		# because ldata may contain '/' as Fiware-ServicePath name
+		nslash = data_array[2].count('/')
+	
+		# then reconstruct data_array
+		data_array=[data_array[0],data_array[1]]+re.split("/", data_array[2])
+				
+		# at the end data_array contains
+		# ["Fiware-Service", "Fiware-ServicePath", "s1", s1value, "s2", s2value, ...]
+		
+	# just in case we have an ending CR or 0
 	data_array[len(data_array)-1] = data_array[len(data_array)-1].replace('\n', '')
 	data_array[len(data_array)-1] = data_array[len(data_array)-1].replace('\0', '')	
-	
-	#test if there are characters at the end of each value, then delete these characters
-	i = 3
-	while i < len(data_array) :
-		while not data_array[i][len(data_array[i])-1].isdigit() :
-			data_array[i] = data_array[i][:-1]
-		i += 2
-		
-	# get number of '/' separator
-	nslash = ldata.count('/')
-	
-	index_first_data = 2
-	
-	if nslash==0:
-		# old syntax without nomenclature key
-		index_first_data=2
-	else:
-		# new syntax with nomenclature key				
-		index_first_data=3
 																		
 	nomenclatures = []
+	# data to send
 	data = []
-	
+	data.append(data_array[0]) #Fiware-service (if '' default)
+	data.append(data_array[1]) #Fiware-servicePath (if '' default)
+		
 	if nslash==0:
 		# old syntax without nomemclature key, so insert only one key
 		nomenclatures.append("temp")
-		data.append(data_array[index_first_data])
+		data.append(data_array[2])
 	else:
-		#completing nomenclatures and data
+		# completing nomenclatures and data
 		i=2
 		while i < len(data_array)-1 :
 			nomenclatures.append(data_array[i])
 			data.append(data_array[i+1])
 			i += 2
 	
-	#upload data to WAZIUP
+	# upload data to WAZIUP
 	WAZIUP_uploadData(nomenclatures, data, str(src))		
 
 if __name__ == "__main__":
