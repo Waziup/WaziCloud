@@ -29,8 +29,8 @@ $ curl http://localhost:1026/v2/entities -s -S --header 'Content-Type: applicati
 EOF
 ```
 
-We need to tell Orion to inform Cygnus each time something changes with this entity.
-Register the updates with Cygnus:
+Orion needs to inform Cygnus each time something changes with this entity.
+So we create a subscription on the updates in Orion:
 ```
 (curl localhost:1026/v1/subscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' -d @- | python -mjson.tool) <<EOF
 {
