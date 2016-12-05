@@ -248,7 +248,8 @@ def main(ldata, pdata, rdata, tdata, gwid):
 	# we use: TC/22.4/HU/85...
 	#
 	# but we accept also a_str#b_str#TC/22.4/HU/85... to indicate a Fiware-Service and Fiware-ServicePath
-	 		
+	# or simply 22.4 in which case, the nomemclature will be DEF
+		 		
 	# get number of '#' separator
 	nsharp=ldata.count('#')
 	nslash=0
@@ -303,8 +304,9 @@ def main(ldata, pdata, rdata, tdata, gwid):
 	data.append(data_array[1]) #Fiware-servicePath (if '' default)
 		
 	if nslash==0:
-		# old syntax without nomemclature key, so insert only one key
-		nomenclatures.append("temp")
+		# old syntax without nomenclature key, so insert only one key
+		# we use DEF
+		nomenclatures.append("DEF")
 		data.append(data_array[2])
 	else:
 		# completing nomenclatures and data
