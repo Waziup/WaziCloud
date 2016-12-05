@@ -94,7 +94,7 @@
 			"settings": {
 				"cbhost": "broker.waziup.io",
 				"use_thingproxy": true,
-				"service": "waziupUPPA",
+				"service": "waziup",
 				"servicepath": "/UPPA/LIUPPA/T2I/CPHAM",
 				"type": "SensingDevice",
 				"id": "Sensor3",
@@ -107,7 +107,7 @@
 			"settings": {
 				"cbhost": "broker.waziup.io",
 				"use_thingproxy": true,
-				"service": "waziupUPPA",
+				"service": "waziup",
 				"servicepath": "/UPPA/LIUPPA/T2I/CPHAM",
 				"type": "SensingDevice",
 				"id": "Sensor6",
