@@ -28,7 +28,7 @@
 					"settings": {
 						"title": "Historical room temperature (6)",
 						"value": [
-							"datasources[\"UPPA_sensor6\"][\"TC\"]"
+							"datasources[\"UPPA_sensor6\"][\"DEF\"]"
 						]
 					}
 				}
@@ -59,7 +59,7 @@
 					"type": "gauge",
 					"settings": {
 						"title": "Actual room temperature (6)",
-						"value": "datasources[\"UPPA_sensor6\"][\"TC\"]",
+						"value": "datasources[\"UPPA_sensor6\"][\"DEF\"]",
 						"units": "°C",
 						"min_value": "10",
 						"max_value": "40"
