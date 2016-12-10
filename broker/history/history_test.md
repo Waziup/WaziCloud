@@ -3,14 +3,14 @@ Broker history test
 ===================
 
 
-Start Orion/Cygnus/Mongo:
+Start Orion/Cygnus/Mongo/Sth-Comet:
 
 ```
 $ cd platform/broker
 $ docker-compose up
 ```
 
-Create an entity:
+Create two entities:
 
 ```
 $ curl http://localhost:1026/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X POST -d @- <<EOF
@@ -29,8 +29,25 @@ $ curl http://localhost:1026/v2/entities -s -S --header 'Content-Type: applicati
 EOF
 ```
 
+```
+$ curl http://localhost:1026/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X POST -d @- <<EOF
+{
+  "id": "Sensor2",
+  "type": "SensingDevice",
+  "temperature": {
+    "value": 21,
+    "type": "Number"
+  },
+  "pressure": {
+    "value": 876,
+    "type": "Number"
+  }
+}
+EOF
+```
 Orion needs to inform Cygnus each time something changes with this entity.
 So we create a subscription on the updates in Orion:
+
 ```
 (curl localhost:1026/v1/subscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' -d @- | python -mjson.tool) <<EOF
 {
@@ -59,7 +76,7 @@ So we create a subscription on the updates in Orion:
 EOF
 ```
 
-Update this entity, to have a new data point in the database:
+Update the first entity, to have a new data point in the database:
 ```
 $ curl http://localhost:1026/v2/entities/Sensor1/attrs/temperature/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X PUT -d 27
 ```
@@ -70,27 +87,39 @@ cd history
 docker run -t --net=host waziup/brokerhistory
 ```
 
-Perform a test query:
+Subscribing the STH component instance to the entity attributes of interest by sending a request below to the Orion Context Broker instance  :
+Requesting without duration and throtting values ...
 ```
-curl -S -s 'http://127.0.0.1:8080/?colName=sth_/TEST_Sensor1_SensingDevice'
-
-[
-  {
-    "_id": "58402ede2ab79c00079ae256",
-    "recvTime": "2016-12-01T14:08:24.508Z",
-    "attrName": "temperature",
-    "attrType": "Number",
-    "attrValue": "23"
-  },
-  {
-    "_id": "58402f262ab79c00079ae257",
-    "recvTime": "2016-12-01T14:09:37.413Z",
-    "attrName": "temperature",
-    "attrType": "Number",
-    "attrValue": "27"
-  }
-]
+curl localhost:1026/v1/subscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service: ' --header 'Fiware-ServicePath: /' -d @- <<EOF
+{
+    "entities": [
+        {
+            "type": "Room",
+            "isPattern": "false",
+            "id": "Room1"
+        }
+    ],
+    "attributes": [
+        "humidity"
+],
+    "reference": "http://localhost:8666/notify",
+    "notifyConditions": [
+        {
+            "type": "ONCHANGE",
+            "condValues": [
+                "humidity"
+            ]
+        }
+    ]
+    
+}
+EOF
 ```
-
-
-
+Requesting raw data :
+```
+$ curl -s -S --header 'Accept: application/json' --header 'Fiware-Service: waziupdb' --header 'Fiware-ServicePath: /' 'http://localhost:8666/STH/v1/contextEntities/type/Room/id/Room1/attributes/humidity?hLimit=3&hOffset=1&dateFrom=2016-06-12T00:00:00.873Z&dateTo=2016-06-12T23:59:59.873Z'
+```
+Requesting aggregated data :
+```
+$ curl -s -S --header 'Accept: application/json' --header 'Fiware-Service: waziupdb' --header 'Fiware-ServicePath: /' 'http://localhost:8666/STH/v1/contextEntities/type/Room/id/Room1/attributes/humidity?aggrMethod=sum&aggrPeriod=second&dateFrom=2016-06-12T00:00:00.873Z&dateTo=2016-06-12T23:59:59.873Z'
+```
