@@ -19,6 +19,7 @@ Or simply run
 $ docker-compose up
 
 ```
+under the .yml file here : https://github.com/Waziup/Platform/blob/master/broker/docker-compose.yml
 
 Testing
 ----
