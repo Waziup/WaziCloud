@@ -9,8 +9,14 @@ Install
 Build the image:
 
 ```
-$ docker build -t waziup/brokerhistory .
-$ docker run -t --net=host waziup/brokerhistory
+$ docker build -t waziup/sth-comet .
+$ docker run -t --net=host waziup/sth-comet
+
+```
+Or simply run
+
+```
+$ docker-compose up
 
 ```
 
