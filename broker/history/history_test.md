@@ -13,7 +13,7 @@ $ curl http://localhost:1026/v2/entities -s -S --header 'Content-Type: applicati
     "value": 23,
     "type": "Number"
   },
-  "pressure": {
+  "humidity": {
     "value": 720,
     "type": "Number"
   }
@@ -42,7 +42,7 @@ So we create a subscription on the updates in Orion:
         {
             "type": "ONCHANGE",
             "condValues": [
-                "temperature"
+                "humidity"
             ]
         }
     ],
@@ -53,7 +53,7 @@ EOF
 
 Update the entity, to have a new data point in the database:
 ```
-$ curl http://localhost:1026/v2/entities/Room1/attrs/temperature/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X PUT -d 27
+$ curl http://localhost:1026/v2/entities/Room1/attrs/humidity/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X PUT -d 27
 ```
 
 Subscribing the STH component instance to the entity attributes of interest by sending the request below to the Orion Context Broker instance  :
