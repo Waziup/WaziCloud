@@ -29,7 +29,7 @@ Those SMS serve two main functions:
 - send commands to applications.
 
 
-#End point#
+###End point###
 
 The platform should:
 
@@ -37,7 +37,7 @@ The platform should:
 - this end point will be registered with an existing SMS service.
 - each time a request is received on the API end point, it is forwarded to the SMS back-end.
 
-#SMS back-end#
+###SMS back-end###
 
 The SMS back-end is in charge of receiving, decoding and dispatching the receive requests from SMS.
 
