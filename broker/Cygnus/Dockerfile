@@ -1,7 +1,7 @@
 FROM fiware/cygnus-ngsi
 
 # Environment variables
-ENV CYGNUS_MONGO_HOSTS "brokerdb:27017"
+ENV CYGNUS_MONGO_HOSTS "mongo:27017"
 ENV CYGNUS_MONGO_USER ""
 ENV CYGNUS_MONGO_PASS ""
 

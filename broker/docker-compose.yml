@@ -16,7 +16,7 @@ services:
     container_name: orion
     ports:
       - "1026:1026"
-    command: -dbhost mongo
+    command: -dbhost mongo -logLevel INFO
 
   cygnus:
     image: waziup/cygnus
