@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: identityproxy
+  namespace: waziup
+  labels:
+    name: identityproxy
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: identityproxy
+    spec:
+      containers:
+      - name: identityproxy
+        image: waziup/identityproxy:latest
+        ports:
+        - containerPort: 80
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: identityproxy
+  namespace: waziup
+spec:
+  type: NodePort
+  selector:
+    name: identityproxy
+  ports:
+    - name: identityproxy
+      port: 80
+      nodePort: 30979
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: identityproxy
+  namespace: waziup
+spec:
+  rules:
+  - host: platform.waziup.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: identityproxy
+          servicePort: 80
