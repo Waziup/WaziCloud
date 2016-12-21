@@ -252,4 +252,31 @@ The default configuration distributed with the image is tied to certain values t
 * The logging level is `INFO`.
 * The logging appender is `console`.
 
-One may need to alter the above values with values of your own. The easiest way to set up a costumized configuration is by editing both the `Dockerfile` and/or `agent.conf` file under `docker/cygnus-ngsi` and building the cygnus-ngsi image from the scratch.
+
+Orion headers
+-------------
+
+When sending a request to Orion, the HTTP headers should be set as follows:
+
+```
+fiware-service = waziup
+```
+```
+Fiware-ServicePath = /organization/what/ever/tree/you/want/here
+```
+
+Organization is one of following:
+
+- "UPPA"
+- "EGM"
+- "IT21"
+- "CREATENET"
+- "CTIC"
+- "UI"
+- "ISPACE"
+- "UGB" 
+- "WOELAB"
+- "FARMERLINE"
+- "C4A"
+- "PUBD"
+
