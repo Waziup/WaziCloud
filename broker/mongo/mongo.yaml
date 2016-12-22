@@ -18,6 +18,13 @@ spec:
         ports:
         - containerPort: 27017
         args: ["--nojournal"]
+        volumeMounts:
+        - mountPath: /data/db
+          name: vol
+      volumes:
+      - name: vol
+        hostPath:
+          path: /mnt/vol
 
 ---
 apiVersion: v1
