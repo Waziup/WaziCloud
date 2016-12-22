@@ -10,16 +10,10 @@ Build the image:
 
 ```
 $ docker build -t waziup/sth-comet .
-$ docker run -t --net=host waziup/sth-comet
+$ docker push waziup/sth-comet
+$ kubectl apply -f waziup/sth-comet
 
 ```
-Or simply run
-
-```
-$ docker-compose up
-
-```
-under the .yml file here : https://github.com/Waziup/Platform/blob/master/broker/docker-compose.yml
 
 Testing
 ----
