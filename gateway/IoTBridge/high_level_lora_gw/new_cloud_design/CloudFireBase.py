@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------
-# Copyright 2015 Congduc Pham, University of Pau, France.
+# Copyright 2016 Congduc Pham, University of Pau, France.
 # 
 # Congduc.Pham@univ-pau.fr
 #
@@ -32,8 +32,9 @@ import datetime
 import ssl
 import sys
 
-#change here for your own firebase url when you have one
-#firebase_database='https://XXXXXXXXXXX.firebaseio.com'
+# get key definition from external file to ease
+# update of cloud script in the future
+import key_FireBase
 
 # didn't get a response from firebase server?
 connection_failure = False
@@ -71,7 +72,7 @@ def test_network_available():
 def send_data(msg, path, msg_entry):
 	from firebase import firebase
 	global _db_firebase
-	_db_firebase = firebase.FirebaseApplication(firebase_database, None)
+	_db_firebase = firebase.FirebaseApplication(key_FireBase.firebase_database, None)
 				
 	try:
 		result = _db_firebase.put(path, msg_entry, msg)	
@@ -131,7 +132,7 @@ def main(ldata, pdata, rdata, tdata, gwid):
 	sf=arr[2]
 
 	firebase_msg = {
-		'dst':dst,
+		'time':now.isoformat(),		
 		'type':ptype,
 		'gateway_eui' : gwid,					
 		'node_eui':src,
@@ -141,7 +142,6 @@ def main(ldata, pdata, rdata, tdata, gwid):
 		'rssi':RSSI,
 		'cr' : cr, 
 		'datarate' : "SF"+str(sf)+"BW"+str(bw),
-		'time':now.isoformat(),				
 		'data':ldata
 	}
 	
