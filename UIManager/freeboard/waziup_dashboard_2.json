@@ -19,7 +19,7 @@
 					"settings": {
 						"title": "Historical room temperature (3)",
 						"value": [
-							"datasources[\"UPPA_sensor3\"][\"temp\"]"
+							"datasources[\"UPPA_sensor3\"][\"TC\"]"
 						]
 					}
 				},
@@ -28,7 +28,7 @@
 					"settings": {
 						"title": "Historical room temperature (6)",
 						"value": [
-							"datasources[\"UPPA_sensor6\"][\"temp\"]"
+							"datasources[\"UPPA_sensor6\"][\"DEF\"]"
 						]
 					}
 				}
@@ -49,7 +49,7 @@
 					"type": "gauge",
 					"settings": {
 						"title": "Actual room temperature (3)",
-						"value": "datasources[\"UPPA_sensor3\"][\"temp\"]",
+						"value": "datasources[\"UPPA_sensor3\"][\"TC\"]",
 						"units": "°C",
 						"min_value": "10",
 						"max_value": "40"
@@ -59,7 +59,7 @@
 					"type": "gauge",
 					"settings": {
 						"title": "Actual room temperature (6)",
-						"value": "datasources[\"UPPA_sensor6\"][\"temp\"]",
+						"value": "datasources[\"UPPA_sensor6\"][\"DEF\"]",
 						"units": "°C",
 						"min_value": "10",
 						"max_value": "40"

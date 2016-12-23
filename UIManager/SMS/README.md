@@ -13,11 +13,13 @@ http://petstore.swagger.io/?url=https://raw.githubusercontent.com/Waziup/Platfor
 
 Here's a sample CURL to send a Test sms. Change the Phone number and message to suit
 
-```curl -X POST -H "Content-Type: application/json" -H "Api-Token: 53fdb4b2-0ad4-4767-99ea-2271f16f6f1d" -H "Cache-Control: no-cache" -H "Postman-Token: d424994b-27dd-1f5a-4151-a8b2aa0ac22b" -d '{
-"sender_id" : "WAZIUP",
-"contacts" : ["+233262500105"],
-  "message" : "Testing"
-}' "https://messaging.mergdata.com/api/v1/sms/send"```
+```
+$ curl -X POST -H "Content-Type: application/json" -H "Api-Token: 53fdb4b2-0ad4-4767-99ea-2271f16f6f1d" -H "Cache-Control: no-cache" -d '{
+  "sender_id" : "WAZIUP",
+  "contacts" : ["+233262500105" , "+393806412093"],
+    "message" : "Pond 1 temperature reading of 32 degrees at 13:00 GMT"
+}' "http://api.waziup.io/v1/sms/send"
+```
 
 
 ## Install on Kubernetes
