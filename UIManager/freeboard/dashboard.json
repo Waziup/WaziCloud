@@ -47,8 +47,8 @@
 				"use_thingproxy": true,
 				"service": "waziupservice",
 				"servicepath": "/IT21",
-				"type": "Sensor",
-				"id": "7",
+				"type": "SensingDevice",
+				"id": "Sensor7",
 				"refresh": 5
 			}
 		},
@@ -59,8 +59,8 @@
 				"use_thingproxy": true,
 				"service": "/waziupservice",
 				"servicepath": "/IT21",
-				"type": "Sensor",
-				"id": "8",
+				"type": "SensingDevice",
+				"id": "Sensor8",
 				"refresh": 5
 			}
 		}
