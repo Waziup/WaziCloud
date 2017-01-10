@@ -1,0 +1,69 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"title": "Temperature in IT21 Room A508 ",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": -10
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Temp Sensor 7 in Room A508",
+						"value": "datasources[\"Room A508 Temp-Sensor-7\"]",
+						"units": "Grad Celsius",
+						"min_value": 0,
+						"max_value": "500"
+					}
+				},
+				{
+					"type": "sparkline",
+					"settings": {
+						"title": "Temp Sensor 8 in Room A508",
+						"value": [
+							"datasources[\"Room A508 Temp-Sensor-8\"]"
+						],
+						"include_legend": true,
+						"legend": "Temp Sensor 8"
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+		{
+			"name": "Room A508 Temp-Sensor-7",
+			"type": "FIWARE Orion",
+			"settings": {
+				"cbhost": "broker.waziup.io",
+				"use_thingproxy": true,
+				"service": "waziup",
+				"servicepath": "/IT21",
+				"type": "SensingDevice",
+				"id": "Sensor7",
+				"refresh": 5
+			}
+		},
+		{
+			"name": "Room A508 Temp-Sensor-8",
+			"type": "FIWARE Orion",
+			"settings": {
+				"use_thingproxy": true,
+				"service": "/waziup",
+				"servicepath": "/IT21",
+				"type": "SensingDevice",
+				"id": "Sensor8",
+				"refresh": 5
+			}
+		}
+	],
+	"columns": 3
+}
