@@ -2,7 +2,7 @@
 WAZIUP Broker
 =============
 
-The WAZIUP broker is an *internal* component of the WAZIUP plaftorm that is managing the data from the sensors and other sources.
+The WAZIUP broker is an internal component of the WAZIUP plaftorm that is managing the data from the sensors and other sources.
 In practice, the data broker is Orion, using a Mongo database and Cygnus as adapter.
 The specification of the broker and data model can be found [here](broker_spec.md).
 
