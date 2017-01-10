@@ -10,7 +10,7 @@
 				"3": 1
 			},
 			"col": {
-				"3": -10
+				"3": 1
 			},
 			"col_width": "2",
 			"widgets": [
@@ -25,15 +25,24 @@
 					}
 				},
 				{
+					"type": "gauge",
+					"settings": {
+						"title": "Temp Sensor 7 in Room A508 - Current Value",
+						"value": "datasources[\"Room A508 Temp-Sensor-7\"][\"TC\"]",
+						"units": "Grad Celsius",
+						"min_value": 0,
+						"max_value": "400"
+					}
+				},
+				{
 					"type": "sparkline",
 					"settings": {
 						"title": "Temp Sensor 8 in Room A508 - History ",
 						"value": [
-							"datasources[\"Room A508 Temp-Sensor-8\"][\"TC\"]",
-							"datasources[\"Room A508 Temp-Sensor-7\"][\"TC\"]"
+							"datasources[\"Room A508 Temp-Sensor-8\"][\"TC\"]"
 						],
 						"include_legend": true,
-						"legend": "Temp Sensor 8, Temp Sensor 7"
+						"legend": "Temp Sensor 8"
 					}
 				}
 			]
