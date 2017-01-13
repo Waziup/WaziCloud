@@ -21,7 +21,7 @@
 						"value": "datasources[\"Room A508 Temp-Sensor-8\"][\"TC\"]",
 						"units": "Grad Celsius",
 						"min_value": 0,
-						"max_value": "40"
+						"max_value": "50"
 					}
 				},
 				{
@@ -31,13 +31,13 @@
 						"value": "datasources[\"Room A508 Temp-Sensor-7\"][\"TC\"]",
 						"units": "Grad Celsius",
 						"min_value": 0,
-						"max_value": "400"
+						"max_value": "50"
 					}
 				},
 				{
 					"type": "sparkline",
 					"settings": {
-						"title": "Temp Sensor 8 in Room A508 - History ",
+						"title": "Temp in Room A508 - History ",
 						"value": [
 							"datasources[\"Room A508 Temp-Sensor-8\"][\"TC\"]",
 							"datasources[\"Room A508 Temp-Sensor-7\"][\"TC\"]"
