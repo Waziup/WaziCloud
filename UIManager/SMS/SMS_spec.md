@@ -61,7 +61,35 @@ The SMS back-end should:
 Implementation
 ==============
 
-TDB.
--> which service to use?
--> precise data format
+Register:
 
+
+To register to for a particular command the following parameters must be sent to the register end point
+
+
+Method: POST
+
+Data Type: application/json
+
+Request parameters
+
+
+|Parameter   | Description  |
+|---|---|---|
+|name| Application name|
+| keyword  | Unique identifier preceeding the sms content to be sent  |
+| url  |  Url for the sms content to be posted to  |
+
+
+
+
+Response:
+
+Data Type: application/json
+
+Response parameters
+
+|Parameter   | Description  |
+|---|---|---|
+| success  | true or false |
+| message  | Message describing success or failure |
