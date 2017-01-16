@@ -28,6 +28,17 @@ There should be no result output for this command. If the entity already exists,
 {"error":"Unprocessable","description":"Already Exists"}
 ```
 
+Insert datapoint
+----------------
+
+If the value measure changes for the entity, we need to update it in Orion.
+With the following command we update the value of the humidity in the room to 800:
+
+```
+$ curl http://broker.waziup.io/v2/entities/Room1/attrs/humidity/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X PUT -d 800
+```
+If the command succeeds, there will be no output result.
+
 Entity subscription
 -------------------
 
@@ -74,22 +85,15 @@ Result should be:
 }
 ```
 
-Insert datapoint
-----------------
 
-If the value measure changes for the entity, we need to update it in Orion with this command:
-
-```
-$ curl http://broker.waziup.io/v2/entities/Room1/attrs/humidity/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X PUT -d 800
-```
-If the command succeeds, there will be no output result.
 
 
 Historical data
 ---------------
 
-Waziup is able to deliver historical data for soem entity.
+The Waziup broker is able to deliver historical data.
 Here is the command to request the last 5 data point for the humidity of the entity "Room1".
+
 ```
 $ curl -s -S --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' \
 'http://brokerhistory.waziup.io/STH/v1/contextEntities/type/Room/id/Room1/attributes/humidity?lastN=5'
