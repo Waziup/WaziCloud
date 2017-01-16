@@ -18,5 +18,5 @@ $ kubectl apply -f waziup/sth-comet
 Testing
 ----
 
-https://github.com/Waziup/Platform/blob/master/broker/history/history_test.md
+https://github.com/Waziup/Platform/blob/master/broker/broker_test.md
 
