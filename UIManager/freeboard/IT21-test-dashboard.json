@@ -10,29 +10,40 @@
 				"3": 1
 			},
 			"col": {
-				"3": -10
+				"3": 2
 			},
 			"col_width": "2",
 			"widgets": [
 				{
 					"type": "gauge",
 					"settings": {
-						"title": "Temp Sensor 7 in Room A508",
-						"value": "datasources[\"Room A508 Temp-Sensor-7\"]",
+						"title": "Temp Sensor 8 in Room A508 - Current Value ",
+						"value": "datasources[\"Room A508 Temp-Sensor-8\"][\"TC\"]",
 						"units": "Grad Celsius",
 						"min_value": 0,
-						"max_value": "500"
+						"max_value": "50"
+					}
+				},
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Temp Sensor 7 in Room A508 - Current Value",
+						"value": "datasources[\"Room A508 Temp-Sensor-7\"][\"TC\"]",
+						"units": "Grad Celsius",
+						"min_value": 0,
+						"max_value": "50"
 					}
 				},
 				{
 					"type": "sparkline",
 					"settings": {
-						"title": "Temp Sensor 8 in Room A508",
+						"title": "Temp in Room A508 - History ",
 						"value": [
-							"datasources[\"Room A508 Temp-Sensor-8\"]"
+							"datasources[\"Room A508 Temp-Sensor-8\"][\"TC\"]",
+							"datasources[\"Room A508 Temp-Sensor-7\"][\"TC\"]"
 						],
 						"include_legend": true,
-						"legend": "Temp Sensor 8"
+						"legend": "Temp Sensor 8, Temp Sensor 7"
 					}
 				}
 			]
@@ -45,23 +56,24 @@
 			"settings": {
 				"cbhost": "broker.waziup.io",
 				"use_thingproxy": true,
-				"service": "waziupservice",
+				"service": "waziup",
 				"servicepath": "/IT21",
 				"type": "SensingDevice",
-				"id": "Sensor7",
-				"refresh": 5
+				"id": "IT21Sensor7",
+				"refresh": 20
 			}
 		},
 		{
 			"name": "Room A508 Temp-Sensor-8",
 			"type": "FIWARE Orion",
 			"settings": {
+				"cbhost": "broker.waziup.io",
 				"use_thingproxy": true,
-				"service": "/waziupservice",
+				"service": "waziup",
 				"servicepath": "/IT21",
 				"type": "SensingDevice",
-				"id": "Sensor8",
-				"refresh": 5
+				"id": "IT21Sensor8",
+				"refresh": 20
 			}
 		}
 	],
