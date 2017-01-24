@@ -36,7 +36,7 @@
 				"service": "waziup",
 				"servicepath": "/UGB/TESTSGW2",
 				"type": "SensingDevice",
-				"id": "Sensor6",
+				"id": "Sensor20",
 				"refresh": 5
 			}
 		}
