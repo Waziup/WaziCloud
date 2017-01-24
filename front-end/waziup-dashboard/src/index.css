@@ -1,0 +1,47 @@
+html {
+      position: relative;
+          min-height: 100%;
+        }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.page-content{
+  padding-left:256px;
+}
+
+.footer-bottom {
+  padding-left:256px;
+  padding: 20px 0;
+  border-top: 1px solid rgba(55,100,125,.3);
+  margin-top:20px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+}
+.waziup-logo {
+  height: 40px;
+}
+
+.container{
+  display:flex;
+  padding-left:256px;
+}
+.card-container{
+  display:flex;
+}
+.embeded{
+  width:48%;
+  margin-left:10px;
+}
+.part{
+  width: 40%;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
