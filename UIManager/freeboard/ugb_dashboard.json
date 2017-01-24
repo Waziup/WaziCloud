@@ -17,7 +17,7 @@
 					"type": "gauge",
 					"settings": {
 						"title": "Temperature in UGB",
-						"value": "datasources[\"UGB sensor temperature\"]",
+						"value": "datasources[\"UGB_sensor_temperature\"]",
 						"units": "°C",
 						"min_value": 0,
 						"max_value": 100
@@ -28,7 +28,7 @@
 	],
 	"datasources": [
 		{
-			"name": "UGB sensor temperature",
+			"name": "UGB_sensor_temperature",
 			"type": "FIWARE Orion",
 			"settings": {
 				"cbhost": "broker.waziup.io",
