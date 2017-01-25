@@ -54,7 +54,7 @@
 			"col": {
 				"3": 1
 			},
-			"col_width": 3,
+			"col_width": "3",
 			"widgets": [
 				{
 					"type": "picture",
