@@ -33,7 +33,7 @@
 			"col": {
 				"3": 2
 			},
-			"col_width": 1,
+			"col_width": "2",
 			"widgets": [
 				{
 					"type": "sparkline",
