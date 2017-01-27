@@ -22,8 +22,14 @@ spec:
         - name: KEYCLOAK_USER 
           value: "admin"
         - name: KEYCLOAK_PASSWORD 
-          value: "admin"
-
+          value: "KCadminW"
+        volumeMounts:
+        - mountPath: /opt/jboss/keycloak/standalone/data
+          name: vol
+      volumes:
+      - name: vol
+        hostPath:
+          path: /mnt/vol
 ---
 apiVersion: v1
 kind: Service
@@ -55,4 +61,3 @@ spec:
         backend:
           serviceName: aam
           servicePort: 8080
-
