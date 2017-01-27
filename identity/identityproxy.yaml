@@ -41,13 +41,19 @@ metadata:
   namespace: waziup
 spec:
   rules:
-  - host: platform.waziup.io
+  - host: cloudplatform.waziup.io
     http:
       paths:
       - backend:
           serviceName: identityproxy
           servicePort: 80
   - host: orion.waziup.io
+    http:
+      paths:
+      - backend:
+          serviceName: identityproxy
+          servicePort: 80
+  - host: app.waziup.io
     http:
       paths:
       - backend:
