@@ -6,7 +6,9 @@ The technology selected is Keycloak.
 
 Install
 -------
+kubectl cp  --namespace=waziup  ~/Documents/EUProjects/Waziup/logo/logo-waziup-white.png aam-k5164:/opt/jboss/keycloak/themes/waziup/login/resources/img
 
+/opt/jboss/keycloak/standalone/data/keycloak.h2.db
 
 ```
 docker --tls=false --tlsverify=false build -t waziup/identityproxy -f ./Dockerfile --rm=true .
@@ -16,6 +18,9 @@ docker login
 docker push waziup/identityproxy
 kubectl delete -f identityproxy.yaml
 kubectl apply -f identityproxy.yaml
+
+kubectl delete -f aam.yaml;kubectl apply -f aam.yaml
+kubectl delete -f identityproxy.yaml;kubectl apply -f identityproxy.yaml
 ```
 
 Misc:
@@ -23,7 +28,7 @@ Misc:
 kubectl cp --namespace=waziup ./keycloak-test.conf identityproxy-17r6c:/etc/httpd/conf.d/
 kubectl exec -ti identityproxy-17r6c --namespace=waziup --  /usr/sbin/httpd -k restart
 kubectl exec -ti identityproxy-17r6c --namespace=waziup --  cat /etc/httpd/conf.d/keycloak-test.conf
-
+kubectl exec -ti identityproxy-17r6c --namespace=waziup --  cat /var/log/httpd/error_log
 
 KeyCloak Backup & Recovery:
 bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=
