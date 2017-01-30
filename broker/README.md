@@ -2,9 +2,10 @@
 WAZIUP Broker
 =============
 
-The WAZIUP broker is an *internal* component of the WAZIUP plaftorm that is managing the data from the sensors and other sources.
+The WAZIUP broker is an internal component of the WAZIUP plaftorm that is managing the data from the sensors and other sources.
 In practice, the data broker is Orion, using a Mongo database and Cygnus as adapter.
 The specification of the broker and data model can be found [here](broker_spec.md).
+Test of the broker and historical APIs can be found [here](broker_test.md).
 
 Install
 -------
@@ -45,6 +46,7 @@ $ curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: applica
 }
 EOF
 ```
+Fiware-Service must be "waziup".
 
 For pilots, Fiware-ServicePath must be one of the following:
 - "UPPA"
@@ -62,7 +64,7 @@ For pilots, Fiware-ServicePath must be one of the following:
 
 For example:
 ```
---header 'Fiware-ServicePath:/UPPA'
+--header 'Fiware-Service: waziup' --header 'Fiware-ServicePath:/UPPA'
 ```
 
 

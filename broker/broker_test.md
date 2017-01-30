@@ -2,7 +2,13 @@
 Broker test
 ===========
 
-Create one entity :
+This document contains the procedures to test the Waziup broker.
+To perform the tests, copy the commands given in a shell one by one, and check the result given.
+
+Entity creation
+---------------
+
+This command creates one entity called "Room1", which have the humidity measured.
 
 ```
 $ curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X POST -d @- <<EOF
@@ -16,8 +22,28 @@ $ curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: applica
 }
 EOF
 ```
-Orion needs to inform Cygnus each time something changes with this entity.
-lo we create a subscription on the updates in Orion:
+
+There should be no result output for this command. If the entity already exists, the result will be:
+```
+{"error":"Unprocessable","description":"Already Exists"}
+```
+
+Insert datapoint
+----------------
+
+If the value measure changes for the entity, we need to update it in Orion.
+With the following command we update the value of the humidity in the room to 800:
+
+```
+$ curl http://broker.waziup.io/v2/entities/Room1/attrs/humidity/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X PUT -d 800
+```
+If the command succeeds, there will be no output result.
+
+Entity subscription
+-------------------
+
+In order to collect historical data on an entity, we need to register a subscription in Orion.
+This subscription will make Orion to inform Cygnus each time something changes with this entity.
 
 ```
 (curl broker.waziup.io/v1/subscribeContext -s -S --header 'Content-Type: application/json' \
@@ -48,16 +74,46 @@ lo we create a subscription on the updates in Orion:
 EOF
 ```
 
-Update the entity, to have a new data point in the database:
+Result should be:
 ```
-$ curl http://broker.waziup.io/v2/entities/Room1/attrs/humidity/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X PUT -d 800
+{
+    "subscribeResponse": {
+        "duration": "P1M",
+        "subscriptionId": "587cf6c56ae2585d74405c7d",
+        "throttling": "PT1S"
+    }
+}
 ```
 
-Requesting raw data :
+
+
+
+Historical data
+---------------
+
+The Waziup broker is able to deliver historical data.
+Here is the command to request the last 5 data point for the humidity of the entity "Room1".
+
+```
+$ curl -s -S --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' \
+'http://brokerhistory.waziup.io/STH/v1/contextEntities/type/Room/id/Room1/attributes/humidity?lastN=5'
+```
+
+Expected result (if you followed all the commands above):
+```
+{"contextResponses":[{"contextElement":{"attributes":[{"name":"humidity","values":[{"recvTime":"2017-01-16T16:29:35.385Z","attrType":"Number","attrValue":"800"},{"recvTime":"2017-01-16T16:37:25.141Z","attrType":"Number","attrValue":"800"}]}],"id":"Room1","isPattern":false,"type":"Room"},"statusCode":{"code":"200","reasonPhrase":"OK"}}]}
+```
+
+Here is the command to request the data point for the humidity of the entity "Room1", between the dates 2016-12-01 and 2019-12-19:
+
 ```
 $ curl -s -S --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' \
 'http://brokerhistory.waziup.io/STH/v1/contextEntities/type/Room/id/Room1/attributes/humidity?hLimit=3&hOffset=0&dateFrom=2016-12-01T00:00:00.000Z&dateTo=2019-12-19T23:59:59.999Z'
 ```
+
+Expected result: same as above.
+
+
 Requesting aggregated data :
 ```
 $ curl -s -S --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' \

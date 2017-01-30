@@ -1,0 +1,7 @@
+{
+  "realm": "waziup",
+  "auth-server-url": "http://aam.waziup.io/auth",
+  "ssl-required": "external",
+  "resource": "mobile-app-cli",
+  "public-client": true
+}
