@@ -6,6 +6,7 @@
     "react-scripts": "0.8.5"
   },
   "dependencies": {
+    "keycloak-js": "^2.5.1",
     "material-ui": "^0.16.0-rc2",
     "normalize.css": "^5.0.0",
     "react": "15.3.0",
