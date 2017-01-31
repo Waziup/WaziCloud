@@ -2,14 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
-import Keycloak from 'keycloak-js'
+import { Router, browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import { syncHistoryWithStore} from 'react-router-redux'
+import Keycloak from 'keycloak-js';
+import configureStore from './store';
 import Layout from './components/Layout';
 import Home from './components/Home';
+import Sensors from './components/Sensors';
 import './index.css';
+import {fetchSensors} from './actions/actions';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store)
+
+function loadSensors() {
+    store.dispatch(fetchSensors());
+};
 
 const MyApp = () =>{
   return (
@@ -18,10 +29,6 @@ const MyApp = () =>{
     </MuiThemeProvider>
   );
 }
-// ReactDOM.render(
-    // <MyApp />,
-    // document.getElementById('root')
-// );
 
 const routes = {
   path: '/',
@@ -30,7 +37,7 @@ const routes = {
   childRoutes: [
     { path: 'home', component:  Home },
     { path: 'apps', component:  Home },
-    { path: 'home', component:  Home },
+    { path: 'sensors', component:  Sensors , onEnter:loadSensors},
     { path: 'home', component:  Home },
     { path: 'home', component:  Home },
   ]
@@ -58,7 +65,11 @@ const routes = {
     // setInterval(() => {
       // kc.updateToken(10).error(() => kc.logout());
     // }, 10000);
-    ReactDOM.render(<Router history={hashHistory} routes={routes} />, document.getElementById('root'))
+    ReactDOM.render(
+      <Provider store={store}>
+        <Router history={history} routes={routes} />
+      </Provider>
+      , document.getElementById('root'))
   // } else {
     // show possibly other page here...
     // kc.login();
