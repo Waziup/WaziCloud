@@ -1,7 +1,11 @@
 {
   "realm": "waziup",
   "auth-server-url": "http://aam.waziup.io/auth",
-  "ssl-required": "external",
+  "ssl-required": "none",
   "resource": "mobile-app-cli",
-  "public-client": true
+  "clientId": "mobile-app-cli",
+  "credentials": {
+    "secret": "28226338-eb58-45f5-bdae-921091a8b35c"
+  },
+  "policy-enforcer": {}
 }

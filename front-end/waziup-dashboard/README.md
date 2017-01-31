@@ -1,3 +1,13 @@
+
+dashboard Dockerfile build & deployment:
+
+docker build -t waziup/dashboard:latest -f ./Dockerfile .
+docker push waziup/dashboard
+
+docker run -it waziup/dashboard:latest
+kubectl apply -f dashboard.yaml
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 
