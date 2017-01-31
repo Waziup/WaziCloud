@@ -1,4 +1,6 @@
 
+kubectl exec -ti dashboard-no0lu --namespace=waziup --  bash
+
 dashboard Dockerfile build & deployment:
 
 docker build -t waziup/dashboard:latest -f ./Dockerfile .

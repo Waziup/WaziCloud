@@ -2,16 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-<<<<<<< HEAD
-import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
-import Keycloak from 'keycloak-js';
-=======
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore} from 'react-router-redux'
 import Keycloak from 'keycloak-js';
 import configureStore from './store';
->>>>>>> 82c756530708636b30f19b606c656b8c6b5eac22
 import Layout from './components/Layout';
 import Home from './components/Home';
 import Sensors from './components/Sensors';
@@ -50,63 +45,33 @@ const routes = {
 
 
 let KeycloakConfig = {
-  "realm": "waziup",
-  "auth-server-url": "http://aam.waziup.io/auth/",
-  "ssl-required": "none",
-  "resource": "mobile-app-cli",
-  "clientId": "mobile-app-cli",
-  "public-client": true,
-  "credentials": {
-    "secret": "28226338-eb58-45f5-bdae-921091a8b35c"
-  },
-  "policy-enforcer": {}
-}
-
-//{
-    // "realm": "waziup",
-    // "url": "http://aam.waziup.io/auth",
-    // "resource": "mobile-app-cli",
-    // "public-client": true,
-    // "clientId":"web-waziup-cli",
-    // "credentials": {
-          // "secret": "28226338-eb58-45f5-bdae-921091a8b35c"
-        // },
-    // "policy-enforcer": {}
-// };
+     "realm": "waziup",
+     "url": "http://aam.waziup.io/auth",
+     "resource": "mobile-app-cli",
+     "public-client": true,
+     "clientId":"mobile-app-cli",
+     "credentials": {
+           "secret": "28226338-eb58-45f5-bdae-921091a8b35c"
+      },
+    "policy-enforcer": {}
+};
 
 
-<<<<<<< HEAD
-let kc = Keycloak(KeycloakConfig);
-console.log(kc);
-kc.init({onLoad: 'check-sso'}).success(authenticated => {
-  if (authenticated) {
-//  store.getState().keycloak = kc;
-    setInterval(() => {
-      kc.updateToken(10).error(() => kc.logout());
-    }, 10000);
-   ReactDOM.render(<Router history={hashHistory} routes={routes} />, document.getElementById('root'))
-  } else {
-   // show possibly other page here...
-    kc.login();
-  }
-});
-=======
-// let kc = Keycloak(KeycloakConfig);
-  // console.log(kc);
-// kc.init({onLoad: 'check-sso'}).success(authenticated => {
-  // if (authenticated) {
-    //store.getState().keycloak = kc;
-    // setInterval(() => {
-      // kc.updateToken(10).error(() => kc.logout());
-    // }, 10000);
+ let kc = Keycloak(KeycloakConfig);
+   console.log(kc);
+ kc.init({onLoad: 'check-sso'}).success(authenticated => {
+   if (authenticated) {
+    store.getState().keycloak = kc;
+     setInterval(() => {
+       kc.updateToken(10).error(() => kc.logout());
+     }, 10000);
     ReactDOM.render(
       <Provider store={store}>
         <Router history={history} routes={routes} />
       </Provider>
       , document.getElementById('root'))
-  // } else {
+   } else {
     // show possibly other page here...
-    // kc.login();
-  // }
-// });
->>>>>>> 82c756530708636b30f19b606c656b8c6b5eac22
+     kc.login();
+   }
+ });
