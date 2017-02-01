@@ -1,5 +1,5 @@
 .login-pf body {
-    background: #0f0f0f url("../img/keycloak-bg.png") top left no-repeat;
+    background: #1F4356;
     background-size: cover;
 }
 
@@ -72,19 +72,20 @@ a#kc-current-locale-link::after {
 }
 
 #kc-logo {
-    width: 100%;
+    width: 50%;
 }
 
 #kc-logo-wrapper {
-    background-image: url("../img/keycloak-logo.png");
+    background-image: url("http://www.waziup.io/img/005-waziup/Logo/logo-waziup-white.svg");
+    background-size: contain;
     background-repeat: no-repeat;
 
-    height: 57px;
-    width: 125px;
+    height: 60px;
+    width: 238px; 
 }
 
 div.kc-logo-text {
-    background-image: url("../img/keycloak-logo-text.png");
+    background-image: url("../img/logo-waziup-white.png");
     background-repeat: no-repeat;
     width: 250px;
     height: 38px;
@@ -219,7 +220,7 @@ ol#kc-totp-settings li:first-of-type {
     background-image: none;
     border-radius: 2px;
 
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Circular', sans-serif;
     font-weight: normal;
 
     box-shadow: none;
@@ -251,8 +252,8 @@ ol#kc-totp-settings li:first-of-type {
     
     #kc-logo-wrapper {
         position: absolute;
-        top: 50px;
-        right: 50px;
+        top: 10px;
+        left: 10px
     }
 }
 
@@ -330,3 +331,4 @@ ol#kc-totp-settings li:first-of-type {
     #kc-container-wrapper {
     }
 }
+
