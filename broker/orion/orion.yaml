@@ -17,7 +17,7 @@ spec:
         image: waziup/orion:latest
         ports:
         - containerPort: 1026
-        args: ["-dbhost", "mongo.waziup:27017", "-logLevel", "INFO", "-corsOrigin", "__ALL"]
+        args: ["-dbhost", "mongo.waziup:27017", "-logLevel", "INFO"] #, "-corsOrigin", "__ALL"]
 
 ---
 apiVersion: v1
