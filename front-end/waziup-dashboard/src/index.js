@@ -44,34 +44,34 @@ const routes = {
 }
 
 
-let KeycloakConfig = {
-     "realm": "waziup",
-     "url": "http://aam.waziup.io/auth",
-     "resource": "mobile-app-cli",
-     "public-client": true,
-     "clientId":"mobile-app-cli",
-     "credentials": {
-           "secret": "28226338-eb58-45f5-bdae-921091a8b35c"
-      },
-    "policy-enforcer": {}
-};
+//let KeycloakConfig = {
+ //    "realm": "waziup",
+  //   "url": "http://aam.waziup.io/auth",
+//     "resource": "mobile-app-cli",
+ //    "public-client": true,
+  //   "clientId":"mobile-app-cli",
+   //  "credentials": {
+     //      "secret": "28226338-eb58-45f5-bdae-921091a8b35c"
+    //  },
+  //  "policy-enforcer": {}
+//};
 
 
- let kc = Keycloak(KeycloakConfig);
-   console.log(kc);
- kc.init({onLoad: 'check-sso'}).success(authenticated => {
-   if (authenticated) {
-    store.getState().keycloak = kc;
-     setInterval(() => {
-       kc.updateToken(10).error(() => kc.logout());
-     }, 10000);
+// let kc = Keycloak(KeycloakConfig);
+//   console.log(kc);
+// kc.init({onLoad: 'check-sso'}).success(authenticated => {
+ //  if (authenticated) {
+//    store.getState().keycloak = kc;
+  //   setInterval(() => {
+//       kc.updateToken(10).error(() => kc.logout());
+  //   }, 10000);
     ReactDOM.render(
       <Provider store={store}>
         <Router history={history} routes={routes} />
       </Provider>
       , document.getElementById('root'))
-   } else {
+//   } else {
     // show possibly other page here...
-     kc.login();
-   }
- });
+//     kc.login();
+ //  }
+// });
