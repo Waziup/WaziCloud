@@ -39,5 +39,7 @@ $app->get('/', function () use ($app) {
  * Notes: The Send SMS sends an SMS message to bulk/single recepients. The response includes the status of the Message delivery. 
  * Output-Formats: [application/json]
  */
-$app->POST('/v1/sms/send', 'SendApi@smsSendPost');
+$app->POST('/v1/sms/send', 'ApiController@smsSendPost');
+
+$app->POST('/v1/sms/incoming', 'ApiController@incoming');
 
