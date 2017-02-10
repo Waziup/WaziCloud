@@ -5,8 +5,8 @@ import thunkMiddleware from 'redux-thunk';
 
 
 import createHistory from 'history/lib/createBrowserHistory';
-
-const createAppStore = compose(
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const createAppStore = composeEnhancers(
         applyMiddleware(thunkMiddleware),
       )(createStore);
 

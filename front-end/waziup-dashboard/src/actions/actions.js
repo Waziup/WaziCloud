@@ -25,7 +25,7 @@ export function fetchSensors() {
 // curl http://broker.waziup.io/v2/entities --header 'Fiware-ServicePath:/#' --header 'Fiware-Service:waziup' -X GET
     return function(dispatch) {
           dispatch(requestSensors());
-          return axios.get('http://orion.waziup.io/v1/data',{
+          return axios.get('http://orion.waziup.io/v1/data/entities',{
                   method: 'get',
                   headers: {
                     'Fiware-ServicePath':'/#',
