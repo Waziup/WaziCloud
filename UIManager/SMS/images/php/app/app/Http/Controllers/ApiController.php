@@ -32,7 +32,7 @@ use Illuminate\Http\Request;
 use App\Guzzle;
 
 
-class SendApi extends Controller
+class ApiController extends Controller
 {
     /**
      * Constructor
@@ -62,5 +62,33 @@ class SendApi extends Controller
 
 
         return response()->json( $response );
+    }
+
+
+     public function register( Request $request ){
+
+        $input = $request->all();
+
+
+        $app = Application::create($input);
+
+
+        return response()->json( ['success'=> true , 'message' =>'Application successfully created' , 'app_id'=> $app->id ]);
+    }
+
+
+    public function incoming( Request $request ){
+
+        $input = $request->all();
+
+        $smsContent = $input['Text'] ;
+
+        $application = Application::whereKeyword( $smsContent[0] )->first();
+
+
+        Guzzle::send('post' , $application->url , array_only( $input , ['Text' , 'From'])  );
+        
+
+        return response()->json( $input );
     }
 }
