@@ -7,8 +7,11 @@ docker build -t waziup/dashboard:latest -f ./Dockerfile .
 docker push waziup/dashboard
 
 docker run -it waziup/dashboard:latest
+kubectl delete -f dashboard.yaml
 kubectl apply -f dashboard.yaml
 
+after re-deploying dashboard, we need to restart apache (identity proxy)
+kubectl exec -ti identityproxy-y5h7q --namespace=waziup --  /usr/sbin/httpd -k restart
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 

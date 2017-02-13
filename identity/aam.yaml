@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: aam
-        image: jboss/keycloak
+        image: waziup/keycloak:latest
         ports:
         - containerPort: 8080
         env:
@@ -30,6 +30,7 @@ spec:
       - name: vol
         hostPath:
           path: /mnt/vol
+
 ---
 apiVersion: v1
 kind: Service
@@ -43,6 +44,8 @@ spec:
   ports:
     - port: 8080
       nodePort: 31083
+      name: http
+      protocol: TCP
   selector:
     app: aam
 
@@ -57,7 +60,6 @@ spec:
   - host: aam.waziup.io
     http:
       paths:
-      - path: /
-        backend:
+      - backend:
           serviceName: aam
           servicePort: 8080

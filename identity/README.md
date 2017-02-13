@@ -11,6 +11,8 @@ kubectl cp  --namespace=waziup  ~/Documents/EUProjects/Waziup/logo/logo-waziup-w
 /opt/jboss/keycloak/standalone/data/keycloak.h2.db
 
 ```
+docker run -e KEYCLOAK_LOGLEVEL=DEBUG jboss/keycloak
+
 docker --tls=false --tlsverify=false build -t waziup/identityproxy -f ./Dockerfile --rm=true .
 docker build -t waziup/identityproxy .
 sudo docker build -t waziup/identityproxy -f ./Dockerfile .
@@ -19,7 +21,17 @@ docker push waziup/identityproxy
 kubectl delete -f identityproxy.yaml
 kubectl apply -f identityproxy.yaml
 
-kubectl delete -f aam.yaml;kubectl apply -f aam.yaml
+kubectl delete -f aam.yaml
+kubectl apply -f aam.yaml
+kubectl get pods --namespace=waziup
+kubectl exec -ti aam-pzff4 --namespace waziup mkdir /opt/jboss/keycloak/themes/waziup/
+kubectl cp themes waziup/aam-pzff4:/opt/jboss/keycloak/themes/waziup/
+kubectl cp waziup/aam-pzff4:/opt/jboss/keycloak/standalone/configuration/standalone.xml ./standalone.xml
+
+
+
+kubectl cp ./themes/ waziup/aam-pzff4:/opt/jboss/keycloak/themes/waziup/
+
 kubectl delete -f identityproxy.yaml;kubectl apply -f identityproxy.yaml
 ```
 
@@ -35,3 +47,5 @@ bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provid
 kubectl exec -ti aam-wtjt4 --namespace waziup -- /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/home
 kubectl exec -ti aam-wtjt4 --namespace waziup -- /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/home
 bin/standalone.sh -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=
+
+kubectl apply -f aam-proxy.yam
