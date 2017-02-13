@@ -7,11 +7,23 @@ import Page from '../App'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 class Sensors extends Component {
-  constructor(props) {
-      super(props);
+  constructor(props){
+    super(props);
+    this.state = {
+      data : props.data
+    };
+  }
+  defaultProps = {
+      data: []
+  };
+  componentWillReceiveProps(nextProps){
+    if (nextProps.data) {
+      this.setState({data:nextProps.data})
+    }
   }
   render() {
     let {data} = this.props;
+    console.log(this.state);
     return (
       <div>
         <h1 className="page-title">Sensors</h1>
@@ -26,13 +38,20 @@ class Sensors extends Component {
               </TableRow>
             </TableHeader>
             <TableBody>
-                    {data.forEach((sensor,index )=> {
+                    {this.state.data.map((sensor,index )=> {
+                      var text = "";
+                      for(var i in sensor){
+                          if (i!=='id'&&i!='type') {
+                            text = text + i + " : " + sensor[i].value+" \n"
+                          }
+                      }
                       return (
-                          <TableRow>
+                          <TableRow key={index}>
                             <TableRowColumn>{index}</TableRowColumn>
                             <TableRowColumn>{sensor.id}</TableRowColumn>
                             <TableRowColumn>{sensor.type}</TableRowColumn>
-                            <TableRowColumn>{sensor.TC.value}</TableRowColumn>
+
+                            <TableRowColumn>{text}</TableRowColumn>
                           </TableRow>
                       )
                     })}
