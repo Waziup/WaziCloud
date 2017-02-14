@@ -4,7 +4,10 @@ import FullWidthSection from './FullWidthSection'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Page from '../App'
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import SensorData from './SensorData.js'
+// import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import Griddle from 'griddle-react';
+
 
 class Sensors extends Component {
   constructor(props){
@@ -14,13 +17,38 @@ class Sensors extends Component {
     };
   }
   defaultProps = {
-      data: []
+    data: []
   };
   componentWillReceiveProps(nextProps){
     if (nextProps.data) {
       this.setState({data:nextProps.data})
     }
   }
+  tableMeta = [
+    {
+      "columnName": "id",
+      "order": 1,
+      "displayName": "ID"
+    },
+    {
+      "columnName": "type",
+      "order": 2,
+      "visible": true,
+      "displayName": "Sensor type"
+    },
+    {
+      "columnName": "owner",
+      "order": 3,
+      "displayName": "Owner"
+    },
+    {
+      "columnName": "last_value",
+      "order": 4,
+      "visible": true,
+      "displayName": "Last Value",
+      "customComponent": SensorData
+    },
+  ]
   render() {
     let {data} = this.props;
     console.log(this.state);
@@ -28,7 +56,8 @@ class Sensors extends Component {
       <div>
         <h1 className="page-title">Sensors</h1>
         <FullWidthSection useContent={true}>
-          <Table>
+        <Griddle resultsPerPage={10} results={this.state.data} columnMetadata={this.tableMeta} columns={["id", "type","owner","last_value"]} showFilter={true} />
+        {/*          <Table>
             <TableHeader>
               <TableRow>
                 <TableHeaderColumn>ID</TableHeaderColumn>
@@ -56,18 +85,18 @@ class Sensors extends Component {
                       )
                     })}
             </TableBody>
-          </Table>
+          </Table>*/}
         </FullWidthSection>
-      </div>
-      );
+        </div>
+    );
   }
 }
 function mapStateToProps(state) {
-    return { data: state.example.data };
+  return { data: state.example.data };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {};
+  return {};
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Sensors);
 

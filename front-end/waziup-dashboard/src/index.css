@@ -1,7 +1,7 @@
 html {
-      position: relative;
-          min-height: 100%;
-        }
+  position: relative;
+  min-height: 100%;
+}
 body {
   margin: 0;
   padding: 0;
@@ -9,9 +9,26 @@ body {
 }
 
 .page-content{
+  margin-bottom:50px;
   padding-left:256px;
 }
+.standard-row{
+  border: 1px solid #000;
+}
+.griddle th{
+  background-color:#EDEDEF;
+  border:0px;
+  border-bottom:1px solid #DDD;
+  color:#222;
+  padding:5px;
+}
 
+.griddle td{
+  padding:5px !important;
+  background-color:#FFF !important;
+  border-top: 1px solid #EDEDEF !important;
+  color:#222 !important;
+}
 .footer-bottom {
   padding-left:256px;
   padding: 20px 0;
