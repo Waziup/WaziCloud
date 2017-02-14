@@ -41,7 +41,7 @@ $app->get('/', function () use ($app) {
  */
 $app->POST('/v1/sms/send', 'ApiController@smsSendPost');
 
-$app->POST('/v1/sms/incoming', 'ApiController@incoming');
+$app->POST('/v1/sms/receive', 'ApiController@incoming');
 
 $app->POST('/v1/sms/register', 'ApiController@register');
 
