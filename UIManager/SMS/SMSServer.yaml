@@ -70,10 +70,34 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 8080
+    - port: 80
       nodePort: 31333
   selector:
     name: smsserver
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php 
+  namespace: waziup
+spec:
+  ports:
+    - port: 9000
+  selector:
+    name: php
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql 
+  namespace: waziup
+spec:
+  ports:
+    - port: 3306
+  selector:
+    name: mysql
 
 ---
 apiVersion: extensions/v1beta1
@@ -89,5 +113,5 @@ spec:
       - path: /
         backend:
           serviceName: smsserver
-          servicePort: 8080
+          servicePort: 80
 
