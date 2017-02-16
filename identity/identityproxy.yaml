@@ -65,3 +65,9 @@ spec:
       - backend:
           serviceName: identityproxy
           servicePort: 80
+  - host: sms.waziup.io
+    http:
+      paths:
+      - backend:
+          serviceName: identityproxy
+          servicePort: 80
