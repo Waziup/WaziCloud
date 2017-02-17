@@ -10,7 +10,7 @@ php:
   volumes:
     - ./images/php/app:/app
   working_dir: /app/public
-  command: php-fpm
+  command: sh -c "php ../artisan migrate; php-fpm"
   links:
     - db
     - cache

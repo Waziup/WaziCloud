@@ -30,7 +30,8 @@ namespace App\Http\Controllers;
 //use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request;
 use App\Guzzle;
-
+use App\Application;
+use Log;
 
 class ApiController extends Controller
 {
@@ -67,6 +68,9 @@ class ApiController extends Controller
 
      public function register( Request $request ){
 
+        try{
+
+
         $input = $request->all();
 
 
@@ -74,6 +78,14 @@ class ApiController extends Controller
 
 
         return response()->json( ['success'=> true , 'message' =>'Application successfully created' , 'app_id'=> $app->id ]);
+
+    }
+
+    catch( Execption $e){
+
+        return response()->json( ['success'=> false , 'message' =>'Error whiles creating application' , 'error'=> $e->getMessage() ]);
+    }
+
     }
 
 
@@ -83,12 +95,30 @@ class ApiController extends Controller
 
         $smsContent = $input['Text'] ;
 
-        $application = Application::whereKeyword( $smsContent[0] )->first();
+        $smsArray = explode( ' ', trim( $input['Text']));
+
+        if( count( $smsArray) >=2){
 
 
-        Guzzle::send('post' , $application->url , array_only( $input , ['Text' , 'From'])  );
+        $application = Application::whereKeyword( $smsArray[0] )->first();
+
+
+        if( $application) {
+             Guzzle::send('post' , $application->url , array_only( $input , ['Text' , 'From'])  );
+
+            return response()->json( ['success'=> true , 'message' =>"Message forwarded to $application->url" , 'app_id'=> $app->id ]);
+        }
+        else{
+
+        return response()->json( ['success'=> false , 'message' =>'Application not found'  ]);
+        }
+
+        }
+        else{
+
+        return response()->json( ['success'=> false , 'message' =>'Sms must have a content with the keyword as the first word in the sentence'  ]);
+        }
+
         
-
-        return response()->json( $input );
     }
 }

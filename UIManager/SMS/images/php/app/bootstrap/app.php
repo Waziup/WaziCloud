@@ -97,6 +97,9 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
     require __DIR__.'/../routes/web.php';
 });
 
+$app->withFacades();
+$app->withEloquent();
+
 $app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
 
 return $app;

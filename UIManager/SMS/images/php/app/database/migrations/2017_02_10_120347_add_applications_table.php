@@ -15,6 +15,7 @@ class AddApplicationsTable extends Migration
     {
         Schema::create('applications', function(Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->string('url');
             $table->string('keyword');
             $table->timestamps();
