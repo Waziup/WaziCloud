@@ -19,6 +19,53 @@ The platform should:
 - forward the request to an SMS service.
 
 
+
+Implementation
+-----------------
+
+Endpoint:   http://api.waziup.io/v1/sms/send
+
+Method: POST
+
+Data Type: application/json
+
+Request parameters
+
+|Field   |Desciption   |Example   |
+|---|---|---|
+|sender_id   |Short name to be shown as sender's name   |WAZIUP   |
+|contacts   |JSON array of phone numbers   |["+233262500105" , "+393806412093"]   |
+| message  | Message body to be sent  |  "Pond 1 temperature reading of 32 degrees at 13:00 GMT" |
+
+
+
+Here's a sample CURL to send a Test sms. Change the Phone number and message to suit
+
+```
+$ curl -X POST -H "Content-Type: application/json" -H "Api-Token: 53fdb4b2-0ad4-4767-99ea-2271f16f6f1d" -H "Cache-Control: no-cache" -d '{
+"sender_id" : "WAZIUP",
+"contacts" : ["+233262500105" , "+393806412093"],
+  "message" : "Pond 1 temperature reading of 32 degrees at 13:00 GMT"
+}' "http://api.waziup.io/v1/sms/send"
+```
+
+
+
+Response:
+
+| Field  |Value   |Description   |
+|---|---|---|
+|status   |success   |Indicating request success   |
+|status_code   |1000   |Code indicating request success   |
+|status_text   |Variable   |Full description of status   |
+|sms_succeeded   |json array   |json array of reference ids of sms that succeeded   |
+|sms_failed   |json array   |json array of reference ids of sms that failed   |
+
+
+
+
+
+
 Receive SMS
 -----------
 
@@ -59,13 +106,15 @@ The SMS back-end should:
 - provide a data format for the registering, allowing application/users to specify what kind of SMS should be forwarded, and where.
 
 Implementation
-==============
+---------------------
 
 Register:
 
 
 To register to for a particular command the following parameters must be sent to the register end point
 
+
+Endpoint: api.waziup.io/v1/sms/register
 
 Method: POST
 
@@ -81,8 +130,6 @@ Request parameters
 | url  |  Url for the sms content to be posted to  |
 
 
-
-
 Response:
 
 Data Type: application/json
@@ -93,3 +140,29 @@ Response parameters
 |---|---|---|
 | success  | true or false |
 | message  | Message describing success or failure |
+
+
+
+Here's a sample CURL to send a Register an application named app1 with keyword 'pond'. Change the various parameters to suit
+
+```
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'name=app1&url=http://callbackurl.com&keyword=pond' "api.waziup.io/v1/sms/register"
+```
+
+
+
+Callback Payload
+----------------------
+
+Whenever an SMS is received on the phone number ( +15186760367 ) the contents of the SMS message is forwarded to the callback url of the specified application based on the keyword (first word in the phrase) of the SMS sent. 
+ 
+
+Method: POST
+
+Request parameters
+
+|Parameter   | Description  |
+|---|---|---|
+| From  | The originating phone number |
+| Text  | The Content of the SMS message received including the keyword |
+
