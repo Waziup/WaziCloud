@@ -3,16 +3,18 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FullWidthSection from './FullWidthSection'
 import Page from '../App'
 
-class Home extends Component {
+class MVPFishFarming extends Component {
   render() {
     return (
       <div>
-        <h1 className="page-title">Dashboard</h1>
-        <FullWidthSection useContent={true}></FullWidthSection>
+        <h1 className="page-title">MVP Fish Farming</h1>
+        <FullWidthSection useContent={true}>
+
+        </FullWidthSection>
       </div>
       );
   }
 }
 
-export default Home;
+export default MVPFishFarming;
 

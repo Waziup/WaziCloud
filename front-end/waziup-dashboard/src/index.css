@@ -12,6 +12,9 @@ body {
   margin-bottom:50px;
   padding-left:256px;
 }
+.inner-page{
+  padding:0 20px;
+}
 .standard-row{
   border: 1px solid #000;
 }

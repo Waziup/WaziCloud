@@ -9,6 +9,10 @@ import Keycloak from 'keycloak-js';
 import configureStore from './store';
 import Layout from './components/Layout';
 import Home from './components/Home';
+import MVPWeather from './components/Mvpweather';
+import MVPAgri from './components/Mvpagri.js';
+import MVPUrbanWaste from './components/Mvpurbanwaste';
+import MVPFishFarming from './components/Mvpfishfarming';
 import Sensors from './components/Sensors';
 import './index.css';
 import {fetchSensors} from './actions/actions';
@@ -37,6 +41,10 @@ const routes = {
   childRoutes: [
     { path: 'home', component:  Home },
     { path: 'apps', component:  Home },
+    { path: 'apps/weather', component:  MVPWeather },
+    { path: 'apps/agri', component:  MVPAgri },
+    { path: 'apps/urbanwaste', component:  MVPUrbanWaste },
+    { path: 'apps/fishfarming', component:  MVPFishFarming },
     { path: 'sensors', component:  Sensors , onEnter:loadSensors},
     { path: 'home', component:  Home },
     { path: 'home', component:  Home },

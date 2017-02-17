@@ -10,6 +10,8 @@ import MenuItem from 'material-ui/MenuItem';
 import FontIcon from 'material-ui/FontIcon';
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
 import Logo from "../images/logo-waziup-white.svg";
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
+
 
 const styles = {
    medium: {
@@ -97,10 +99,15 @@ class Layout extends Component {
                       innerDivStyle={styles.menuLink}
                     />
                     <MenuItem
-                      containerElement={<Link to="/apps" />}
                       primaryText="Apps"
                       innerDivStyle={styles.menuLink}
-                    />
+                      rightIcon={<ArrowDropRight />}
+                      menuItems={[
+                        <MenuItem primaryText="MVP Weather" containerElement={<Link to="/apps/weather" />}/>,
+                        <MenuItem primaryText="MVP Fish Farming" containerElement={<Link to="/apps/fishfarming" />} />,
+                        <MenuItem primaryText="MVP Agriculture" containerElement={<Link to="/apps/agri" />} />,
+                        <MenuItem primaryText="MVP Urban Waste" containerElement={<Link to="/apps/urbanwaste" />} />,
+                        ]} />
                     <MenuItem
                       containerElement={<Link to="/sensors" />}
                       innerDivStyle={styles.menuLink}
@@ -113,7 +120,9 @@ class Layout extends Component {
                     />
                 </Drawer>
                 <div className="page-content">
-                  {this.props.children}
+                  <div className="inner-page">
+                    {this.props.children}
+                  </div>
                 </div>
                 <div className="footer-bottom">
                   <div className="container">

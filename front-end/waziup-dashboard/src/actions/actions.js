@@ -21,7 +21,6 @@ function receiveError(json) {
 };
 
 export function fetchSensors() {
-
 // curl http://broker.waziup.io/v2/entities --header 'Fiware-ServicePath:/#' --header 'Fiware-Service:waziup' -X GET
     return function(dispatch) {
           dispatch(requestSensors());

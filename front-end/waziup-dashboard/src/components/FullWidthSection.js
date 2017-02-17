@@ -28,6 +28,7 @@ const FullWidthSection = React.createClass({
         },
         content: {
           maxWidth: 1200,
+          padding: '0 20',
           margin: '0 auto'
         }
       };
