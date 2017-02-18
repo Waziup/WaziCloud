@@ -17,9 +17,9 @@
 				{
 					"type": "sparkline",
 					"settings": {
-						"title": "Historical room temperature (3)",
+						"title": "Historical room temperature",
 						"value": [
-							"datasources[\"Sensor1\"][\"TC\"]"
+							"datasources[\"Sensor1\"][\"temperature\"]"
 						]
 					}
 				}
@@ -40,7 +40,7 @@
 					"type": "gauge",
 					"settings": {
 						"title": "Actual room temperature",
-						"value": "datasources[\"Sensor1\"][\"TC\"]",
+						"value": "datasources[\"Sensor1\"][\"temperature\"]",
 						"units": "°C",
 						"min_value": "10",
 						"max_value": "40"
