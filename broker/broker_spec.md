@@ -67,23 +67,23 @@ Check that everything works with
 $ curl localhost:1026/version
 ```
 
-###Mapping between IoT-Lite - Orion###
+WAZIUP data model
+-----------------
 
-Entity describes the same concept in IoT-lite and Orion. In IoT-lite, entity is the virtual representation of devices
-They have location, attributes, services and meta-data.
+The data model used in waziup for the sensors is the following.
 
-How can we map IoT-Lite and Orion context broker concepts?
-
-The mapping below has been proposed :
-For each entity, we have the following attributes and meta-data:
-
-* Attributes of sensor (ex: temperature, humidity, …) with the following meta data : Timestamp, unit (ex :Celsius, ...)
-* Attribute location
-* Attribute plateform
-* System and subsystem (Fiware-ServicePath)
-Example:
-System (e.g. : SmartCampus), Subsystem (ex: PrecisionAgric)
-
+{
+  "id": "<sensor name>",
+  "type": "SensingDevice",
+  "owner": {
+      "value": "<sensor owner>",
+      "type": "String"
+    },
+  "<measurement>": {
+    "value": 23,
+    "type": "Number"
+  }
+}
 
 cygnus-common
 -------------
