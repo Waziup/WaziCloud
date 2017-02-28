@@ -72,6 +72,7 @@ WAZIUP data model
 
 The data model used in waziup for the sensors is the following.
 
+```
 {
   "id": "<sensor name>",
   "type": "SensingDevice",
@@ -84,6 +85,8 @@ The data model used in waziup for the sensors is the following.
     "type": "Number"
   }
 }
+```
+
 
 cygnus-common
 -------------
