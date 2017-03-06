@@ -10,6 +10,7 @@
     "griddle-react": "^0.7.1",
     "keycloak-admin-client": "^0.4.0",
     "keycloak-js": "^2.5.1",
+    "leaflet": "^1.0.3",
     "material-ui": "^0.16.0-rc2",
     "normalize.css": "^5.0.0",
     "react": "15.3.0",
