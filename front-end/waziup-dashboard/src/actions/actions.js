@@ -1,5 +1,4 @@
 import * as types from './actionTypes';
-import 'whatwg-fetch';
 import axios from 'axios'
 
 function requestSensors() {
@@ -37,5 +36,39 @@ export function fetchSensors() {
             .catch(function(response){
               dispatch(receiveError(response.data));
             })
+        }
+};
+function createSensor(sensor) {
+    return function(dispatch) {
+          dispatch({type: types.REQ_SENSORS});
+          return axios.post('http://orion.waziup.io/v1/data/entities',{
+                  method: 'get',
+                  data:sensor,
+                  headers: {
+                    'Fiware-ServicePath':'/#',
+                    'Fiware-Service':'waziup',
+                  },
+                })
+            .then(function(response) {
+              dispatch(createSensorSuccess(response.data));
+            })
+            .catch(function(response){
+              dispatch(createSensorError(response.data));
+            })
+        }
+
+};
+
+function createSensorSuccess(json) {
+    return{
+          type: types.RECV_SENSORS,
+          data: json
+        }
+};
+
+function createSensorError(json) {
+    return {
+          type: types.RECV_ERROR,
+          data: json
         }
 };

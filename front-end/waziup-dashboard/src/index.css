@@ -7,13 +7,133 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+body,html{
+  position:relative;
+  height:100%!important
+}
+body,p{font-size:13px}
 
+#root{
+   background: #34425A;
+   position: relative;
+   overflow-x: hidden;
+   -webkit-transition: -webkit-transform 0.4s;
+   -moz-transition: -moz-transform 0.4s;
+   transition: transform 0.4s;
+   box-shadow: 0 0 30px #241d20;
+   min-height: 100%;
+}
+.page-header-fixed .page-sidebar {
+    padding-top: 60px;
+}
+.page-header-fixed .navbar {
+    position: fixed !important;
+    right: 0;
+    left: 0;
+}
+.navbar {
+    background: #FFF !important;
+    padding: 0;
+    height: 60px;
+    z-index: 999;
+    border-radius: 0;
+    border: none;
+    margin: auto;
+    padding: 0 !important;
+    position: relative;
+    -webkit-box-shadow: 0 5px 5px -5px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 5px 5px -5px rgba(0,0,0,.1);
+    box-shadow: 0 5px 5px -5px rgba(0,0,0,.1);
+}
+.content-wrap{
+  background: #34425A;
+   overflow: hidden;
+}
 .page-content{
   margin-bottom:50px;
   padding-left:256px;
 }
-.inner-page{
-  padding:0 20px;
+.page-sidebar {
+    display: block;
+    z-index: 998;
+    float: left;
+    height: auto!important;
+    overflow: visible!important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+.sidebar {
+    background: #34425A;
+}
+.page-sidebar .page-sidebar-inner {
+    height: 100%!important;
+    overflow: hidden;
+    width: auto;
+}
+.menu {
+    padding: 0;
+    margin: 0;
+    width: 160px;
+    color: #fff;
+    position: relative;
+    display: block;
+}
+
+.menu a div{
+    color: #899dc1;
+}
+.menu  div{
+    color: #fff;
+}
+.menu svg{
+    color: #fff important;
+}
+.menu a {
+    display: block;
+    padding: 15px 18px;
+    background: 0 0;
+    text-decoration: none;
+    font-size: 13px;
+}
+.menu {
+    background: #34425A;
+}
+.page-inner {
+    min-height: 1080px !important;
+    background: #F1F4F9;
+    position: relative;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.page-header-fixed:not(.page-sidebar-fixed):not(.page-horizontal-bar) .page-inner {
+    padding: 60px 0;
+}
+#main-wrapper {
+    padding: 0;
+    min-height: 1080px !important;
+}
+.page-footer {
+    background: #fff;
+    width: 100%;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    padding: 14px 18px;
+    
+}
+.page-title {
+    padding: 20px;
+    background: #e9edf2;
+    border-bottom: 1px solid #dee2e8;
+    color:#34425A !important
+}
+.page-title h3 {
+    font-size: 24px;
+    font-weight: 300;
+    color: #74767d;
+    padding: 0;
+    margin: 0 0 4px;
 }
 .standard-row{
   border: 1px solid #000;
@@ -32,25 +152,26 @@ body {
   border-top: 1px solid #EDEDEF !important;
   color:#222 !important;
 }
-.footer-bottom {
-  padding-left:256px;
-  padding: 20px 0;
-  border-top: 1px solid rgba(55,100,125,.3);
-  margin-top:20px;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-  text-align: center;
-}
+
 .waziup-logo {
-  height: 40px;
+  height: 24px;
+}
+.page-footer .footer-left{
+
+}
+.no-s {
+    margin: 0!important;
+    padding: 0!important;
 }
 
-.container{
-  display:flex;
-  padding-left:256px;
+p {
+    display: block;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 22px;
+    margin: 0 0 10px;
+    font-style: normal;
+    white-space: normal;
 }
 .card-container{
   display:flex;
@@ -64,4 +185,42 @@ body {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+}
+.leaflet-container {
+    height: 400px;
+    width: 100%;
+}
+
+/* Mobile hiding/showing */
+.navbar > button {
+  display: block;
+}
+.navbar > div > img{
+   width: 170px;
+   display: block;
+   padding: 9px 21px;
+   background: #34425A;
+   
+}
+.navbar .profile-menu{
+  padding: 0;
+}
+.navbar .profile-menu svg{
+  color: #34425A !important;
+  fill: #34425A !important;
+
+}
+/* Laptop hiding/showing */
+@media screen and (min-width: 768px) {
+  .navbar > button{
+    display: none !important;
+  }
+
+}
+
+/* Desktop hiding/showing */
+@media screen and (min-width: 992px) {
+.navbar > button{
+    display: none !important;
+  }
 }

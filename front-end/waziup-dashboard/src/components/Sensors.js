@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
 import FullWidthSection from './FullWidthSection'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Page from '../App'
 import SensorData from './SensorData.js'
-// import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import SensorForm from './sensors/sensorForm/sensorFormContainer.js'
+import {createSensor} from '../actions/actions';
+import { Container, Row, Col, Visible, Hidden, ScreenClassRender } from 'react-grid-system'
 import Griddle from 'griddle-react';
-
 
 class Sensors extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data : props.data
+      data : props.data,
+      modalOpen:false
     };
   }
   defaultProps = {
@@ -24,6 +27,14 @@ class Sensors extends Component {
       this.setState({data:nextProps.data})
     }
   }
+
+  handleOpen = () => {
+    this.setState({modalOpen: true});
+  };
+
+  handleClose = () => {
+    this.setState({modalOpen: false});
+  };
   tableMeta = [
     {
       "columnName": "id",
@@ -48,55 +59,48 @@ class Sensors extends Component {
       "displayName": "Last Value",
       "customComponent": SensorData
     },
-  ]
+  ];
+  handleSubmit = (values) => {
+    // Do something with the form values
+    let sensor  = {
+      id: values.sensorId,
+      type: values.sensorType,
+  
+    }
+    sensor[values.sensorName] = {
+      value: 0,
+      type: values.sensorValueType
+    }
+    this.props.createSensor(sensor)
+  
+  }
   render() {
+    console.log(this)
     let {data} = this.props;
-    console.log(this.state);
+  
     return (
       <div>
-        <h1 className="page-title">Sensors</h1>
-        <FullWidthSection useContent={true}>
-        <Griddle resultsPerPage={10} results={this.state.data} columnMetadata={this.tableMeta} columns={["id", "type","owner","last_value"]} showFilter={true} />
-        {/*          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHeaderColumn>ID</TableHeaderColumn>
-                <TableHeaderColumn>Name</TableHeaderColumn>
-                <TableHeaderColumn>Type</TableHeaderColumn>
-                <TableHeaderColumn>Last Value</TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-                    {this.state.data.map((sensor,index )=> {
-                      var text = "";
-                      for(var i in sensor){
-                          if (i!=='id'&&i!='type') {
-                            text = text + i + " : " + sensor[i].value+" \n"
-                          }
-                      }
-                      return (
-                          <TableRow key={index}>
-                            <TableRowColumn>{index}</TableRowColumn>
-                            <TableRowColumn>{sensor.id}</TableRowColumn>
-                            <TableRowColumn>{sensor.type}</TableRowColumn>
-
-                            <TableRowColumn>{text}</TableRowColumn>
-                          </TableRow>
-                      )
-                    })}
-            </TableBody>
-          </Table>*/}
-        </FullWidthSection>
-        </div>
+          <h1 className="page-title">Sensors</h1>
+          <Container>
+            <RaisedButton label="Add Sensors" primary={true} onTouchTap={this.handleOpen} />
+              <FullWidthSection useContent={true}>
+                <Griddle resultsPerPage={10} results={this.state.data} columnMetadata={this.tableMeta} columns={["id", "type","owner","last_value"]} showFilter={true} />
+              </FullWidthSection>
+            <SensorForm  modalOpen={this.state.modalOpen} handleClose={this.handleClose} onSubmit={this.handleSubmit} />     
+          </Container>
+      </div>
     );
   }
 }
+
 function mapStateToProps(state) {
   return { data: state.example.data };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    createSensor:(sensor)=>{dispatch(createSensor(sensor))}
+  };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Sensors);
 

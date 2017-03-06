@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Container, Row, Col, Visible, Hidden, ScreenClassRender } from 'react-grid-system'
 import FullWidthSection from './FullWidthSection'
 import Page from '../App'
 
@@ -8,9 +9,11 @@ class MVPFishFarming extends Component {
     return (
       <div>
         <h1 className="page-title">MVP Fish Farming</h1>
-        <FullWidthSection useContent={true}>
+        <Container>
+          <FullWidthSection useContent={true}>
 
-        </FullWidthSection>
+          </FullWidthSection>
+        </Container>
       </div>
       );
   }
