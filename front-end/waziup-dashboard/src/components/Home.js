@@ -3,34 +3,30 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Container, Row, Col, Visible, Hidden, ScreenClassRender } from 'react-grid-system'
 import {ToastContainer,ToastMessage} from "react-toastr"
+import { connect } from 'react-redux';
 import FullWidthSection from './FullWidthSection'
 import Page from '../App'
 
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
-const position = [51.505, -0.09];
+const position = [12.238, -1.561];
 class Home extends Component {
   constructor(props){
     super(props);
     this.state = {
       sensors : props.sensors,
-      markers: [{
-          position: {
-            lat: 9.089893,
-            lng: -1.274414,
-          },
-          key: `Taiwan`,
-          defaultAnimation: 2,
-        }],
+      user:{},
+      markers: [],
     };
   }
   defaultProps = {
     sensors: []
   };
   addAlert() {
+    
     var now = new Date().toUTCString();
     this.refs.toastContainer.success(
         <div>
-          <h3>Welcome USER !</h3> 
+          <h3>Welcome {this.state.user.name} !</h3> 
           <p>{now}</p>
         </div>, 
         `WAZIUP`, {
@@ -38,16 +34,66 @@ class Home extends Component {
         });
   }
   componentWillReceiveProps(nextProps){
-    if (nextProps.data) {
-      this.setState({sensors:nextProps.sensors})
+    var defaultLocation = [
+      {position:[6.666600,-1.616271]},
+      {position:[16.062637,-16.425864]},
+      {position:[6.163909,-1.208513]},
+      {position:[14.670868,-17.430936]},
+      {position:[14.743417,-17.485433]},
+      {position:[5.569658,-0.168994]},
+      {position:[11.164922,-4.305154]},
+    ];
+     var markers = [];
+     for(var i = 0; i<defaultLocation.length;i++){
+      markers.push({
+              position:defaultLocation[i].position,
+              defaultAnimation: 2,
+      });
+     }
+      this.setState({markers:markers})
+        
+    if (nextProps.sensors) {
+      
+      // this.setState({sensors:nextProps.data})
+       
+        for (var i = 0; i < nextProps.sensors.length; i++) {
+          
+          if(nextProps.sensors[i].location){
+            markers.push({
+              position:[
+                parseFloat(nextProps.sensors[i].location.value.split(",")[0]),
+                parseFloat(nextProps.sensors[i].location.value.split(",")[1]),
+              ],
+              defaultAnimation: 2,
+            });
+          }else{
+           
+          }
+        } 
+        this.setState({markers:markers})
+    }
+    
+    
+
+  }
+  componentWillMount(){
+    if (this.props.user) {
+        this.setState({user:this.props.user});
     }
   }
   componentDidMount(prevProps, prevState) {
       this.addAlert()    
   }
+
       
   render() {
-  
+    const listMarkers = this.state.markers.map((marker,index) =>
+            <Marker key={index} position={marker.position}>
+              <Popup>
+                <span>Sensor infos<br/>{marker.position}</span>
+              </Popup>
+            </Marker>
+    );    
     return (
       <div>
         <h1 className="page-title">Dashboard</h1>
@@ -57,11 +103,7 @@ class Home extends Component {
               url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
-            <Marker position={position}>
-              <Popup>
-                <span>A pretty CSS3 popup.<br/>Easily customizable.</span>
-              </Popup>
-            </Marker>
+            {listMarkers}
           </Map>
         </Container>
         <ToastContainer
@@ -74,12 +116,15 @@ class Home extends Component {
   }
 }
 function mapStateToProps(state) {
-  return { sensors : state.example.data };
+  return { 
+    sensors : state.example.data ,
+    user: state.keycloak.idTokenParsed,
+    keycloak: state.keycloak
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {};
 }
-
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 

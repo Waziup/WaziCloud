@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import FullWidthSection from './FullWidthSection'
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Page from '../App'
 import SensorData from './SensorData.js'
 import SensorForm from './sensors/sensorForm/sensorFormContainer.js'
 import {createSensor} from '../actions/actions';
-import { Container, Row, Col, Visible, Hidden, ScreenClassRender } from 'react-grid-system'
+import { Container} from 'react-grid-system'
 import Griddle from 'griddle-react';
 
 class Sensors extends Component {
@@ -71,11 +68,11 @@ class Sensors extends Component {
       value: 0,
       type: values.sensorValueType
     }
+    
     this.props.createSensor(sensor)
   
   }
   render() {
-    console.log(this)
     let {data} = this.props;
   
     return (

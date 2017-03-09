@@ -7,12 +7,13 @@ import IconButton from 'material-ui/IconButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import Avatar from 'material-ui/Avatar';
+import { connect } from 'react-redux';
 import FontIcon from 'material-ui/FontIcon';
 import AccountCircle from 'material-ui/svg-icons/action/account-circle';
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import Logo from "../images/logo-waziup-white.svg";
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
-import { Container, Row, Col, Visible, Hidden, ScreenClassRender } from 'react-grid-system'
+import { Container,  Col, Visible, Hidden } from 'react-grid-system'
 
 const styles = {
    medium: {
@@ -20,7 +21,7 @@ const styles = {
      color:'#cecece'
   },
   logo:{
-    width:170,
+    width:171,
     paddingTop:10,
   },
   menuLink:{
@@ -30,27 +31,32 @@ const styles = {
 class Layout extends Component {
     constructor(props) {
       super(props);
-      this.state = {open: false};
+      this.state = {
+        open: false,
+        user:{}
+      };
       this.toggleNavigation = this.toggleNavigation.bind(this);
     }
-    profileButton = (
-        <IconButton
-          className="profile-menu"
-          style={styles.medium}
-        >
-          <AccountCircle />
-        </IconButton>
+    profileButton = (user) => (
+          <IconButton
+            className="profile-menu"
+            style={styles.medium}
+          >
+            <span className="user-name">{user.name}</span>
+            <AccountCircle />
+          </IconButton>
+        
     );
-    headerMenu = (
+    headerMenu = (user) =>(
       <IconMenu
-      iconButtonElement={this.profileButton}
+      iconButtonElement={this.profileButton(user)}
       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
       targetOrigin={{horizontal: 'left', vertical: 'top'}}
       >
         <MenuItem primaryText="Profile" />
         <MenuItem primaryText="Settings" />
         <MenuItem primaryText="Help" />
-        <MenuItem primaryText="Sign out" />
+        <MenuItem primaryText="Sign out" onClick={()=>{this.props.keycloak.logout()}}/>
       </IconMenu>
     );
     getChildContext() {
@@ -58,13 +64,17 @@ class Layout extends Component {
         muiTheme: this.state.muiTheme
       };
     }
-
+    componentWillReceiveProps(nextProps){
+      
+    }
     componentWillMount() {
+      if (this.props.user) {
+        this.setState({user:this.props.user});
+      }
       this.setState({
         muiTheme:getMuiTheme()
       });
     }
-
     toggleNavigation() {
       this.setState({open: !this.state.open});
     }
@@ -78,7 +88,7 @@ class Layout extends Component {
                 <AppBar
                   title={<img style={styles.logo} src={Logo}/>}
                   onLeftIconButtonTouchTap={this.toggleNavigation}
-                  iconElementRight={this.headerMenu}
+                  iconElementRight={this.headerMenu(this.state.user)}
                   className="navbar"
                   onLeftIconButtonTouchTap={this.toggleNavigation}
                 />
@@ -129,6 +139,20 @@ class Layout extends Component {
                 <Hidden xs sm>
                   <Col md={2} className="page-sidebar sidebar">
                     <div className="page-sidebar-inner">
+                        <div className="sidebar-header">
+                          <div className="sidebar-profile">
+                              <a id="profile-menu-link">
+                                  <div className="sidebar-profile-image">
+                                      <Avatar icon={<AccountCircle />} className="img-circle img-responsive"/>
+                                      
+                                  </div>
+                                  <div className="sidebar-profile-details">
+                                      <span>{this.state.user.name}<br/><small></small></span>
+                                  </div>
+                              </a>
+                          </div>
+                      </div>
+  
                       <div className="menu">
                         <MenuItem
                           containerElement={<Link to="/home" />}
@@ -195,5 +219,16 @@ Layout.childContextTypes = {
     muiTheme: React.PropTypes.object.isRequired
 };
 
-export default Layout;
+function mapStateToProps(state) {
+  return { 
+    user: state.keycloak.idTokenParsed,
+    keycloak: state.keycloak
+  };
+}
 
+function mapDispatchToProps(dispatch) {
+  return {
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

@@ -24,6 +24,7 @@ export function fetchSensors() {
     return function(dispatch) {
           dispatch(requestSensors());
           return axios.get('http://orion.waziup.io/v1/data/entities',{
+            
                   method: 'get',
                   headers: {
                     'Fiware-ServicePath':'/#',
@@ -38,16 +39,18 @@ export function fetchSensors() {
             })
         }
 };
-function createSensor(sensor) {
+export function createSensor(sensor) {
     return function(dispatch) {
           dispatch({type: types.REQ_SENSORS});
           return axios.post('http://orion.waziup.io/v1/data/entities',{
-                  method: 'get',
+                  method: 'post',
                   data:sensor,
                   headers: {
-                    'Fiware-ServicePath':'/#',
+                    'Content-Type': 'application/json',
+                    'Fiware-ServicePath':'/C4A',
                     'Fiware-Service':'waziup',
                   },
+  
                 })
             .then(function(response) {
               dispatch(createSensorSuccess(response.data));
@@ -59,14 +62,14 @@ function createSensor(sensor) {
 
 };
 
-function createSensorSuccess(json) {
+export function createSensorSuccess(json) {
     return{
           type: types.RECV_SENSORS,
           data: json
         }
 };
 
-function createSensorError(json) {
+export function createSensorError(json) {
     return {
           type: types.RECV_ERROR,
           data: json

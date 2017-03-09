@@ -1,21 +1,16 @@
 import React, {Component} from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import { reduxForm, Field } from 'redux-form'
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+// import RaisedButton from 'material-ui/RaisedButton';
 
 import MenuItem from 'material-ui/MenuItem'
 import { RadioButton } from 'material-ui/RadioButton'
 import {
-  Checkbox,
-  RadioButtonGroup,
   SelectField,
   TextField,
-  Toggle,
-  DatePicker
 } from 'redux-form-material-ui'
-import { Container, Row, Col, Visible, Hidden, ScreenClassRender } from 'react-grid-system'
+import {  Row, Col, Visible} from 'react-grid-system'
 
 // validation functions
 const required = value => value == null ? 'Required' : undefined

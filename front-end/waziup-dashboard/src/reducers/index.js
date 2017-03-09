@@ -1,6 +1,6 @@
 import * as types from '../actions/actionTypes';
 import { combineReducers } from 'redux'; //might need to remove
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import { routerReducer } from 'react-router-redux'
 import { reducer as formReducer } from 'redux-form'
 
 function exampleReducer(state = {isLoading: false, data: [], error: false},action = null) {
@@ -33,7 +33,8 @@ const rootReducer = combineReducers({
     routing: routerReducer,
     example: exampleReducer,
     sensor: sensorsReducer,
-    form: formReducer
+    form: formReducer,
+    keycloak:(state={})=>state
 });
 
 export default rootReducer;
