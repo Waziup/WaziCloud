@@ -80,28 +80,35 @@ Push the application:
 git push waziup master
 ```
 
-APÏ
+API
 ---
 
 As an example, here is how to retrieve the list of applications:
 
+Register:
 ```
 $ curl http://deis.waziup.io/v2/auth/register/ -s -S --header 'Content-Type: application/json' -X POST -d @- <<EOF
 {"username": "ttt", "password": "test", "email": "c@c.com"}
 EOF
+```
 
+Login and get token:
+```
 $ curl http://deis.waziup.io/v2/auth/login/ -s -S --header 'Content-Type: application/json' -X POST -d @- <<EOF
 {"username": "ttt", "password": "test"}
 EOF
 
 {"token":"0321d7f462380b2c968acbf0785d2485a0dd58a9"}
+```
 
+Get list of apps:
+```
 $ curl http://deis.waziup.io/v2/apps --header 'Authorization: token 0321d7f462380b2c968acbf0785d2485a0dd58a9' | jq "."
 
   [ 
     {
       "uuid": "858e9b3f-0910-40df-8321-3946afd5dbc9",
-      "id": "waziup-test-os",
+      "id": "app1",
       "owner": "ousmaneo",
       "structure": {},
       "created": "2016-12-15T12:50:53Z",
@@ -109,15 +116,16 @@ $ curl http://deis.waziup.io/v2/apps --header 'Authorization: token 0321d7f46238
     },
     {
       "uuid": "3b21f10f-a72c-4f1b-94c8-5597aeab4007",
-      "id": "yearly-question",
+      "id": "app2",
       "owner": "ousmaneo",
       "structure": {},
       "created": "2016-12-15T13:28:40Z",
       "updated": "2017-03-04T23:42:55Z"
     }
   ]
-
 ```
+For example, the app named "app1" should be available on `app1.waziup.io`.
+
 
 Troubleshooting
 ---------------
