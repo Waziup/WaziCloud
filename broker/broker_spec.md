@@ -38,34 +38,6 @@ IoT Lite ontology is based on 18 Concepts
 * Quantity kind, Unit 
 
 
-Orion Context Broker
---------------------
-
-Orion is an implementation of the NGSI9/10 REST API binding developed as a part of the FIWARE platform. Orion allows to
-manage lifecycle of context information through: updates, queries, registrations and subscriptions. This table below summarizes descriptions of different operations in Orion.
-
-![Orion Description](https://github.com/DiopBabacarEdu/test-GIT/blob/master/OrionImg.tiff)
-
-###Building an Orion image###
-
-Download Orion's source code from Github:
-
-```
-$ git clone https://github.com/telefonicaid/fiware-orion/)
-$ cd fiware-orion/docker
-```
-
-Using an automated scenario with docker-compose and building your new image: sudo docker-compose up. You may also modify the provided docker-compose.yml file if you need so.
-
-Manually, running MongoDB on another container: 1. sudo docker run --name mongodb -d mongo:3.2
-```
-$ sudo docker build -t orion .
-```
-
-Check that everything works with
-```
-$ curl localhost:1026/version
-```
 
 WAZIUP data model
 -----------------
@@ -163,6 +135,35 @@ Here is a valid example of sensor:
 }
 ```
 
+
+Orion Context Broker
+--------------------
+
+Orion is an implementation of the NGSI9/10 REST API binding developed as a part of the FIWARE platform. Orion allows to
+manage lifecycle of context information through: updates, queries, registrations and subscriptions. This table below summarizes descriptions of different operations in Orion.
+
+![Orion Description](https://github.com/DiopBabacarEdu/test-GIT/blob/master/OrionImg.tiff)
+
+###Building an Orion image###
+
+Download Orion's source code from Github:
+
+```
+$ git clone https://github.com/telefonicaid/fiware-orion/)
+$ cd fiware-orion/docker
+```
+
+Using an automated scenario with docker-compose and building your new image: sudo docker-compose up. You may also modify the provided docker-compose.yml file if you need so.
+
+Manually, running MongoDB on another container: 1. sudo docker run --name mongodb -d mongo:3.2
+```
+$ sudo docker build -t orion .
+```
+
+Check that everything works with
+```
+$ curl localhost:1026/version
+```
 
 cygnus-common
 -------------
