@@ -83,16 +83,14 @@ The data model used in waziup for the sensors is the following.
   "<measurement>": {
     "value": 23,
     "type": "Number"
-  }
-  
+  },  
   "location": {
     "value": {
        "type": "Point",
        "coordinates": [14.52839, 35.89389]
     },
     "type": "geo:json"
-   }
-  
+   }  
 }
 ```
 
