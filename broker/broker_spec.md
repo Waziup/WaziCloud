@@ -83,11 +83,11 @@ The data model used in waziup for the sensors is the following.
 - latitude and longitude are the coordinates on earth in decimal notation (e.g. "40.418889").
 - owner is the sensor owner. By convention it is the user name in Keycloak.
 - dateTime is the date and time at which the measurement has been taken. It is in ISO 8601 format: YYY-MM-DDThh:mm:ss.00Z
-- measurement is the measured quantity as defined in [SSN QU](https://www.w3.org/2005/Incubator/ssn/ssnx/qu/qu-rec20.html).
+- measurement is the measured quantity as defined in [SSN QU](https://www.w3.org/2005/Incubator/ssn/ssnx/qu/qu-rec20.html), in lower case.
 In particular, the following measurements are supported:
-  - Temperature
-  - Pressure
-  - Distance
+  - temperature
+  - pressure
+  - distance
   ...
 - Unit is the unit as defined in [SSN QU](https://www.w3.org/2005/Incubator/ssn/ssnx/qu/qu-rec20.html).
 
