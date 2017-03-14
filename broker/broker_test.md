@@ -139,7 +139,7 @@ Here is the command to request the data point for the temperature of the entity 
 
 ```
 $ curl -s -S --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' \
-'http://brokerhistory.waziup.io/STH/v1/contextEntities/type/SensingDevice/id/Sensor0/attributes/temperature?hLimit=3&hOffset=0&dateFrom=2016-12-01T00:00:00.000Z&dateTo=2019-12-19T23:59:59.999Z'
+'http://brokerhistory.waziup.io/STH/v1/contextEntities/type/SensingDevice/id/Sensor1/attributes/temperature?hLimit=3&hOffset=0&dateFrom=2016-12-01T00:00:00.000Z&dateTo=2019-12-19T23:59:59.999Z'
 
 ```
 
