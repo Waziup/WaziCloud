@@ -1,12 +1,12 @@
 nginx:
-  build: images/nginx
+  image: waziup/smsnginx
   command: nginx -g "daemon off;"
   links:
     - php
   ports:
     - "80:80"
 php:
-  build: images/php
+  image: waziup/smsphp
   volumes:
     - ./images/php/app:/app
   working_dir: /app/public
