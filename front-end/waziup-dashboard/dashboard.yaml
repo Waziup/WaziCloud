@@ -33,3 +33,18 @@ spec:
       nodePort: 32005
   selector:
     app: dashboard
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dashboard
+  namespace: waziup
+spec:
+  rules:
+  - host: dashboard.waziup.io
+    http:
+      paths:
+      - backend:
+          serviceName: dashboard
+          servicePort: 3000

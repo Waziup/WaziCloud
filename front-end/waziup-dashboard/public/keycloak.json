@@ -1,7 +1,7 @@
 {
   "realm": "waziup",
-  "auth-server-url": "http://localhost:8180/auth",
-  "ssl-required": "external",
-  "resource": "waziup",
+  "auth-server-url": "http://aam.waziup.io/auth",
+  "ssl-required": "none",
+  "resource": "dashboard",
   "public-client": true
 }

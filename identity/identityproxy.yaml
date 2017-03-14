@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: identityproxy
-        image: waziup/identityproxy:latest
+        image: waziup/oidc:siris
         ports:
         - containerPort: 80
 
@@ -54,12 +54,6 @@ spec:
           serviceName: identityproxy
           servicePort: 80
   - host: app.waziup.io
-    http:
-      paths:
-      - backend:
-          serviceName: identityproxy
-          servicePort: 80
-  - host: dashboard.waziup.io
     http:
       paths:
       - backend:

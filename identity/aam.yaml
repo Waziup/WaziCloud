@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: aam
-        image: jboss/keycloak
+        image: waziup/keycloak:https2
         ports:
         - containerPort: 8080
         env:
