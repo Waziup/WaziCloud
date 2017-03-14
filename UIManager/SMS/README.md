@@ -25,12 +25,12 @@ $ curl -X POST -H "Content-Type: application/json" -H "Api-Token: 53fdb4b2-0ad4-
 ## Install on Kubernetes
 
 ```
-$ cd images/nginx
-$ docker build -t waziup/smsnginx .
-$ docker push waziup/smsnginx
-$ cd ../../images/php
-$ docker build -t waziup/smsphp .
-$ docker push waziup/smsphp
+$ cd images/smsproxy
+$ docker build -t waziup/smsproxy .
+$ docker push waziup/smsproxy
+$ cd ../../images/smsapp
+$ docker build -t waziup/smsapp .
+$ docker push waziup/smsapp
 $ cd ../..
 $ kubectl delete -f SMSServer.yaml
 $ kubectl apply -f SMSServer.yaml 

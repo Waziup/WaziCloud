@@ -1,19 +1,16 @@
-nginx:
-  image: waziup/smsnginx
+smsproxy:
+  image: waziup/smsproxy
   command: nginx -g "daemon off;"
   links:
-    - php
+    - smsapp
   ports:
     - "80:80"
-php:
-  image: waziup/smsphp
-  volumes:
-    - ./images/php/app:/app
-  working_dir: /app/public
+smsapp:
+  image: waziup/smsapp
   command: sh -c "php ../artisan migrate; php-fpm"
   links:
-    - db
-    - cache
+    - smsdb
+    - smscache
   ports:
     - "9000:9000"
   environment:
@@ -23,13 +20,13 @@ php:
     APP_LOCALE: en
     APP_FALLBACK_LOCALE: en
     DB_CONNECTION: mysql
-    DB_HOST: db
+    DB_HOST: smsdb
     DB_DATABASE: lumen
     DB_USERNAME: lumen
     DB_PASSWORD: secret
-    MEMCACHED_HOST: cache
+    MEMCACHED_HOST: smscache
     CACHE_DRIVER: memcached
-db:
+smsdb:
   image: mysql
   ports:
     - "3306:3306"
@@ -38,5 +35,5 @@ db:
     MYSQL_DATABASE: lumen
     MYSQL_USER: lumen
     MYSQL_PASSWORD: secret
-cache:
+smscache:
   image: memcached
