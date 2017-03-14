@@ -12,16 +12,41 @@ You can then perform the tests replacing `broker.waziup.io` with `localhost:1026
 Entity creation
 ---------------
 
-This command creates one entity called "Room1", which have the humidity measured.
+This command creates one entity called "Sensor1", which have the temperature measured.
 
 ```
-$ curl http://broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X POST -d @- <<EOF
+$ curl broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X POST -d @- <<EOF
 {
-  "id": "Room1",
-  "type": "Room",
-  "humidity": {
-    "value": 720,
-    "type": "Number"
+  "id": "Sensor1",
+  "type": "SensingDevice",
+  "location": {
+    "type": "geo:json",
+    "value": {
+      "type": "Point",
+      "coordinates": [
+        14.52839,
+        35.89389
+      ]
+    }
+  },
+  "owner": {
+    "type": "String",
+    "value": "cdupont",
+    "metadata": {}
+  },
+  "temperature": {
+    "type": "Number",
+    "value": 23,
+    "metadata": {
+      "timestamp": {
+        "type": "DateTime",
+        "value": "2016-06-08T18:20:27.00Z"
+      },
+      "unit": {
+        "type": "string",
+        "value": "Celsius"
+      }
+    }
   }
 }
 EOF
@@ -36,10 +61,10 @@ Insert datapoint
 ----------------
 
 If the value measure changes for the entity, we need to update it in Orion.
-With the following command we update the value of the humidity in the room to 800:
+With the following command we update the value of the temperature of the sensor to 19:
 
 ```
-$ curl http://broker.waziup.io/v2/entities/Room1/attrs/humidity/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X PUT -d 800
+$ curl broker.waziup.io/v2/entities/Sensor1/attrs/temperature/value -s -S --header 'Content-Type: text/plain' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X PUT -d 19
 ```
 If the command succeeds, there will be no output result.
 
@@ -50,18 +75,18 @@ In order to collect historical data on an entity, we need to register a subscrip
 This subscription will make Orion to inform Cygnus each time something changes with this entity.
 
 ```
-(curl broker.waziup.io/v1/subscribeContext -s -S --header 'Content-Type: application/json' \
+$ (curl broker.waziup.io/v1/subscribeContext -s -S --header 'Content-Type: application/json' \
 --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' -d @- | python -mjson.tool) <<EOF
 {
     "entities": [
         {
-            "type": "Room",
+            "type": "SensingDevice",
             "isPattern": "false",
-            "id": "Room1"
+            "id": " Sensor1"
         }
     ],
     "attributes": [
-        "humidity"
+        "temperature"
     ],
     "reference": "http://cygnus:5050/notify",
     "duration": "P1M",
@@ -69,7 +94,7 @@ This subscription will make Orion to inform Cygnus each time something changes w
         {
             "type": "ONCHANGE",
             "condValues": [
-                "humidity"
+                "temperature"
             ]
         }
     ],
@@ -83,7 +108,7 @@ Result should be:
 {
     "subscribeResponse": {
         "duration": "P1M",
-        "subscriptionId": "587cf6c56ae2585d74405c7d",
+        "subscriptionId": "58c7fe6b43cdafd490d9217f",
         "throttling": "PT1S"
     }
 }
@@ -96,23 +121,26 @@ Historical data
 ---------------
 
 The Waziup broker is able to deliver historical data.
-Here is the command to request the last 5 data point for the humidity of the entity "Room1".
+Here is the command to request the last 5 data point for the temperature of the entity "Sensor1".
 
 ```
 $ curl -s -S --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' \
-'http://brokerhistory.waziup.io/STH/v1/contextEntities/type/Room/id/Room1/attributes/humidity?lastN=5'
+'http://brokerhistory.waziup.io/STH/v1/contextEntities/type/SensingDevice/id/Sensor1/attributes/temperature?lastN=5'
+
 ```
 
 Expected result (if you followed all the commands above):
 ```
-{"contextResponses":[{"contextElement":{"attributes":[{"name":"humidity","values":[{"recvTime":"2017-01-16T16:29:35.385Z","attrType":"Number","attrValue":"800"},{"recvTime":"2017-01-16T16:37:25.141Z","attrType":"Number","attrValue":"800"}]}],"id":"Room1","isPattern":false,"type":"Room"},"statusCode":{"code":"200","reasonPhrase":"OK"}}]}
+{"contextResponses":[{"contextElement":{"attributes":[{"name":"temperature","values":[{"recvTime":"2017-03-14T14:30:22.213Z","attrType":"Number","attrValue":"19"},{"recvTime":"2017-03-14T16:17:32.301Z","attrType":"Number","attrValue":"19"}]}],"id":"Sensor1","isPattern":false,"type":"SensingDevice"},"statusCode":{"code":"200","reasonPhrase":"OK"}}]}
+
 ```
 
-Here is the command to request the data point for the humidity of the entity "Room1", between the dates 2016-12-01 and 2019-12-19:
+Here is the command to request the data point for the temperature of the entity "Sensor1", between the dates 2016-12-01 and 2019-12-19:
 
 ```
 $ curl -s -S --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' \
-'http://brokerhistory.waziup.io/STH/v1/contextEntities/type/Room/id/Room1/attributes/humidity?hLimit=3&hOffset=0&dateFrom=2016-12-01T00:00:00.000Z&dateTo=2019-12-19T23:59:59.999Z'
+'http://brokerhistory.waziup.io/STH/v1/contextEntities/type/SensingDevice/id/Sensor1/attributes/temperature?hLimit=3&hOffset=0&dateFrom=2016-12-01T00:00:00.000Z&dateTo=2019-12-19T23:59:59.999Z'
+
 ```
 
 Expected result: same as above.
@@ -121,5 +149,6 @@ Expected result: same as above.
 Requesting aggregated data :
 ```
 $ curl -s -S --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' \
-'http://brokerhistory.waziup.io/STH/v1/contextEntities/type/Room/id/Room1/attributes/humidity?aggrMethod=sum&aggrPeriod=second&dateFrom=2016-06-12T00:00:00.873Z&dateTo=2019-06-12T23:59:59.873Z'
+'http://brokerhistory.waziup.io/STH/v1/contextEntities/type/SensingDevice/id/Sensor1/attributes/temperature?aggrMethod=sum&aggrPeriod=second&dateFrom=2017-06-12T00:00:00.873Z&dateTo=2019-06-12T23:59:59.873Z'
+
 ```
