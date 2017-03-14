@@ -75,7 +75,7 @@ In order to collect historical data on an entity, we need to register a subscrip
 This subscription will make Orion to inform Cygnus each time something changes with this entity.
 
 ```
-(curl broker.waziup.io/v1/subscribeContext -s -S --header 'Content-Type: application/json' \
+$ (curl broker.waziup.io/v1/subscribeContext -s -S --header 'Content-Type: application/json' \
 --header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' -d @- | python -mjson.tool) <<EOF
 {
     "entities": [
