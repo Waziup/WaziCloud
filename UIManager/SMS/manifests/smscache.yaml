@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: smscache
+  namespace: waziup
+  labels:
+    name: smscache
+spec:
+  containers:
+  - name: smscache 
+    image: memcached
