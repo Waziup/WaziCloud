@@ -56,32 +56,32 @@ const routes = {
 }
 
 
-// let KeycloakConfig = {
-//   "realm": "waziup",
-//   "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiIzXeJ5OxrvawVoNXz+4zCBX66pki5PYltqggPYkt45Q60zBtK5ZS5vVecBBJ10Ae4NxKCRE9iNr0COmabK+a13e1FYYrsj1tN0SfQC2cKuI1WWc7LO7gEycS4+sauOjzdMYTkmLwj2GhIxo1vuhcBqyLV2NmSBEAqfGntjkI6kTRU3QlAlIp0NsNpc6ZYn9TPE+zhcr3GBruCDLbg0yYDtpK5GxK2gh8C4uaq9e55pPIVKo3FjX+5iYUJ6zluu1oafcec3MYRtYnbyOIQpkvpeUheqif5SKATeVgn4jyhEcH03zY+tiFe0p6spivT4gzxp9kkrKEnX0CsvFprQH6QIDAQAB",
-//   "url": "http://localhost:8180/auth",
-//   "ssl-required": "none",
-//   "resource": "dashboard",
-//   "clientId": "dashboard",
-//   "public-client": true
-// }
 
+
+
+
+
+const kc = Keycloak('/keycloak.json');
 
 // let kc = Keycloak(KeycloakConfig);
-//   console.log(kc);
-// kc.init({ onLoad: 'login-required' }).success(authenticated => {
-//   if (authenticated) {
-//    store.getState().keycloak = kc;
-//     setInterval(() => {
-//       kc.updateToken(10).error(() => kc.logout());
-//     }, 10000);
+  
+kc.init({ onLoad: 'login-required'}).success(authenticated => {
+  
+  if (authenticated) {
+    console.log(authenticated);
+   store.getState().keycloak = kc;
+    setInterval(() => {
+      kc.updateToken(10).error(() => kc.logout());
+    }, 10000);
     ReactDOM.render(
       <Provider store={store}>
         <Router history={history} routes={routes} />
       </Provider>
       , document.getElementById('root'))
-//   } else {
-//     // show possibly other page here...
-//     kc.login();
-//   }
-// });
+  } else {
+    // show possibly other page here...
+    kc.login();
+  }
+}).error(function (error) {
+    console(error);
+});

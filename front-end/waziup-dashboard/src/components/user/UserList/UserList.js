@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Visible, Hidden, ScreenClassRender } from 'react-grid-system'
+import { Container} from 'react-grid-system'
 import FullWidthSection from '../../FullWidthSection'
 
 class UserList extends Component {

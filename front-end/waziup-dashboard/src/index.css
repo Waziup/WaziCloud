@@ -196,7 +196,7 @@ p {
   display: block;
 }
 .navbar > div > img{
-   width: 170px;
+   width: 16.6667%;
    display: block;
    padding: 9px 21px;
    background: #34425A;
@@ -204,11 +204,72 @@ p {
 }
 .navbar .profile-menu{
   padding: 0;
+  width:167px !important;
 }
 .navbar .profile-menu svg{
   color: #34425A !important;
   fill: #34425A !important;
 
+}
+.navbar .user-name{
+    color: #34425A !important;
+    fill: #34425A !important;
+    display: block;
+    font-size: 16px;
+    height: 21px;
+    margin-bottom: 3px;
+    float: left;
+    margin-top: 3px;
+}
+.sidebar-header {
+    overflow: hidden;
+    clear: both;
+    position: relative;
+    padding: 20px;
+}
+
+.sidebar-profile-image {
+    display: block;
+}
+
+.sidebar-profile {
+    overflow: hidden;
+    position: relative;
+    display: block;
+}
+
+.sidebar-profile a {
+    text-decoration: none;
+}
+
+.sidebar-profile img {
+    width: 60px;
+    display: block;
+    margin: 0 auto;
+}
+
+.sidebar-profile span {
+    color: #fff;
+    font-weight: 600;
+    display: block;
+    padding: 8px 0 0 0;
+    text-align: center;
+}
+
+.sidebar-profile span small {
+    color: #90999c;
+    padding: 5px 0;
+}
+
+.profile {
+    line-height: 60px;
+    margin-left: 5px;
+    font-size: 14px;
+}
+.sidebar-profile .img-circle {
+    width: 60px;
+    display: block !important;
+    margin: 0 auto;
 }
 /* Laptop hiding/showing */
 @media screen and (min-width: 768px) {

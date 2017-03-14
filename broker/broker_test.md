@@ -5,6 +5,10 @@ Broker test
 This document contains the procedures to test the Waziup broker.
 To perform the tests, copy the commands given in a shell one by one, and check the result given.
 
+Note: thoses tests are for the online instance of the Waziup platform.
+To perform local tests, start the broker with: `docker-compose up`.
+You can then perform the tests replacing `broker.waziup.io` with `localhost:1026` and `brokerhistory.waziup.io` with `localhost:8666`.
+
 Entity creation
 ---------------
 

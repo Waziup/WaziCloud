@@ -1,4 +1,3 @@
-'use strict';
 import { connect } from 'react-redux';
 import sensorForm from './sensorForm.js';
 

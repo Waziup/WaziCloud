@@ -38,6 +38,99 @@ IoT Lite ontology is based on 18 Concepts
 * Quantity kind, Unit 
 
 
+
+WAZIUP data model
+-----------------
+
+The data model used in waziup for the sensors is the following.
+
+```
+{
+  "id": "<SensorID>",
+  "type": "SensingDevice",
+  "location": {
+    "type": "geo:json",
+    "value": {
+      "type": "Point",
+      "coordinates": [
+        <latitude>,
+        <longitude>
+      ]
+    }
+  },
+  "owner": {
+    "type": "String",
+    "value": "<owner>"
+  },
+  "<measurement>": {
+    "type": "Number",
+    "value": 23,
+    "metadata": {
+      "timestamp": {
+        "type": "DateTime",
+        "value": "<dateTime>"
+      },
+      "unit": {
+        "type": "string",
+        "value": "<Unit>"
+      }
+    }
+  }
+}
+```
+
+- SensorID is the name of the sensor.
+- latitude and longitude are the coordinates on earth in decimal notation (e.g. "40.418889").
+- owner is the sensor owner. By convention it is the user name in Keycloak.
+- dateTime is the date and time at which the measurement has been taken. It is in ISO 8601 format: YYY-MM-DDThh:mm:ss.00Z
+- measurement is the measured quantity as defined in [SSN QU](https://www.w3.org/2005/Incubator/ssn/ssnx/qu/qu-rec20.html), in lower case.
+In particular, the following measurements are supported:
+  - temperature
+  - pressure
+  - distance
+  ...
+- Unit is the unit as defined in [SSN QU](https://www.w3.org/2005/Incubator/ssn/ssnx/qu/qu-rec20.html).
+
+
+
+Here is a valid example of sensor:
+```
+{
+  "id": "Sensor1",
+  "type": "SensingDevice",
+  "location": {
+    "type": "geo:json",
+    "value": {
+      "type": "Point",
+      "coordinates": [
+        14.52839,
+        35.89389
+      ]
+    }
+  },
+  "owner": {
+    "type": "String",
+    "value": "cdupont",
+    "metadata": {}
+  },
+  "temperature": {
+    "type": "Number",
+    "value": 23,
+    "metadata": {
+      "timestamp": {
+        "type": "DateTime",
+        "value": "2016-06-08T18:20:27.00Z"
+      },
+      "unit": {
+        "type": "string",
+        "value": "Celsius"
+      }
+    }
+  }
+}
+```
+
+
 Orion Context Broker
 --------------------
 
@@ -66,27 +159,6 @@ Check that everything works with
 ```
 $ curl localhost:1026/version
 ```
-
-WAZIUP data model
------------------
-
-The data model used in waziup for the sensors is the following.
-
-```
-{
-  "id": "<sensor name>",
-  "type": "SensingDevice",
-  "owner": {
-      "value": "<sensor owner>",
-      "type": "String"
-    },
-  "<measurement>": {
-    "value": 23,
-    "type": "Number"
-  }
-}
-```
-
 
 cygnus-common
 -------------
