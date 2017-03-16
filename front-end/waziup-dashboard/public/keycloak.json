@@ -1,7 +1,0 @@
-{
-  "realm": "waziup",
-  "auth-server-url": "http://aam.waziup.io/auth",
-  "ssl-required": "none",
-  "resource": "dashboard",
-  "public-client": true
-}
