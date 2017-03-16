@@ -20,3 +20,15 @@ spec:
         value: lumen
       - name:  MYSQL_PASSWORD
         value: secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: smsdb
+  namespace: waziup
+spec:
+  ports:
+    - port: 3306
+  selector:
+    name: smsdb

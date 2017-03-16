@@ -9,9 +9,7 @@ spec:
   containers:
   - name: smsapp
     image: waziup/smsapp
-#    command: 
-#    - php ../artisan migrate
-#    - php-fpm
+#    command: ["php ../artisan migrate; php-fpm"]
     ports:
     - containerPort: 9000
     env:
@@ -35,6 +33,13 @@ spec:
         value: smscache
       - name: CACHE_DRIVER 
         value: memcached
+    volumeMounts:
+    - mountPath: /app/copyFolder
+      name: app
+  volumes:
+  - name: app
+    hostPath:
+      path: /app/public
 
 ---
 apiVersion: v1

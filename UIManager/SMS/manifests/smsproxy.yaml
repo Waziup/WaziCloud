@@ -16,7 +16,13 @@ spec:
      - "daemon off;"
     ports:
     - containerPort: 80
-  
+    volumeMounts:
+    - mountPath: /app/public
+      name: app
+  volumes:
+  - name: app
+    hostPath:
+      path: /app/public
 
 ---
 apiVersion: v1
