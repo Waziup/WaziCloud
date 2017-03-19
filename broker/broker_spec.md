@@ -21,11 +21,10 @@ Devices are classified into three classes:
 * actuating devices 
 * tag devices
 
-Each device has a coverage area that represents the 2D-spatial covered by the IoT device. This area could be a polygon, circle or rectangle. Each device exposes services which is are associated with the entity. This latter defines the concept of real life objects that are subject to observation. Therefore, each entity has a geographical location and has attributes (QuantityKind, Unit) describing the quantity type and measurement unit associated with it.
+Each device has a coverage area that represents the 2D-spatial covered by the IoT device. This area could be a polygon, circle or rectangle. Each device exposes services which is are associated with the entity. This latter defines the concept of real life objects that are subject to observation. Therefore, each entity has a geographical location and has attributes (QuantityKind, Unit) as defined in [SSN QU](https://www.w3.org/2005/Incubator/ssn/ssnx/qu/qu-rec20.html), describing the quantity type and measurement unit associated with it.
 
-IoT Lite has been chosen to represent concepts in the Waziup platform
-IoT-Lite is a lightweight ontology to represent Internet of Things (IoT) resources, entities and services
-IoT Lite ontology is based on 18 Concepts 
+IoT Lite has been chosen to represent concepts in the Waziup platform.
+It represents Internet of Things (IoT) resources, entities and services, based on 18 Concepts :
 * System/ sub-system
 * Platform
 * Device (Sensing device, Tag device, Actuating device) 
@@ -137,9 +136,10 @@ Orion Context Broker
 Orion is an implementation of the NGSI9/10 REST API binding developed as a part of the FIWARE platform. Orion allows to
 manage lifecycle of context information through: updates, queries, registrations and subscriptions. This table below summarizes descriptions of different operations in Orion.
 
-![Orion Description](https://github.com/DiopBabacarEdu/test-GIT/blob/master/OrionImg.tiff)
+![Orion Description](https://github.com/DiopBabacarEdu/test-GIT/blob/master/orion-operation.png)
 
-###Building an Orion image###
+Building an Orion image
+----------------------
 
 Download Orion's source code from Github:
 
