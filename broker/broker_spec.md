@@ -326,7 +326,7 @@ The default configuration distributed with the image is tied to certain values t
 * The endpoint for MySQL is `mysql`.
 * The logging level is `INFO`.
 * The logging appender is `console`.
-
+Here is the link to the official configuration file of cygnus : https://github.com/Waziup/Platform/blob/master/broker/cygnus/agent.conf
 
 Orion headers
 -------------
