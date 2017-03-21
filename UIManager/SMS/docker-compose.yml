@@ -1,18 +1,12 @@
-smsproxy:
-  image: waziup/smsproxy
-  command: nginx -g "daemon off;"
-  links:
-    - smsapp
-  ports:
-    - "80:80"
+
 smsapp:
   image: waziup/smsapp
-  command: sh -c "php ../artisan migrate; php-fpm"
+  command: sh -c "php ../artisan migrate;php ../artisan serve; php-fpm"
   links:
     - smsdb
     - smscache
   ports:
-    - "9000:9000"
+    - "80:80"
   environment:
     APP_ENV: local
     APP_DEBUG: 'true'
