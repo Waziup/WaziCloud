@@ -10,7 +10,7 @@ RUN docker-php-ext-install mcrypt mbstring tokenizer mysqli pdo_mysql
 RUN curl -sS https://getcomposer.org/installer | php -- \
   --install-dir=/usr/bin --filename=composer
 
-COPY app /app/
+COPY smsapp /app/
 WORKDIR /app
 
 RUN composer install
