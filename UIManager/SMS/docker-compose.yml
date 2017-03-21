@@ -1,6 +1,7 @@
 
 smsapp:
-  image: waziup/smsapp
+  #image: waziup/smsapp
+  build: images/smsapp
   command: sh -c "php ../artisan migrate;php ../artisan serve; php-fpm"
   links:
     - smsdb
