@@ -11,12 +11,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
   --install-dir=/usr/bin --filename=composer
 
 COPY app /app/
-WORKDIR /app/public
+WORKDIR /app
 
-RUN cd /app && composer install
+RUN composer install
 
-
-
-
-CMD php ../artisan migrate; php-fpm
-CMD php ../artisan serve --host=localhost --port=80;
+CMD php artisan migrate; php artisan serve -vvv --host=0.0.0.0 --port=8000

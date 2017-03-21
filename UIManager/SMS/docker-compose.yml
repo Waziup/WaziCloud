@@ -1,13 +1,10 @@
 
 smsapp:
-  #image: waziup/smsapp
-  build: images/smsapp
-  command: sh -c "php ../artisan migrate;php ../artisan serve; php-fpm"
+  image: waziup/smsapp
   links:
     - smsdb
-    - smscache
   ports:
-    - "80:80"
+    - "8000:8000"
   environment:
     APP_ENV: local
     APP_DEBUG: 'true'
@@ -30,5 +27,3 @@ smsdb:
     MYSQL_DATABASE: lumen
     MYSQL_USER: lumen
     MYSQL_PASSWORD: secret
-smscache:
-  image: memcached
