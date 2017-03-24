@@ -69,7 +69,7 @@ Here is a valid example of field:
   "location": {
     "type": "geo:json",
     "value": {
-      "type": "Point",
+      "type": "Polygon",
       "coordinates": [
       [
         14.52839,
