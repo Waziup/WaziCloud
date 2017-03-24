@@ -49,7 +49,7 @@ Field format
 }
 ```
 
-- FieldID is the name of the sensor.
+- FieldID is the name of the field.
 - latitude and longitude are coordinates on earth in decimal notation (e.g. "40.418889").
 - the polygon coordinates is a list of pair (latitude, longitude), representing the shape of the field.
 - owner is the field owner. By convention it is the user name in Keycloak.
