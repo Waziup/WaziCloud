@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: kibana
+  namespace: waziup
+  labels:
+    component: kibana
+spec:
+  replicas: 1
+  selector:
+    component: kibana
+  template:
+    metadata:
+      labels:
+        component: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: waziup/kibana
+        ports:
+        - containerPort: 5601
+          name: ui
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+  namespace: waziup
+  labels:
+    component: kibana
+spec:
+  type: NodePort
+  selector:
+    component: kibana
+  ports:
+  - port: 5601
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kibana
+  namespace: waziup
+spec:
+  rules:
+  - host: kibana.waziup.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kibana
+          servicePort: 5601
+
