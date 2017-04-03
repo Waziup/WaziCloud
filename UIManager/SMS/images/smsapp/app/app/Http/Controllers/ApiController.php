@@ -100,7 +100,25 @@ class ApiController extends Controller
         if( count( $smsArray) >=2){
 
 
-        $application = Application::whereKeyword( $smsArray[0] )->first();
+            $service= isset( $smsArray[4]) ? $smsArray[4] : '/TEST';
+            $servicePath = isset( $smsArray[5]) ? $smsArray[5] : 'waziup';
+
+        $keyword = $smsArray[0];
+
+        if( $keyword == "SensorData"){
+
+            $url = "http://broker.waziup.io/v2/entities/" . $smsArray[1] . '/attrs/' . $smsArray[2] . '/value';
+
+//<SensorID> <Measurement> <Value> [Service] [ServicePath]
+
+                $value = $smsArray[3];
+
+             Guzzle::send('put' , $url  , $value  , ['Fiware-ServicePath'=> $servicePath , 'Fiware-Service'=> $service ]);
+
+
+        }
+
+        $application = Application::whereKeyword( $keyword )->first();
 
 
         if( $application) {
