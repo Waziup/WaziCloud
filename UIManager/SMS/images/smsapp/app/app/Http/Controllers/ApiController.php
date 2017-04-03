@@ -100,8 +100,8 @@ class ApiController extends Controller
         if( count( $smsArray) >=2){
 
 
-            $service= isset( $smsArray[4]) ? $smsArray[4] : '/TEST';
-            $servicePath = isset( $smsArray[5]) ? $smsArray[5] : 'waziup';
+            $service= isset( $smsArray[4]) ? $smsArray[4] : 'waziup';
+            $servicePath = isset( $smsArray[5]) ? $smsArray[5] : '/TEST';
 
         $keyword = $smsArray[0];
 
@@ -113,7 +113,13 @@ class ApiController extends Controller
 
                 $value = $smsArray[3];
 
-             Guzzle::send('put' , $url  , $value  , ['Fiware-ServicePath'=> $servicePath , 'Fiware-Service'=> $service ]);
+             $headers = [ 'Content-Type' => 'text/plain' ,'Fiware-ServicePath'=> $servicePath , 'Fiware-Service'=> $service  ];
+
+              $client = new \GuzzleHttp\Client;
+
+             $client->request('PUT', $url, ['body' => $value , 'headers'=> $headers ] );
+
+                 return response()->json( ['success'=> true , 'message' =>"Message forwarded to $url"]);
 
 
         }
