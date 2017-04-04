@@ -103,7 +103,7 @@ class ApiController extends Controller
 
 
             $service= isset( $smsArray[4]) ? $smsArray[4] : 'waziup';
-            $servicePath = isset( $smsArray[5]) ? $smsArray[5] : '/TEST';
+            $servicePath = isset( $smsArray[5]) ? $smsArray[5] : '/';
 
         $keyword = $smsArray[0];
 
