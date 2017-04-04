@@ -21,6 +21,16 @@ $ curl -X POST -H "Content-Type: application/json" -H "Api-Token: 53fdb4b2-0ad4-
 }' "http://api.waziup.io/v1/sms/send"
 ```
 
+Here is another example showing how to send a sensor data point to Waziup:
+```
+curl --request POST  
+     --url http://sms2.waziup.io/v1/sms/receive
+     --header 'cache-control: no-cache'
+     --header 'content-type: application/x-www-form-urlencoded'
+     --header 'postman-token: 38acc026-68fd-5bb8-d91f-9983994a0c7f'
+     --data 'From=%2B233262500105&Text=SensorData%20Sensor1%20temperature%2027'
+```
+
 
 ## Install on Kubernetes
 
