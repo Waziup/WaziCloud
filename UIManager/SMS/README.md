@@ -21,7 +21,8 @@ $ curl -X POST -H "Content-Type: application/json" -H "Api-Token: 53fdb4b2-0ad4-
 }' "http://api.waziup.io/v1/sms/send"
 ```
 
-Here is another example showing how to send a sensor data point to Waziup:
+Here is another example showing how to send a sensor data point to Waziup.
+Here we update the temperature of Sensor1 to 27 Degrees:
 ```
 curl --request POST  
      --url http://sms2.waziup.io/v1/sms/receive
