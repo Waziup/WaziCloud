@@ -93,6 +93,7 @@ class ApiController extends Controller
 
         $input = $request->all();
 
+        Log::debug( print_r($input , 1) );
         $smsContent = $input['Text'] ;
 
         $smsArray = explode( ' ', trim( $input['Text']));
