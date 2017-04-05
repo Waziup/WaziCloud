@@ -59,7 +59,7 @@ class ApiController extends Controller
 
         //not path params validation
         
-       $response = Guzzle::send('post' , 'https://messaging.mergdata.com/api/v1/sms/send' , $input  ,  ['Api-Token' => '318b0ca1-c1ea-445c-9db7-ae7a886d4cd9']);
+       $response = Guzzle::send('post' , 'https://messaging.mergdata.com/api/v1/sms/send' , $input  ,  ['Api-Token' => '53fdb4b2-0ad4-4767-99ea-2271f16f6f1d']);
 
 
         return response()->json( $response );

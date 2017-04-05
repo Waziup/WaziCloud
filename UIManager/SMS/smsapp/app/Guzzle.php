@@ -13,12 +13,9 @@ class Guzzle {
        $params = [
             'headers' => $headers,
            'form_params'=>$postData,
-            'verify' => false,
-            //'auth' => ['5AQIGJ328OK52ILD5LNHP3P4C', 'G2Q2BQKatcSWXnZiwSC1HQmRR8+8lqY8s4ckp76JRv0'],
            ];
 
            try {
-                       
                    $response = $client->request( strtoupper( $requestType ), $url, $params);
                      if($response->getStatusCode() == '200'){
 
