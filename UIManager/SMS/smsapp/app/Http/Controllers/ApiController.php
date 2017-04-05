@@ -97,8 +97,14 @@ class ApiController extends Controller
         Log::debug( print_r($input , 1) );
         $smsContent = $input['Text'] ;
 
-        $smsArray = explode( ' ', trim( $input['Text']));
+        //$smsArray = explode( ' ', trim( $input['Text']));
 
+        $smsArray  = preg_split('/\s+/', trim( $input['Text']));
+        Log::debug( $smsArray);
+
+        //echo print_r( $smsArray ,1);
+
+        //exit;
         if( count( $smsArray) >=2){
 
 
