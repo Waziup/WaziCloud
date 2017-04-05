@@ -1,0 +1,51 @@
+input {
+  http_poller {
+    urls => {
+      temperature => {
+        # Supports all options supported by ruby's Manticore HTTP client
+        method => get
+        url => "http://broker.waziup.io/v2/entities/"
+        headers => {
+          "Fiware-Service" => "waziup"
+          "Fiware-ServicePath" => "/WOELAB/MVP/TEST"
+          "Accept" => "application/json"
+        }
+      }
+    }
+    request_timeout => 60
+    # Supports "cron", "every", "at" and "in" schedules by rufus scheduler
+    schedule => { every => "15m"}
+    codec => "json"
+    # A hash of request metadata info (timing, response headers, etc.) will be sent here
+    metadata_target => "http_poller_metadata"
+  }
+}
+
+filter {
+   json{
+      source => ["message"]
+   }
+
+   mutate {
+      rename => { "[DM][value]" => "DM_value" }
+      
+      convert => { "DM_value" => "float" }
+   }
+}
+
+output {
+   elasticsearch {
+      hosts => ["elasticsearch.waziup:9200"]
+      index => "mvp-urbanwaste-togo1-%{+YYYY.MM.dd}"
+   }
+}
+
+
+
+
+
+
+
+
+
+
