@@ -82,7 +82,7 @@ $ (curl broker.waziup.io/v1/subscribeContext -s -S --header 'Content-Type: appli
         {
             "type": "SensingDevice",
             "isPattern": "false",
-            "id": " Sensor1"
+            "id": "Device_6"
         }
     ],
     "attributes": [

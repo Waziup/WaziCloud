@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: identityproxy
-        image: waziup/oidc:siris
+        image: waziup/solsson-httpd-openidc:siris
         ports:
         - containerPort: 80
 
@@ -60,6 +60,12 @@ spec:
           serviceName: identityproxy
           servicePort: 80
   - host: sms.waziup.io
+    http:
+      paths:
+      - backend:
+          serviceName: identityproxy
+          servicePort: 80
+  - host: historicaldata.waziup.io
     http:
       paths:
       - backend:
