@@ -1,6 +1,19 @@
 Identity manager
 ================
 
+
+Misc commands to make necessary changes to identityproxy container, by changing identityproxy.conf.
+Make changes in identityproxy.conf
+
+```
+cd openidc-keycloak/
+docker build -t waziup/solsson-httpd-openidc:siris .
+docker push waziup/solsson-httpd-openidc:siris
+cd ..
+kubectl delete -f identityproxy.yaml
+kubectl create -f identityproxy.yaml
+```
+
 Identity Manager
 The identity manager is in charge of access control on the Waziup platform. The identity manager consists of two services: identity proxy, and KeyCloak. 
 
