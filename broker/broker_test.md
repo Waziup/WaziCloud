@@ -114,8 +114,24 @@ Result should be:
 }
 ```
 
+To be able to see your subscriptions
 
+```
+$ (curl broker.waziup.io/v2/subscriptions -s -S --header 'Content-Type: application/json' \
+--header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST'
+```
 
+In case you want to delete your subscription, you need to put the subscription id in the URL:
+```
+broker.waziup.io/v2/subscriptions/<subscriptionid>
+```
+
+for the previous subscription the request will be:
+
+```
+$ (curl broker.waziup.io/v2/subscriptions/58c7fe6b43cdafd490d9217f -s -S --header 'Content-Type: application/json' \
+--header 'Accept: application/json' --header 'Fiware-Service: waziup' --header 'Fiware-ServicePath: /TEST' -X DELETE
+```
 
 Historical data
 ---------------
