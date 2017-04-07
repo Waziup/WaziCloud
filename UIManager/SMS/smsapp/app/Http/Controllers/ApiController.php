@@ -56,6 +56,15 @@ class ApiController extends Controller
 
         //path params validation
 
+        if( isset( $input['msg']))  {
+            $input['message'] = $input['msg'];
+            $input['sender_id'] = 'WAZIUP';
+        }
+
+         if( isset( $input['contact'])) $input['contacts'] = [$input['contact']];
+
+        //Log::debug( print_r($input , 1) );
+         
 
         //not path params validation
         
