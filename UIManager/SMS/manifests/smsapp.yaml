@@ -12,26 +12,26 @@ spec:
     ports:
     - containerPort: 8000
     env:
-      - name: APP_ENV
-        value: local
-      - name: APP_DEBUG
-        value: 'true'
-      - name: APP_KEY
-        value: SomeRandomKey!!! 
-      - name: DB_CONNECTION
-        value: mysql 
-      - name: DB_HOST
-        value: smsdb
-      - name: DB_DATABASE
-        value: lumen 
-      - name: DB_USERNAME
-        value: lumen 
-      - name: DP_PASSWORD
-        value: secret 
-      - name: MEMCACHED_HOST
-        value: smscache
-      - name: CACHE_DRIVER 
-        value: memcached
+    - name: APP_ENV
+      value: local
+    - name: APP_DEBUG
+      value: 'true'
+    - name: APP_KEY
+      value: SomeRandomKey!!! 
+    - name: DB_CONNECTION
+      value: mysql 
+    - name: DB_HOST
+      value: smsdb
+    - name: DB_DATABASE
+      value: lumen 
+    - name: DB_USERNAME
+      value: lumen 
+    - name: DP_PASSWORD
+      value: secret 
+    - name: MEMCACHED_HOST
+      value: smscache
+    - name: CACHE_DRIVER 
+      value: memcached
 
 ---
 apiVersion: v1
