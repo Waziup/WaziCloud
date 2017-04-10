@@ -3,12 +3,14 @@ SMS to SMS demo
 ===============
 
 This demo shows how to use Orion to:
-- Receive data through SMS from sensors
+- receive data through SMS from sensors
 - update data on Waziup dashboard
 - send a notification containing the sensor data
 
 Step 1: Create notification on Orion
 ------------------------------------
+
+Copy and run this command, after changing your phone number:
 
 ```
 curl broker.waziup.io/v2/subscriptions -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service:waziup' --header 'Fiware-ServicePath:/UPPA' -d @- <<EOF
