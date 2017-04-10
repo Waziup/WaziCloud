@@ -7,8 +7,7 @@ This demo shows how to use Orion to:
 - update data on Waziup dashboard
 - send a notification containing the sensor data
 
-Step 1: Create notification on Orion
-------------------------------------
+#### Step 1: Create notification on Orion
 
 Copy and run this command, after changing your phone number:
 
@@ -47,8 +46,7 @@ curl broker.waziup.io/v2/subscriptions -s -S --header 'Content-Type: application
 EOF
 ```
 
-Step 2: Send a SMS with updated value 
--------------------------------------
+#### Step 2: Send a SMS with updated value 
 
 Send this SMS: "SensorData Sensor10  TC 40 waziup /UPPA" to +15186760367
 
@@ -57,30 +55,26 @@ Result: you should reveice a SMS with the message "WAZIUP: Sensor10 pond tempera
 Debug
 -----
 
-POST SMS with sensor data to Waziup SMS receiver:
+*POST SMS with sensor data to Waziup SMS receiver:*
 
 ```
 curl -X POST http://sms2.waziup.io/v1/sms/receive -H 'cache-control: no-cache' -H 'content-type: multipart/form-data' -F 'From=+393806412093' -F 'Text=SensorData Sensor10  TC 40 waziup /UPPA' > t.html; firefox t.html
 ```
 
 
-See value of Sensor10:
-----------------------
+*See value of Sensor10:*
 
 ```
 curl http://broker.waziup.io/v2/entities/Sensor10  --header 'Fiware-ServicePath:/UPPA' --header 'Fiware-Service:waziup' -X GET | jq "." 
 ```
 
-See the list of notifications
------------------------------
+*See the list of notifications*
 
 ```
 curl broker.waziup.io/v2/subscriptions -s -S --header 'Fiware-Service:waziup' --header 'Fiware-ServicePath:/UPPA' | jq "."
 ```
 
-
-Send one SMS:
--------------
+*Send one SMS:*
 ```
 curl -X POST -H "Cache-Control: no-cache" "http://sms2.waziup.io/v1/sms/send?contact='00393806412093'&msg='test'"
 ```
