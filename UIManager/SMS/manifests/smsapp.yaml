@@ -8,7 +8,8 @@ metadata:
 spec:
   containers:
   - name: smsapp
-    image: waziup/smsapp
+    image: waziup/smsapp:latest
+    imagePullPolicy: Always
     ports:
     - containerPort: 8000
     env:
@@ -60,4 +61,3 @@ spec:
         backend:
           serviceName: smsapp
           servicePort: 8000
-
