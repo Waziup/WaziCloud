@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: identityproxy
-        image: waziup/identityproxy:latest
+        image: waziup/identityproxy
         ports:
         - containerPort: 80
 

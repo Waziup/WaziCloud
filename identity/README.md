@@ -1,31 +1,52 @@
 Identity manager
 ================
 
-
-Misc commands to make necessary changes to identityproxy container, by changing identityproxy.conf.
-Make changes in identityproxy.conf
-
-```
-cd openidc-keycloak/
-docker build -t waziup/solsson-httpd-openidc:siris .
-docker push waziup/solsson-httpd-openidc:siris
-cd ..
-kubectl delete -f identityproxy.yaml
-kubectl create -f identityproxy.yaml
-```
-
 Identity Manager
-The identity manager is in charge of access control on the Waziup platform. The identity manager consists of two services: identity proxy, and KeyCloak. 
+The identity manager is in charge of access control on the Waziup platform.
+The identity manager consists of two services: the identity proxy and Keycloak. 
 
-Identity proxy is an apache Web server that is acting as a proxy to several services of Waziup. This apache is using a module https://github.com/pingidentity/mod_auth_openidc/ that connects apache with KeyCloak. The purpose of this connection is that Apache validates users access to services with the help of KeyCloak. Thus, in apache configuration we can enforce access policies with the help of this module interospecting KeyCloak.
+Identity proxy is an apache Web server that is acting as a proxy to several services of Waziup.
+This apache is using [a module](https://github.com/pingidentity/mod_auth_openidc/) that connects with KeyCloak.
+The purpose of this connection is that Apache validates users access to services with the help of KeyCloak.
 
-mod_auth_openidc is an authentication/authorization module for the Apache 2.x HTTP server that authenticates users against an OpenID Connect Provider. It can also function as an OAuth 2.0 Resource Server, validating access tokens presented by OAuth 2.0 clients against an OAuth 2.0 Authorization Server. In particular, this proxy has not be used for services in which does not provide OAuth functionality, such as Orion, Kubernetes UI, etc. For instance, we have secured access to Waziup dashboard through with apache proxy first; so when users were accessing dashboard.waziup.io for the first time, they were redirected to KeyCloak for username/password; but then when dashboard has used KeyCloak adaptor (JavaScript adaptor) to integrate itself with KeyCloak, we have removed this requirement from identity proxy, because it was not required anymore to use identity proxy (mod_auth_openidc) for authentication.
 
-The technology selected for authenitcation and authorization is Keycloak.
+Cloud Install
+-------------
 
-March, 14 2017
+First install KeyCloack:
+```
+cd keycloak
+docker build -t waziup/keycloak .
+docker push waziup/keycloak
+kubectl delete -f aam.yaml
+kubectl apply -f aam.yaml
+```
 
-Identity proxy configuration
+Then install the identity proxy:
+```
+cd proxy
+docker build -t waziup/identityproxy .
+docker push waziup/identityproxy
+kubectl delete -f identityproxy.yaml
+kubectl apply -f identityproxy.yaml
+```
+
+
+Development
+-----------
+
+KeyCloak Backup & Recovery:
+bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=
+kubectl exec -ti aam-wtjt4 --namespace waziup -- /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/home
+kubectl exec -ti aam-wtjt4 --namespace waziup -- /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/home
+bin/standalone.sh -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=
+
+kubectl apply -f aam-proxy.yam
+
+mod_auth_openidc is an authentication/authorization module for the Apache 2.x HTTP server that authenticates users against an OpenID Connect Provider.
+It can also function as an OAuth 2.0 Resource Server, validating access tokens presented by OAuth 2.0 clients against an OAuth 2.0 Authorization Server.
+In particular, this proxy has not be used for services in which does not provide OAuth functionality, such as Orion, Kubernetes UI, etc.
+For instance, we have secured access to Waziup dashboard through with apache proxy first; so when users were accessing dashboard.waziup.io for the first time, they were redirected to KeyCloak for username/password; but then when dashboard has used KeyCloak adaptor (JavaScript adaptor) to integrate itself with KeyCloak, we have removed this requirement from identity proxy, because it was not required anymore to use identity proxy (mod_auth_openidc) for authentication.
 
 See identityproxy.conf for apache configuration providing VirtualHost entries for Waziup services that need to be secured by mod_auth_openidc and KeyCloak. The ServerName in each VirtualHost should match the corresponding Ingress endpoint for a Waziup service. e.g. for orion it is orion.waziup.io.
 Currently, we have not secured access to Orion, but the entry is there. However, we have secured Web-based access to Kubernetes UI. We have secured access to dashboard.waziup.io, but then we have removed because dashboard itself has used KC Javascript adaptor.
@@ -112,43 +133,3 @@ kubectl -n waziup exec identityproxy-ykb2t ls
 
 docker commit --message='copied waziup image' eddc23cf9f213c6ca158ae529a184f48831aeed62dd422522b596744847b8c6a waziup/keycloak:https2
 
-Install
--------
-```
-kubectl cp  --namespace=waziup  ~/Documents/EUProjects/Waziup/logo/logo-waziup-white.png aam-k5164:/opt/jboss/keycloak/themes/waziup/login/resources/img
-
-/opt/jboss/keycloak/standalone/data/keycloak.h2.db
-
-docker run -e KEYCLOAK_LOGLEVEL=DEBUG jboss/keycloak
-
-docker --tls=false --tlsverify=false build -t waziup/identityproxy -f ./Dockerfile --rm=true .
-docker build -t waziup/identityproxy .
-sudo docker build -t waziup/identityproxy -f ./Dockerfile .
-docker login
-docker push waziup/identityproxy
-kubectl delete -f identityproxy.yaml
-kubectl apply -f identityproxy.yaml
-
-kubectl delete -f aam.yaml
-kubectl apply -f aam.yaml
-kubectl get pods --namespace=waziup
-kubectl exec -ti aam-pzff4 --namespace waziup mkdir /opt/jboss/keycloak/themes/waziup/
-kubectl cp themes waziup/aam-pzff4:/opt/jboss/keycloak/themes/waziup/
-kubectl cp waziup/aam-pzff4:/opt/jboss/keycloak/standalone/configuration/standalone.xml ./standalone.xml
-
-docker cp waziup eddc23cf9f213c6ca158ae529a184f48831aeed62dd422522b596744847b8c6a:/opt/jboss/keycloak/themes/waziup/
-docker exec eddc23cf9f213c6ca158ae529a184f48831aeed62dd422522b596744847b8c6a ls /opt/jboss/keycloak/themes/waziup/
-
-
-kubectl cp ./themes/ waziup/aam-pzff4:/opt/jboss/keycloak/themes/waziup/
-
-kubectl delete -f identityproxy.yaml;kubectl apply -f identityproxy.yaml
-```
-
-KeyCloak Backup & Recovery:
-bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=
-kubectl exec -ti aam-wtjt4 --namespace waziup -- /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/home
-kubectl exec -ti aam-wtjt4 --namespace waziup -- /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/home
-bin/standalone.sh -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=
-
-kubectl apply -f aam-proxy.yam
