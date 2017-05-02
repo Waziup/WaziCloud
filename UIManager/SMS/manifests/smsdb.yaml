@@ -12,14 +12,14 @@ spec:
     ports:
     - containerPort: 3306
     env:
-      - name:  MYSQL_ROOT_PASSWORD
-        value: secret
-      - name:  MYSQL_DATABASE
-        value: lumen
-      - name:  MYSQL_USER
-        value: lumen
-      - name:  MYSQL_PASSWORD
-        value: secret
+    - name:  MYSQL_ROOT_PASSWORD
+      value: secret
+    - name:  MYSQL_DATABASE
+      value: lumen
+    - name:  MYSQL_USER
+      value: lumen
+    - name:  MYSQL_PASSWORD
+      value: secret
 
 ---
 apiVersion: v1

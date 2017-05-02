@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: identityproxy
-        image: waziup/solsson-httpd-openidc:siris
+        image: waziup/identityproxy:latest
         ports:
         - containerPort: 80
 
