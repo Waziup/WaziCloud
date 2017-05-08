@@ -74,41 +74,6 @@ Entity subscription
 In order to collect historical data on an entity, we need to register a subscription in Orion.
 This subscription will make Orion to inform Cygnus each time something changes with this entity.
 ```
-curl broker.waziup.io/v2/subscriptions -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service:watersense' --header 'Fiware-ServicePath:/UPPA/TESTS' -d @- <<EOF
-{
-  "description": "A subscription to get info about WS_UPPA_Sensor2",
-  "subject": {
-    "entities": [
-      {
-        "id": "WS_UPPA_Sensor2",
-        "type": "SensingDevice"
-      }
-    ],
-    "condition": {
-      "attrs": [
-        "SM1"
-      ]
-    }
-  },
-  "notification": {
-    "httpCustom": {
-      "url": "http://sms2.waziup.io/v1/sms/send",
-      "qs": {
-        "contact": "+923006581713",
-        "msg": "WaterSense:%20Humidity%20is%20low%20in%20field%201.%20Sensor%20\${id}%20humidity%20value:%20\${SM1}"
-      }
-    },
-    "attrs": [
-      "SM1"
-    ]
-  },
-  "expires": "2040-01-01T14:00:00.00Z",
-  "throttling": 5
-}
-EOF
-```
-
-```
 $ curl broker.waziup.io/v2/subscriptions -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service:waziup' --header 'Fiware-ServicePath:/TEST' -d @- <<EOF
 {
   "description": "A subscription to register historical data about Device_6",
