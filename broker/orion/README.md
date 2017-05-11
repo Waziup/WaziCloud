@@ -9,8 +9,6 @@ Install
 
 
 ```
-$ docker build -t waziup/orion .
-$ docker push waziup/orion
 $ kubectl apply -f orion.yaml
 ```
 
