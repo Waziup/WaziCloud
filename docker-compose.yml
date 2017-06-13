@@ -73,6 +73,6 @@ services:
     environment:
       - REACT_APP_ADMIN_USER=admin
       - REACT_APP_ADMIN_PASS=<password>
-      - REACT_APP_KC_URL=/auth
+      - REACT_APP_KC_URL=localhost:8080/auth
       - REACT_APP_ORION_API=http://orion
       - REACT_APP_COMET_API=http://comet
