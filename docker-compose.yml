@@ -30,6 +30,7 @@ services:
     links:
       - orion
       - mongo
+
   sth-comet:
     image: waziup/sth-comet:latest
     hostname: sth-comet
@@ -46,12 +47,14 @@ services:
 
 # Front-end proxy
   proxy:
+    build: ./proxy
     image: waziup/identityproxy:latest
     ports:
       - "80:80"
 
 # Users identification    
   keycloak:
+    build: ./keycloak
     image: waziup/keycloak:latest
     ports:
       - "8080:8080"
@@ -63,10 +66,13 @@ services:
 
 # Dashboard    
   dashboard:
+    build: ./dashboard
     image: waziup/dashboard:latest
     ports:
       - "3000:3000"
     environment:
       - REACT_APP_ADMIN_USER=admin
-      - REACT_APP_ADMIN_PASS= <password>
-      - REACT_APP_KC_URL= http://aam.waziup.io/auth
+      - REACT_APP_ADMIN_PASS=<password>
+      - REACT_APP_KC_URL=/auth
+      - REACT_APP_ORION_API=http://orion
+      - REACT_APP_COMET_API=http://comet
