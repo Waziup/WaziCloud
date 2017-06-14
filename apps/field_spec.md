@@ -2,13 +2,7 @@
 Field data model
 ================
 
-This document details the data formats and protocols that will be used in WaterSense.
-
-
-Sensor formats
---------------
-
-The sensor data format will be the same than in Waziup.
+The field data format will be the same than in Waziup.
 https://github.com/Waziup/Platform/blob/master/broker/broker_spec.md#waziup-data-model
 
 Field format
