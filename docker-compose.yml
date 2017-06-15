@@ -62,7 +62,8 @@ services:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=KCadminW
     volumes:
-      - /data/keycloak:/opt/jboss/keycloak/standalone/data
+      - ./keycloak:/opt/jboss/keycloak/standalone/data
+    entrypoint: "/opt/jboss/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/opt/jboss/keycloak/standalone/data/waziup-realm.json"
 
 # Dashboard    
   dashboard:

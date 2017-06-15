@@ -12,6 +12,16 @@ Installation
 
 See [this file](INSTALL.md) for the installation instructions of the platform.
 
+
+Debug
+-----
+
+To export the keycloak configuration, run:
+```
+docker-compose run --entrypoint "/opt/jboss/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/opt/jboss/keycloak/standalone/data/waziup-realm.json" keycloak
+```
+
+
 Copyright
 ---------
 
