@@ -1,4 +1,7 @@
 
+![travis](https://travis-ci.org/Waziup/Platform.svg?branch=master)
+
+
 WAZIUP platform
 ===============
 
@@ -7,10 +10,18 @@ It allows to create IoT applications and deploy them both in the Cloud and in th
 
 For information and documentation: http://www.waziup.io
 
-Installation
-------------
+Install
+-------
 
-See [this file](INSTALL.md) for the installation instructions of the platform.
+run:
+```
+docker-compose build
+docker-compose up
+```
+
+You can then access Waziup platform on http://localhost
+
+See [this file](INSTALL.md) for the installation instructions on Cloud platforms.
 
 
 Debug
