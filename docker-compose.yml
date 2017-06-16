@@ -73,7 +73,52 @@ services:
       - "3000:3000"
     environment:
       - REACT_APP_ADMIN_USER=admin
-      - REACT_APP_ADMIN_PASS=<password>
+      - REACT_APP_ADMIN_PASS=KCadminW
       - REACT_APP_KC_URL=http://localhost:8080/auth
       - REACT_APP_ORION_API=http://localhost/api/v1/orion
       - REACT_APP_COMET_API=http://localhost/api/v1/comet
+
+# ELK
+  elasticsearch:
+    build: visualisation/ELS-kibana-logstash/elasticsearch/
+    image: waziup/elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+      # disable X-Pack
+      # see https://www.elastic.co/guide/en/x-pack/current/xpack-settings.html
+      #     https://www.elastic.co/guide/en/x-pack/current/installing-xpack.html#xpack-enabling
+      xpack.security.enabled: "false"
+      xpack.monitoring.enabled: "false"
+      xpack.graph.enabled: "false"
+      xpack.watcher.enabled: "false"
+    volumes:
+      - ./elsdata:/usr/share/elasticsearch/data
+
+  logstash:
+    build: visualisation/ELS-kibana-logstash/logstash/
+    volumes:
+      - ./visualisation/ELS-kibana-logstash/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./visualisation/ELS-kibana-logstash/logstash/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - "5000:5000"
+    depends_on:
+      - elasticsearch
+  kibana:
+    build: visualisation/ELS-kibana-logstash/kibana/
+    image: waziup/kibana
+    volumes:
+      - ./visualisation/ELS-kibana-logstash/kibana/config/:/usr/share/kibana/config
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_URL: http://localhost:9200
+      ELASTICSEARCH_SSL_VERIFY: "false"
+
+#volumes:
+# elsdata:
+#   driver: local
