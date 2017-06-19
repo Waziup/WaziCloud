@@ -100,6 +100,7 @@ services:
 
   logstash:
     build: visualisation/ELS-kibana-logstash/logstash/
+    image: waziup/logstash
     volumes:
       - ./visualisation/ELS-kibana-logstash/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./visualisation/ELS-kibana-logstash/logstash/pipeline:/usr/share/logstash/pipeline
@@ -107,6 +108,9 @@ services:
       - "5000:5000"
     depends_on:
       - elasticsearch
+    environment:
+      ELASTIC_SEARCH_API: "http://localhost/api/v1/elasticsearch"
+      ORION_API: "http://localhost/api/v1/orion"
   kibana:
     build: visualisation/ELS-kibana-logstash/kibana/
     image: waziup/kibana
@@ -117,7 +121,7 @@ services:
     depends_on:
       - elasticsearch
     environment:
-      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_URL: http://localhost:80/api/v1/elasticsearch
       ELASTICSEARCH_SSL_VERIFY: "false"
 
 #volumes:
