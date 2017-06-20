@@ -83,7 +83,7 @@ services:
 
 # ELK
   elasticsearch:
-    build: visualisation/ELS-kibana-logstash/elasticsearch/
+    build: ELK/elasticsearch/
     image: waziup/elasticsearch
     ports:
       - "9200:9200"
@@ -101,7 +101,7 @@ services:
       - ./elsdata:/usr/share/elasticsearch/data
 
   logstash:
-    build: visualisation/ELS-kibana-logstash/logstash/
+    build: ELK/logstash/
     image: waziup/logstash
     volumes:
       - ./visualisation/ELS-kibana-logstash/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
@@ -114,7 +114,7 @@ services:
       ELASTIC_SEARCH_API: "http://localhost/api/v1/elasticsearch"
       ORION_API: "http://localhost/api/v1/orion"
   kibana:
-    build: visualisation/ELS-kibana-logstash/kibana/
+    build: ELK/kibana/
     image: waziup/kibana
     volumes:
       - ./visualisation/ELS-kibana-logstash/kibana/config/:/usr/share/kibana/config

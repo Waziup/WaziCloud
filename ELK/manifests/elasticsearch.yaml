@@ -17,7 +17,7 @@ spec:
         image: waziup/elasticsearch
         env:
         - name: "ES_JAVA_OPTS"
-          value: "-Xms1g -Xmx1g"
+          value: "-Xms2g -Xmx2g"
         ports:
         - containerPort: 9200
           name: http
