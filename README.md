@@ -13,7 +13,7 @@ For information and documentation: http://www.waziup.io
 Install
 -------
 
-run:
+Run:
 ```
 docker-compose build
 docker-compose up
