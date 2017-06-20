@@ -16,7 +16,7 @@ services:
     container_name: orion
     ports:
       - "1026:1026"
-    command: -dbhost mongo -logLevel INFO
+    command: -dbhost mongo # -logLevel INFO
 
 # Historical API
   cygnus:
@@ -79,6 +79,7 @@ services:
       - REACT_APP_KC_URL=http://localhost:8080/auth
       - REACT_APP_ORION_API=http://localhost/api/v1/orion
       - REACT_APP_COMET_API=http://localhost/api/v1/comet
+      - REACT_APP_KIBANA_URL=http://localhost:5601
 
 # ELK
   elasticsearch:
@@ -88,7 +89,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     environment:
-      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+      ES_JAVA_OPTS: "-Xms2g -Xmx2g"
       # disable X-Pack
       # see https://www.elastic.co/guide/en/x-pack/current/xpack-settings.html
       #     https://www.elastic.co/guide/en/x-pack/current/installing-xpack.html#xpack-enabling
@@ -122,9 +123,5 @@ services:
     depends_on:
       - elasticsearch
     environment:
-      ELASTICSEARCH_URL: http://localhost:80/api/v1/elasticsearch
-      ELASTICSEARCH_SSL_VERIFY: "false"
+      ELASTICSEARCH_URL: http://elasticsearch:9200
 
-#volumes:
-# elsdata:
-#   driver: local
