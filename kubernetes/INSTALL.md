@@ -18,7 +18,7 @@ Edit kube-master file /etc/hosts:
 127.0.0.1 localhost kube-master
 <worker-IP> kube-worker1
 ```
-Edit /etc/dhcp/dhcpclient.conf and add:
+Edit /etc/dhcp/dhclient.conf and add:
 ```
 prepend domain-name-servers 8.8.8.8, 8.8.8.4;
 ```
