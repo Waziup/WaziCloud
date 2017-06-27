@@ -1,0 +1,129 @@
+version: '2'
+
+services:
+
+# Broker
+  mongo:
+    image: waziup/mongodb:latest
+    hostname: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    command: --nojournal
+
+  orion:
+    image: waziup/orion:latest
+    hostname: orion
+    container_name: orion
+    ports:
+      - "1026:1026"
+    command: -dbhost mongo # -logLevel INFO
+
+# Historical API
+  cygnus:
+    image: waziup/cygnus
+    hostname: cygnus
+    container_name: cygnus
+    ports:
+      - "5050:5050"
+      - "8081:8081"
+    links:
+      - orion
+      - mongo
+    environment:
+      - CYGNUS_MONGO_HOSTS:mongo
+
+  sth-comet:
+    image: waziup/sth-comet:latest
+    hostname: sth-comet
+    container_name: sth-comet
+    ports:
+      - "8666:8666"
+    environment:
+      - STH_HOST=0.0.0.0
+      - DB_URI=mongo:27017
+      - DEFAULT_SERVICE=orion
+      - DEFAULT_SERVICE_PATH=/
+    links:
+      - mongo
+
+# Front-end proxy
+  proxy:
+    build: ./proxy
+    image: waziup/proxy:latest
+    ports:
+      - "80:80"
+      - "443:443"
+
+# Users identification    
+  keycloak:
+    build: ./keycloak
+    image: waziup/keycloak:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+    volumes:
+      - ./keycloak/waziup-realm.json:/opt/jboss/keycloak/waziup-realm.json
+      - waziupdata:/opt/jboss/keycloak/standalone/data/
+    # If the realm "waziup" doesn't exists, create it from file
+    entrypoint: "/opt/jboss/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.strategy=IGNORE_EXISTING -Dkeycloak.migration.file=/opt/jboss/keycloak/waziup-realm.json"
+
+# Dashboard    
+  dashboard:
+    build: ./dashboard
+    image: waziup/dashboard:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_ADMIN_USER=admin
+      - REACT_APP_ADMIN_PASS=admin
+      - REACT_APP_KC_URL=http://localhost:8080/auth
+      - REACT_APP_ORION_API=http://localhost/api/v1/orion
+      - REACT_APP_COMET_API=http://localhost/api/v1/comet
+      - REACT_APP_KIBANA_URL=http://localhost:5601
+
+# ELK
+  elasticsearch:
+    build: ELK/elasticsearch/
+    image: waziup/elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xms2g -Xmx2g"
+      xpack.security.enabled: "false"
+      xpack.monitoring.enabled: "false"
+      xpack.graph.enabled: "false"
+      xpack.watcher.enabled: "false"
+    volumes:
+      - waziupdata:/usr/share/elasticsearch/data
+
+  logstash:
+    build: ELK/logstash/
+    image: waziup/logstash
+    volumes:
+      - ./ELK/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./ELK/logstash/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - "5000:5000"
+    depends_on:
+      - elasticsearch
+    environment:
+      ELASTIC_SEARCH_API: "http://localhost/api/v1/elasticsearch"
+      ORION_API: "http://localhost/api/v1/orion"
+  kibana:
+    build: ELK/kibana/
+    image: waziup/kibana
+    volumes:
+      - ./ELK/kibana/config/:/usr/share/kibana/config
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+
+volumes:
+   waziupdata:
