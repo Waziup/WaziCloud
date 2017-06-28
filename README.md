@@ -1,3 +1,5 @@
+![travis](https://travis-ci.org/Waziup/Platform.svg?branch=master)
+
 
 WAZIUP platform
 ===============
@@ -7,10 +9,33 @@ It allows to create IoT applications and deploy them both in the Cloud and in th
 
 For information and documentation: http://www.waziup.io
 
-Installation
-------------
+Install
+-------
 
-See [this file](INSTALL.md) for the installation instructions of the platform.
+Run:
+```
+docker-compose build
+docker-compose up
+```
+
+If elasticsearch complains about virtual memory, run this command and restart:
+```
+sudo sysctl -w vm.max_map_count=262144
+```
+
+You can then access Waziup platform on http://localhost
+
+See [this file](INSTALL.md) for the installation instructions on Cloud platforms.
+
+
+Debug
+-----
+
+To export the keycloak configuration, run:
+```
+docker-compose run --entrypoint "/opt/jboss/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/opt/jboss/keycloak/standalone/data/waziup-realm.json" keycloak
+```
+
 
 Copyright
 ---------
@@ -28,3 +53,4 @@ Copyright 2016.
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
