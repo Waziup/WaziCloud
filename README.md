@@ -14,6 +14,8 @@ Install
 
 Run:
 ```
+git clone --recursive git@github.com:Waziup/Platform.git
+cd Platform
 docker-compose build
 docker-compose up
 ```
