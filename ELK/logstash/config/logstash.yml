@@ -9,3 +9,4 @@ http.host: "0.0.0.0"
 ##     https://www.elastic.co/guide/en/x-pack/current/installing-xpack.html#xpack-enabling
 #
 xpack.monitoring.enabled: false
+path.config: /usr/share/logstash/pipeline
