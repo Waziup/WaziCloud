@@ -15,10 +15,11 @@ before_install:
     - git submodule update --init --recursive
 
 before_script:
-- docker-compose up --build -d
+- docker-compose build
 
 script:
-- sleep 10
+- docker-compose up -d
+- sleep 30
 - ./tests/platform_tests.sh
 
 after_script:
