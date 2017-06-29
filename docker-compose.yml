@@ -128,6 +128,3 @@ services:
       - elasticsearch
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
-
-volumes:
-   waziupdata:
