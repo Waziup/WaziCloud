@@ -16,6 +16,7 @@ Run:
 ```
 git clone --recursive git@github.com:Waziup/Platform.git
 cd Platform
+mkdir -p data/mongo data/keycloak data/els
 docker-compose build
 docker-compose up
 ```
