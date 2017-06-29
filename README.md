@@ -12,27 +12,38 @@ For information and documentation: http://www.waziup.io
 Install
 -------
 
-Run:
+To install the platform, run the following commands:
 ```
+# clone the platform with submodules
 git clone --recursive git@github.com:Waziup/Platform.git
 cd Platform
+# create data directories
 mkdir -p data/mongo data/keycloak data/els
+# build and run
 docker-compose build
 docker-compose up
-```
-
-If elasticsearch complains about virtual memory, run this command and restart:
-```
-sudo sysctl -w vm.max_map_count=262144
 ```
 
 You can then access Waziup platform on http://localhost
 
 See [this file](INSTALL.md) for the installation instructions on Cloud platforms.
 
+Tests
+-----
+
+You can run the test campain like this:
+```
+docker-compose up
+./tests/platform_tests.sh
+```
 
 Debug
 -----
+
+If elasticsearch complains about virtual memory, run this command and restart:
+```
+sudo sysctl -w vm.max_map_count=262144
+```
 
 To export the keycloak configuration, run:
 ```

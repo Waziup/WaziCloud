@@ -14,5 +14,11 @@ before_install:
     - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
     - git submodule update --init --recursive
 
+before_script:
+- docker-compose up --build -d
+
 script:
-- docker-compose build
+- ./tests/platform_tests.sh
+
+after_script:
+- docker-compose down
