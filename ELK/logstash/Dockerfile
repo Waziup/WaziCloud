@@ -1,5 +1,5 @@
 # https://github.com/elastic/logstash-docker
-FROM docker.elastic.co/logstash/logstash:5.2.1
+FROM docker.elastic.co/logstash/logstash:5.4.3
 COPY config/logstash.yml /usr/share/logstash/config/logstash.yml
 COPY pipeline /usr/share/logstash/pipeline
 
