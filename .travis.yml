@@ -16,10 +16,11 @@ before_install:
 
 before_script:
 - docker-compose build
+- mkdir -p data/mongo data/keycloak data/els
 
 script:
 - docker-compose up -d
-- sleep 30
+- sleep 60
 - ./tests/platform_tests.sh
 
 after_script:
