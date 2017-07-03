@@ -10,7 +10,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ${WAZIUPDATA}/mongo:/data/db'
+      - ${WAZIUP_DATA}/mongo:/data/db'
 
   orion:
     image: waziup/orion:latest
@@ -66,9 +66,9 @@ services:
       - "8080:8080"
     environment:
       - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_PASSWORD=${WAZIUP_ADMIN_PASS}
     volumes:
-      - ${WAZIUPDATA}/keycloak:/opt/jboss/keycloak/standalone/data/
+      - ${WAZIUP_DATA}/keycloak:/opt/jboss/keycloak/standalone/data/
     # If the realm "waziup" doesn't exists, create it from file
     entrypoint: "/opt/jboss/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.strategy=IGNORE_EXISTING -Dkeycloak.migration.file=/opt/jboss/keycloak/waziup-realm.json"
 
@@ -80,11 +80,11 @@ services:
       - "3000:3000"
     environment:
       - REACT_APP_ADMIN_USER=admin
-      - REACT_APP_ADMIN_PASS=admin
-      - REACT_APP_KC_URL=http://${WAZIUPURL}:8080/auth
-      - REACT_APP_ORION_API=http://${WAZIUPURL}/api/v1/orion
-      - REACT_APP_COMET_API=http://${WAZIUPURL}/api/v1/comet
-      - REACT_APP_KIBANA_URL=http://${WAZIUPURL}:5601
+      - REACT_APP_ADMIN_PASS=${WAZIUP_ADMIN_PASS}
+      - REACT_APP_KC_URL=http://${WAZIUP_URL}:8080/auth
+      - REACT_APP_ORION_API=http://${WAZIUP_URL}/api/v1/orion
+      - REACT_APP_COMET_API=http://${WAZIUP_URL}/api/v1/comet
+      - REACT_APP_KIBANA_URL=http://${WAZIUP_URL}:5601
 
 # ELK
   elasticsearch:
@@ -100,7 +100,7 @@ services:
       xpack.graph.enabled: "false"
       xpack.watcher.enabled: "false"
     volumes:
-      - ${WAZIUPDATA}/els:/usr/share/elasticsearch/data
+      - ${WAZIUP_DATA}/els:/usr/share/elasticsearch/data
 
   logstash:
     build: ELK/logstash/
