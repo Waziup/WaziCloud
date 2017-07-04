@@ -16,10 +16,10 @@ Field format
     "type": "geo:json",
     "value": {
       "type": "Polygon",
-      "coordinates": [[
+      "coordinates": [[[
         <latitude>,
         <longitude>
-      ]]
+      ]]]
     }
   },
   "owner": {
@@ -45,7 +45,8 @@ Field format
 
 - FieldID is the name of the field.
 - latitude and longitude are coordinates on earth in decimal notation (e.g. "40.418889").
-- the polygon coordinates is a list of pair (latitude, longitude), representing the shape of the field.
+- the polygon coordinates is a list of list of pairs (longitude, latitude), representing the shape of the field.
+Note that the last coordinate pair must match the first one, in order to close the polygon.
 - owner is the field owner. By convention it is the user name in Keycloak.
 - humidity is the average humidity measured in the field, as reported by the sensors.
 - dateTime is the date and time at which the measurements has been taken. It is in ISO 8601 format: YYY-MM-DDThh:mm:ss.00Z
@@ -64,7 +65,7 @@ Here is a valid example of field:
     "type": "geo:json",
     "value": {
       "type": "Polygon",
-      "coordinates": [
+      "coordinates": [[
       [
         14.52839,
         35.89389
@@ -80,7 +81,7 @@ Here is a valid example of field:
       [
         14.52839,
         35.99389
-      ]
+      ]]
     }
   },
   "owner": {
@@ -103,4 +104,38 @@ Here is a valid example of field:
     }
   }
 }
+```
+
+This curl command creates a field:
+```
+curl http://www.waziup.io/api/v1/orion/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath: /TEST' --header 'Fiware-Service: waziup' -X POST -d @- <<EOF
+{
+  "id": "Field3",
+  "type": "Field",
+  "location": {
+    "type": "geo:json",
+    "value": {
+      "type": "Polygon",
+      "coordinates": [[
+        [
+          14.52839,
+          35.89389
+        ],
+        [
+          14.62839,
+          35.89389
+        ],
+        [
+          14.62839,
+          35.99389
+        ],
+        [
+          14.52839,
+          35.89389
+        ]
+      ]]
+    }
+  }
+}
+EOF
 ```
