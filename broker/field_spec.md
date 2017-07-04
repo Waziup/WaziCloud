@@ -46,7 +46,7 @@ Field format
 - FieldID is the name of the field.
 - latitude and longitude are coordinates on earth in decimal notation (e.g. "40.418889").
 - the polygon coordinates is a **list of list of pairs (longitude, latitude)**, representing the shape of the field.
-**Note that the order is Longitude, Latitude. The last coordinate pair must match the first one, in order to close the polygon.**
+**Note that the order is (Longitude, Latitude) and not (Latitude, Longitude). The last coordinate pair must match the first one, in order to close the polygon.**
 - owner is the field owner. By convention it is the user name in Keycloak.
 - humidity is the average humidity measured in the field, as reported by the sensors.
 - dateTime is the date and time at which the measurements has been taken. It is in ISO 8601 format: YYY-MM-DDThh:mm:ss.00Z
