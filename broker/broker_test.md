@@ -173,7 +173,7 @@ Debug
 -----
 Get the list of servicePaths:
 ```
-curl 'http://broker.waziup.io/v2/entities?attrs=servicePath' --header 'Fiware-ServicePath:/#' --header 'Fiware-Service:waziup' -X GET | jq "[.[].servicePath.value] | unique"
+curl 'http://broker.waziup.io/v2/entities?attrs=servicePath, *' --header 'Fiware-ServicePath:/#' --header 'Fiware-Service:waziup' -X GET | jq "[.[].servicePath.value] | unique"
 ```
 
 
