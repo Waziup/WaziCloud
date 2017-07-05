@@ -168,3 +168,12 @@ $ curl -s -S --header 'Accept: application/json' --header 'Fiware-Service: waziu
 'http://brokerhistory.waziup.io/STH/v1/contextEntities/type/SensingDevice/id/Sensor1/attributes/temperature?aggrMethod=sum&aggrPeriod=second&dateFrom=2017-06-12T00:00:00.873Z&dateTo=2019-06-12T23:59:59.873Z'
 
 ```
+
+Debug
+-----
+Get the list of servicePaths:
+```
+curl 'http://broker.waziup.io/v2/entities?attrs=servicePath' --header 'Fiware-ServicePath:/#' --header 'Fiware-Service:waziup' -X GET | jq "[.[].servicePath.value] | unique"
+```
+
+
