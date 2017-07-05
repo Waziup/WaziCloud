@@ -20,7 +20,7 @@ before_script:
 - chmod -R 777 data
 
 script:
-- docker-compose up -d
+- docker-compose up & 
 - sleep 60
 - ./tests/platform_tests.sh
 
