@@ -16,7 +16,8 @@ before_install:
 
 before_script:
 - docker-compose build
-- mkdir -p data/mongo data/keycloak data/els
+- mkdir -p data/mongo data/keycloak/content data/els
+- chmod -R 777 data
 
 script:
 - docker-compose up -d
