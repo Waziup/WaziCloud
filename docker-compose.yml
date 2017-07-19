@@ -18,7 +18,7 @@ services:
     container_name: orion
     ports:
       - "1026:1026"
-    command: -dbhost mongo # -logLevel INFO
+    command: -dbhost mongo -logLevel INFO
     links:
       - mongo
 
@@ -85,6 +85,8 @@ services:
       - REACT_APP_ORION_API=http://${WAZIUP_URL}/api/v1/orion
       - REACT_APP_COMET_API=http://${WAZIUP_URL}/api/v1/comet
       - REACT_APP_KIBANA_URL=http://${WAZIUP_URL}:5601
+    mem_limit: 1000000000  
+
 
 # ELK
   elasticsearch:
@@ -99,6 +101,7 @@ services:
       xpack.monitoring.enabled: "false"
       xpack.graph.enabled: "false"
       xpack.watcher.enabled: "false"
+    mem_limit: 1500000000  
     volumes:
       - ${WAZIUP_DATA}/els:/usr/share/elasticsearch/data
 
@@ -121,3 +124,14 @@ services:
       - elasticsearch
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
+  els-feeder:
+    build: ELS-feeder/
+    image: waziup/els-feeder
+    ports:
+      - "8000:8000"
+    depends_on:
+      - elasticsearch
+      - orion
+    environment:
+      ELASTIC_SEARCH_API: "http://elasticsearch"
+      ORION_API: "http://orion:1026"
