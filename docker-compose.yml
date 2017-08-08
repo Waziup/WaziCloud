@@ -58,6 +58,18 @@ services:
       - "80:80"
       - "443:443"
 
+  api-server:
+    build: ./api-server
+    image: waziup/api-server
+    ports:
+      - "80:80"
+      - "4000:4000"
+    environment:
+      - KEYCLOAK_URL=http://keycloak:8080
+      - KEYCLOAK_REDIRECT_URL=http://localhost:8080/auth
+      - ORION_URL=http://orion:1026
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+
 # Users identification    
   keycloak:
     build: ./keycloak
