@@ -4,3 +4,6 @@
 [submodule "ELS-feeder"]
 	path = ELS-feeder
 	url = git@github.com:Waziup/ELS-feeder.git
+[submodule "api-server"]
+	path = api-server
+	url = git@github.com:Waziup/api-server.git
