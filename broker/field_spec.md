@@ -39,6 +39,16 @@ Field format
         "value": "Percent"
       }
     }
+  },
+  "farming-action": {
+    "type": "String",
+    "value": "<farming-action>",
+    "metadata": {
+      "timestamp": {
+        "type": "DateTime",
+        "value": "<dateTime>"
+      }
+    }
   }
 }
 ```
@@ -53,7 +63,7 @@ Field format
 - Unit is a humidity percentage:
   - 0% is humidity in air
   - 100% is humidity in water
-
+- farming-action is a string containing the last action that has been performed on the field. For example, "water added".
 
 
 Here is a valid example of field:

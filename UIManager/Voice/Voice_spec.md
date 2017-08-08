@@ -17,7 +17,7 @@ The idea is that the platform should be able to send Voice. The platform should:
 
 
 ##### Create Message
-Endpoint: http://api.waziup.io/v1/message/create
+Endpoint: http://api.waziup.io/v1/voice/create
 
 Method: POST
 
@@ -51,7 +51,7 @@ Response:
 
 
 ##### Send Message
-Endpoint:http://api.waziup.io/v1/calls/send
+Endpoint:http://api.waziup.io/v1/voice/send
 
 Method: POST
 
@@ -71,7 +71,7 @@ Here&#39;s a sample CURL to send a Test sms. Change the Phone number and message
 
 curl -X POST \
 
-  http://api.waziup.io/v1/calls/send \
+  http://api.waziup.io/v1/voice/send \
 
   -H &#39;cache-control: no-cache&#39; \
 
@@ -96,7 +96,7 @@ Response:
 
 
 ##### Send Text to Speech
-Endpoint:http://api.waziup.io/v1/calls/send
+Endpoint:http://api.waziup.io/v1/voice/send
 
 Method: POST
 
@@ -116,7 +116,7 @@ Here&#39;s a sample CURL to send a Test sms. Change the Phone number and message
 
 curl -X POST \
 
-  http://api.waziup.io/v1/calls/send \
+  http://api.waziup.io/v1/voice/send \
 
   -H &#39;cache-control: no-cache&#39; \
 
@@ -142,7 +142,7 @@ Response:
 
 
 ##### Get Messages List
-Endpoint:http://api.waziup.io/v1/calls/messages
+Endpoint:http://api.waziup.io/v1/voice/messages
 
 Method: POST
 
