@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: identityproxy
+  name: proxy
   namespace: waziup
   labels:
-    name: identityproxy
+    name: proxy
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        name: identityproxy
+        name: proxy
     spec:
       containers:
-      - name: identityproxy
-        image: waziup/identityproxy
+      - name: proxy
+        image: waziup/proxy:PROXY_FIX
         ports:
         - containerPort: 80
 
@@ -22,14 +22,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: identityproxy
+  name: proxy
   namespace: waziup
 spec:
   type: NodePort
   selector:
-    name: identityproxy
+    name: proxy
   ports:
-    - name: identityproxy
+    - name: proxy
       port: 80
       nodePort: 30979
 
@@ -37,37 +37,31 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: identityproxy
+  name: proxy
   namespace: waziup
 spec:
   rules:
-  - host: cloudplatform.waziup.io
-    http:
-      paths:
-      - backend:
-          serviceName: identityproxy
-          servicePort: 80
   - host: orion.waziup.io
     http:
       paths:
       - backend:
-          serviceName: identityproxy
+          serviceName: proxy
           servicePort: 80
   - host: app.waziup.io
     http:
       paths:
       - backend:
-          serviceName: identityproxy
+          serviceName: proxy
           servicePort: 80
   - host: sms.waziup.io
     http:
       paths:
       - backend:
-          serviceName: identityproxy
+          serviceName: proxy
           servicePort: 80
   - host: historicaldata.waziup.io
     http:
       paths:
       - backend:
-          serviceName: identityproxy
+          serviceName: proxy
           servicePort: 80
