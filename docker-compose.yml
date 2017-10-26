@@ -78,6 +78,10 @@ services:
     image: waziup/socials:latest
     ports:
       - 9123:9123
+    environment:
+      - MONGODB_URL=mongodb://localhost:27017/waziup_socials
+    links:
+      - mongo
 
 # ELS
   elasticsearch:
