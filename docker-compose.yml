@@ -22,34 +22,6 @@ services:
     links:
       - mongo
 
-# Historical API
-  cygnus:
-    image: waziup/cygnus
-    hostname: cygnus
-    container_name: cygnus
-    ports:
-      - "5050:5050"
-      - "8081:8081"
-    links:
-      - orion
-      - mongo
-    environment:
-      - CYGNUS_MONGO_HOSTS:mongo
-
-  sth-comet:
-    image: waziup/sth-comet:latest
-    hostname: sth-comet
-    container_name: sth-comet
-    ports:
-      - "8666:8666"
-    environment:
-      - STH_HOST=0.0.0.0
-      - DB_URI=mongo:27017
-      - DEFAULT_SERVICE=orion
-      - DEFAULT_SERVICE_PATH=/
-    links:
-      - mongo
-
 # Front-end proxy
   proxy:
     build: ./proxy
@@ -63,10 +35,10 @@ services:
     image: waziup/api-server
     ports:
       - "80:80"
-      - "4000:4000"
     environment:
-      - KEYCLOAK_URL=http://keycloak:8080
-      - KEYCLOAK_REDIRECT_URL=http://localhost:8080/auth
+      - SERVER_PORT=80
+      - SERVER_URL=http://localhost:80
+      - KEYCLOAK_URL=http://keycloak:8080/auth
       - ORION_URL=http://orion:1026
       - ELASTICSEARCH_URL=http://elasticsearch:9200
 
@@ -79,6 +51,7 @@ services:
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=${WAZIUP_ADMIN_PASS}
+      - KEYCLOAK_LOGLEVEL=DEBUG
     volumes:
       - ${WAZIUP_DATA}/keycloak:/opt/jboss/keycloak/standalone/data/
     # If the realm "waziup" doesn't exists, create it from file
@@ -99,8 +72,14 @@ services:
       - REACT_APP_KIBANA_URL=http://${WAZIUP_URL}:5601
     mem_limit: 1000000000  
 
+#Socials
+  socials:
+    build: ./socials
+    image: waziup/socials:latest
+    ports:
+      - 9123:9123
 
-# ELK
+# ELS
   elasticsearch:
     build: ELK/elasticsearch/
     image: waziup/elasticsearch
@@ -117,25 +96,25 @@ services:
     volumes:
       - ${WAZIUP_DATA}/els:/usr/share/elasticsearch/data
 
-  logstash:
-    build: ELK/logstash/
-    image: waziup/logstash
-    ports:
-      - "5000:5000"
-    depends_on:
-      - elasticsearch
-    environment:
-      ELASTIC_SEARCH_API: "http://elasticsearch:9200"
-      ORION_API: "http://orion:1026"
-  kibana:
-    build: ELK/kibana/
-    image: waziup/kibana
-    ports:
-      - "5601:5601"
-    depends_on:
-      - elasticsearch
-    environment:
-      ELASTICSEARCH_URL: http://elasticsearch:9200
+#  logstash:
+#    build: ELK/logstash/
+#    image: waziup/logstash
+#    ports:
+#      - "5000:5000"
+#    depends_on:
+#      - elasticsearch
+#    environment:
+#      ELASTIC_SEARCH_API: "http://elasticsearch:9200"
+#      ORION_API: "http://orion:1026"
+#  kibana:
+#    build: ELK/kibana/
+#    image: waziup/kibana
+#    ports:
+#      - "5601:5601"
+#    depends_on:
+#      - elasticsearch
+#    environment:
+#      ELASTICSEARCH_URL: http://elasticsearch:9200
   els-feeder:
     build: ELS-feeder/
     image: waziup/els-feeder
@@ -147,3 +126,14 @@ services:
     environment:
       ELASTIC_SEARCH_API: "http://elasticsearch"
       ORION_API: "http://orion:1026"
+
+# CEP
+  cepheus:
+    image: orangeopensource/fiware-cepheus
+#    build: ./broker/cepheus
+    hostname: cepheus
+    ports:
+      - "8080:8080"
+    links:
+      - orion
+#    entrypoint: java -jar /opt/cepheus/cepheus-cep.jar -Dserver.port=7512
