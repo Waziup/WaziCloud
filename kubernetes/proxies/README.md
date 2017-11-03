@@ -37,5 +37,8 @@ They need to be applied in kubernetes to create the ingress controller:
 kubectl apply -f <file>
 ```
 
+Add role in Kubernetes to allow access to the ingress controller
+```
+kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
+```
 
-In OpenStack, a Load Balancer need to be created, pointing on the port of the ingress controller.
