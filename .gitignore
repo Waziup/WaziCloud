@@ -89,3 +89,4 @@ ENV/
 .ropeproject
 
 deis/workflow-v2.8.0/tpl/generate_params.toml
+data/
