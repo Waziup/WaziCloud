@@ -23,12 +23,12 @@ services:
       - mongo
 
 # Front-end proxy
-  proxy:
-    build: ./proxy
-    image: waziup/proxy:latest
-    ports:
-      - "80:80"
-      - "443:443"
+ # proxy:
+ #   build: ./proxy
+ #   image: waziup/proxy:latest
+ #   ports:
+ #     - "80:80"
+ #     - "443:443"
 
   api-server:
     build: ./api-server
@@ -41,6 +41,8 @@ services:
       - KEYCLOAK_URL=http://keycloak:8080/auth
       - ORION_URL=http://orion:1026
       - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - MONGODB_URL=mongodb://mongo:27017/waziup_history
+      - SOCIALS_URL=http://socials:9123
 
 # Users identification    
   keycloak:
@@ -132,12 +134,12 @@ services:
       ORION_API: "http://orion:1026"
 
 # CEP
-  cepheus:
-    image: orangeopensource/fiware-cepheus
+#  cepheus:
+#    image: orangeopensource/fiware-cepheus
 #    build: ./broker/cepheus
-    hostname: cepheus
-    ports:
-      - "8080:8080"
-    links:
-      - orion
+#    hostname: cepheus
+#    ports:
+#      - "8080:8080"
+#    links:
+#      - orion
 #    entrypoint: java -jar /opt/cepheus/cepheus-cep.jar -Dserver.port=7512
