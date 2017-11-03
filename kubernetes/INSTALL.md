@@ -57,7 +57,7 @@ $ mv kubelet.conf ~/.kube/config
 
 Next, install the [proxies](proxies/README.md).
 
-For installing DEIS, follow the instructions [here](../deis/README.md).
+Also install the kubernetes dashboard.
 
 Troubleshooting
 ---------------
