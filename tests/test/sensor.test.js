@@ -2,7 +2,8 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
 let server = "http://localhost/api/v1";
-let sensor = require('../config/sensor');
+let sensor = require('../config/sensor').valid;
+let invalidSensor = require('../config/sensor').invalid;
 
 chai.use(chaiHttp);
 
@@ -35,14 +36,32 @@ describe('Sensors ', () => {
 					res.should.have.status(200);
 				  done();
 				});
-		  });
+		});
+		it('it should Reject posting data with reapeted values', (done) => {
+			chai.request(server)
+				.post('/domains/cdupont/sensors')
+				.send(sensor)
+				.end((err, res) => {
+					res.should.have.status(422);
+				  done();
+				});
+		});
+		it('it should Reject posting a sensor with invalid data', (done) => {
+			chai.request(server)
+				.post('/domains/cdupont/sensors')
+				.send(invalidSensor)
+				.end((err, res) => {
+					res.should.have.status(400);
+				  done();
+				});
+		});
 	});
 
 	describe('/domains/{domain}/sensors/{sensor_id} sensor', () => {
 		it('it should GET a sensor by the given id', (done) => {
 		
 			chai.request(server)
-				.get( '/domains/cdupont/sensors/0d710b12-27e8-433d-ab3a-e05b7127eeaa')
+				.get(`/domains/cdupont/sensors/${sensor.id}`)
 				.end((err, res) => {
 					if(err){
 						console.log(err);
@@ -59,8 +78,17 @@ describe('Sensors ', () => {
 					res.body.should.have.property('id').eql(sensor.id);
 					done();
 				});
-
 		});
+		it('it should give a 404 err a sensor with none existent id', (done) => {
+			
+				chai.request(server)
+					.get(`/domains/cdupont/sensors/this-id-does-not-exist`)
+					.end((err, res) => {
+						res.should.have.status(404);
+						done();
+					});
+	
+			});
 	});
 
 	describe('/domains/{domain}/sensors/{sensor_id}/owner	insert owner', () => {
@@ -152,7 +180,6 @@ describe('Sensors ', () => {
 
 	describe('/domains/{domain}/sensors/{sensor_id} Remove sensor', () => {
 		it('it should Remove a sensor by the given id', (done) => {
-		
 			chai.request(server)
 				.delete( `/domains/cdupont/sensors/${sensor.id}`)
 				.end((err, res) => {
@@ -162,7 +189,6 @@ describe('Sensors ', () => {
 					}
 					done();
 				});
-
 		});
 	});
 
