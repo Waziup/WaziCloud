@@ -148,8 +148,22 @@ describe('Sensors ', () => {
 				});
 
 		});
-	
-	
+	});
+
+	describe('/domains/{domain}/sensors/{sensor_id} Remove sensor', () => {
+		it('it should Remove a sensor by the given id', (done) => {
+		
+			chai.request(server)
+				.delete( `/domains/cdupont/sensors/${sensor.id}`)
+				.end((err, res) => {
+					if(err){
+						console.log(err);
+						return;
+					}
+					done();
+				});
+
+		});
 	});
 
 });
