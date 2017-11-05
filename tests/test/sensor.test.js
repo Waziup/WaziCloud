@@ -62,4 +62,25 @@ describe('Sensors ', () => {
 		});
 	});
 
+	describe('/domains/{domain}/sensors/{sensor_id}/owner	insert owner', () => {
+		it('it should update the owner field', (done) => {
+			chai.request(server)
+				.put(`/domains/cdupont/sensors/${sensor.id}/owner`)
+				.set('content-type', 'text/plain')
+				.send("henok")
+				.end((err, res) => {
+					res.should.have.status(200);
+					chai.request(server)
+						.get(`/domains/cdupont/sensors/${sensor.id}`)
+						.end((err, res)=>{
+							res.body.should.be.a('object');
+							res.body.should.have.property('owner').eql('henok');
+							done();
+						})
+						
+				});
+
+		});
+});
+
 });
