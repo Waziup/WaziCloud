@@ -24,9 +24,6 @@ describe('Sensors ', () => {
 			chai.request(baseUrl)
 				.get(`/domains/${domain}/sensors`)
 				.end((err, res) => {
-					if(err){
-						console.log(err);
-					}
 					res.should.have.status(200);
 					res.body.should.be.a('array');
 					done();
@@ -39,9 +36,6 @@ describe('Sensors ', () => {
 				.post(`/domains/${domain}/sensors`)
 				.send(sensor)
 				.end((err, res) => {
-					if(err){
-						console.log(err);
-					}
 					res.should.have.status(200);
 				  	done();
 				});
@@ -51,9 +45,6 @@ describe('Sensors ', () => {
 				.post(`/domains/${domain}/sensors`)
 				.send(sensor)
 				.end((err, res) => {
-					if(err){
-						console.log(err);
-					}
 					res.should.have.status(422);
 				  	done();
 				});
@@ -63,9 +54,6 @@ describe('Sensors ', () => {
 				.post(`/domains/${domain}/sensors`)
 				.send(invalidSensor)
 				.end((err, res) => {
-					if(err){
-						console.log(err);
-					}
 					res.should.have.status(400);
 				  	done();
 				});
@@ -99,9 +87,6 @@ describe('Sensors ', () => {
 				chai.request(baseUrl)
 					.get(`/domains/${domain}/sensors/this-id-does-not-exist`)
 					.end((err, res) => {
-						if(err){
-							console.log(err);
-						}
 						res.should.have.status(404);
 						done();
 					});
@@ -116,9 +101,6 @@ describe('Sensors ', () => {
 				.set('content-type', 'text/plain')
 				.send("henok")
 				.end((err, res) => {
-					if(err){
-						console.log(err);
-					}
 					res.should.have.status(200);
 					chai.request(baseUrl)
 						.get(`/domains/${domain}/sensors/${sensor.id}`)
@@ -139,9 +121,6 @@ describe('Sensors ', () => {
 				.set('content-type', 'text/plain')
 				.send("SEN1")
 				.end((err, res) => {
-					if(err){
-						console.log(err);
-					}
 					res.should.have.status(200);
 					chai.request(baseUrl)
 						.get(`/domains/${domain}/sensors/${sensor.id}`)
@@ -166,9 +145,6 @@ describe('Sensors ', () => {
 					"longitude": 4.0083
 				  })
 				.end((err, res) => {
-					if(err){
-						console.log(err);
-					}
 					res.should.have.status(200);
 					chai.request(baseUrl)
 						.get(`/domains/${domain}/sensors/${sensor.id}`)
@@ -195,9 +171,6 @@ describe('Sensors ', () => {
 					chai.request(baseUrl)
 						.get(`/domains/${domain}/sensors/${sensor.id}`)
 						.end((err, res)=>{
-							if(err){
-								console.log(err);
-							}
 							res.body.should.be.a('object');
 							res.body.should.have.property('sensor_kind').eql('Soil moisture sensor');
 							done();
