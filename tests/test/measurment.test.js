@@ -87,8 +87,52 @@ describe('Measurements ', () => {
 					chai.request(baseUrl)
 						.get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)
 						.end((err, res)=>{
-							res.body.should.be.a('object');
-							res.body.should.have.property('dimension').eql('degree');
+                            console.log(res.body);
+							//res.body.should.be.a('object');
+							//res.body.should.have.property('dimension').eql('degree');
+							done();
+						})
+						
+				});
+
+		});
+    });
+    
+    describe('/domains/{domain}/sensors/{sensor_id}/measurements/{measurement_id}/dimension Update dimention', () => {
+		it('it should update the dimention of the measurement field', (done) => {
+			chai.request(baseUrl)
+				.put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/dimension`)
+				.set('content-type', 'text/plain')
+				.send("degree")
+				.end((err, res) => {
+					res.should.have.status(200);
+					chai.request(baseUrl)
+						.get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)
+						.end((err, res)=>{
+                            console.log(res.body);
+							//res.body.should.be.a('object');
+							//res.body.should.have.property('dimension').eql('degree');
+							done();
+						})
+						
+				});
+
+		});
+	});
+	describe('/domains/{domain}/sensors/{sensor_id}/measurements/{measurement_id}/unit Update unit', () => {
+		it('it should update the dimention of the measurement field', (done) => {
+			chai.request(baseUrl)
+				.put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/unit`)
+				.set('content-type', 'text/plain')
+				.send("degree")
+				.end((err, res) => {
+					res.should.have.status(200);
+					chai.request(baseUrl)
+						.get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)
+						.end((err, res)=>{
+                            console.log(res.body);
+							//res.body.should.be.a('object');
+							//res.body.should.have.property('dimension').eql('degree');
 							done();
 						})
 						
