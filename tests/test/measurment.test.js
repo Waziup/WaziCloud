@@ -4,8 +4,8 @@ let should = chai.should();
 let baseUrl = require('../config/enviroment').baseUrl;
 let domain = require('../config/enviroment').domain;
 let sensor = require('../config/sensor').valid;
-let invalidSensor = require('../config/sensor').invalid;
-let measurement = require('../config/sensor').measurement;
+let invalidSensor = require('../config/sample-data').invalid;
+let measurement = require('../config/sample-data').measurement;
 
 chai.use(chaiHttp);
 

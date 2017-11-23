@@ -3,8 +3,8 @@ let chaiHttp = require('chai-http');
 let should = chai.should();
 let baseUrl = require('../config/enviroment').baseUrl;
 let domain = require('../config/enviroment').domain;
-let sensor = require('../config/sensor').valid;
-let invalidSensor = require('../config/sensor').invalid;
+let sensor = require('../config/sample-data').valid;
+let invalidSensor = require('../config/sample-data').invalid;
 
 chai.use(chaiHttp);
 

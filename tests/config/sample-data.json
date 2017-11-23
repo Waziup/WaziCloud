@@ -59,5 +59,10 @@
                 "timestamp": "2016-06-08T18:20:27.873Z"
             }
         ]
+    },
+    "socials" : {
+        "username": "cdupont",
+        "channel": "facebook",
+        "message": "Test message"
     }
 }
