@@ -12,21 +12,36 @@ For information and documentation: http://www.waziup.io
 Install
 -------
 
-To install the platform, run the following commands:
+To install the platform, first clone it:
 ```
-# clone the platform with submodules
-git clone --recursive git@github.com:Waziup/Platform.git
+git clone git@github.com:Waziup/Platform.git
 cd Platform
-# create data directories
+```
+
+You then need to create the diretories for the data producedi by the platform:
+```
 mkdir -p data/mongo data/keycloak data/els
-# build and run
-docker-compose build
+```
+Then run it:
+```
 docker-compose up
 ```
 
 You can then access Waziup platform on http://localhost
 
 See [this file](INSTALL.md) for the installation instructions on Cloud platforms.
+
+
+Develop
+-------
+
+To get the source code for each submodules, you need to clone with --recursive:
+```
+# clone the platform with submodules
+git clone --recursive git@github.com:Waziup/Platform.git
+cd Platform
+docker-compose build
+```
 
 Tests
 -----
@@ -36,6 +51,12 @@ You can run the test campain like this:
 docker-compose up
 ./tests/platform_tests.sh
 ```
+
+Or view the API documentation:
+```
+firefox localhost/docs
+```
+
 
 Debug
 -----
