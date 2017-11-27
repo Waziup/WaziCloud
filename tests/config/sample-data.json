@@ -64,5 +64,8 @@
         "username": "cdupont",
         "channel": "facebook",
         "message": "Test message"
+    },
+    "domains" :{
+      "id" : "testfarm"
     }
 }
