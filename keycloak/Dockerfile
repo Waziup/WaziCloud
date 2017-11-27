@@ -1,4 +1,4 @@
-FROM jboss/keycloak
+FROM jboss/keycloak:3.4.0.Final
 
 # Copy Waziup theme
 RUN mkdir -p /opt/jboss/keycloak/themes/waziup/
