@@ -18,8 +18,9 @@ git clone git@github.com:Waziup/Platform.git
 cd Platform
 ```
 
-Then run it:
+Then pull the images and run it:
 ```
+docker-compose pull
 docker-compose up
 ```
 
