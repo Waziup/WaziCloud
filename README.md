@@ -18,10 +18,6 @@ git clone git@github.com:Waziup/Platform.git
 cd Platform
 ```
 
-You then need to create the diretories for the data producedi by the platform:
-```
-mkdir -p data/mongo data/keycloak data/els
-```
 Then run it:
 ```
 docker-compose up
