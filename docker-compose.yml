@@ -22,29 +22,21 @@ services:
     links:
       - mongo
 
-# Front-end proxy
- # proxy:
- #   build: ./proxy
- #   image: waziup/proxy:latest
- #   ports:
- #     - "80:80"
- #     - "443:443"
-
   api-server:
     build: ./api-server
     image: waziup/api-server
     ports:
       - "80:80"
     environment:
-      - SERVER_PORT=80
-      - SERVER_URL=http://localhost:80
+      - HTTP_PORT=80
+      - HTTPS_PORT=443
       - KEYCLOAK_URL=http://keycloak:8080/auth
       - ORION_URL=http://orion:1026
       - ELASTICSEARCH_URL=http://elasticsearch:9200
       - MONGODB_URL=mongodb://mongo:27017/waziup_history
       - SOCIALS_URL=http://socials:9123
 
-# Users identification    
+# Users identification & authorization   
   keycloak:
     build: ./keycloak
     image: waziup/keycloak:latest
@@ -102,16 +94,6 @@ services:
     volumes:
       - ${WAZIUP_DATA}/els:/usr/share/elasticsearch/data
 
-#  logstash:
-#    build: ELK/logstash/
-#    image: waziup/logstash
-#    ports:
-#      - "5000:5000"
-#    depends_on:
-#      - elasticsearch
-#    environment:
-#      ELASTIC_SEARCH_API: "http://elasticsearch:9200"
-#      ORION_API: "http://orion:1026"
 #  kibana:
 #    build: ELK/kibana/
 #    image: waziup/kibana
