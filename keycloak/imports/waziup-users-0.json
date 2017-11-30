@@ -147,14 +147,14 @@
     "email" : "cdupont@fbk.eu",
     "credentials" : [ {
       "type" : "password",
-      "hashedSaltedValue" : "FkmDf0Aujt8Xi+BqOaU/9MWBYbq7fFTUl5Vd7M7LeS/AMtrgaOEiXd+9FmvVy1tGTFV6w3xyelNn5tEQH0sl0g==",
-      "salt" : "eInh+gKJ8XNbvcfY7YOdOA==",
+      "hashedSaltedValue" : "FYferPvUFugjm/omv0ZvMwfbln//dBV9+xyL/q5PAxIlwvRXAlZHgWRkdRJBanQGZkWVPjEcWxiV1TUawt9UBA==",
+      "salt" : "Uu/DJAGRQARJBEydNmGOdQ==",
       "hashIterations" : 20000,
       "counter" : 0,
-      "algorithm" : "pbkdf2",
+      "algorithm" : "pbkdf2-sha256",
       "digits" : 0,
       "period" : 0,
-      "createdDate" : 1497370576428,
+      "createdDate" : 1512056008514,
       "config" : { }
     } ],
     "disableableCredentialTypes" : [ "password" ],
