@@ -94,15 +94,27 @@ services:
     volumes:
       - ${WAZIUP_DATA}/els:/usr/share/elasticsearch/data
 
-#  kibana:
-#    build: ELK/kibana/
-#    image: waziup/kibana
-#    ports:
-#      - "5601:5601"
-#    depends_on:
-#      - elasticsearch
-#    environment:
-#      ELASTICSEARCH_URL: http://elasticsearch:9200
+  kibana:
+    build: ELK/kibana/
+    image: waziup/kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+
+  kibana-backend:
+    build: kibana-backend/
+    image: waziup/kibana-backend
+    ports:
+      - "6565:6565"
+    environment:
+      - SERVER_PORT=6565
+      - SERVER_URL=http://localhost:6565
+      - KEYCLOAK_URL=http://keycloak:8080/auth
+      - KIBANA_URL=http://kibana:5601
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
   els-feeder:
     build: ELS-feeder/
     image: waziup/els-feeder
