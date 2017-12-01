@@ -116,7 +116,7 @@ services:
       - KIBANA_URL=http://kibana:5601
       - ELASTICSEARCH_URL=http://elasticsearch:9200
   els-feeder:
-    build: ELS-feeder/
+    build: els-feeder/
     image: waziup/els-feeder
     ports:
       - "8000:8000"
