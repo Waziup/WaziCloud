@@ -10,3 +10,6 @@
 [submodule "socials"]
 	path = socials
 	url = https://github.com/Waziup/Socialbackend
+[submodule "kibana-backend"]
+	path = kibana-backend
+	url = https://github.com/Waziup/kibana-backend
