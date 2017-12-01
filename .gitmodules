@@ -1,8 +1,8 @@
 [submodule "dashboard"]
 	path = dashboard
 	url = git@github.com:Waziup/waziup-dashboard.git
-[submodule "ELS-feeder"]
-	path = ELS-feeder
+[submodule "els-feeder"]
+	path = els-feeder
 	url = git@github.com:Waziup/ELS-feeder.git
 [submodule "api-server"]
 	path = api-server
