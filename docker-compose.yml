@@ -115,17 +115,20 @@ services:
       - KEYCLOAK_URL=http://keycloak:8080/auth
       - KIBANA_URL=http://kibana:5601
       - ELASTICSEARCH_URL=http://elasticsearch:9200
+
   els-feeder:
     build: els-feeder/
     image: waziup/els-feeder
     ports:
-      - "8000:8000"
+      - "9100:9100"
     depends_on:
       - elasticsearch
       - orion
     environment:
-      ELASTIC_SEARCH_API: "http://elasticsearch"
-      ORION_API: "http://orion:1026"
+      ELASTIC_SEARCH_HOST: "http://elasticsearch"
+      ELASTIC_SEARCH_PORT: "9200"
+      ORION_URI: "http://orion:1026"
+      SERVER_PORT: 9100
 
 # CEP
 #  cepheus:
