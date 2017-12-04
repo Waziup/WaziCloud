@@ -9,7 +9,7 @@ let measurement = require('../config/sample-data').measurement;
 
 chai.use(chaiHttp);
 
-// remove the sensor exists delete it
+// if the sensor exists delete it
 chai.request(baseUrl)
     .post(`/domains/${domain}/sensors`)
     .send(sensor)

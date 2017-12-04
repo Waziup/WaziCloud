@@ -67,5 +67,15 @@
     },
     "domains" :{
       "id" : "testfarm"
+    },
+    "user" : {
+      "admin" : {
+        "username": "cdupont",
+        "password": "password"
+      },
+      "owner" : {
+        "username" : "test",
+        "password" : "test"
+      }
     }
 }
