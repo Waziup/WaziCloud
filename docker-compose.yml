@@ -125,10 +125,10 @@ services:
       - elasticsearch
       - orion
     environment:
-      ELASTIC_SEARCH_HOST: "http://elasticsearch"
-      ELASTIC_SEARCH_PORT: "9200"
-      ORION_URI: "http://orion:1026"
-      SERVER_PORT: 9100
+      - ELASTIC_SEARCH_HOST=http://elasticsearch
+      - ELASTIC_SEARCH_PORT=9200
+      - ORION_URL=http://orion:1026
+      - SERVER_PORT=9100
 
 # CEP
 #  cepheus:
