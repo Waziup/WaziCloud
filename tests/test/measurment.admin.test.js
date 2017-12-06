@@ -5,6 +5,7 @@ let baseUrl = require('../config/enviroment').baseUrl;
 let domain = require('../config/enviroment').domain;
 let sensor = require('../config/sample-data').valid;
 let invalidSensor = require('../config/sample-data').invalid;
+let userCredentials = require('../config/sample-data').user.admin;
 let measurement = require('../config/sample-data').measurement;
 
 chai.use(chaiHttp);
@@ -32,6 +33,7 @@ describe('Measurements', () => {
     it('it should GET all the measurements for a given sensor', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors/${sensor.id}/measurements`)
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('array');
@@ -43,9 +45,10 @@ describe('Measurements', () => {
     it('it should add a measurement value for a given sensor', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/sensors/${sensor.id}/measurements`)
+        .set('Authorization', `Bearer ${token}`)
         .send(measurement)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(200);
           //res.body.should.be.a('array');
           //console.log(res);
           done();
@@ -56,6 +59,7 @@ describe('Measurements', () => {
     it('it should GET all the measurements for a given sensor', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           res.should.have.status(200);
           //res.body.should.be.a('array');
@@ -69,10 +73,11 @@ describe('Measurements', () => {
     it('it should update the name of the measurement field', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/name`)
+        .set('Authorization', `Bearer ${token}`)
         .set('content-type', 'text/plain')
         .send("ss1")
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(200);
           chai.request(baseUrl)
             .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)
             .end((err, res) => {
@@ -89,6 +94,7 @@ describe('Measurements', () => {
     it('it should update the dimention of the measurement field', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/dimension`)
+        .set('Authorization', `Bearer ${token}`)
         .set('content-type', 'text/plain')
         .send("degree")
         .end((err, res) => {
@@ -96,7 +102,6 @@ describe('Measurements', () => {
           chai.request(baseUrl)
             .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)
             .end((err, res) => {
-              console.log(res.body);
               //res.body.should.be.a('object');
               //res.body.should.have.property('dimension').eql('degree');
               done();
@@ -111,6 +116,7 @@ describe('Measurements', () => {
     it('it should update the dimention of the measurement field', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/dimension`)
+        .set('Authorization', `Bearer ${token}`)
         .set('content-type', 'text/plain')
         .send("degree")
         .end((err, res) => {
@@ -118,7 +124,6 @@ describe('Measurements', () => {
           chai.request(baseUrl)
             .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)
             .end((err, res) => {
-              console.log(res.body);
               //res.body.should.be.a('object');
               //res.body.should.have.property('dimension').eql('degree');
               done();
@@ -132,6 +137,7 @@ describe('Measurements', () => {
     it('it should update the dimention of the measurement field', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/unit`)
+        .set('Authorization', `Bearer ${token}`)
         .set('content-type', 'text/plain')
         .send("degree")
         .end((err, res) => {
@@ -139,7 +145,6 @@ describe('Measurements', () => {
           chai.request(baseUrl)
             .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)
             .end((err, res) => {
-              console.log(res.body);
               //res.body.should.be.a('object');
               //res.body.should.have.property('dimension').eql('degree');
               done();
