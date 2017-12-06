@@ -25,10 +25,9 @@ describe('Domains', () => {
     it('it should post a message to social networks', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/notifications`)
-        .set('Authorization', `Bearer ${token}`)
         .send(notification)
         .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(403);
           done();
         });
     });
@@ -37,9 +36,8 @@ describe('Domains', () => {
     it('it should GET all the messages posted on social networks', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/notifications`)
-        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(403);
           res.body.should.be.a('array');
           done();
         });
@@ -49,18 +47,16 @@ describe('Domains', () => {
     it('it should get a single notificaion', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/notifications`)
-        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(403);
           done();
         });
     });
     it('it should return not found for notification that doesnt exist', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/notifications/this-id-doesnt-exist${Date.now()}`)
-        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(404);
+          res.should.have.status(403);
           done();
         });
     });
@@ -69,18 +65,16 @@ describe('Domains', () => {
     it('it should delete a message to social networks', (done) => {
       chai.request(baseUrl)
         .delete(`/domains/${domain}/notifications/${domainData.id}`)
-        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(403);
           done();
         });
     })
     it('it should return not found for message that doesnt exist', (done) => {
       chai.request(baseUrl)
         .delete(`/domains/${domain}/notifications/this-id-doesnt-exist${Date.now()}`)
-        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(404);
+          res.should.have.status(403);
           done();
         });
     })
