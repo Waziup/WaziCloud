@@ -26,7 +26,7 @@ before(function (done) {
 });
 
 
-describe('Sensors', () => {
+describe('Sensors with admin previledges', () => {
   describe('Get Sensors', () => {
     it('it should GET all the the senseors', (done) => {
       chai.request(baseUrl)
