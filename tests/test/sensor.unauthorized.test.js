@@ -31,7 +31,6 @@ describe('Sensors', () => {
     it('it should GET all the the senseors', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors`)
-        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           res.should.have.status(200);
           //res.body.should.be.a('array');
@@ -70,7 +69,7 @@ describe('Sensors', () => {
     });
   });
 
-  describe('Get a Single Sensor', () => {
+  describe('single sensor', () => {
     it('it should GET a sensor by the given id', (done) => {
 
       chai.request(baseUrl)
@@ -81,7 +80,6 @@ describe('Sensors', () => {
           res.body.should.have.property('gateway_id');
           res.body.should.have.property('name');
           res.body.should.have.property('owner');
-          res.body.should.have.property('sensor_kind');
           res.body.should.have.property('measurements');
           res.body.should.have.property('location');
           res.body.should.have.property('id').eql(sensor.id);
@@ -100,49 +98,35 @@ describe('Sensors', () => {
     });
   });
 
-  describe('Insert Owner', () => {
+  describe('insert owner', () => {
     it('it should update the owner field', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/owner`)
         .set('content-type', 'text/plain')
         .send("henok")
         .end((err, res) => {
-          res.should.have.status(200);
-          chai.request(baseUrl)
-            .get(`/domains/${domain}/sensors/${sensor.id}`)
-            .end((err, res) => {
-              res.body.should.be.a('object');
-              res.body.should.have.property('owner').eql('henok');
-              done();
-            })
-
+          res.should.have.status(403);
+          done();
         });
 
     });
   });
-  describe('Insert Name', () => {
+  describe('insert name', () => {
     it('it should update the name field', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/name`)
         .set('content-type', 'text/plain')
         .send("SEN1")
         .end((err, res) => {
-          res.should.have.status(200);
-          chai.request(baseUrl)
-            .get(`/domains/${domain}/sensors/${sensor.id}`)
-            .end((err, res) => {
-              res.body.should.be.a('object');
-              res.body.should.have.property('name').eql('SEN1');
-              done();
-            })
-
+          res.should.have.status(403);
+          done();
         });
 
     });
 
 
   });
-  describe('Insert Location', () => {
+  describe('insert location', () => {
     it('it should update the location field', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/location`)
@@ -151,49 +135,33 @@ describe('Sensors', () => {
           "longitude": 4.0083
         })
         .end((err, res) => {
-          res.should.have.status(200);
-          chai.request(baseUrl)
-            .get(`/domains/${domain}/sensors/${sensor.id}`)
-            .end((err, res) => {
-              res.body.should.be.a('object');
-              res.body.location.should.have.property('latitude').eql(5.36);
-              res.body.location.should.have.property('longitude').eql(4.0083);
-              done();
-            })
-
+          res.should.have.status(403);
+          done();
         });
 
     });
   });
 
-  describe('Insert Sensor Kind', () => {
+  describe('insert sensor kind', () => {
     it('it should update the sensor kind field', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/sensor_kind`)
-        .set('Authorization', `Bearer ${token}`)
         .set('content-type', 'text/plain')
         .send("Soil moisture sensor")
         .end((err, res) => {
-          res.should.have.status(200);
-          chai.request(baseUrl)
-            .get(`/domains/${domain}/sensors/${sensor.id}`)
-            .end((err, res) => {
-              res.body.should.be.a('object');
-              res.body.should.have.property('sensor_kind').eql('Soil moisture sensor');
-              done();
-            })
-
+          res.should.have.status(403);
+          done();
         });
 
     });
   });
 
-  describe('Remove Sensor', () => {
+  describe('Remove sensor', () => {
     it('it should Remove a sensor by the given id', (done) => {
       chai.request(baseUrl)
         .delete(`/domains/${domain}/sensors/${sensor.id}`)
         .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(403);
           done();
         });
     });

@@ -2,7 +2,7 @@
   "name": "test",
   "version": "0.0.0",
   "scripts": {
-    "test": "mocha --timeout 10000"
+    "test": "mocha --timeout 20000"
   },
   "devDependencies": {
     "chai": "^4.1.2",
