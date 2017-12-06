@@ -18,7 +18,6 @@ before(function (done) {
       token = response.text;
       chai.request(baseUrl)
         .delete(`/domains/${domain}/sensors/${sensor.id}`)
-        .set('Authorization', `Bearer ${token}`)
         .end((err, rss) => {
           done();
         })
@@ -42,7 +41,6 @@ describe('Sensors', () => {
     it('it should POST a sensor ', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/sensors`)
-        .set('authorization', `Bearer ${token}`)
         .send(sensor)
         .end((err, res) => {
           res.should.have.status(200);

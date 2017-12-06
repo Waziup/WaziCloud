@@ -53,6 +53,7 @@ describe('Sensors', () => {
     it('it should Reject posting data with reapeted values', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/sensors`)
+        .set('Authorization', `Bearer ${token}`)
         .send(sensor)
         .end((err, res) => {
           res.should.have.status(422);
@@ -62,6 +63,7 @@ describe('Sensors', () => {
     it('it should Reject posting a sensor with invalid data', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/sensors`)
+        .set('Authorization', `Bearer ${token}`)
         .send(invalidSensor)
         .end((err, res) => {
           res.should.have.status(400);
@@ -75,13 +77,13 @@ describe('Sensors', () => {
 
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors/${sensor.id}`)
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.property('gateway_id');
           res.body.should.have.property('name');
           res.body.should.have.property('owner');
-          res.body.should.have.property('sensor_kind');
           res.body.should.have.property('measurements');
           res.body.should.have.property('location');
           res.body.should.have.property('id').eql(sensor.id);
@@ -92,6 +94,7 @@ describe('Sensors', () => {
 
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors/this-id-does-not-exist`)
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           res.should.have.status(404);
           done();
@@ -104,6 +107,7 @@ describe('Sensors', () => {
     it('it should update the owner field', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/owner`)
+        .set('Authorization', `Bearer ${token}`)
         .set('content-type', 'text/plain')
         .send("henok")
         .end((err, res) => {
@@ -124,6 +128,7 @@ describe('Sensors', () => {
     it('it should update the name field', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/name`)
+        .set('Authorization', `Bearer ${token}`)
         .set('content-type', 'text/plain')
         .send("SEN1")
         .end((err, res) => {
@@ -146,6 +151,7 @@ describe('Sensors', () => {
     it('it should update the location field', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/location`)
+        .set('Authorization', `Bearer ${token}`)
         .send({
           "latitude": 5.36,
           "longitude": 4.0083
@@ -166,32 +172,13 @@ describe('Sensors', () => {
     });
   });
 
-  describe('Insert Sensor Kind', () => {
-    it('it should update the sensor kind field', (done) => {
-      chai.request(baseUrl)
-        .put(`/domains/${domain}/sensors/${sensor.id}/sensor_kind`)
-        .set('Authorization', `Bearer ${token}`)
-        .set('content-type', 'text/plain')
-        .send("Soil moisture sensor")
-        .end((err, res) => {
-          res.should.have.status(200);
-          chai.request(baseUrl)
-            .get(`/domains/${domain}/sensors/${sensor.id}`)
-            .end((err, res) => {
-              res.body.should.be.a('object');
-              res.body.should.have.property('sensor_kind').eql('Soil moisture sensor');
-              done();
-            })
 
-        });
-
-    });
-  });
 
   describe('Remove Sensor', () => {
     it('it should Remove a sensor by the given id', (done) => {
       chai.request(baseUrl)
         .delete(`/domains/${domain}/sensors/${sensor.id}`)
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           res.should.have.status(200);
           done();
