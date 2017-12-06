@@ -33,7 +33,7 @@ before(function (done) {
     });
 });
 
-describe('Domains ', () => {
+describe('Domains', () => {
   describe('create a domain', () => {
     it('it should Create a domain', (done) => {
       chai.request(baseUrl)

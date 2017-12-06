@@ -78,5 +78,33 @@
         "username" : "test",
         "password" : "test"
       }
+    },
+    "notification" :{
+      "description": "Send text message",
+      "subject": {
+        "entityNames": [
+          "Sensor1"
+        ],
+        "condition": {
+          "attrs": [
+            "SM1"
+          ],
+          "expression": "SM1>40"
+        }
+      },
+      "notification": {
+        "usernames": [
+          "cdupont",
+          "arahim"
+        ],
+        "channels": [
+          "facebook",
+          "sms"
+        ],
+        "message": "Test message"
+      },
+      "expires": "2017-10-13T14:51:22.12Z",
+      "throttling": 3600
     }
+
 }
