@@ -20,13 +20,13 @@ npm test
 for the sensors endpoint
 
 ```
-npm test sensors.test
+npm test sensors*
 ```
 
 for the measurments endpoint
 
 ```
-npm test measurement.test
+npm test measurement*
 ```
 
 for socials
