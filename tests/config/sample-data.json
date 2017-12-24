@@ -105,6 +105,22 @@
       },
       "expires": "2017-10-13T14:51:22.12Z",
       "throttling": 3600
+    },
+    "entities" : {
+      "id": "Barn4",
+      "type": "Room",
+      "attribute1": [
+        "Text Content.."
+      ],
+      "attribute2": [
+        "27"
+      ],
+      "attributeN": [
+        {
+          "latitude": 51.412,
+          "longitude": 12.564
+        }
+      ],
+      "additionalProp1": {}
     }
-
 }
