@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 
 describe('Socials ', () => {
 
-	describe('/domains/{domain}/socials  Get all messages sent', () => {
+	describe('Get all messages sent', () => {
 		it('it should GET all the messages sent', (done) => {
 			chai.request(baseUrl)
 				.get(`/domains/${domain}/socials`)
@@ -20,5 +20,16 @@ describe('Socials ', () => {
 					done();
 				});
 		});
-    });
+	});
+	describe('post a message to social networks', () => {
+		it('it should post a message to social networds', (done) => {
+			chai.request(baseUrl)
+				.post(`/domains/${domain}/socials`)
+				.send(socialData)
+				.end((err, res) => {
+					res.should.have.status(200);
+					done();
+				});
+		});
+	});
 })

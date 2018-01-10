@@ -10,23 +10,31 @@ let measurement = require('../config/sample-data').measurement;
 let createdDomianId = "";
 chai.use(chaiHttp);
 
-// create a sensor delete it
-before(function (done) {
-  chai.request(baseUrl)
-    .post('/auth/token')
-    .send(userCredentials)
-    .end(function (err, response) {
-      token = response.text;
-      chai.request(baseUrl)
-        .delete(`/domains/${domainData.id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .end((err, res) => {
-          done();
-        });
-    });
-});
 
-describe('Domains ', () => {
+
+describe('Domains with admin Previledges', () => {
+  before(function (done) {
+    chai.request(baseUrl)
+      .post('/auth/token')
+      .send(userCredentials)
+      .end(function (err, response) {
+        token = response.text;
+        chai.request(baseUrl)
+          .delete(`/domains/${domainData.id}`)
+          .set('Authorization', `Bearer ${token}`)
+          .end((err, res) => {
+            done();
+          });
+      });
+  });
+  after(function (done) {
+    chai.request(baseUrl)
+      .delete(`/domains/${domainData.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        done();
+      });
+  });
   describe('create a domain', () => {
     it('it should Create a domain', (done) => {
       chai.request(baseUrl)

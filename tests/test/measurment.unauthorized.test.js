@@ -10,25 +10,34 @@ let measurement = require('../config/sample-data').measurement;
 
 chai.use(chaiHttp);
 
-// create a sensor delete it
-before(function (done) {
-  chai.request(baseUrl)
-    .post('/auth/token')
-    .send(userCredentials)
-    .end(function (err, response) {
-      token = response.text;
-      chai.request(baseUrl)
-        .post(`/domains/${domain}/sensors`)
-        .set('authorization', `Bearer ${token}`)
-        .send(sensor)
-        .end((err, res) => {
-          //res.should.have.status(200);
-          done();
-        });
-    });
-});
-
 describe('Measurements', () => {
+
+  before(function (done) {
+    chai.request(baseUrl)
+      .post('/auth/token')
+      .send(userCredentials)
+      .end(function (err, response) {
+        token = response.text;
+        chai.request(baseUrl)
+          .post(`/domains/${domain}/sensors`)
+          .set('authorization', `Bearer ${token}`)
+          .send(sensor)
+          .end((err, res) => {
+            done();
+          });
+      });
+  });
+
+  after(function (done) {
+    chai.request(baseUrl)
+      .delete(`/domains/${domain}/sensors/${sensor.id}`)
+      .set('authorization', `Bearer ${token}`)
+      .send(sensor)
+      .end((err, res) => {
+        done();
+      });
+  });
+
   describe('Get Measurements', () => {
     it('it should GET all the measurements for a given sensor', (done) => {
       chai.request(baseUrl)
@@ -46,7 +55,7 @@ describe('Measurements', () => {
         .post(`/domains/${domain}/sensors/${sensor.id}/measurements`)
         .send(measurement)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(200);
           done();
         });
     });

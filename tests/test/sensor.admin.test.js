@@ -10,23 +10,23 @@ let token = "";
 
 chai.use(chaiHttp);
 
-before(function (done) {
-  chai.request(baseUrl)
-    .post('/auth/token')
-    .send(userCredentials)
-    .end(function (err, response) {
-      token = response.text;
-      chai.request(baseUrl)
-        .delete(`/domains/${domain}/sensors/${sensor.id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .end((err, rss) => {
-          done();
-        })
-    });
-});
 
 
 describe('Sensors with admin previledges', () => {
+  before(function (done) {
+    chai.request(baseUrl)
+      .post('/auth/token')
+      .send(userCredentials)
+      .end(function (err, response) {
+        token = response.text;
+        chai.request(baseUrl)
+          .delete(`/domains/${domain}/sensors/${sensor.id}`)
+          .set('Authorization', `Bearer ${token}`)
+          .end((err, rss) => {
+            done();
+          })
+      });
+  });
   describe('Get Sensors', () => {
     it('it should GET all the the senseors', (done) => {
       chai.request(baseUrl)

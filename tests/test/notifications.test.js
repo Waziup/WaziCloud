@@ -9,6 +9,8 @@ let notification = require('../config/sample-data').notification;
 let createdDomianId = "";
 chai.use(chaiHttp);
 
+
+var sampleNotification = "";
 // create a sensor delete it
 before(function (done) {
   chai.request(baseUrl)
@@ -16,18 +18,31 @@ before(function (done) {
     .send(userCredentials)
     .end(function (err, response) {
       token = response.text;
-      done();
+    });
+  //create sample notification
+  chai.request(baseUrl)
+    .post(`/domains/${domain}/notifications`)
+    .send(notification)
+    .end((err, res) => {
+      chai.request(baseUrl)
+        .get(`/domains/${domain}/notifications`)
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          sampleNotification = res.body[0];
+          done();
+        });
     });
 });
 
-describe('Domains', () => {
+describe('Notifications', () => {
   describe('post a message to social networks', () => {
     it('it should post a message to social networks', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/notifications`)
+        .set('Authorization', `Bearer ${token}`)
         .send(notification)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(200);
           done();
         });
     });
@@ -36,8 +51,9 @@ describe('Domains', () => {
     it('it should GET all the messages posted on social networks', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/notifications`)
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(200);
           res.body.should.be.a('array');
           done();
         });
@@ -46,17 +62,19 @@ describe('Domains', () => {
   describe('Get a one message', () => {
     it('it should get a single notificaion', (done) => {
       chai.request(baseUrl)
-        .get(`/domains/${domain}/notifications`)
+        .get(`/domains/${domain}/notifications/${sampleNotification.id}`)
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(200);
           done();
         });
     });
     it('it should return not found for notification that doesnt exist', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/notifications/this-id-doesnt-exist${Date.now()}`)
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           done();
         });
     });
@@ -64,17 +82,19 @@ describe('Domains', () => {
   describe('delete a message to social networks', () => {
     it('it should delete a message to social networks', (done) => {
       chai.request(baseUrl)
-        .delete(`/domains/${domain}/notifications/${domainData.id}`)
+        .delete(`/domains/${domain}/notifications/${sampleNotification.id}`)
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(200);
           done();
         });
     })
     it('it should return not found for message that doesnt exist', (done) => {
       chai.request(baseUrl)
         .delete(`/domains/${domain}/notifications/this-id-doesnt-exist${Date.now()}`)
+        .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(404);
           done();
         });
     })

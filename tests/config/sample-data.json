@@ -105,6 +105,36 @@
       },
       "expires": "2017-10-13T14:51:22.12Z",
       "throttling": 3600
+    },
+    "entities" : {
+      "id": "Barn4",
+      "type": "Room",
+      "attribute1": [
+        "Text Content.."
+      ],
+      "attribute2": [
+        "27"
+      ],
+      "attributeN": [
+        {
+          "latitude": 51.412,
+          "longitude": 12.564
+        }
+      ],
+      "additionalProp1": {}
+    },
+    "sampleUser" : {
+      "id": "eb78eed6-d01a-4f69-b562-1f30002c08d9",
+      "username": "cdupont",
+      "createdTime": "2017-09-01T20:00:00.00Z",
+      "firstName": "Corentin",
+      "lastName": "Dupont",
+      "subservice": "farm1",
+      "email": "test@gmail.com",
+      "phone": "+390000000",
+      "address": "25 Test street",
+      "facebook": "test1",
+      "twitter": "@Test1",
+      "roles": "admin"
     }
-
 }
