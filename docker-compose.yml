@@ -102,7 +102,7 @@ services:
     depends_on:
       - elasticsearch
     environment:
-      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_URL: http://api-server:80/api/v1/history
 
   kibana-backend:
     build: kibana-backend/
