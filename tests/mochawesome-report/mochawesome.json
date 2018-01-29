@@ -2,14 +2,14 @@
   "stats": {
     "suites": 67,
     "tests": 69,
-    "passes": 59,
+    "passes": 56,
     "pending": 0,
-    "failures": 10,
-    "start": "2017-12-24T17:15:09.453Z",
-    "end": "2017-12-24T17:15:16.663Z",
-    "duration": 7210,
+    "failures": 13,
+    "start": "2018-01-29T15:28:47.910Z",
+    "end": "2018-01-29T15:28:57.158Z",
+    "duration": 9248,
     "testsRegistered": 69,
-    "passPercent": 85.5,
+    "passPercent": 81.2,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -19,7 +19,7 @@
     "pendingPercentClass": "danger"
   },
   "suites": {
-    "uuid": "c580ddef-f33d-4199-a080-693d1f1647a2",
+    "uuid": "520635da-9fff-46ac-aacd-f32b7b06cba4",
     "title": "",
     "fullFile": "",
     "file": "",
@@ -28,14 +28,14 @@
         "title": "\"before all\" hook",
         "fullTitle": "\"before all\" hook",
         "timedOut": false,
-        "duration": 125,
+        "duration": 207,
         "pass": false,
         "fail": false,
         "pending": false,
         "code": "chai.request(baseUrl)\n  .post('/auth/token')\n  .send(userCredentials)\n  .end(function (err, response) {\n    token = response.text;\n  });\n//create sample notification\nchai.request(baseUrl)\n  .post(`/domains/${domain}/notifications`)\n  .send(notification)\n  .end((err, res) => {\n    chai.request(baseUrl)\n      .get(`/domains/${domain}/notifications`)\n      .set('Authorization', `Bearer ${token}`)\n      .end((err, res) => {\n        sampleNotification = res.body[0];\n        done();\n      });\n  });",
         "err": {},
         "isRoot": true,
-        "uuid": "a4b97052-a55e-4779-825b-05989b22dc0e",
+        "uuid": "be858122-8687-4252-9e37-2621813e3d27",
         "isHook": true,
         "skipped": false
       },
@@ -43,14 +43,14 @@
         "title": "\"before all\" hook",
         "fullTitle": "\"before all\" hook",
         "timedOut": false,
-        "duration": 281,
+        "duration": 255,
         "pass": false,
         "fail": false,
         "pending": false,
         "code": "chai.request(baseUrl)\n  .post('/auth/token')\n  .send(userCredentials)\n  .end(function (err, response) {\n    token = response.text;\n    chai.request(baseUrl)\n      .delete(`/domains/${domain}/sensors/${sensor.id}`)\n      .end((err, rss) => {\n        done();\n      })\n  });",
         "err": {},
         "isRoot": true,
-        "uuid": "1f0460f6-4d7e-4db6-99ca-2941e37abd5c",
+        "uuid": "84c092e2-c8b3-4eae-838b-cc51201fb1c1",
         "isHook": true,
         "skipped": false
       }
@@ -59,7 +59,7 @@
     "tests": [],
     "suites": [
       {
-        "uuid": "ac1d3c98-b9b2-49fc-bbb9-8cf20793f470",
+        "uuid": "03622b2b-2502-4cf6-a347-db4972d6519a",
         "title": "Domains with admin Previledges",
         "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/domains.admin.test.js",
         "file": "/test/domains.admin.test.js",
@@ -68,14 +68,14 @@
             "title": "\"before all\" hook",
             "fullTitle": "Domains with admin Previledges \"before all\" hook",
             "timedOut": false,
-            "duration": 128,
+            "duration": 129,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "chai.request(baseUrl)\n  .post('/auth/token')\n  .send(userCredentials)\n  .end(function (err, response) {\n    token = response.text;\n    chai.request(baseUrl)\n      .delete(`/domains/${domainData.id}`)\n      .set('Authorization', `Bearer ${token}`)\n      .end((err, res) => {\n        done();\n      });\n  });",
             "err": {},
             "isRoot": false,
-            "uuid": "4af088ba-9fad-4eec-8015-5d21e6aef5d4",
+            "uuid": "3e09d466-b9ed-453a-ba26-4a2405fc5fc6",
             "isHook": true,
             "skipped": false
           }
@@ -85,14 +85,14 @@
             "title": "\"after all\" hook",
             "fullTitle": "Domains with admin Previledges \"after all\" hook",
             "timedOut": false,
-            "duration": 104,
+            "duration": 21,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "chai.request(baseUrl)\n  .delete(`/domains/${domainData.id}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    done();\n  });",
             "err": {},
             "isRoot": false,
-            "uuid": "e2df4f7d-9595-437b-b5b8-ff30b8f1d203",
+            "uuid": "42d229f7-14ce-49cf-baf3-93d9ed6d2306",
             "isHook": true,
             "skipped": false
           }
@@ -100,7 +100,7 @@
         "tests": [],
         "suites": [
           {
-            "uuid": "40070a1e-8bfd-4d77-9087-bcc7c1eeaaf9",
+            "uuid": "989f597f-e02f-4a2e-af1d-1e4d747df65b",
             "title": "create a domain",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/domains.admin.test.js",
             "file": "/test/domains.admin.test.js",
@@ -111,7 +111,7 @@
                 "title": "it should Create a domain",
                 "fullTitle": "Domains with admin Previledges create a domain it should Create a domain",
                 "timedOut": false,
-                "duration": 233,
+                "duration": 249,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -120,7 +120,7 @@
                 "code": "chai.request(baseUrl)\n  .post(`/domains`)\n  .set('Authorization', `Bearer ${token}`)\n  .send(domainData)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "113f70d9-a535-4638-a3f6-12747bb12855",
+                "uuid": "fc9f6137-9834-4ed7-9a55-5782e44da14a",
                 "isHook": false,
                 "skipped": false
               },
@@ -128,7 +128,7 @@
                 "title": "it shouldn't Create a domain for repeated data",
                 "fullTitle": "Domains with admin Previledges create a domain it shouldn't Create a domain for repeated data",
                 "timedOut": false,
-                "duration": 31,
+                "duration": 37,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -137,26 +137,26 @@
                 "code": "chai.request(baseUrl)\n  .post(`/domains`)\n  .set('Authorization', `Bearer ${token}`)\n  .send(domainData)\n  .end((err, res) => {\n    res.should.have.status(422);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "12ece47b-1eca-4036-a852-6d92c5a64b2b",
+                "uuid": "43c3293b-e026-4a2d-aabf-d777607c5f37",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "113f70d9-a535-4638-a3f6-12747bb12855",
-              "12ece47b-1eca-4036-a852-6d92c5a64b2b"
+              "fc9f6137-9834-4ed7-9a55-5782e44da14a",
+              "43c3293b-e026-4a2d-aabf-d777607c5f37"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 264,
+            "duration": 286,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "ea6a378c-68f6-4f81-bb06-c0bcc67cce9e",
+            "uuid": "0751e57b-1cd7-48ad-ab36-99e035fb0a1a",
             "title": "Get all Domains",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/domains.admin.test.js",
             "file": "/test/domains.admin.test.js",
@@ -167,7 +167,7 @@
                 "title": "it should GET all the domains",
                 "fullTitle": "Domains with admin Previledges Get all Domains it should GET all the domains",
                 "timedOut": false,
-                "duration": 15,
+                "duration": 37,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -176,25 +176,25 @@
                 "code": "chai.request(baseUrl)\n  .get(`/domains`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    res.body.should.be.a('array');\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "fb46f19e-e4d1-468f-adf4-f5a2b9acd0e5",
+                "uuid": "94d2f519-6ff7-4f89-bb09-028c9a2fdec2",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "fb46f19e-e4d1-468f-adf4-f5a2b9acd0e5"
+              "94d2f519-6ff7-4f89-bb09-028c9a2fdec2"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 15,
+            "duration": 37,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "e11340c0-6593-4533-ae1d-223b6e37014b",
+            "uuid": "a44cf02d-15b1-4f36-bf6e-86b3726ad272",
             "title": "Get a single domain",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/domains.admin.test.js",
             "file": "/test/domains.admin.test.js",
@@ -205,7 +205,7 @@
                 "title": "it should get a single domain",
                 "fullTitle": "Domains with admin Previledges Get a single domain it should get a single domain",
                 "timedOut": false,
-                "duration": 31,
+                "duration": 35,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -214,7 +214,7 @@
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domainData.id}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "8949e9c3-b2c2-4c91-836c-691dfcba8757",
+                "uuid": "ed1268f4-9bd1-46db-8b72-6faf92b5ea43",
                 "isHook": false,
                 "skipped": false
               },
@@ -222,35 +222,39 @@
                 "title": "it should return not found for domain that doesnt exist",
                 "fullTitle": "Domains with admin Previledges Get a single domain it should return not found for domain that doesnt exist",
                 "timedOut": false,
-                "duration": 15,
-                "state": "passed",
-                "speed": "fast",
-                "pass": true,
-                "fail": false,
+                "duration": 0,
+                "state": "failed",
+                "pass": false,
+                "fail": true,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .get(`/domains/this-id-doesnt-exist${Date.now()}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(404);\n    done();\n  });",
-                "err": {},
+                "err": {
+                  "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 404 but got 403",
+                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 404 but got 403\n    at chai.request.get.set.end (test/domains.admin.test.js:87:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
+                  "diff": "- 403\n+ 404\n"
+                },
                 "isRoot": false,
-                "uuid": "4da9a598-e377-4b87-b90f-973406e2fbb5",
+                "uuid": "570a2df7-03f8-43d0-b820-6dc2c7f95494",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "8949e9c3-b2c2-4c91-836c-691dfcba8757",
-              "4da9a598-e377-4b87-b90f-973406e2fbb5"
+              "ed1268f4-9bd1-46db-8b72-6faf92b5ea43"
             ],
-            "failures": [],
+            "failures": [
+              "570a2df7-03f8-43d0-b820-6dc2c7f95494"
+            ],
             "pending": [],
             "skipped": [],
-            "duration": 46,
+            "duration": null,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "4aec8e6b-dfa7-4b38-b433-d2b81eed0683",
+            "uuid": "f658054a-939c-4e30-90c7-a55df6a5116d",
             "title": "Remove Domain",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/domains.admin.test.js",
             "file": "/test/domains.admin.test.js",
@@ -261,16 +265,16 @@
                 "title": "it should remove a single domain",
                 "fullTitle": "Domains with admin Previledges Remove Domain it should remove a single domain",
                 "timedOut": false,
-                "duration": 68,
+                "duration": 154,
                 "state": "passed",
-                "speed": "medium",
+                "speed": "slow",
                 "pass": true,
                 "fail": false,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .delete(`/domains/${domainData.id}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "0da8c7b0-723a-4429-b2cf-4092055811a3",
+                "uuid": "c66c2f3c-ba21-4c45-8987-2b1c4d9d4575",
                 "isHook": false,
                 "skipped": false
               },
@@ -285,22 +289,22 @@
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .delete(`/domains/this-id-doesnt-exist${Date.now()}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(404);\n    done();\n  });",
                 "err": {
-                  "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 404 but got 500",
-                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 404 but got 500\n    at chai.request.delete.set.end (test/domains.admin.test.js:107:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
-                  "diff": "- 500\n+ 404\n"
+                  "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 404 but got 403",
+                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 404 but got 403\n    at chai.request.delete.set.end (test/domains.admin.test.js:107:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
+                  "diff": "- 403\n+ 404\n"
                 },
                 "isRoot": false,
-                "uuid": "6016cf93-de48-492b-a58d-05cb145d3f6e",
+                "uuid": "4127f908-43a2-42ab-ae5f-3249dfc5580f",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "0da8c7b0-723a-4429-b2cf-4092055811a3"
+              "c66c2f3c-ba21-4c45-8987-2b1c4d9d4575"
             ],
             "failures": [
-              "6016cf93-de48-492b-a58d-05cb145d3f6e"
+              "4127f908-43a2-42ab-ae5f-3249dfc5580f"
             ],
             "pending": [],
             "skipped": [],
@@ -320,7 +324,7 @@
         "_timeout": 20000
       },
       {
-        "uuid": "62f8ec44-08f2-4929-9b70-c59d2e10b640",
+        "uuid": "23cb74e9-5242-4268-a4b8-6a9c477cd64f",
         "title": "Domains",
         "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/domains.unauthorized.test.js",
         "file": "/test/domains.unauthorized.test.js",
@@ -329,14 +333,14 @@
             "title": "\"before all\" hook",
             "fullTitle": "Domains \"before all\" hook",
             "timedOut": false,
-            "duration": 98,
+            "duration": 483,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "chai.request(baseUrl)\n  .post('/auth/token')\n  .send(userCredentials)\n  .end(function (err, response) {\n    token = response.text;\n    chai.request(baseUrl)\n      .delete(`/domains/${domainData.id}`)\n      .set('Authorization', `Bearer ${token}`)\n      .end((err, res) => {\n        done();\n      });\n  });",
             "err": {},
             "isRoot": false,
-            "uuid": "209bd5d3-b173-48d5-b430-1834547e7263",
+            "uuid": "ee38f0ee-5382-4d4d-8c87-6b6d3cadd18d",
             "isHook": true,
             "skipped": false
           }
@@ -346,14 +350,14 @@
             "title": "\"after all\" hook",
             "fullTitle": "Domains \"after all\" hook",
             "timedOut": false,
-            "duration": 11,
+            "duration": 19,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "chai.request(baseUrl)\n  .delete(`/domains/${domainData.id}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    done();\n  });",
             "err": {},
             "isRoot": false,
-            "uuid": "08c9e31b-7b24-41b5-a8b8-52cd9568afd6",
+            "uuid": "0a04df4f-4200-405f-8bb0-2615c49cf094",
             "isHook": true,
             "skipped": false
           }
@@ -361,7 +365,7 @@
         "tests": [],
         "suites": [
           {
-            "uuid": "492c75e3-b2c8-4db8-a881-0a9313306184",
+            "uuid": "57a46345-29a6-4960-b2ec-e29fba32e056",
             "title": "create a domain",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/domains.unauthorized.test.js",
             "file": "/test/domains.unauthorized.test.js",
@@ -372,7 +376,7 @@
                 "title": "it should Create a domain",
                 "fullTitle": "Domains create a domain it should Create a domain",
                 "timedOut": false,
-                "duration": 103,
+                "duration": 147,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -381,25 +385,25 @@
                 "code": "chai.request(baseUrl)\n  .post(`/domains`)\n  .send(domainData)\n  .end((err, res) => {\n    res.should.have.status(403);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "60ab31ee-394a-4535-a940-f9002a5bffae",
+                "uuid": "3f673442-64cd-4251-bc48-95e9f905917d",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "60ab31ee-394a-4535-a940-f9002a5bffae"
+              "3f673442-64cd-4251-bc48-95e9f905917d"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 103,
+            "duration": 147,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "9a4da227-b519-452b-bc36-5e27a7d8aad9",
+            "uuid": "154bfda3-bd92-463e-b87a-08495125c6a6",
             "title": "Get all Domains",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/domains.unauthorized.test.js",
             "file": "/test/domains.unauthorized.test.js",
@@ -410,7 +414,7 @@
                 "title": "it should GET all the domains",
                 "fullTitle": "Domains Get all Domains it should GET all the domains",
                 "timedOut": false,
-                "duration": 126,
+                "duration": 138,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -419,25 +423,25 @@
                 "code": "chai.request(baseUrl)\n  .get(`/domains`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    res.body.should.be.a('array');\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "6e42568d-b6af-47d2-83a0-142de636dce7",
+                "uuid": "767ba01d-a735-4e46-8ac2-9147220bf0d4",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "6e42568d-b6af-47d2-83a0-142de636dce7"
+              "767ba01d-a735-4e46-8ac2-9147220bf0d4"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 126,
+            "duration": 138,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "574a9c25-fd3e-4e6f-9c88-cba11a90a66a",
+            "uuid": "8fb762a3-6f93-4c42-9661-e919a618a681",
             "title": "Get a single domain",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/domains.unauthorized.test.js",
             "file": "/test/domains.unauthorized.test.js",
@@ -448,7 +452,7 @@
                 "title": "it should get a single domain",
                 "fullTitle": "Domains Get a single domain it should get a single domain",
                 "timedOut": false,
-                "duration": 146,
+                "duration": 163,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -457,7 +461,7 @@
                 "code": "chai.request(baseUrl)\n  .get(`/domains/testfarm1`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "5bfadc26-4e71-48ee-9fcb-c9d72eef5f4f",
+                "uuid": "02d1c5c2-d447-4251-b25d-20a9adcedc0d",
                 "isHook": false,
                 "skipped": false
               },
@@ -465,35 +469,39 @@
                 "title": "it should return not found for domain that doesnt exist",
                 "fullTitle": "Domains Get a single domain it should return not found for domain that doesnt exist",
                 "timedOut": false,
-                "duration": 117,
-                "state": "passed",
-                "speed": "slow",
-                "pass": true,
-                "fail": false,
+                "duration": 0,
+                "state": "failed",
+                "pass": false,
+                "fail": true,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .get(`/domains/this-id-doesnt-exist${Date.now()}`)\n  .end((err, res) => {\n    res.should.have.status(404);\n    done();\n  });",
-                "err": {},
+                "err": {
+                  "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 404 but got 403",
+                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 404 but got 403\n    at chai.request.get.end (test/domains.unauthorized.test.js:73:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
+                  "diff": "- 403\n+ 404\n"
+                },
                 "isRoot": false,
-                "uuid": "a8852eca-20d4-4570-89dc-9018e6ff69fc",
+                "uuid": "d3ee1dc5-72a3-4861-90ea-fa8b894e7dfd",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "5bfadc26-4e71-48ee-9fcb-c9d72eef5f4f",
-              "a8852eca-20d4-4570-89dc-9018e6ff69fc"
+              "02d1c5c2-d447-4251-b25d-20a9adcedc0d"
             ],
-            "failures": [],
+            "failures": [
+              "d3ee1dc5-72a3-4861-90ea-fa8b894e7dfd"
+            ],
             "pending": [],
             "skipped": [],
-            "duration": 263,
+            "duration": null,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "36ab1a59-cd35-46fb-b340-48308f1f796e",
+            "uuid": "fe9d9f71-c2d3-4d65-9922-9eb9be699e78",
             "title": "Remove Domain",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/domains.unauthorized.test.js",
             "file": "/test/domains.unauthorized.test.js",
@@ -504,31 +512,28 @@
                 "title": "it should remove a single domain",
                 "fullTitle": "Domains Remove Domain it should remove a single domain",
                 "timedOut": false,
-                "duration": 0,
-                "state": "failed",
-                "pass": false,
-                "fail": true,
+                "duration": 120,
+                "state": "passed",
+                "speed": "slow",
+                "pass": true,
+                "fail": false,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .delete(`/domains/${domainData.id}`)\n  .end((err, res) => {\n    res.should.have.status(403);\n    done();\n  });",
-                "err": {
-                  "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 403 but got 500",
-                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 403 but got 500\n    at chai.request.delete.end (test/domains.unauthorized.test.js:83:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
-                  "diff": "- 500\n+ 403\n"
-                },
+                "err": {},
                 "isRoot": false,
-                "uuid": "3ddfdf60-1372-4797-8835-9d622187dc9c",
+                "uuid": "e1831294-c858-45cf-a8e6-7c88971a9a21",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
-            "passes": [],
-            "failures": [
-              "3ddfdf60-1372-4797-8835-9d622187dc9c"
+            "passes": [
+              "e1831294-c858-45cf-a8e6-7c88971a9a21"
             ],
+            "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": null,
+            "duration": 120,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
@@ -544,7 +549,7 @@
         "_timeout": 20000
       },
       {
-        "uuid": "796ab050-1190-4da1-9777-a3a41ed744e8",
+        "uuid": "05781895-cac4-40bd-87c6-2241700ca3c3",
         "title": "Entities with admin previledges",
         "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/entities.admin.test.js",
         "file": "/test/entities.admin.test.js",
@@ -553,14 +558,14 @@
             "title": "\"before all\" hook",
             "fullTitle": "Entities with admin previledges \"before all\" hook",
             "timedOut": false,
-            "duration": 96,
+            "duration": 129,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "chai.request(baseUrl)\n\t.post('/auth/token')\n\t.send(userCredentials)\n\t.end(function (err, response) {\n\t\ttoken = response.text;\n\t\tchai.request(baseUrl)\n\t\t\t.delete(`/domains/${domain}/entities/${entities.type}/${entities.id}`)\n\t\t\t.set('Authorization', `Bearer ${token}`)\n\t\t\t.end((err, rss) => {\n\t\t\t\tdone();\n\t\t\t})\n\t});",
             "err": {},
             "isRoot": false,
-            "uuid": "da4e9f1a-a476-4c17-a6e0-b203a3541ff5",
+            "uuid": "39f9877d-728b-4563-bb8b-1a9996b39eec",
             "isHook": true,
             "skipped": false
           }
@@ -570,14 +575,14 @@
             "title": "\"after all\" hook",
             "fullTitle": "Entities with admin previledges \"after all\" hook",
             "timedOut": false,
-            "duration": 5,
+            "duration": 13,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "chai.request(baseUrl)\n\t.delete(`/domains/${domain}/entities/${entities.type}/${entities.id}`)\n\t.set('Authorization', `Bearer ${token}`)\n\t.end((err, rss) => {\n\t\tdone();\n\t})",
             "err": {},
             "isRoot": false,
-            "uuid": "be2d900e-e177-4f96-94dd-d8783b33a36e",
+            "uuid": "40179a32-3b0c-46bf-952e-190ec1f120a3",
             "isHook": true,
             "skipped": false
           }
@@ -585,7 +590,7 @@
         "tests": [],
         "suites": [
           {
-            "uuid": "b7203c24-3d97-47ad-814c-3871e2fc1ee3",
+            "uuid": "a7e845fc-dcb0-458c-9800-65aa211de5fa",
             "title": "create a new entity",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/entities.admin.test.js",
             "file": "/test/entities.admin.test.js",
@@ -596,7 +601,7 @@
                 "title": "it should create a new entity",
                 "fullTitle": "Entities with admin previledges create a new entity it should create a new entity",
                 "timedOut": false,
-                "duration": 9,
+                "duration": 20,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -605,25 +610,25 @@
                 "code": "chai.request(baseUrl)\n\t.post(`/domains/${domain}/entities`)\n\t.set('Authorization', `Bearer ${token}`)\n\t.send(entities)\n\t.end((err, res) => {\n\t\tres.should.have.status(200);\n\t\tdone();\n\t});",
                 "err": {},
                 "isRoot": false,
-                "uuid": "1eabe78f-af0d-4c99-8023-8fde3bbc693e",
+                "uuid": "2e2a4900-3e19-4d79-ae2d-d74163582d01",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "1eabe78f-af0d-4c99-8023-8fde3bbc693e"
+              "2e2a4900-3e19-4d79-ae2d-d74163582d01"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 9,
+            "duration": 20,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "558fcb56-b823-4113-8397-67076a56c89b",
+            "uuid": "fe2cbdf0-9341-4153-b10a-62fe9379d0e9",
             "title": "get all known entity types",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/entities.admin.test.js",
             "file": "/test/entities.admin.test.js",
@@ -634,7 +639,7 @@
                 "title": "it should GET all known entity types",
                 "fullTitle": "Entities with admin previledges get all known entity types it should GET all known entity types",
                 "timedOut": false,
-                "duration": 9,
+                "duration": 18,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -643,25 +648,25 @@
                 "code": "chai.request(baseUrl)\n\t.get(`/domains/${domain}/entities/types`)\n\t.set('Authorization', `Bearer ${token}`)\n\t.end((err, res) => {\n\t\tres.should.have.status(200);\n\t\tres.body.should.be.a('array');\n\t\tdone();\n\t});",
                 "err": {},
                 "isRoot": false,
-                "uuid": "d42f58a6-4e6c-422f-94c1-7bf580253bf7",
+                "uuid": "e1fe606c-0b70-4d6a-889d-66da2f872854",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "d42f58a6-4e6c-422f-94c1-7bf580253bf7"
+              "e1fe606c-0b70-4d6a-889d-66da2f872854"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 9,
+            "duration": 18,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "d3885898-4d75-44ac-9eec-5618c7601fe7",
+            "uuid": "d42d5682-341b-4d65-9f2e-1a79e0622910",
             "title": "get entities of one type",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/entities.admin.test.js",
             "file": "/test/entities.admin.test.js",
@@ -672,7 +677,7 @@
                 "title": "it should GET entities of one type",
                 "fullTitle": "Entities with admin previledges get entities of one type it should GET entities of one type",
                 "timedOut": false,
-                "duration": 4,
+                "duration": 12,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -681,25 +686,25 @@
                 "code": "chai.request(baseUrl)\n\t.get(`/domains/${domain}/entities/${entities.type}`)\n\t.set('Authorization', `Bearer ${token}`)\n\t.end((err, res) => {\n\t\tres.should.have.status(200);\n\t\tres.body.should.be.a('array');\n\t\tdone();\n\t});",
                 "err": {},
                 "isRoot": false,
-                "uuid": "3e4ddf9a-1a04-4068-ba84-97677af8a80b",
+                "uuid": "1ec4f20b-bd21-49e9-94e0-43b8fcc18134",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "3e4ddf9a-1a04-4068-ba84-97677af8a80b"
+              "1ec4f20b-bd21-49e9-94e0-43b8fcc18134"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 4,
+            "duration": 12,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "502501e5-08bd-44e9-81ab-e465211d8afb",
+            "uuid": "0a7018dd-9376-4fb2-9a64-83d36b65571d",
             "title": "get a single entity",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/entities.admin.test.js",
             "file": "/test/entities.admin.test.js",
@@ -710,7 +715,7 @@
                 "title": "it should GET a single entity",
                 "fullTitle": "Entities with admin previledges get a single entity it should GET a single entity",
                 "timedOut": false,
-                "duration": 5,
+                "duration": 11,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -719,25 +724,25 @@
                 "code": "chai.request(baseUrl)\n\t.get(`/domains/${domain}/entities/${entities.type}/${entities.id}`)\n\t.set('Authorization', `Bearer ${token}`)\n\t.end((err, res) => {\n\t\tres.should.have.status(200);\n\t\tres.body.should.be.a('object');\n\t\tdone();\n\t});",
                 "err": {},
                 "isRoot": false,
-                "uuid": "e3bf634f-adc9-41ee-aa72-54c31945bbb6",
+                "uuid": "140260f3-1fc1-4a46-baf6-a926c45a0546",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "e3bf634f-adc9-41ee-aa72-54c31945bbb6"
+              "140260f3-1fc1-4a46-baf6-a926c45a0546"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 5,
+            "duration": 11,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "b651a6b9-4147-403c-b4c2-5893bdedb534",
+            "uuid": "dbea78aa-fba7-4c70-b424-f8f886bab264",
             "title": "add an entity attribute value",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/entities.admin.test.js",
             "file": "/test/entities.admin.test.js",
@@ -748,7 +753,7 @@
                 "title": "it should add an entity attribute value",
                 "fullTitle": "Entities with admin previledges add an entity attribute value it should add an entity attribute value",
                 "timedOut": false,
-                "duration": 7,
+                "duration": 10,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -757,52 +762,14 @@
                 "code": "chai.request(baseUrl)\n\t.post(`/domains/${domain}/entities/${entities.type}/${entities.id}/temprature`)\n\t.set('Authorization', `Bearer ${token}`)\n\t.send({\n\t\t\"value\": \"25.6\",\n\t\t\"timestamp\": \"2016-06-08T18:20:27.873Z\"\n\t})\n\t.end((err, res) => {\n\t\tres.should.have.status(200);\n\t\tdone();\n\t});",
                 "err": {},
                 "isRoot": false,
-                "uuid": "606bdef2-cea8-4971-8651-a8920d8543bd",
+                "uuid": "d124d76f-497e-42ba-a4ae-163bfcb72294",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "606bdef2-cea8-4971-8651-a8920d8543bd"
-            ],
-            "failures": [],
-            "pending": [],
-            "skipped": [],
-            "duration": 7,
-            "root": false,
-            "rootEmpty": false,
-            "_timeout": 20000
-          },
-          {
-            "uuid": "57dfc1ff-8bc1-4c48-b883-f8777348347d",
-            "title": "get entity attribute values",
-            "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/entities.admin.test.js",
-            "file": "/test/entities.admin.test.js",
-            "beforeHooks": [],
-            "afterHooks": [],
-            "tests": [
-              {
-                "title": "it should get entity attribute values",
-                "fullTitle": "Entities with admin previledges get entity attribute values it should get entity attribute values",
-                "timedOut": false,
-                "duration": 10,
-                "state": "passed",
-                "speed": "fast",
-                "pass": true,
-                "fail": false,
-                "pending": false,
-                "code": "chai.request(baseUrl)\n\t.get(`/domains/${domain}/entities/${entities.type}/${entities.id}/temprature`)\n\t.set('Authorization', `Bearer ${token}`)\n\t.end((err, res) => {\n\t\tres.should.have.status(200);\n\t\tdone();\n\t});",
-                "err": {},
-                "isRoot": false,
-                "uuid": "30351988-d95a-4ad3-9a15-a422315da331",
-                "isHook": false,
-                "skipped": false
-              }
-            ],
-            "suites": [],
-            "passes": [
-              "30351988-d95a-4ad3-9a15-a422315da331"
+              "d124d76f-497e-42ba-a4ae-163bfcb72294"
             ],
             "failures": [],
             "pending": [],
@@ -813,7 +780,45 @@
             "_timeout": 20000
           },
           {
-            "uuid": "da9cc7d2-a747-4d73-b279-88fc34fdec99",
+            "uuid": "6dd343fd-05dc-4ab5-9017-d20d2697da3a",
+            "title": "get entity attribute values",
+            "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/entities.admin.test.js",
+            "file": "/test/entities.admin.test.js",
+            "beforeHooks": [],
+            "afterHooks": [],
+            "tests": [
+              {
+                "title": "it should get entity attribute values",
+                "fullTitle": "Entities with admin previledges get entity attribute values it should get entity attribute values",
+                "timedOut": false,
+                "duration": 19,
+                "state": "passed",
+                "speed": "fast",
+                "pass": true,
+                "fail": false,
+                "pending": false,
+                "code": "chai.request(baseUrl)\n\t.get(`/domains/${domain}/entities/${entities.type}/${entities.id}/temprature`)\n\t.set('Authorization', `Bearer ${token}`)\n\t.end((err, res) => {\n\t\tres.should.have.status(200);\n\t\tdone();\n\t});",
+                "err": {},
+                "isRoot": false,
+                "uuid": "01b68a52-8cca-44d8-bb2f-82700f8b2a9f",
+                "isHook": false,
+                "skipped": false
+              }
+            ],
+            "suites": [],
+            "passes": [
+              "01b68a52-8cca-44d8-bb2f-82700f8b2a9f"
+            ],
+            "failures": [],
+            "pending": [],
+            "skipped": [],
+            "duration": 19,
+            "root": false,
+            "rootEmpty": false,
+            "_timeout": 20000
+          },
+          {
+            "uuid": "62d5c27c-ccb0-4d62-b808-1dd3fe67e340",
             "title": "set entity attribute values",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/entities.admin.test.js",
             "file": "/test/entities.admin.test.js",
@@ -824,7 +829,7 @@
                 "title": "it should set entity attribute values",
                 "fullTitle": "Entities with admin previledges set entity attribute values it should set entity attribute values",
                 "timedOut": false,
-                "duration": 9,
+                "duration": 21,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -833,25 +838,25 @@
                 "code": "chai.request(baseUrl)\n\t.put(`/domains/${domain}/entities/${entities.type}/${entities.id}/temprature`)\n\t.set('Authorization', `Bearer ${token}`)\n\t.send({\n\t\t\"value\": \"26.6\",\n\t\t\"timestamp\": \"2016-06-08T18:20:27.873Z\"\n\t})\n\t.end((err, res) => {\n\t\tres.should.have.status(200);\n\t\tdone();\n\t});",
                 "err": {},
                 "isRoot": false,
-                "uuid": "f314a51d-0ca2-46fc-95f8-84353db2cd01",
+                "uuid": "ef7b7e21-86ee-4c35-b65e-5ce1729e5ddd",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "f314a51d-0ca2-46fc-95f8-84353db2cd01"
+              "ef7b7e21-86ee-4c35-b65e-5ce1729e5ddd"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 9,
+            "duration": 21,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "1d2c208d-e500-4474-ab83-140c3f323c1a",
+            "uuid": "bb4e1694-3ebf-4abb-9ca1-2f8586142861",
             "title": "delete an entity attribute",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/entities.admin.test.js",
             "file": "/test/entities.admin.test.js",
@@ -862,7 +867,7 @@
                 "title": "it should delete an entity attribute",
                 "fullTitle": "Entities with admin previledges delete an entity attribute it should delete an entity attribute",
                 "timedOut": false,
-                "duration": 6,
+                "duration": 26,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -871,19 +876,19 @@
                 "code": "chai.request(baseUrl)\n\t.put(`/domains/${domain}/entities/${entities.type}/${entities.id}/temprature`)\n\t.set('Authorization', `Bearer ${token}`)\n\t.send({\n\t\t\"value\": \"26.6\",\n\t\t\"timestamp\": \"2016-06-08T18:20:27.873Z\"\n\t})\n\t.end((err, res) => {\n\t\tres.should.have.status(200);\n\t\tdone();\n\t});",
                 "err": {},
                 "isRoot": false,
-                "uuid": "40519226-2069-4896-a053-2cc808f6f6f7",
+                "uuid": "e26c8eef-641e-45cf-b432-756c08e8a4a0",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "40519226-2069-4896-a053-2cc808f6f6f7"
+              "e26c8eef-641e-45cf-b432-756c08e8a4a0"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 6,
+            "duration": 26,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
@@ -899,7 +904,7 @@
         "_timeout": 20000
       },
       {
-        "uuid": "ef2ea5f2-8230-4e31-9f56-bc6bc66e869e",
+        "uuid": "1be74892-72c1-446c-b8fa-9360bdaa8efb",
         "title": "Measurements with admin previledges",
         "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.admin.test.js",
         "file": "/test/measurment.admin.test.js",
@@ -908,14 +913,14 @@
             "title": "\"before all\" hook",
             "fullTitle": "Measurements with admin previledges \"before all\" hook",
             "timedOut": false,
-            "duration": 103,
+            "duration": 152,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "chai.request(baseUrl)\n  .post('/auth/token')\n  .send(userCredentials)\n  .end(function (err, response) {\n    token = response.text;\n    chai.request(baseUrl)\n      .post(`/domains/${domain}/sensors`)\n      .set('authorization', `Bearer ${token}`)\n      .send(sensor)\n      .end((err, res) => {\n        done();\n      });\n  });",
             "err": {},
             "isRoot": false,
-            "uuid": "483971cb-2ed1-4df4-9d71-2b6288ef5d3f",
+            "uuid": "03d4b6bd-998a-4066-97e7-13fad9c534b7",
             "isHook": true,
             "skipped": false
           }
@@ -925,14 +930,14 @@
             "title": "\"after all\" hook",
             "fullTitle": "Measurements with admin previledges \"after all\" hook",
             "timedOut": false,
-            "duration": 59,
+            "duration": 135,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "chai.request(baseUrl)\n  .delete(`/domains/${domain}/sensors/${sensor.id}`)\n  .set('authorization', `Bearer ${token}`)\n  .send(sensor)\n  .end((err, res) => {\n    done();\n  });",
             "err": {},
             "isRoot": false,
-            "uuid": "11f05c80-3b83-4190-929c-4533de937bdf",
+            "uuid": "fd1efa3f-5317-4043-8e64-92d20b8b354a",
             "isHook": true,
             "skipped": false
           }
@@ -940,7 +945,7 @@
         "tests": [],
         "suites": [
           {
-            "uuid": "56d5be06-ebfc-4a92-8bac-d267774845fd",
+            "uuid": "6c4daf03-8aff-42c4-93a0-9d6128a5e654",
             "title": "Get Measurements",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.admin.test.js",
             "file": "/test/measurment.admin.test.js",
@@ -951,34 +956,34 @@
                 "title": "it should GET all the measurements for a given sensor",
                 "fullTitle": "Measurements with admin previledges Get Measurements it should GET all the measurements for a given sensor",
                 "timedOut": false,
-                "duration": 17,
+                "duration": 38,
                 "state": "passed",
-                "speed": "fast",
+                "speed": "medium",
                 "pass": true,
                 "fail": false,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/sensors/${sensor.id}/measurements`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    res.body.should.be.a('array');\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "a2ed131d-4f58-46dd-b6ec-0c102999056c",
+                "uuid": "fcd76608-f2ce-4d46-ac83-44e4eac46081",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "a2ed131d-4f58-46dd-b6ec-0c102999056c"
+              "fcd76608-f2ce-4d46-ac83-44e4eac46081"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 17,
+            "duration": 38,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "b6dace14-7036-4480-a7c4-6822e6adb7df",
+            "uuid": "c2cf7c8e-3747-4fe0-a8b4-d890257da1d8",
             "title": "POST Measurements",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.admin.test.js",
             "file": "/test/measurment.admin.test.js",
@@ -989,34 +994,34 @@
                 "title": "it should add a measurement value for a given sensor",
                 "fullTitle": "Measurements with admin previledges POST Measurements it should add a measurement value for a given sensor",
                 "timedOut": false,
-                "duration": 16,
+                "duration": 39,
                 "state": "passed",
-                "speed": "fast",
+                "speed": "medium",
                 "pass": true,
                 "fail": false,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .post(`/domains/${domain}/sensors/${sensor.id}/measurements`)\n  .set('Authorization', `Bearer ${token}`)\n  .send(measurement)\n  .end((err, res) => {\n    res.should.have.status(200);\n    //res.body.should.be.a('array');\n    //console.log(res);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "3379122a-22ec-4e49-bfce-2cc9b3d8223e",
+                "uuid": "7c97df4b-37cf-4fe7-acc3-5e17079dca60",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "3379122a-22ec-4e49-bfce-2cc9b3d8223e"
+              "7c97df4b-37cf-4fe7-acc3-5e17079dca60"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 16,
+            "duration": 39,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "41d96f8e-3a58-4f8b-98a2-b5abf352ab61",
+            "uuid": "b4759741-b2ec-4f1c-8ea8-0653c9f481e7",
             "title": "Get a single Measurement",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.admin.test.js",
             "file": "/test/measurment.admin.test.js",
@@ -1027,34 +1032,34 @@
                 "title": "it should GET all the measurements for a given sensor",
                 "fullTitle": "Measurements with admin previledges Get a single Measurement it should GET all the measurements for a given sensor",
                 "timedOut": false,
-                "duration": 23,
+                "duration": 38,
                 "state": "passed",
-                "speed": "fast",
+                "speed": "medium",
                 "pass": true,
                 "fail": false,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    //res.body.should.be.a('array');\n    //console.log(res);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "8855a331-0244-495a-8775-4a9a2fb18e62",
+                "uuid": "f2434d8e-25c0-4d9d-8650-0ca695a818d9",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "8855a331-0244-495a-8775-4a9a2fb18e62"
+              "f2434d8e-25c0-4d9d-8650-0ca695a818d9"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 23,
+            "duration": 38,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "a499472c-2c34-4dcc-b781-e2dd02e10b58",
+            "uuid": "06f1a331-c52b-4540-a93a-589e03a3bc69",
             "title": "Update Name of a Measurement",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.admin.test.js",
             "file": "/test/measurment.admin.test.js",
@@ -1065,7 +1070,7 @@
                 "title": "it should update the name of the measurement field",
                 "fullTitle": "Measurements with admin previledges Update Name of a Measurement it should update the name of the measurement field",
                 "timedOut": false,
-                "duration": 593,
+                "duration": 199,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1074,25 +1079,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/name`)\n  .set('Authorization', `Bearer ${token}`)\n  .set('content-type', 'text/plain')\n  .send(\"ss1\")\n  .end((err, res) => {\n    res.should.have.status(200);\n    chai.request(baseUrl)\n      .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)\n      .end((err, res) => {\n        res.body.should.be.a('object');\n        res.body.should.have.property('name').eql('ss1');\n        done();\n      })\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "cd203409-8d99-4ad1-bcf6-5ba39bee7ec2",
+                "uuid": "05cd7346-c730-4bbc-a9bc-6c8c0e5117cf",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "cd203409-8d99-4ad1-bcf6-5ba39bee7ec2"
+              "05cd7346-c730-4bbc-a9bc-6c8c0e5117cf"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 593,
+            "duration": 199,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "b45d309c-5d29-4e53-bfe2-e5d83c29d2c6",
+            "uuid": "c9635569-61b3-4592-b7bc-076feba61991",
             "title": "Update Dimention of a Measurement",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.admin.test.js",
             "file": "/test/measurment.admin.test.js",
@@ -1103,7 +1108,7 @@
                 "title": "it should update the dimention of the measurement field",
                 "fullTitle": "Measurements with admin previledges Update Dimention of a Measurement it should update the dimention of the measurement field",
                 "timedOut": false,
-                "duration": 119,
+                "duration": 192,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1112,25 +1117,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/dimension`)\n  .set('Authorization', `Bearer ${token}`)\n  .set('content-type', 'text/plain')\n  .send(\"degree\")\n  .end((err, res) => {\n    res.should.have.status(200);\n    chai.request(baseUrl)\n      .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)\n      .end((err, res) => {\n        //res.body.should.be.a('object');\n        //res.body.should.have.property('dimension').eql('degree');\n        done();\n      })\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "199ffdc5-153d-4e8a-acfa-cc2df181c542",
+                "uuid": "14a5ffc2-ef3f-4619-9706-87829d94a57c",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "199ffdc5-153d-4e8a-acfa-cc2df181c542"
+              "14a5ffc2-ef3f-4619-9706-87829d94a57c"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 119,
+            "duration": 192,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "de726e62-dd04-412e-900a-cf23903da18b",
+            "uuid": "e1189b4a-22f7-49fd-9aef-7a1e14631246",
             "title": "Update dimention",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.admin.test.js",
             "file": "/test/measurment.admin.test.js",
@@ -1141,7 +1146,7 @@
                 "title": "it should update the dimention of the measurement field",
                 "fullTitle": "Measurements with admin previledges Update dimention it should update the dimention of the measurement field",
                 "timedOut": false,
-                "duration": 125,
+                "duration": 177,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1150,25 +1155,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/dimension`)\n  .set('Authorization', `Bearer ${token}`)\n  .set('content-type', 'text/plain')\n  .send(\"degree\")\n  .end((err, res) => {\n    res.should.have.status(200);\n    chai.request(baseUrl)\n      .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)\n      .end((err, res) => {\n        //res.body.should.be.a('object');\n        //res.body.should.have.property('dimension').eql('degree');\n        done();\n      })\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "4f4ea6fc-39dd-4566-9729-d552de861280",
+                "uuid": "930afdc9-caee-4530-82dd-d7e5739bde09",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "4f4ea6fc-39dd-4566-9729-d552de861280"
+              "930afdc9-caee-4530-82dd-d7e5739bde09"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 125,
+            "duration": 177,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "0a0ee08f-c824-4219-8c3c-dc4a27ad9758",
+            "uuid": "88f13da8-32bb-4a87-8ccb-0f7af273ecad",
             "title": "Update unit",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.admin.test.js",
             "file": "/test/measurment.admin.test.js",
@@ -1179,7 +1184,7 @@
                 "title": "it should update the dimention of the measurement field",
                 "fullTitle": "Measurements with admin previledges Update unit it should update the dimention of the measurement field",
                 "timedOut": false,
-                "duration": 126,
+                "duration": 246,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1188,19 +1193,19 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/unit`)\n  .set('Authorization', `Bearer ${token}`)\n  .set('content-type', 'text/plain')\n  .send(\"degree\")\n  .end((err, res) => {\n    res.should.have.status(200);\n    chai.request(baseUrl)\n      .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)\n      .end((err, res) => {\n        //res.body.should.be.a('object');\n        //res.body.should.have.property('dimension').eql('degree');\n        done();\n      })\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "c9cf9991-be3b-4cbe-b258-022de490f397",
+                "uuid": "8b548e51-bf23-448c-b54b-f73eb747a2c5",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "c9cf9991-be3b-4cbe-b258-022de490f397"
+              "8b548e51-bf23-448c-b54b-f73eb747a2c5"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 126,
+            "duration": 246,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
@@ -1216,7 +1221,7 @@
         "_timeout": 20000
       },
       {
-        "uuid": "c58b8744-1ce2-42c3-a320-f3913eef7d1a",
+        "uuid": "0e9b3b59-8ea5-409d-8c39-eefd1326a8aa",
         "title": "Measurements",
         "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.unauthorized.test.js",
         "file": "/test/measurment.unauthorized.test.js",
@@ -1225,14 +1230,14 @@
             "title": "\"before all\" hook",
             "fullTitle": "Measurements \"before all\" hook",
             "timedOut": false,
-            "duration": 248,
+            "duration": 385,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "chai.request(baseUrl)\n  .post('/auth/token')\n  .send(userCredentials)\n  .end(function (err, response) {\n    token = response.text;\n    chai.request(baseUrl)\n      .post(`/domains/${domain}/sensors`)\n      .set('authorization', `Bearer ${token}`)\n      .send(sensor)\n      .end((err, res) => {\n        done();\n      });\n  });",
             "err": {},
             "isRoot": false,
-            "uuid": "9e1d249f-d2a3-4c6e-9afc-ff43305f5d63",
+            "uuid": "4b4df86c-908d-4899-8ec5-cb1585c7dc03",
             "isHook": true,
             "skipped": false
           }
@@ -1242,14 +1247,14 @@
             "title": "\"after all\" hook",
             "fullTitle": "Measurements \"after all\" hook",
             "timedOut": false,
-            "duration": 56,
+            "duration": 125,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "chai.request(baseUrl)\n  .delete(`/domains/${domain}/sensors/${sensor.id}`)\n  .set('authorization', `Bearer ${token}`)\n  .send(sensor)\n  .end((err, res) => {\n    done();\n  });",
             "err": {},
             "isRoot": false,
-            "uuid": "41ea4422-a97d-4d71-b46c-9c0d3794cf4b",
+            "uuid": "642dd59f-f6b8-4049-bd99-aa6b4bbe02ca",
             "isHook": true,
             "skipped": false
           }
@@ -1257,7 +1262,7 @@
         "tests": [],
         "suites": [
           {
-            "uuid": "8ee0d7ac-e667-4bf9-abe5-e03b57cf65ba",
+            "uuid": "7b1b7633-8ee2-49c8-9976-014af3ca361f",
             "title": "Get Measurements",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.unauthorized.test.js",
             "file": "/test/measurment.unauthorized.test.js",
@@ -1268,7 +1273,7 @@
                 "title": "it should GET all the measurements for a given sensor",
                 "fullTitle": "Measurements Get Measurements it should GET all the measurements for a given sensor",
                 "timedOut": false,
-                "duration": 104,
+                "duration": 173,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1277,25 +1282,25 @@
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/sensors/${sensor.id}/measurements`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    res.body.should.be.a('array');\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "a3899ea4-843b-47aa-91f2-db5662d2cde6",
+                "uuid": "c9acfaaa-523a-4640-b76e-f94b28e6777e",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "a3899ea4-843b-47aa-91f2-db5662d2cde6"
+              "c9acfaaa-523a-4640-b76e-f94b28e6777e"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 104,
+            "duration": 173,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "950666ca-4733-48ba-ab16-4e383285e577",
+            "uuid": "2280220e-cd59-4b40-a8f0-2a693788b677",
             "title": "POST Measurements",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.unauthorized.test.js",
             "file": "/test/measurment.unauthorized.test.js",
@@ -1306,7 +1311,7 @@
                 "title": "it should add a measurement value for a given sensor",
                 "fullTitle": "Measurements POST Measurements it should add a measurement value for a given sensor",
                 "timedOut": false,
-                "duration": 111,
+                "duration": 164,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1315,25 +1320,25 @@
                 "code": "chai.request(baseUrl)\n  .post(`/domains/${domain}/sensors/${sensor.id}/measurements`)\n  .send(measurement)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "64695be5-2d71-459e-b928-ee8025597641",
+                "uuid": "cfb798d2-92ea-458c-a20c-cf78ab773ae2",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "64695be5-2d71-459e-b928-ee8025597641"
+              "cfb798d2-92ea-458c-a20c-cf78ab773ae2"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 111,
+            "duration": 164,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "ceacf034-eded-4e43-b427-aab44aa224f0",
+            "uuid": "f43d7a98-2393-4a54-a895-e8754be4d0c6",
             "title": "Get a single Measurement",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.unauthorized.test.js",
             "file": "/test/measurment.unauthorized.test.js",
@@ -1344,7 +1349,7 @@
                 "title": "it should GET a single the measurements for a given sensor",
                 "fullTitle": "Measurements Get a single Measurement it should GET a single the measurements for a given sensor",
                 "timedOut": false,
-                "duration": 109,
+                "duration": 170,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1353,25 +1358,25 @@
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "8cc42fbb-c041-482e-90e6-03cd6bea89c1",
+                "uuid": "7f155e95-cee8-4696-bed2-bfdda954561d",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "8cc42fbb-c041-482e-90e6-03cd6bea89c1"
+              "7f155e95-cee8-4696-bed2-bfdda954561d"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 109,
+            "duration": 170,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "1b2526ea-1bfb-45da-9547-33d2754e8985",
+            "uuid": "ebcf44df-2b79-4780-a56b-dd9fe6ec87f2",
             "title": "Update Name of a Measurement",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.unauthorized.test.js",
             "file": "/test/measurment.unauthorized.test.js",
@@ -1382,7 +1387,7 @@
                 "title": "it should update the name of the measurement field",
                 "fullTitle": "Measurements Update Name of a Measurement it should update the name of the measurement field",
                 "timedOut": false,
-                "duration": 93,
+                "duration": 116,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1391,25 +1396,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/name`)\n  .set('content-type', 'text/plain')\n  .send(\"ss1\")\n  .end((err, res) => {\n    res.should.have.status(403);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "8a7531cc-857b-4e6e-a38e-d62bb8e79987",
+                "uuid": "988a03fd-1c8e-4f6e-a85e-dde3d8b129be",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "8a7531cc-857b-4e6e-a38e-d62bb8e79987"
+              "988a03fd-1c8e-4f6e-a85e-dde3d8b129be"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 93,
+            "duration": 116,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "3d128c80-04a2-442a-a8f5-5e37f6c95042",
+            "uuid": "17aeadec-2c69-46d0-9b6f-08871687e58a",
             "title": "Update Dimention of a Measurement",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.unauthorized.test.js",
             "file": "/test/measurment.unauthorized.test.js",
@@ -1420,7 +1425,7 @@
                 "title": "it should update the dimention of the measurement field",
                 "fullTitle": "Measurements Update Dimention of a Measurement it should update the dimention of the measurement field",
                 "timedOut": false,
-                "duration": 103,
+                "duration": 127,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1429,25 +1434,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/dimension`)\n  .set('content-type', 'text/plain')\n  .send(\"degree\")\n  .end((err, res) => {\n    res.should.have.status(403);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "18678008-e0da-42b6-9097-f40960a5ff84",
+                "uuid": "e506c44d-851b-4999-acba-5b8c38d8cf3f",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "18678008-e0da-42b6-9097-f40960a5ff84"
+              "e506c44d-851b-4999-acba-5b8c38d8cf3f"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 103,
+            "duration": 127,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "125a9416-4a94-4355-be86-05c387c61068",
+            "uuid": "a0536818-f02b-4d37-8161-0ad9c12beb93",
             "title": "Update dimention",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.unauthorized.test.js",
             "file": "/test/measurment.unauthorized.test.js",
@@ -1458,7 +1463,7 @@
                 "title": "it should update the dimention of the measurement field",
                 "fullTitle": "Measurements Update dimention it should update the dimention of the measurement field",
                 "timedOut": false,
-                "duration": 97,
+                "duration": 114,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1467,25 +1472,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/dimension`)\n  .set('content-type', 'text/plain')\n  .send(\"degree\")\n  .end((err, res) => {\n    res.should.have.status(403);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "f721b080-2374-444b-a702-a73505356a64",
+                "uuid": "b46650fb-808d-4f09-bcca-9ddf24108d46",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "f721b080-2374-444b-a702-a73505356a64"
+              "b46650fb-808d-4f09-bcca-9ddf24108d46"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 97,
+            "duration": 114,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "e19fefdf-1c4b-4067-ac4d-82eebb4657cc",
+            "uuid": "678c9316-133f-48a7-8588-d73226d72547",
             "title": "Update unit",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/measurment.unauthorized.test.js",
             "file": "/test/measurment.unauthorized.test.js",
@@ -1496,7 +1501,7 @@
                 "title": "it should update the dimention of the measurement field",
                 "fullTitle": "Measurements Update unit it should update the dimention of the measurement field",
                 "timedOut": false,
-                "duration": 92,
+                "duration": 136,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1505,19 +1510,19 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/unit`)\n  .set('content-type', 'text/plain')\n  .send(\"degree\")\n  .end((err, res) => {\n    res.should.have.status(403);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "dca6b634-fb0a-46cb-a3fe-b13f93df1ec9",
+                "uuid": "ad7dcc5a-c212-4718-a7f1-59c82cd28a88",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "dca6b634-fb0a-46cb-a3fe-b13f93df1ec9"
+              "ad7dcc5a-c212-4718-a7f1-59c82cd28a88"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 92,
+            "duration": 136,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
@@ -1533,7 +1538,7 @@
         "_timeout": 20000
       },
       {
-        "uuid": "31213d30-3d15-4b7e-a4aa-f9e3cc17af18",
+        "uuid": "4aafbb89-db94-4415-90cb-7cab3f1e7710",
         "title": "Notifications",
         "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/notifications.test.js",
         "file": "/test/notifications.test.js",
@@ -1542,7 +1547,7 @@
         "tests": [],
         "suites": [
           {
-            "uuid": "6d727241-fb53-4fad-853f-b5239231729f",
+            "uuid": "24f4f375-aa0c-4bac-bc3c-6450ffe754a0",
             "title": "post a message to social networks",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/notifications.test.js",
             "file": "/test/notifications.test.js",
@@ -1553,7 +1558,7 @@
                 "title": "it should post a message to social networks",
                 "fullTitle": "Notifications post a message to social networks it should post a message to social networks",
                 "timedOut": false,
-                "duration": 14,
+                "duration": 26,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -1562,25 +1567,25 @@
                 "code": "chai.request(baseUrl)\n  .post(`/domains/${domain}/notifications`)\n  .set('Authorization', `Bearer ${token}`)\n  .send(notification)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "ff8c67ce-f286-4262-9750-dcb946b652ce",
+                "uuid": "5aa54b87-9931-4bac-b69f-b43fbb7c0664",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "ff8c67ce-f286-4262-9750-dcb946b652ce"
+              "5aa54b87-9931-4bac-b69f-b43fbb7c0664"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 14,
+            "duration": 26,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "21b7d7db-f8bc-4c08-9a06-a38815d6dadc",
+            "uuid": "39afc13f-4245-402a-b90e-da854adbf1cc",
             "title": "Get all notifications",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/notifications.test.js",
             "file": "/test/notifications.test.js",
@@ -1591,7 +1596,7 @@
                 "title": "it should GET all the messages posted on social networks",
                 "fullTitle": "Notifications Get all notifications it should GET all the messages posted on social networks",
                 "timedOut": false,
-                "duration": 14,
+                "duration": 34,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -1600,25 +1605,25 @@
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/notifications`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    res.body.should.be.a('array');\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "2cd451ed-13e2-468a-a530-b82ebc34358a",
+                "uuid": "00d173eb-7be4-4027-8af7-bc3c3d774843",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "2cd451ed-13e2-468a-a530-b82ebc34358a"
+              "00d173eb-7be4-4027-8af7-bc3c3d774843"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 14,
+            "duration": 34,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "f10dd8cc-94b9-4b10-95c9-3adbcaceccfc",
+            "uuid": "20b4d539-d37e-41a9-8799-476c45d2ecaa",
             "title": "Get a one message",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/notifications.test.js",
             "file": "/test/notifications.test.js",
@@ -1629,7 +1634,7 @@
                 "title": "it should get a single notificaion",
                 "fullTitle": "Notifications Get a one message it should get a single notificaion",
                 "timedOut": false,
-                "duration": 16,
+                "duration": 26,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -1638,7 +1643,7 @@
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/notifications/${sampleNotification.id}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "7d216b79-89ca-4935-ab39-a6dd9c6af60d",
+                "uuid": "7900ef9d-7ebd-4274-9c24-b2a45f27999a",
                 "isHook": false,
                 "skipped": false
               },
@@ -1646,7 +1651,7 @@
                 "title": "it should return not found for notification that doesnt exist",
                 "fullTitle": "Notifications Get a one message it should return not found for notification that doesnt exist",
                 "timedOut": false,
-                "duration": 14,
+                "duration": 25,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -1655,26 +1660,26 @@
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/notifications/this-id-doesnt-exist${Date.now()}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(400);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "f4b076ce-414b-4f68-91e1-4fa4448a5fa2",
+                "uuid": "697e0054-a309-4ea9-aab5-347b4359e78b",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "7d216b79-89ca-4935-ab39-a6dd9c6af60d",
-              "f4b076ce-414b-4f68-91e1-4fa4448a5fa2"
+              "7900ef9d-7ebd-4274-9c24-b2a45f27999a",
+              "697e0054-a309-4ea9-aab5-347b4359e78b"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 30,
+            "duration": 51,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "6a94b97b-78b2-4237-acfb-bca1d8260242",
+            "uuid": "415b5eda-db61-44a5-ac4d-c4c15bab1818",
             "title": "delete a message to social networks",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/notifications.test.js",
             "file": "/test/notifications.test.js",
@@ -1685,7 +1690,7 @@
                 "title": "it should delete a message to social networks",
                 "fullTitle": "Notifications delete a message to social networks it should delete a message to social networks",
                 "timedOut": false,
-                "duration": 12,
+                "duration": 24,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -1694,7 +1699,7 @@
                 "code": "chai.request(baseUrl)\n  .delete(`/domains/${domain}/notifications/${sampleNotification.id}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "4990904c-25b5-48e9-afba-056553967531",
+                "uuid": "d061f98a-6a50-407e-9693-d0a5899c0ce2",
                 "isHook": false,
                 "skipped": false
               },
@@ -1702,7 +1707,7 @@
                 "title": "it should return not found for message that doesnt exist",
                 "fullTitle": "Notifications delete a message to social networks it should return not found for message that doesnt exist",
                 "timedOut": false,
-                "duration": 13,
+                "duration": 26,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -1711,20 +1716,20 @@
                 "code": "chai.request(baseUrl)\n  .delete(`/domains/${domain}/notifications/this-id-doesnt-exist${Date.now()}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(404);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "284b7d66-8b3c-4ddb-afec-14f94a4c40c2",
+                "uuid": "cf431f14-ccf2-428e-932b-aa0c0314aa54",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "4990904c-25b5-48e9-afba-056553967531",
-              "284b7d66-8b3c-4ddb-afec-14f94a4c40c2"
+              "d061f98a-6a50-407e-9693-d0a5899c0ce2",
+              "cf431f14-ccf2-428e-932b-aa0c0314aa54"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 25,
+            "duration": 50,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
@@ -1740,7 +1745,7 @@
         "_timeout": 20000
       },
       {
-        "uuid": "1d93e576-c81c-471c-ad28-29ca21e45164",
+        "uuid": "88ccb06c-a268-4294-85b6-87c3e3906476",
         "title": "Sensors with admin previledges",
         "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.admin.test.js",
         "file": "/test/sensor.admin.test.js",
@@ -1749,14 +1754,14 @@
             "title": "\"before all\" hook",
             "fullTitle": "Sensors with admin previledges \"before all\" hook",
             "timedOut": false,
-            "duration": 100,
+            "duration": 138,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "chai.request(baseUrl)\n  .post('/auth/token')\n  .send(userCredentials)\n  .end(function (err, response) {\n    token = response.text;\n    chai.request(baseUrl)\n      .delete(`/domains/${domain}/sensors/${sensor.id}`)\n      .set('Authorization', `Bearer ${token}`)\n      .end((err, rss) => {\n        done();\n      })\n  });",
             "err": {},
             "isRoot": false,
-            "uuid": "74b32fa9-e5a7-4fd0-8ca2-7e743990a0f3",
+            "uuid": "10473af5-e5e4-410c-ac90-a27725720169",
             "isHook": true,
             "skipped": false
           }
@@ -1765,7 +1770,7 @@
         "tests": [],
         "suites": [
           {
-            "uuid": "f27c390f-ead9-46fa-90d1-c1a8165e62d0",
+            "uuid": "a1165281-93df-48dc-9bb4-131d7c4128b6",
             "title": "Get Sensors",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.admin.test.js",
             "file": "/test/sensor.admin.test.js",
@@ -1776,34 +1781,34 @@
                 "title": "it should GET all the the senseors",
                 "fullTitle": "Sensors with admin previledges Get Sensors it should GET all the the senseors",
                 "timedOut": false,
-                "duration": 139,
+                "duration": 45,
                 "state": "passed",
-                "speed": "slow",
+                "speed": "medium",
                 "pass": true,
                 "fail": false,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/sensors`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    //res.body.should.be.a('array');\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "48b32146-b9af-42e8-84f6-f30a3ab68d3a",
+                "uuid": "a117a804-8275-4bda-8c31-83e4528df4ed",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "48b32146-b9af-42e8-84f6-f30a3ab68d3a"
+              "a117a804-8275-4bda-8c31-83e4528df4ed"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 139,
+            "duration": 45,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "8217bfa3-2d86-492c-9e1f-b349161dd9c2",
+            "uuid": "e14639a7-9578-4c92-b5bb-c97ed53b85b7",
             "title": "Create sensors",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.admin.test.js",
             "file": "/test/sensor.admin.test.js",
@@ -1814,7 +1819,7 @@
                 "title": "it should POST a sensor ",
                 "fullTitle": "Sensors with admin previledges Create sensors it should POST a sensor ",
                 "timedOut": false,
-                "duration": 225,
+                "duration": 233,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1823,7 +1828,7 @@
                 "code": "chai.request(baseUrl)\n  .post(`/domains/${domain}/sensors`)\n  .set('authorization', `Bearer ${token}`)\n  .send(sensor)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "fd1a207b-15fb-4251-a966-c3b2479c20ff",
+                "uuid": "8b476d3f-7b80-4071-8fce-5a2d88a20ac0",
                 "isHook": false,
                 "skipped": false
               },
@@ -1831,7 +1836,7 @@
                 "title": "it should Reject posting data with reapeted values",
                 "fullTitle": "Sensors with admin previledges Create sensors it should Reject posting data with reapeted values",
                 "timedOut": false,
-                "duration": 16,
+                "duration": 37,
                 "state": "passed",
                 "speed": "fast",
                 "pass": true,
@@ -1840,7 +1845,7 @@
                 "code": "chai.request(baseUrl)\n  .post(`/domains/${domain}/sensors`)\n  .set('Authorization', `Bearer ${token}`)\n  .send(sensor)\n  .end((err, res) => {\n    res.should.have.status(422);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "37b0e613-c678-47bc-baea-48cc43539af3",
+                "uuid": "c09e38e2-e688-44a1-862e-0a677666c273",
                 "isHook": false,
                 "skipped": false
               },
@@ -1848,36 +1853,36 @@
                 "title": "it should Reject posting a sensor with invalid data",
                 "fullTitle": "Sensors with admin previledges Create sensors it should Reject posting a sensor with invalid data",
                 "timedOut": false,
-                "duration": 25,
+                "duration": 45,
                 "state": "passed",
-                "speed": "fast",
+                "speed": "medium",
                 "pass": true,
                 "fail": false,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .post(`/domains/${domain}/sensors`)\n  .set('Authorization', `Bearer ${token}`)\n  .send(invalidSensor)\n  .end((err, res) => {\n    res.should.have.status(400);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "45b9df74-90d9-4def-94a5-a0f1a464b399",
+                "uuid": "42c0202e-b5ae-4d97-89b3-d41dfbda7258",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "fd1a207b-15fb-4251-a966-c3b2479c20ff",
-              "37b0e613-c678-47bc-baea-48cc43539af3",
-              "45b9df74-90d9-4def-94a5-a0f1a464b399"
+              "8b476d3f-7b80-4071-8fce-5a2d88a20ac0",
+              "c09e38e2-e688-44a1-862e-0a677666c273",
+              "42c0202e-b5ae-4d97-89b3-d41dfbda7258"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 266,
+            "duration": 315,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "2e50d6e8-de94-4344-9b4b-552948590813",
+            "uuid": "fb6d7546-76d0-4602-8f1b-2d784feab0b8",
             "title": "Get a Single Sensor",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.admin.test.js",
             "file": "/test/sensor.admin.test.js",
@@ -1888,16 +1893,16 @@
                 "title": "it should GET a sensor by the given id",
                 "fullTitle": "Sensors with admin previledges Get a Single Sensor it should GET a sensor by the given id",
                 "timedOut": false,
-                "duration": 18,
+                "duration": 56,
                 "state": "passed",
-                "speed": "fast",
+                "speed": "medium",
                 "pass": true,
                 "fail": false,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n        .get(`/domains/${domain}/sensors/${sensor.id}`)\n        .set('Authorization', `Bearer ${token}`)\n        .end((err, res) => {\n          res.should.have.status(200);\n          res.body.should.be.a('object');\n          res.body.should.have.property('gateway_id');\n          res.body.should.have.property('name');\n          res.body.should.have.property('owner');\n          res.body.should.have.property('measurements');\n          res.body.should.have.property('location');\n          res.body.should.have.property('id').eql(sensor.id);\n          done();\n        });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "80bf2ff2-e8ba-4061-baab-664a1cfae2e2",
+                "uuid": "cf3d8099-964c-4fab-8deb-97da7533c774",
                 "isHook": false,
                 "skipped": false
               },
@@ -1905,35 +1910,39 @@
                 "title": "it should give a 404 err a sensor with none existent id",
                 "fullTitle": "Sensors with admin previledges Get a Single Sensor it should give a 404 err a sensor with none existent id",
                 "timedOut": false,
-                "duration": 14,
-                "state": "passed",
-                "speed": "fast",
-                "pass": true,
-                "fail": false,
+                "duration": 0,
+                "state": "failed",
+                "pass": false,
+                "fail": true,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n        .get(`/domains/${domain}/sensors/this-id-does-not-exist`)\n        .set('Authorization', `Bearer ${token}`)\n        .end((err, res) => {\n          res.should.have.status(404);\n          done();\n        });",
-                "err": {},
+                "err": {
+                  "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 404 but got 403",
+                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 404 but got 403\n    at chai.request.get.set.end (test/sensor.admin.test.js:99:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
+                  "diff": "- 403\n+ 404\n"
+                },
                 "isRoot": false,
-                "uuid": "e935623e-9b77-4485-b870-8dee4ff165d0",
+                "uuid": "a066eb7b-1ab2-4279-8fa1-e3e7ece49897",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "80bf2ff2-e8ba-4061-baab-664a1cfae2e2",
-              "e935623e-9b77-4485-b870-8dee4ff165d0"
+              "cf3d8099-964c-4fab-8deb-97da7533c774"
             ],
-            "failures": [],
+            "failures": [
+              "a066eb7b-1ab2-4279-8fa1-e3e7ece49897"
+            ],
             "pending": [],
             "skipped": [],
-            "duration": 32,
+            "duration": null,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "4aee8ac9-3df4-4451-8651-fad0153beaa1",
+            "uuid": "0cf4c834-e5aa-44e4-b501-669366b0cc79",
             "title": "Insert Owner",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.admin.test.js",
             "file": "/test/sensor.admin.test.js",
@@ -1944,7 +1953,7 @@
                 "title": "it should update the owner field",
                 "fullTitle": "Sensors with admin previledges Insert Owner it should update the owner field",
                 "timedOut": false,
-                "duration": 126,
+                "duration": 166,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1953,25 +1962,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/owner`)\n  .set('Authorization', `Bearer ${token}`)\n  .set('content-type', 'text/plain')\n  .send(\"henok\")\n  .end((err, res) => {\n    res.should.have.status(200);\n    chai.request(baseUrl)\n      .get(`/domains/${domain}/sensors/${sensor.id}`)\n      .end((err, res) => {\n        res.body.should.be.a('object');\n        res.body.should.have.property('owner').eql('henok');\n        done();\n      })\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "00378613-78bc-4260-809f-7cd9e354bcee",
+                "uuid": "14bf0112-bb4a-4e60-abef-600614d95f16",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "00378613-78bc-4260-809f-7cd9e354bcee"
+              "14bf0112-bb4a-4e60-abef-600614d95f16"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 126,
+            "duration": 166,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "a81a8db9-f069-4728-b1e7-6af97e16fa02",
+            "uuid": "3d004857-2cd6-4f10-92e8-ffcb26ebdc22",
             "title": "Insert Name",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.admin.test.js",
             "file": "/test/sensor.admin.test.js",
@@ -1982,7 +1991,7 @@
                 "title": "it should update the name field",
                 "fullTitle": "Sensors with admin previledges Insert Name it should update the name field",
                 "timedOut": false,
-                "duration": 115,
+                "duration": 174,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -1991,25 +2000,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/name`)\n  .set('Authorization', `Bearer ${token}`)\n  .set('content-type', 'text/plain')\n  .send(\"SEN1\")\n  .end((err, res) => {\n    res.should.have.status(200);\n    chai.request(baseUrl)\n      .get(`/domains/${domain}/sensors/${sensor.id}`)\n      .end((err, res) => {\n        res.body.should.be.a('object');\n        res.body.should.have.property('name').eql('SEN1');\n        done();\n      })\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "0c8c0863-793b-4d1b-961b-6b2c29db217e",
+                "uuid": "dd33c037-6c7e-42fe-91be-c254072b2e9b",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "0c8c0863-793b-4d1b-961b-6b2c29db217e"
+              "dd33c037-6c7e-42fe-91be-c254072b2e9b"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 115,
+            "duration": 174,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "c305a765-1e91-4bfb-9fe9-0aec662772f7",
+            "uuid": "8e40e6fe-2048-4922-9927-04079c0e5a16",
             "title": "Insert Location",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.admin.test.js",
             "file": "/test/sensor.admin.test.js",
@@ -2020,7 +2029,7 @@
                 "title": "it should update the location field",
                 "fullTitle": "Sensors with admin previledges Insert Location it should update the location field",
                 "timedOut": false,
-                "duration": 119,
+                "duration": 171,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -2029,25 +2038,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/location`)\n  .set('Authorization', `Bearer ${token}`)\n  .send({\n    \"latitude\": 5.36,\n    \"longitude\": 4.0083\n  })\n  .end((err, res) => {\n    res.should.have.status(200);\n    chai.request(baseUrl)\n      .get(`/domains/${domain}/sensors/${sensor.id}`)\n      .end((err, res) => {\n        res.body.should.be.a('object');\n        res.body.location.should.have.property('latitude').eql(5.36);\n        res.body.location.should.have.property('longitude').eql(4.0083);\n        done();\n      })\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "d9a35e2d-bf46-407f-a083-6452bebae576",
+                "uuid": "9edf9d84-943f-4242-9908-3282b3ae4724",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "d9a35e2d-bf46-407f-a083-6452bebae576"
+              "9edf9d84-943f-4242-9908-3282b3ae4724"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 119,
+            "duration": 171,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "71643e55-ff13-4ef5-9751-cdc1f0c94096",
+            "uuid": "709dee0a-b4c5-4cab-bb17-67c23745224e",
             "title": "Remove Sensor",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.admin.test.js",
             "file": "/test/sensor.admin.test.js",
@@ -2058,28 +2067,28 @@
                 "title": "it should Remove a sensor by the given id",
                 "fullTitle": "Sensors with admin previledges Remove Sensor it should Remove a sensor by the given id",
                 "timedOut": false,
-                "duration": 64,
+                "duration": 130,
                 "state": "passed",
-                "speed": "medium",
+                "speed": "slow",
                 "pass": true,
                 "fail": false,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .delete(`/domains/${domain}/sensors/${sensor.id}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "5b0f58c9-395f-4374-9ac9-57cfbfec0fb5",
+                "uuid": "7478a6b3-246a-49ff-869c-1d300de9a4f9",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "5b0f58c9-395f-4374-9ac9-57cfbfec0fb5"
+              "7478a6b3-246a-49ff-869c-1d300de9a4f9"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 64,
+            "duration": 130,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
@@ -2095,7 +2104,7 @@
         "_timeout": 20000
       },
       {
-        "uuid": "8b48d8a1-c56f-4a28-a02e-190955fda4a0",
+        "uuid": "94825f1a-59ea-4b29-ba1d-e700c541df83",
         "title": "Sensors",
         "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.unauthorized.test.js",
         "file": "/test/sensor.unauthorized.test.js",
@@ -2104,7 +2113,7 @@
         "tests": [],
         "suites": [
           {
-            "uuid": "147830d3-d205-4541-8091-300c1977b25e",
+            "uuid": "3e31077f-7959-4f85-8966-1ac3c6f694d4",
             "title": "Get Sensors",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.unauthorized.test.js",
             "file": "/test/sensor.unauthorized.test.js",
@@ -2115,7 +2124,7 @@
                 "title": "it should GET all the the senseors",
                 "fullTitle": "Sensors Get Sensors it should GET all the the senseors",
                 "timedOut": false,
-                "duration": 102,
+                "duration": 138,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -2124,25 +2133,25 @@
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/sensors`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    //res.body.should.be.a('array');\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "96d85138-583f-4abc-8bc8-9557e5ee0e8b",
+                "uuid": "84082694-a391-47cd-8a02-1aa27bb55546",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "96d85138-583f-4abc-8bc8-9557e5ee0e8b"
+              "84082694-a391-47cd-8a02-1aa27bb55546"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 102,
+            "duration": 138,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "08eab500-aac6-4585-a4bd-9a59a5827039",
+            "uuid": "1eafac5e-12fc-4bf0-844e-d90a18e2c2d0",
             "title": "Create sensors",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.unauthorized.test.js",
             "file": "/test/sensor.unauthorized.test.js",
@@ -2153,7 +2162,7 @@
                 "title": "it should POST a sensor ",
                 "fullTitle": "Sensors Create sensors it should POST a sensor ",
                 "timedOut": false,
-                "duration": 357,
+                "duration": 302,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -2162,7 +2171,7 @@
                 "code": "chai.request(baseUrl)\n  .post(`/domains/${domain}/sensors`)\n  .send(sensor)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "7d4d14b4-cc89-4b52-a321-1454db1fe5bd",
+                "uuid": "6733d710-c475-4527-b85d-c58396d7f098",
                 "isHook": false,
                 "skipped": false
               },
@@ -2170,7 +2179,7 @@
                 "title": "it should Reject posting data with reapeted values",
                 "fullTitle": "Sensors Create sensors it should Reject posting data with reapeted values",
                 "timedOut": false,
-                "duration": 205,
+                "duration": 139,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -2179,7 +2188,7 @@
                 "code": "chai.request(baseUrl)\n  .post(`/domains/${domain}/sensors`)\n  .send(sensor)\n  .end((err, res) => {\n    res.should.have.status(422);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "82b735b1-7ab5-4416-a355-937f36fb7304",
+                "uuid": "aa7373e1-6c7f-45b8-8d45-8c9cd33dd207",
                 "isHook": false,
                 "skipped": false
               },
@@ -2187,7 +2196,7 @@
                 "title": "it should Reject posting a sensor with invalid data",
                 "fullTitle": "Sensors Create sensors it should Reject posting a sensor with invalid data",
                 "timedOut": false,
-                "duration": 107,
+                "duration": 138,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -2196,27 +2205,27 @@
                 "code": "chai.request(baseUrl)\n  .post(`/domains/${domain}/sensors`)\n  .send(invalidSensor)\n  .end((err, res) => {\n    res.should.have.status(400);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "7e10a8d3-807b-4890-a4a2-f5a60105f2fa",
+                "uuid": "5f03dd3c-7de7-40e6-9a40-446bc4074d32",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "7d4d14b4-cc89-4b52-a321-1454db1fe5bd",
-              "82b735b1-7ab5-4416-a355-937f36fb7304",
-              "7e10a8d3-807b-4890-a4a2-f5a60105f2fa"
+              "6733d710-c475-4527-b85d-c58396d7f098",
+              "aa7373e1-6c7f-45b8-8d45-8c9cd33dd207",
+              "5f03dd3c-7de7-40e6-9a40-446bc4074d32"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 669,
+            "duration": 579,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "a539cd48-ff0d-429d-9492-a86c65e82343",
+            "uuid": "d6116cd7-c462-4e78-9af9-7d5ec3a5c362",
             "title": "single sensor",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.unauthorized.test.js",
             "file": "/test/sensor.unauthorized.test.js",
@@ -2227,7 +2236,7 @@
                 "title": "it should GET a sensor by the given id",
                 "fullTitle": "Sensors single sensor it should GET a sensor by the given id",
                 "timedOut": false,
-                "duration": 103,
+                "duration": 157,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -2236,7 +2245,7 @@
                 "code": "chai.request(baseUrl)\n        .get(`/domains/${domain}/sensors/${sensor.id}`)\n        .end((err, res) => {\n          res.should.have.status(200);\n          res.body.should.be.a('object');\n          res.body.should.have.property('gateway_id');\n          res.body.should.have.property('name');\n          res.body.should.have.property('owner');\n          res.body.should.have.property('measurements');\n          res.body.should.have.property('location');\n          res.body.should.have.property('id').eql(sensor.id);\n          done();\n        });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "de3cd766-b0c6-4084-b87c-2bbef64f81d3",
+                "uuid": "c7df39ec-d3c3-4ec4-bb1b-a6b2542a456a",
                 "isHook": false,
                 "skipped": false
               },
@@ -2244,35 +2253,39 @@
                 "title": "it should give a 404 err a sensor with none existent id",
                 "fullTitle": "Sensors single sensor it should give a 404 err a sensor with none existent id",
                 "timedOut": false,
-                "duration": 101,
-                "state": "passed",
-                "speed": "slow",
-                "pass": true,
-                "fail": false,
+                "duration": 0,
+                "state": "failed",
+                "pass": false,
+                "fail": true,
                 "pending": false,
                 "code": "chai.request(baseUrl)\n        .get(`/domains/${domain}/sensors/this-id-does-not-exist`)\n        .end((err, res) => {\n          res.should.have.status(404);\n          done();\n        });",
-                "err": {},
+                "err": {
+                  "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 404 but got 403",
+                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 404 but got 403\n    at chai.request.get.end (test/sensor.unauthorized.test.js:92:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
+                  "diff": "- 403\n+ 404\n"
+                },
                 "isRoot": false,
-                "uuid": "9aa97a6e-678b-4b89-8517-0feb31f8f722",
+                "uuid": "7789ad39-601a-42ae-bea4-4201b1922c4b",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "de3cd766-b0c6-4084-b87c-2bbef64f81d3",
-              "9aa97a6e-678b-4b89-8517-0feb31f8f722"
+              "c7df39ec-d3c3-4ec4-bb1b-a6b2542a456a"
             ],
-            "failures": [],
+            "failures": [
+              "7789ad39-601a-42ae-bea4-4201b1922c4b"
+            ],
             "pending": [],
             "skipped": [],
-            "duration": 204,
+            "duration": null,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "89711fcb-7b05-400b-b494-7c0aa97c962b",
+            "uuid": "527a18aa-7371-443e-b905-343408035e2d",
             "title": "insert owner",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.unauthorized.test.js",
             "file": "/test/sensor.unauthorized.test.js",
@@ -2283,7 +2296,7 @@
                 "title": "it should update the owner field",
                 "fullTitle": "Sensors insert owner it should update the owner field",
                 "timedOut": false,
-                "duration": 93,
+                "duration": 140,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -2292,25 +2305,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/owner`)\n  .set('content-type', 'text/plain')\n  .send(\"henok\")\n  .end((err, res) => {\n    res.should.have.status(403);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "75acc386-8f67-4577-9765-0a887ace26a4",
+                "uuid": "197ba3c5-c888-4d5d-9e79-459a08edc2f8",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "75acc386-8f67-4577-9765-0a887ace26a4"
+              "197ba3c5-c888-4d5d-9e79-459a08edc2f8"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 93,
+            "duration": 140,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "1c6ad29b-4029-4ac8-8c57-bdf5131035e0",
+            "uuid": "c3ac0ab0-93d6-47a9-81c0-ac8476c229da",
             "title": "insert name",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.unauthorized.test.js",
             "file": "/test/sensor.unauthorized.test.js",
@@ -2321,7 +2334,7 @@
                 "title": "it should update the name field",
                 "fullTitle": "Sensors insert name it should update the name field",
                 "timedOut": false,
-                "duration": 95,
+                "duration": 112,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -2330,25 +2343,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/name`)\n  .set('content-type', 'text/plain')\n  .send(\"SEN1\")\n  .end((err, res) => {\n    res.should.have.status(403);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "9c7e394d-ed89-4ad4-9ceb-fd15a109224d",
+                "uuid": "2bdf11f1-d5c6-48f8-b837-7172fe1583c4",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "9c7e394d-ed89-4ad4-9ceb-fd15a109224d"
+              "2bdf11f1-d5c6-48f8-b837-7172fe1583c4"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 95,
+            "duration": 112,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "69d7e28d-3096-406c-b01f-211076a48102",
+            "uuid": "b9611aae-b9be-49a3-99d2-f99b73f6f06f",
             "title": "insert location",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.unauthorized.test.js",
             "file": "/test/sensor.unauthorized.test.js",
@@ -2359,7 +2372,7 @@
                 "title": "it should update the location field",
                 "fullTitle": "Sensors insert location it should update the location field",
                 "timedOut": false,
-                "duration": 102,
+                "duration": 122,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -2368,25 +2381,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/location`)\n  .send({\n    \"latitude\": 5.36,\n    \"longitude\": 4.0083\n  })\n  .end((err, res) => {\n    res.should.have.status(403);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "e6789e9c-9eb1-4e85-931d-74ad2f744ff4",
+                "uuid": "304217be-07d8-4050-bcf9-5d97d778bd02",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "e6789e9c-9eb1-4e85-931d-74ad2f744ff4"
+              "304217be-07d8-4050-bcf9-5d97d778bd02"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 102,
+            "duration": 122,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "afcad521-e09d-4a25-b6b9-d69835b940cf",
+            "uuid": "1a3a1b38-0460-4d75-b16e-18eb5d07b002",
             "title": "insert sensor kind",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.unauthorized.test.js",
             "file": "/test/sensor.unauthorized.test.js",
@@ -2397,7 +2410,7 @@
                 "title": "it should update the sensor kind field",
                 "fullTitle": "Sensors insert sensor kind it should update the sensor kind field",
                 "timedOut": false,
-                "duration": 91,
+                "duration": 127,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -2406,25 +2419,25 @@
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/sensors/${sensor.id}/sensor_kind`)\n  .set('content-type', 'text/plain')\n  .send(\"Soil moisture sensor\")\n  .end((err, res) => {\n    res.should.have.status(403);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "64d2825b-560c-44f5-83dd-22316dc23b6c",
+                "uuid": "bb1b9983-b910-46e7-b5f3-7994a04b6470",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "64d2825b-560c-44f5-83dd-22316dc23b6c"
+              "bb1b9983-b910-46e7-b5f3-7994a04b6470"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 91,
+            "duration": 127,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "cac5f0f2-8003-470a-a3b0-b3593e24e441",
+            "uuid": "d7ffc675-d4b3-494d-8c20-007d6519e7c3",
             "title": "Remove sensor",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/sensor.unauthorized.test.js",
             "file": "/test/sensor.unauthorized.test.js",
@@ -2435,7 +2448,7 @@
                 "title": "it should Remove a sensor by the given id",
                 "fullTitle": "Sensors Remove sensor it should Remove a sensor by the given id",
                 "timedOut": false,
-                "duration": 92,
+                "duration": 124,
                 "state": "passed",
                 "speed": "slow",
                 "pass": true,
@@ -2444,19 +2457,19 @@
                 "code": "chai.request(baseUrl)\n  .delete(`/domains/${domain}/sensors/${sensor.id}`)\n  .end((err, res) => {\n    res.should.have.status(403);\n    done();\n  });",
                 "err": {},
                 "isRoot": false,
-                "uuid": "22db67d1-fd63-4fe9-9a84-9e13f3f09da4",
+                "uuid": "a6e08b34-11a3-4c07-9898-b3175ae2569f",
                 "isHook": false,
                 "skipped": false
               }
             ],
             "suites": [],
             "passes": [
-              "22db67d1-fd63-4fe9-9a84-9e13f3f09da4"
+              "a6e08b34-11a3-4c07-9898-b3175ae2569f"
             ],
             "failures": [],
             "pending": [],
             "skipped": [],
-            "duration": 92,
+            "duration": 124,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
@@ -2472,7 +2485,7 @@
         "_timeout": 20000
       },
       {
-        "uuid": "92193908-e107-4e24-aceb-3d35e68ef02b",
+        "uuid": "bb48689b-f222-43c8-adbe-2407504bcb60",
         "title": "Socials ",
         "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/socials.test.js",
         "file": "/test/socials.test.js",
@@ -2481,7 +2494,7 @@
         "tests": [],
         "suites": [
           {
-            "uuid": "d90452d9-2ee6-458f-a426-0dbe76e475bc",
+            "uuid": "432ae177-8362-49e4-8e28-ff70d2dce5ed",
             "title": "Get all messages sent",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/socials.test.js",
             "file": "/test/socials.test.js",
@@ -2504,7 +2517,7 @@
                   "diff": "- 503\n+ 200\n"
                 },
                 "isRoot": false,
-                "uuid": "1824bdaf-6d78-4ecd-b7f0-f7c081d0f94f",
+                "uuid": "c17071e5-8b61-4c22-9c56-280f1af4102b",
                 "isHook": false,
                 "skipped": false
               }
@@ -2512,7 +2525,7 @@
             "suites": [],
             "passes": [],
             "failures": [
-              "1824bdaf-6d78-4ecd-b7f0-f7c081d0f94f"
+              "c17071e5-8b61-4c22-9c56-280f1af4102b"
             ],
             "pending": [],
             "skipped": [],
@@ -2522,7 +2535,7 @@
             "_timeout": 20000
           },
           {
-            "uuid": "3593b61b-3f68-4493-85c7-f89d92e35d8e",
+            "uuid": "5d6ab4d2-1c11-4cfa-8342-fee9b41e00bc",
             "title": "post a message to social networks",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/socials.test.js",
             "file": "/test/socials.test.js",
@@ -2545,7 +2558,7 @@
                   "diff": "- 500\n+ 200\n"
                 },
                 "isRoot": false,
-                "uuid": "537edc41-6aee-4a52-a403-3a8aff0bcd04",
+                "uuid": "d7ecd6d7-fed1-494d-bb95-f88bd8c33826",
                 "isHook": false,
                 "skipped": false
               }
@@ -2553,7 +2566,7 @@
             "suites": [],
             "passes": [],
             "failures": [
-              "537edc41-6aee-4a52-a403-3a8aff0bcd04"
+              "d7ecd6d7-fed1-494d-bb95-f88bd8c33826"
             ],
             "pending": [],
             "skipped": [],
@@ -2573,7 +2586,7 @@
         "_timeout": 20000
       },
       {
-        "uuid": "0bdf9f75-eb43-40da-a99b-fb76fb3311ea",
+        "uuid": "ee6ee6bc-6437-4ca0-a682-deafc383ea1d",
         "title": "Users with admin Previledges",
         "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/users.admin.test.js",
         "file": "/test/users.admin.test.js",
@@ -2582,14 +2595,14 @@
             "title": "\"before all\" hook",
             "fullTitle": "Users with admin Previledges \"before all\" hook",
             "timedOut": false,
-            "duration": 89,
+            "duration": 122,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "chai.request(baseUrl)\n  .post('/auth/token')\n  .send(userCredentials)\n  .end(function (err, response) {\n    token = response.text;\n    done();\n  });",
             "err": {},
             "isRoot": false,
-            "uuid": "0af475e9-03ce-403a-923c-6c3d3bdaad97",
+            "uuid": "d713359c-cbd7-4541-bcff-d09d8bdce02c",
             "isHook": true,
             "skipped": false
           }
@@ -2598,7 +2611,7 @@
         "tests": [],
         "suites": [
           {
-            "uuid": "1fe4080c-bb78-4877-896f-830006a3db9c",
+            "uuid": "1d7e3de5-5e36-44fd-a238-7911cb731ff6",
             "title": "Get all users in a realm",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/users.admin.test.js",
             "file": "/test/users.admin.test.js",
@@ -2617,11 +2630,11 @@
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/users`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {
                   "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403",
-                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403\n    at chai.request.get.set.end (test/users.admin.test.js:30:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
+                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403\n    at chai.request.get.set.end (test/users.admin.test.js:32:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
                   "diff": "- 403\n+ 200\n"
                 },
                 "isRoot": false,
-                "uuid": "173ae679-a47e-410f-8e2e-0002308e383c",
+                "uuid": "638a6264-abaa-4c58-b45f-fc9e499b0848",
                 "isHook": false,
                 "skipped": false
               }
@@ -2629,7 +2642,7 @@
             "suites": [],
             "passes": [],
             "failures": [
-              "173ae679-a47e-410f-8e2e-0002308e383c"
+              "638a6264-abaa-4c58-b45f-fc9e499b0848"
             ],
             "pending": [],
             "skipped": [],
@@ -2639,7 +2652,7 @@
             "_timeout": 20000
           },
           {
-            "uuid": "2e160aed-53da-4277-9e7e-48be1a5dd397",
+            "uuid": "b2b75409-4d0f-4565-bafd-9d085ea9f1bf",
             "title": "Create a new user in a realm",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/users.admin.test.js",
             "file": "/test/users.admin.test.js",
@@ -2658,11 +2671,11 @@
                 "code": "chai.request(baseUrl)\n  .post(`/domains/${domain}/users`)\n  .set('Authorization', `Bearer ${token}`)\n  .send(userData)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {
                   "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403",
-                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403\n    at chai.request.post.set.send.end (test/users.admin.test.js:42:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
+                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403\n    at chai.request.post.set.send.end (test/users.admin.test.js:44:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
                   "diff": "- 403\n+ 200\n"
                 },
                 "isRoot": false,
-                "uuid": "3419368e-de35-4c48-a538-f7d025f0f15b",
+                "uuid": "9960cd0e-b8d6-4710-994a-fc5c92843c93",
                 "isHook": false,
                 "skipped": false
               }
@@ -2670,7 +2683,7 @@
             "suites": [],
             "passes": [],
             "failures": [
-              "3419368e-de35-4c48-a538-f7d025f0f15b"
+              "9960cd0e-b8d6-4710-994a-fc5c92843c93"
             ],
             "pending": [],
             "skipped": [],
@@ -2680,7 +2693,7 @@
             "_timeout": 20000
           },
           {
-            "uuid": "bf72fab3-1fd8-40d6-a223-44b4dab3b7ac",
+            "uuid": "88167b34-a1f0-4ff6-8977-4f40cbf96ddf",
             "title": "Search users with specific criteria",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/users.admin.test.js",
             "file": "/test/users.admin.test.js",
@@ -2699,11 +2712,11 @@
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/users/search/`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {
                   "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403",
-                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403\n    at chai.request.get.set.end (test/users.admin.test.js:53:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
+                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403\n    at chai.request.get.set.end (test/users.admin.test.js:55:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
                   "diff": "- 403\n+ 200\n"
                 },
                 "isRoot": false,
-                "uuid": "d9ddafc0-3b0c-4999-9cc2-ba0c09c92bf8",
+                "uuid": "6f454640-674a-493d-a9e9-f7d24bcbf7e7",
                 "isHook": false,
                 "skipped": false
               }
@@ -2711,7 +2724,7 @@
             "suites": [],
             "passes": [],
             "failures": [
-              "d9ddafc0-3b0c-4999-9cc2-ba0c09c92bf8"
+              "6f454640-674a-493d-a9e9-f7d24bcbf7e7"
             ],
             "pending": [],
             "skipped": [],
@@ -2721,7 +2734,7 @@
             "_timeout": 20000
           },
           {
-            "uuid": "ca758767-959a-4575-88e8-fc0f2d6c8dd6",
+            "uuid": "791b1f96-aead-40c1-8c68-79b67521b161",
             "title": "Get a Specific user",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/users.admin.test.js",
             "file": "/test/users.admin.test.js",
@@ -2739,11 +2752,12 @@
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/users/${userData.id}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {
-                  "message": "TypeError: Cannot read property 'id' of undefined",
-                  "estack": "TypeError: Cannot read property 'id' of undefined\n    at Context.it (test/users.admin.test.js:61:50)"
+                  "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403",
+                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403\n    at chai.request.get.set.end (test/users.admin.test.js:66:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
+                  "diff": "- 403\n+ 200\n"
                 },
                 "isRoot": false,
-                "uuid": "75ab010c-505b-4d51-b3c0-86f58a869704",
+                "uuid": "260a2c97-5f2c-4ca8-a776-dfe09a2a92c2",
                 "isHook": false,
                 "skipped": false
               }
@@ -2751,17 +2765,17 @@
             "suites": [],
             "passes": [],
             "failures": [
-              "75ab010c-505b-4d51-b3c0-86f58a869704"
+              "260a2c97-5f2c-4ca8-a776-dfe09a2a92c2"
             ],
             "pending": [],
             "skipped": [],
-            "duration": 0,
+            "duration": null,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "268ff2e7-d24c-478c-8b62-0d4b836c48a5",
+            "uuid": "31a45d13-47a1-4302-b008-f82804fdb87d",
             "title": "update user data",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/users.admin.test.js",
             "file": "/test/users.admin.test.js",
@@ -2779,11 +2793,12 @@
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .put(`/domains/${domain}/users/${userData.id}`)\n  .set('Authorization', `Bearer ${token}`)\n  .send({\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\"\n  })\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {
-                  "message": "TypeError: Cannot read property 'id' of undefined",
-                  "estack": "TypeError: Cannot read property 'id' of undefined\n    at Context.it (test/users.admin.test.js:72:50)"
+                  "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403",
+                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403\n    at chai.request.put.set.send.end (test/users.admin.test.js:82:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
+                  "diff": "- 403\n+ 200\n"
                 },
                 "isRoot": false,
-                "uuid": "82aace8f-5ffc-42ed-afa0-18bd78ff3d5b",
+                "uuid": "930a66b0-542f-402d-a405-a5d83c305103",
                 "isHook": false,
                 "skipped": false
               }
@@ -2791,17 +2806,17 @@
             "suites": [],
             "passes": [],
             "failures": [
-              "82aace8f-5ffc-42ed-afa0-18bd78ff3d5b"
+              "930a66b0-542f-402d-a405-a5d83c305103"
             ],
             "pending": [],
             "skipped": [],
-            "duration": 0,
+            "duration": null,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
           },
           {
-            "uuid": "ea777957-549b-4042-890d-70ebbfedbfca",
+            "uuid": "231cc530-c9cf-4791-996a-51b8a7697d55",
             "title": "Remove a user",
             "fullFile": "/home/henok/Projects/nodesites/waz/Platform/tests/test/users.admin.test.js",
             "file": "/test/users.admin.test.js",
@@ -2819,11 +2834,12 @@
                 "pending": false,
                 "code": "chai.request(baseUrl)\n  .get(`/domains/${domain}/users/${userData.id}`)\n  .set('Authorization', `Bearer ${token}`)\n  .end((err, res) => {\n    res.should.have.status(200);\n    done();\n  });",
                 "err": {
-                  "message": "TypeError: Cannot read property 'id' of undefined",
-                  "estack": "TypeError: Cannot read property 'id' of undefined\n    at Context.it (test/users.admin.test.js:88:50)"
+                  "message": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403",
+                  "estack": "AssertionError: expected { Object (domain, _events, ...) } to have status code 200 but got 403\n    at chai.request.get.set.end (test/users.admin.test.js:93:27)\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:631:3)\n    at node_modules/superagent/lib/node/index.js:795:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:16:7)\n    at endReadableNT (_stream_readable.js:1059:12)\n    at _combinedTickCallback (internal/process/next_tick.js:138:11)\n    at process._tickCallback (internal/process/next_tick.js:180:9)",
+                  "diff": "- 403\n+ 200\n"
                 },
                 "isRoot": false,
-                "uuid": "119e673b-c3db-4575-ad5a-cc66b7d5fc18",
+                "uuid": "3d7c5172-c2f7-45a9-b526-99a92afa91ac",
                 "isHook": false,
                 "skipped": false
               }
@@ -2831,11 +2847,11 @@
             "suites": [],
             "passes": [],
             "failures": [
-              "119e673b-c3db-4575-ad5a-cc66b7d5fc18"
+              "3d7c5172-c2f7-45a9-b526-99a92afa91ac"
             ],
             "pending": [],
             "skipped": [],
-            "duration": 0,
+            "duration": null,
             "root": false,
             "rootEmpty": false,
             "_timeout": 20000
@@ -2860,5 +2876,5 @@
     "rootEmpty": true,
     "_timeout": 20000
   },
-  "copyrightYear": 2017
+  "copyrightYear": 2018
 }

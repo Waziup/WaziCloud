@@ -4,10 +4,12 @@ let should = chai.should();
 let baseUrl = require('../config/enviroment').baseUrl;
 let domain = require('../config/enviroment').domain;
 let userCredentials = require('../config/sample-data').user.admin;
-let userData = require('../config/sample-data.json').userData;
+let userData = require('../config/sample-data.json').sampleUser;
 
 let createdDomianId = "";
 chai.use(chaiHttp);
+
+
 
 
 
