@@ -4,6 +4,7 @@
 #
 server.name: kibana
 server.host: "0.0.0.0"
+logging.verbose: true
 #server.basePath: /kibana
 ## Disable X-Pack
 ## see https://www.elastic.co/guide/en/x-pack/current/xpack-settings.html
