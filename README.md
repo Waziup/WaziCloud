@@ -28,6 +28,10 @@ You can then access Waziup platform on http://localhost
 
 See [this file](INSTALL.md) for the installation instructions on Cloud platforms.
 
+To run a light version of the platform, run:
+```
+docker-compose up api-server orion mongo dashboard keycloak socials
+```
 
 Develop
 -------
