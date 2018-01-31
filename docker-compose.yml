@@ -58,12 +58,9 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - REACT_APP_ADMIN_USER=admin
-      - REACT_APP_ADMIN_PASS=${WAZIUP_ADMIN_PASS}
-      - REACT_APP_KC_URL=http://${WAZIUP_URL}:8080/auth
-      - REACT_APP_ORION_API=http://${WAZIUP_URL}/api/v1/orion
-      - REACT_APP_COMET_API=http://${WAZIUP_URL}/api/v1/comet
-      - REACT_APP_KIBANA_URL=http://${WAZIUP_URL}:5601
+      - SERVER_PORT=3000
+      - KEYCLOAK_URL=http://${WAZIUP_URL}:8080/auth
+      - API_SERVER_URL=http://${WAZIUP_URL}/api
     mem_limit: 1000000000  
 
 #Socials
@@ -79,7 +76,7 @@ services:
 
 # ELS
   elasticsearch:
-    build: ELK/elasticsearch/
+    build: ./elasticsearch
     image: waziup/elasticsearch
     ports:
       - "9200:9200"
@@ -95,7 +92,7 @@ services:
       - ${WAZIUP_DATA}/els:/usr/share/elasticsearch/data
 
   kibana:
-    build: ELK/kibana/
+    build: ./kibana
     image: waziup/kibana
     ports:
       - "5601:5601"
@@ -109,15 +106,17 @@ services:
     image: waziup/kibana-backend
     ports:
       - "6565:6565"
+      - "5602:5602"
     environment:
       - SERVER_PORT=6565
+      - ELSPROXY_PORT=9201 
       - SERVER_URL=http://localhost:6565
       - KEYCLOAK_URL=http://keycloak:8080/auth
       - KIBANA_URL=http://kibana:5601
       - ELASTICSEARCH_URL=http://elasticsearch:9200
 
   els-feeder:
-    build: els-feeder/
+    build: ./els-feeder
     image: waziup/els-feeder
     ports:
       - "9100:9100"
