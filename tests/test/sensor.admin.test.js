@@ -50,7 +50,7 @@ describe('Sensors with admin previledges', () => {
           done();
         });
     });
-    it('it should Reject posting data with reapeted values', (done) => {
+    it('it should Reject posting data with repeated values', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/sensors`)
         .set('Authorization', `Bearer ${token}`)

@@ -28,6 +28,10 @@ You can then access Waziup platform on http://localhost
 
 See [this file](INSTALL.md) for the installation instructions on Cloud platforms.
 
+To run a light version of the platform, run:
+```
+docker-compose up api-server orion mongo dashboard keycloak socials
+```
 
 Develop
 -------
@@ -68,7 +72,7 @@ To export the keycloak configuration, run:
 docker-compose run --entrypoint "/opt/jboss/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/opt/jboss/keycloak/standalone/data/" keycloak
 #Stop keycloak when start-up is finished
 cd data/keycloak
-mv master-realm.json master-users-0.json waziup-realm.json waziup-users-0.json ../../keycloak/import
+mv master-realm.json master-users-0.json waziup-realm.json waziup-users-0.json ../../keycloak/imports
 ```
 Rebuild Keycloak image:
 ```

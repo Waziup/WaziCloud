@@ -20,7 +20,7 @@ npm test
 for the sensors endpoint
 
 ```
-npm test sensors*
+npm test test/sensors*
 ```
 
 for the measurments endpoint
