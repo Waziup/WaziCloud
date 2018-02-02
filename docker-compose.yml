@@ -35,6 +35,7 @@ services:
       - ELASTICSEARCH_URL=http://elasticsearch:9200
       - MONGODB_URL=mongodb://mongo:27017/waziup_history
       - SOCIALS_URL=http://socials:9123
+      - LOG_LEVEL=debug
 
 # Users identification & authorization   
   keycloak:
