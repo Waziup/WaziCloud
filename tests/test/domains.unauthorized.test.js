@@ -4,6 +4,7 @@ let should = chai.should();
 let baseUrl = require('../config/enviroment').baseUrl;
 let domain = require('../config/enviroment').domain;
 let domainData = require('../config/sample-data').domains;
+let domainDataAlt = require('../config/sample-data').domainAlt;
 let userCredentials = require('../config/sample-data').user.admin;
 let measurement = require('../config/sample-data').measurement;
 
@@ -23,7 +24,13 @@ describe('Domains', () => {
           .delete(`/domains/${domainData.id}`)
           .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
-            done();
+            chai.request(baseUrl)
+              .post(`/domains`)
+              .set('Authorization', `Bearer ${token}`)
+              .send(domainDataAlt)
+              .end((err, res) => {
+                done();
+              });
           });
       });
   });
@@ -32,8 +39,14 @@ describe('Domains', () => {
       .delete(`/domains/${domainData.id}`)
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
-        done();
+        chai.request(baseUrl)
+          .delete(`/domains/${domainDataAlt.id}`)
+          .set('Authorization', `Bearer ${token}`)
+          .end((err, res) => {
+            done();
+          });
       });
+
   });
   describe('create a domain', () => {
     it('it should Create a domain', (done) => {
@@ -60,7 +73,7 @@ describe('Domains', () => {
   describe('Get a single domain', () => {
     it('it should get a single domain', (done) => {
       chai.request(baseUrl)
-        .get(`/domains/testfarm1`)
+        .get(`/domains/${domainDataAlt.id}`)
         .end((err, res) => {
           res.should.have.status(200);
           done();
@@ -78,7 +91,7 @@ describe('Domains', () => {
   describe('Remove Domain', () => {
     it('it should remove a single domain', (done) => {
       chai.request(baseUrl)
-        .delete(`/domains/${domainData.id}`)
+        .delete(`/domains/${domainDataAlt.id}`)
         .end((err, res) => {
           res.should.have.status(403);
           done();

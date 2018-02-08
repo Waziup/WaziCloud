@@ -20,7 +20,12 @@ describe('Users with admin Previledges', () => {
       .send(userCredentials)
       .end(function (err, response) {
         token = response.text;
-        done();
+        chai.request(baseUrl)
+        .get(`/domains/${domain}/users/${userData.id}`)
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          done();
+        });
       });
   });
   describe('Get all users in a realm', () => {
