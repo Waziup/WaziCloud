@@ -122,4 +122,18 @@ describe('Measurements', () => {
 
     });
   });
+
+  describe('get paginated measurement values', () => {
+    it('it should GET get measurement values', (done) => {
+      chai.request(baseUrl)
+        .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/values?vLimit=10&vOffset=0&vDateFrom=2016-01-01T00:00:00.000Z&vDateTo=2016-01-31T23:59:59.999Z`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('array');
+          res.body.should.have.lengthOf.below(11);
+          //console.log(res);
+          done();
+        });
+    });
+  });
 })
