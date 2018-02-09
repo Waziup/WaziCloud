@@ -795,25 +795,8 @@
       }, {
         "name" : "Socials"
       }, {
-        "name" : "0d710b12-27e8-433d-ab3a-e05b7127eeaa",
-        "uri" : "/sensors/0d710b12-27e8-433d-ab3a-e05b7127eeaa",
-        "type" : "domain:waziup",
-        "scopes" : [ {
-          "name" : "sensors:create"
-        }, {
-          "name" : "sensors:delete"
-        }, {
-          "name" : "sensors:view"
-        }, {
-          "name" : "sensors:update"
-        } ],
-        "owner" : {
-          "name" : "cdupont"
-        }
-      }, {
         "name" : "History",
         "type" : ""
-        }
       } ],
       "policies" : [ {
         "name" : "Registered users",

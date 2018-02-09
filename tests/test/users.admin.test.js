@@ -4,10 +4,12 @@ let should = chai.should();
 let baseUrl = require('../config/enviroment').baseUrl;
 let domain = require('../config/enviroment').domain;
 let userCredentials = require('../config/sample-data').user.admin;
-let userData = require('../config/sample-data.json').userData;
+let userData = require('../config/sample-data.json').sampleUser;
 
 let createdDomianId = "";
 chai.use(chaiHttp);
+
+
 
 
 
@@ -18,7 +20,12 @@ describe('Users with admin Previledges', () => {
       .send(userCredentials)
       .end(function (err, response) {
         token = response.text;
-        done();
+        chai.request(baseUrl)
+        .get(`/domains/${domain}/users/${userData.id}`)
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          done();
+        });
       });
   });
   describe('Get all users in a realm', () => {

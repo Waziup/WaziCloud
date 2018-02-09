@@ -1,0 +1,598 @@
+
+{
+  "executionRoleArn": null,
+  "containerDefinitions": [
+    {
+      "dnsSearchDomains": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "waziup",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "keycloak"
+        }
+      },
+      "entryPoint": [
+        "/opt/jboss/docker-entrypoint.sh",
+        "-b",
+        "0.0.0.0",
+        "-Dkeycloak.migration.action=import",
+        "-Dkeycloak.migration.provider=dir",
+        "-Dkeycloak.migration.strategy=IGNORE_EXISTING",
+        "-Dkeycloak.migration.dir=/opt/jboss/keycloak/imports"
+      ],
+      "portMappings": [
+        {
+          "hostPort": 8080,
+          "protocol": "tcp",
+          "containerPort": 8080
+        },
+        {
+          "hostPort": 9990,
+          "protocol": "tcp",
+          "containerPort": 9990
+        }
+      ],
+      "command": [],
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "KEYCLOAK_LOGLEVEL",
+          "value": "DEBUG"
+        },
+        {
+          "name": "KEYCLOAK_PASSWORD",
+          "value": "admin"
+        },
+        {
+          "name": "KEYCLOAK_USER",
+          "value": "admin"
+        }
+      ],
+      "ulimits": null,
+      "dnsServers": [],
+      "mountPoints": [
+        {
+          "readOnly": false,
+          "containerPath": "/opt/jboss/keycloak/standalone/data/",
+          "sourceVolume": "keycloakData"
+        }
+      ],
+      "workingDirectory": null,
+      "dockerSecurityOptions": [],
+      "memory": 512,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "waziup/keycloak:latest",
+      "disableNetworking": null,
+      "essential": false,
+      "links": [],
+      "hostname": null,
+      "extraHosts": null,
+      "user": null,
+      "readonlyRootFilesystem": false,
+      "dockerLabels": null,
+      "privileged": false,
+      "name": "keycloak"
+    },
+    {
+      "dnsSearchDomains": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "waziup",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "mongo"
+        }
+      },
+      "entryPoint": [],
+      "portMappings": [
+        {
+          "hostPort": 27017,
+          "protocol": "tcp",
+          "containerPort": 27017
+        }
+      ],
+      "command": [],
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [],
+      "ulimits": null,
+      "dnsServers": [],
+      "mountPoints": [
+        {
+          "readOnly": false,
+          "containerPath": "/data/db",
+          "sourceVolume": "mongoData"
+        }
+      ],
+      "workingDirectory": null,
+      "dockerSecurityOptions": [],
+      "memory": 512,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "waziup/mongodb:latest",
+      "disableNetworking": null,
+      "essential": false,
+      "links": [],
+      "hostname": "mongo",
+      "extraHosts": null,
+      "user": null,
+      "readonlyRootFilesystem": false,
+      "dockerLabels": null,
+      "privileged": false,
+      "name": "mongo"
+    },
+    {
+      "dnsSearchDomains": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "waziup",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "orion"
+        }
+      },
+      "entryPoint": [],
+      "portMappings": [
+        {
+          "hostPort": 1026,
+          "protocol": "tcp",
+          "containerPort": 1026
+        }
+      ],
+      "command": [
+        "-dbhost",
+        "mongo",
+        "-logLevel",
+        "INFO"
+      ],
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [],
+      "ulimits": null,
+      "dnsServers": [],
+      "mountPoints": [],
+      "workingDirectory": null,
+      "dockerSecurityOptions": [],
+      "memory": 128,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "waziup/orion:latest",
+      "disableNetworking": null,
+      "essential": false,
+      "links": [],
+      "hostname": "orion",
+      "extraHosts": [
+        {
+          "ipAddress": "127.0.0.1",
+          "hostname": "mongo"
+        }
+      ],
+      "user": null,
+      "readonlyRootFilesystem": false,
+      "dockerLabels": null,
+      "privileged": false,
+      "name": "orion"
+    },
+    {
+      "dnsSearchDomains": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "waziup",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "els"
+        }
+      },
+      "entryPoint": [],
+      "portMappings": [
+        {
+          "hostPort": 9200,
+          "protocol": "tcp",
+          "containerPort": 9200
+        },
+        {
+          "hostPort": 9300,
+          "protocol": "tcp",
+          "containerPort": 9300
+        }
+      ],
+      "command": [],
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "ES_JAVA_OPTS",
+          "value": "-Xms2g -Xmx2g"
+        },
+        {
+          "name": "xpack.graph.enabled",
+          "value": "false"
+        },
+        {
+          "name": "xpack.monitoring.enabled",
+          "value": "false"
+        },
+        {
+          "name": "xpack.security.enabled",
+          "value": "false"
+        },
+        {
+          "name": "xpack.watcher.enabled",
+          "value": "false"
+        }
+      ],
+      "ulimits": null,
+      "dnsServers": [],
+      "mountPoints": [
+        {
+          "readOnly": false,
+          "containerPath": "/usr/share/elasticsearch/data",
+          "sourceVolume": "ELSData"
+        }
+      ],
+      "workingDirectory": null,
+      "dockerSecurityOptions": [],
+      "memory": 2500,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "waziup/elasticsearch:latest",
+      "disableNetworking": null,
+      "essential": false,
+      "links": [],
+      "hostname": null,
+      "extraHosts": null,
+      "user": null,
+      "readonlyRootFilesystem": false,
+      "dockerLabels": null,
+      "privileged": false,
+      "name": "elasticsearch"
+    },
+    {
+      "dnsSearchDomains": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "waziup",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "api-server"
+        }
+      },
+      "entryPoint": null,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "protocol": "tcp",
+          "containerPort": 80
+        }
+      ],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "ELASTICSEARCH_URL",
+          "value": "http://elasticsearch:9200"
+        },
+        {
+          "name": "HTTP_PORT",
+          "value": "80"
+        },
+        {
+          "name": "HTTP_URL",
+          "value": "http://dev.waziup.io:80"
+        },
+        {
+          "name": "HTTPS_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "HTTPS_PORT",
+          "value": "443"
+        },
+        {
+          "name": "HTTPS_TLS_CRT",
+          "value": "/certs/live/dev.waziup.io/cert.pem"
+        },
+        {
+          "name": "HTTPS_TLS_KEY",
+          "value": "/certs/live/dev.waziup.io/privkey.pem"
+        },
+        {
+          "name": "HTTPS_URL",
+          "value": "https://dev.waziup.io:443"
+        },
+        {
+          "name": "KEYCLOAK_URL",
+          "value": "http://keycloak:8080/auth"
+        },
+        {
+          "name": "MONGODB_URL",
+          "value": "mongodb://mongo:27017/waziup_history"
+        },
+        {
+          "name": "ORION_URL",
+          "value": "http://orion:1026"
+        },
+        {
+          "name": "SERVER_URL",
+          "value": "http://18.194.211.208:80"
+        },
+        {
+          "name": "SOCIALS_URL",
+          "value": "http://socials:9123"
+        }
+      ],
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [
+        {
+          "readOnly": null,
+          "containerPath": "/certs",
+          "sourceVolume": "certs"
+        }
+      ],
+      "workingDirectory": null,
+      "dockerSecurityOptions": null,
+      "memory": 128,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "waziup/api-server:latest",
+      "disableNetworking": null,
+      "essential": true,
+      "links": null,
+      "hostname": "api-server",
+      "extraHosts": [
+        {
+          "ipAddress": "127.0.0.1",
+          "hostname": "mongo"
+        },
+        {
+          "ipAddress": "127.0.0.1",
+          "hostname": "orion"
+        },
+        {
+          "ipAddress": "127.0.0.1",
+          "hostname": "elasticsearch"
+        },
+        {
+          "ipAddress": "127.0.0.1",
+          "hostname": "socials"
+        }
+      ],
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "privileged": null,
+      "name": "api-server"
+    },
+    {
+      "dnsSearchDomains": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "waziup",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "socials"
+        }
+      },
+      "entryPoint": null,
+      "portMappings": [
+        {
+          "hostPort": 9123,
+          "protocol": "tcp",
+          "containerPort": 9123
+        }
+      ],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [],
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [],
+      "workingDirectory": null,
+      "dockerSecurityOptions": null,
+      "memory": 512,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "waziup/socials:latest",
+      "disableNetworking": null,
+      "essential": false,
+      "links": [],
+      "hostname": "socials",
+      "extraHosts": [
+        {
+          "ipAddress": "127.0.0.1",
+          "hostname": "mongo"
+        }
+      ],
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "privileged": null,
+      "name": "socials"
+    },
+    {
+      "dnsSearchDomains": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "waziup",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "socials"
+        }
+      },
+      "entryPoint": null,
+      "portMappings": [
+        {
+          "hostPort": 6565,
+          "protocol": "tcp",
+          "containerPort": 6565
+        }
+      ],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "ELASTICSEARCH_URL",
+          "value": "http://elasticsearch:9200"
+        },
+        {
+          "name": "KEYCLOAK_URL",
+          "value": "http://keycloak:8080/auth"
+        },
+        {
+          "name": "KIBANA_URL",
+          "value": "http://kibana:5601"
+        },
+        {
+          "name": "SERVER_PORT",
+          "value": "6565"
+        },
+        {
+          "name": "SERVER_URL",
+          "value": "http://localhost:6565"
+        }
+      ],
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [],
+      "workingDirectory": null,
+      "dockerSecurityOptions": null,
+      "memory": 128,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "waziup/kibana-backend:latest",
+      "disableNetworking": null,
+      "essential": false,
+      "links": null,
+      "hostname": null,
+      "extraHosts": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "privileged": null,
+      "name": "kibana-backend"
+    },
+    {
+      "dnsSearchDomains": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "waziup",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "socials"
+        }
+      },
+      "entryPoint": null,
+      "portMappings": [
+        {
+          "hostPort": 8000,
+          "protocol": "tcp",
+          "containerPort": 8000
+        }
+      ],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "ELASTIC_SEARCH_API",
+          "value": "http://elasticsearch"
+        },
+        {
+          "name": "ORION_API",
+          "value": "http://orion:1026"
+        }
+      ],
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [],
+      "workingDirectory": null,
+      "dockerSecurityOptions": null,
+      "memory": 128,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "waziup/els-feeder:latest",
+      "disableNetworking": null,
+      "essential": false,
+      "links": null,
+      "hostname": null,
+      "extraHosts": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "privileged": null,
+      "name": "els-feeder"
+    }
+  ],
+  "placementConstraints": [],
+  "memory": null,
+  "taskRoleArn": null,
+  "compatibilities": [
+    "EC2"
+  ],
+  "taskDefinitionArn": "arn:aws:ecs:eu-central-1:443027577688:task-definition/Waziup-platform:6",
+  "family": "Waziup-platform",
+  "requiresAttributes": [
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    }
+  ],
+  "requiresCompatibilities": null,
+  "networkMode": "host",
+  "cpu": null,
+  "revision": 6,
+  "status": "ACTIVE",
+  "volumes": [
+    {
+      "name": "keycloakData",
+      "host": {
+        "sourcePath": "/data/keycloak"
+      }
+    },
+    {
+      "name": "mongoData",
+      "host": {
+        "sourcePath": "/data/mongo"
+      }
+    },
+    {
+      "name": "ELSData",
+      "host": {
+        "sourcePath": "/data/els"
+      }
+    },
+    {
+      "name": "certs",
+      "host": {
+        "sourcePath": "/etc/letsencrypt"
+      }
+    }
+  ]
+}

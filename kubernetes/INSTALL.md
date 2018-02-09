@@ -45,6 +45,8 @@ Init the master with:
 kubeadm init --api-advertise-addresses=<master floating IP>
 ```
 
+Don't forget to install a pod network (e.g. Weave network) and to *taint* the master.
+
 copy the file kubelet.conf to your own machine to get access to the cluster:
 ```
 $ ssh ubuntu@<masterIP>
