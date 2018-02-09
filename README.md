@@ -54,6 +54,14 @@ Or view the API documentation:
 firefox localhost/docs
 ```
 
+## Feeder Tests
+
+In order to see if Feeder is storing data into ElasticSearch:
+
+```
+ curl -X GET 'http://localhost:9200/waziup/_search?q=entity_id:Sensor2-ea0541de1ab7132a1d45b85f9b2139f5&sort=received_time:desc' | jq
+
+```
 
 Debug
 -----
@@ -79,7 +87,7 @@ docker-compose push keycloak
 Copyright
 ---------
 
-Copyright 2016.
+Copyright 2018.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
