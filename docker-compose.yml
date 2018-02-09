@@ -84,10 +84,6 @@ services:
       - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xms2g -Xmx2g"
-      xpack.security.enabled: "false"
-      xpack.monitoring.enabled: "false"
-      xpack.graph.enabled: "false"
-      xpack.watcher.enabled: "false"
     mem_limit: 1500000000  
     volumes:
       - ${WAZIUP_DATA}/els:/usr/share/elasticsearch/data
