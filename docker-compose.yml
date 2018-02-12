@@ -30,12 +30,18 @@ services:
     environment:
       - HTTP_PORT=80
       - HTTPS_PORT=443
-      - KEYCLOAK_URL=http://keycloak:8080/auth
+      - KEYCLOAK_URL=http://${WAZIUP_URL}:8080/auth
       - ORION_URL=http://orion:1026
       - ELASTICSEARCH_URL=http://elasticsearch:9200
       - MONGODB_URL=mongodb://mongo:27017/waziup_history
       - SOCIALS_URL=http://socials:9123
       - LOG_LEVEL=debug
+    network_mode: host
+    extra_hosts:
+      - "orion:127.0.0.1"
+      - "elasticsearch:127.0.0.1"
+      - "mongo:127.0.0.1"
+      - "socials:127.0.0.1"
 
 # Users identification & authorization   
   keycloak:
