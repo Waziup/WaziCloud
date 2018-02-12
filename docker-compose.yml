@@ -128,8 +128,10 @@ services:
       - orion
     environment:
       - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - ELASTICSEARCH_PREFIX=waziup
       - ORION_URL=http://orion:1026
       - SERVER_PORT=9100
+      - FEEDER_NAME=http://els-feeder
 
 # CEP
 #  cepheus:
