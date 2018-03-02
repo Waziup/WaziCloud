@@ -53,10 +53,24 @@ services:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=${WAZIUP_ADMIN_PASS}
       - KEYCLOAK_LOGLEVEL=DEBUG
+      - DB_VENDOR=mysql
     volumes:
       - ${WAZIUP_DATA}/keycloak:/opt/jboss/keycloak/standalone/data/
     # If the realm "waziup" doesn't exists, create it from file
     entrypoint: "/opt/jboss/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.strategy=IGNORE_EXISTING -Dkeycloak.migration.dir=/opt/jboss/keycloak/imports"
+
+  mysql:
+    image: mysql
+    hostname: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ${WAZIUP_DATA}/mysql:/var/lib/mysql/
+    environment:
+      - MYSQL_DATABASE=keycloak
+      - MYSQL_USER=keycloak
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=root_password
 
 # Dashboard    
   dashboard:
