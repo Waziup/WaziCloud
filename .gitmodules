@@ -13,3 +13,6 @@
 [submodule "kibana-backend"]
 	path = kibana-backend
 	url = https://github.com/Waziup/kibana-backend
+[submodule "waziup-js"]
+	path = waziup-js
+	url = git@github.com:Waziup/waziup-js.git
