@@ -19,8 +19,10 @@ services:
     ports:
       - "1026:1026"
     command: -dbhost mongo -logLevel INFO
-    links:
-      - mongo
+    network_mode: host
+    extra_hosts:
+      - "mongo:127.0.0.1"
+      - "localhost:127.0.0.1"
 
   api-server:
     build: ./api-server
