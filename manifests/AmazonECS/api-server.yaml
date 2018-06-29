@@ -1,0 +1,185 @@
+{
+  "executionRoleArn": null,
+  "containerDefinitions": [
+    {
+      "dnsSearchDomains": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "waziup",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "apiserver"
+        }
+      },
+      "entryPoint": null,
+      "portMappings": [
+        {
+          "hostPort": 800,
+          "protocol": "tcp",
+          "containerPort": 800
+        }
+      ],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "ELASTICSEARCH_URL",
+          "value": "http://elasticsearch:9200"
+        },
+        {
+          "name": "HTTP_PORT",
+          "value": "800"
+        },
+        {
+          "name": "HTTP_URL",
+          "value": "http://dev.waziup.io:800"
+        },
+        {
+          "name": "HTTPS_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "HTTPS_PORT",
+          "value": "4430"
+        },
+        {
+          "name": "HTTPS_TLS_CHAIN",
+          "value": "/certs/live/dev.waziup.io/fullchain.pem"
+        },
+        {
+          "name": "HTTPS_TLS_CRT",
+          "value": "/certs/live/dev.waziup.io/cert.pem"
+        },
+        {
+          "name": "HTTPS_TLS_KEY",
+          "value": "/certs/live/dev.waziup.io/privkey.pem"
+        },
+        {
+          "name": "HTTPS_URL",
+          "value": "https://dev.waziup.io:443"
+        },
+        {
+          "name": "KEYCLOAK_URL",
+          "value": "http://dev.waziup.io:8080/auth"
+        },
+        {
+          "name": "LOG_LEVEL",
+          "value": "debug"
+        },
+        {
+          "name": "MONGODB_URL",
+          "value": "mongodb://mongo:27017/waziup_history"
+        },
+        {
+          "name": "ORION_URL",
+          "value": "http://orion:1026"
+        },
+        {
+          "name": "SOCIALS_URL",
+          "value": "http://socials:9123"
+        }
+      ],
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [
+        {
+          "readOnly": null,
+          "containerPath": "/certs",
+          "sourceVolume": "certs"
+        }
+      ],
+      "workingDirectory": null,
+      "dockerSecurityOptions": null,
+      "memory": 128,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "waziup/api-server:1.0",
+      "disableNetworking": null,
+      "healthCheck": null,
+      "essential": true,
+      "links": null,
+      "hostname": "api-server",
+      "extraHosts": [
+        {
+          "ipAddress": "127.0.0.1",
+          "hostname": "mongo"
+        },
+        {
+          "ipAddress": "127.0.0.1",
+          "hostname": "orion"
+        },
+        {
+          "ipAddress": "127.0.0.1",
+          "hostname": "elasticsearch"
+        },
+        {
+          "ipAddress": "127.0.0.1",
+          "hostname": "socials"
+        },
+        {
+          "ipAddress": "127.0.0.1",
+          "hostname": "keycloak"
+        }
+      ],
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "privileged": null,
+      "name": "api-server"
+    }
+  ],
+  "placementConstraints": [],
+  "memory": null,
+  "taskRoleArn": null,
+  "compatibilities": [
+    "EC2"
+  ],
+  "taskDefinitionArn": "arn:aws:ecs:eu-central-1:443027577688:task-definition/Api-server:9",
+  "family": "Api-server",
+  "requiresAttributes": [
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.24"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    }
+  ],
+  "requiresCompatibilities": null,
+  "networkMode": "host",
+  "cpu": null,
+  "revision": 9,
+  "status": "ACTIVE",
+  "volumes": [
+    {
+      "name": "certs",
+      "host": {
+        "sourcePath": "/etc/letsencrypt"
+      }
+    }
+  ]
+}
