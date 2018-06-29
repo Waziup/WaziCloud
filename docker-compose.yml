@@ -4,18 +4,16 @@ services:
 
 # Broker
   mongo:
-    image: waziup/mongodb:latest
+    image: mongo:3.2.8
     hostname: mongo
-    container_name: mongo
     ports:
       - "27017:27017"
     volumes:
       - ${WAZIUP_DATA}/mongo:/data/db'
 
   orion:
-    image: waziup/orion:latest
+    image: fiware/orion:1.7.0
     hostname: orion
-    container_name: orion
     ports:
       - "1026:1026"
     command: -dbhost mongo -logLevel INFO
@@ -26,7 +24,7 @@ services:
 
   api-server:
     build: ./api-server
-    image: waziup/api-server
+    image: waziup/api-server:1.0
     ports:
       - "80:80"
     environment:
@@ -48,7 +46,7 @@ services:
 # Users identification & authorization   
   keycloak:
     build: ./keycloak
-    image: waziup/keycloak:latest
+    image: waziup/keycloak:1.0
     ports:
       - "8080:8080"
     environment:
@@ -81,7 +79,7 @@ services:
 # Dashboard    
   dashboard:
     build: ./dashboard
-    image: waziup/dashboard:latest
+    image: waziup/dashboard:1.0
     ports:
       - "3000:3000"
     environment:
@@ -93,7 +91,7 @@ services:
 #Socials
   socials:
     build: ./socials
-    image: waziup/socials:latest
+    image: waziup/socials:1.0
     ports:
       - 9123:9123
     environment:
