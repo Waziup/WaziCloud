@@ -10,8 +10,6 @@ let token = "";
 
 chai.use(chaiHttp);
 
-
-
 describe('Sensors with admin previledges', () => {
   before(function (done) {
     chai.request(baseUrl)
@@ -28,19 +26,19 @@ describe('Sensors with admin previledges', () => {
       });
   });
   describe('Get Sensors', () => {
-    it('it should GET all the the senseors', (done) => {
+    it('sensors are returned as an array', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           res.should.have.status(200);
-          //res.body.should.be.a('array');
+          res.body.should.be.a('array');
           done();
         });
     });
   });
   describe('Create sensors', () => {
-    it('it should POST a sensor ', (done) => {
+    it('sensor is created', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/sensors`)
         .set('authorization', `Bearer ${token}`)
@@ -50,7 +48,7 @@ describe('Sensors with admin previledges', () => {
           done();
         });
     });
-    it('it should Reject posting data with repeated values', (done) => {
+    it('sensor with the same id is rejected', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/sensors`)
         .set('Authorization', `Bearer ${token}`)
@@ -60,7 +58,7 @@ describe('Sensors with admin previledges', () => {
           done();
         });
     });
-    it('it should Reject posting a sensor with invalid data', (done) => {
+    it('sensor with invalid data is rejected', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/sensors`)
         .set('Authorization', `Bearer ${token}`)
@@ -73,25 +71,22 @@ describe('Sensors with admin previledges', () => {
   });
 
   describe('Get a Single Sensor', () => {
-    it('it should GET a sensor by the given id', (done) => {
-
+    it('retrieved sensor has all the correct values', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors/${sensor.id}`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have.property('gateway_id');
-          res.body.should.have.property('name');
-          res.body.should.have.property('owner');
-          res.body.should.have.property('measurements');
-          res.body.should.have.property('location');
-          res.body.should.have.property('id').eql(sensor.id);
+          //all fields of original sensor should be here
+          res.body.should.deep.include(sensor);
+          //read-only fields should be here
+          res.body.should.have.property('date_created');
+          res.body.should.have.property('date_modified');
           done();
         });
     });
-    it('it should give a 404 err a sensor with none existent id', (done) => {
-
+    it('non existent id is rejected', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors/this-id-does-not-exist`)
         .set('Authorization', `Bearer ${token}`)
@@ -104,7 +99,7 @@ describe('Sensors with admin previledges', () => {
   });
 
   describe('Insert Owner', () => {
-    it('it should update the owner field', (done) => {
+    it('owner field should be updated', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/owner`)
         .set('Authorization', `Bearer ${token}`)
@@ -125,7 +120,7 @@ describe('Sensors with admin previledges', () => {
     });
   });
   describe('Insert Name', () => {
-    it('it should update the name field', (done) => {
+    it('name field should be updated', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/name`)
         .set('Authorization', `Bearer ${token}`)
@@ -140,15 +135,11 @@ describe('Sensors with admin previledges', () => {
               res.body.should.have.property('name').eql('SEN1');
               done();
             })
-
         });
-
     });
-
-
   });
   describe('Insert Location', () => {
-    it('it should update the location field', (done) => {
+    it('Location field should be updated', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/location`)
         .set('Authorization', `Bearer ${token}`)
@@ -171,11 +162,88 @@ describe('Sensors with admin previledges', () => {
 
     });
   });
-
-
+  
+  describe('Get Measurements', () => {
+    it('measurements are returned as an array', (done) => {
+      chai.request(baseUrl)
+        .get(`/domains/${domain}/sensors/${sensor.id}/measurements`)
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('array');
+          done();
+        });
+    });
+  });
+  
+  describe('Create measurement', () => {
+    it('measurement is created', (done) => {
+      chai.request(baseUrl)
+        .post(`/domains/${domain}/sensors/${sensor.id}/measurements`)
+        .set('authorization', `Bearer ${token}`)
+        .send(sensor.measurements[0])
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+  describe('Get a measurement', () => {
+    it('retrieved measurement has all the correct values', (done) => {
+      chai.request(baseUrl)
+        .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${sensor.measurements[0].id}`)
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          //all fields of original sensor should be here
+          res.body.should.deep.include(sensor.measurements[0]);
+          done();
+        });
+    });
+  });
+  describe('Create measurement value', () => {
+    it('measurement value is created', (done) => {
+      chai.request(baseUrl)
+        .post(`/domains/${domain}/sensors/${sensor.id}/measurements/${sensor.measurements[0].id}/values`)
+        .set('authorization', `Bearer ${token}`)
+        .send({"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"})
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+  describe('Get measurement values', () => {
+    it('retrieved measurement values are correct', (done) => {
+      chai.request(baseUrl)
+        .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${sensor.measurements[0].id}/values`)
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('array');
+          //all fields should be here
+          res.body[0].should.include({"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"});
+          res.body[0].should.have.property("date_received");
+          done();
+        });
+    });
+    it('measurement last value is correct', (done) => {
+      chai.request(baseUrl)
+        .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${sensor.measurements[0].id}`)
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          //all fields should be here
+          res.body.last_value.should.include({"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"});
+          res.body.last_value.should.have.property("date_received");
+          done();
+        });
+    });
+  });
 
   describe('Remove Sensor', () => {
-    it('it should Remove a sensor by the given id', (done) => {
+    it('sensor should be removed', (done) => {
       chai.request(baseUrl)
         .delete(`/domains/${domain}/sensors/${sensor.id}`)
         .set('Authorization', `Bearer ${token}`)

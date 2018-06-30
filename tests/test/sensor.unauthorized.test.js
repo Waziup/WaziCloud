@@ -10,35 +10,37 @@ let token = "";
 
 chai.use(chaiHttp);
 
-before(function (done) {
-  chai.request(baseUrl)
-    .post('/auth/token')
-    .send(userCredentials)
-    .end(function (err, response) {
-      token = response.text;
-      chai.request(baseUrl)
-        .delete(`/domains/${domain}/sensors/${sensor.id}`)
-        .end((err, rss) => {
-          done();
-        })
-    });
-});
+describe('Sensors with normal priviledges', () => {
+  before(function (done) {
+    chai.request(baseUrl)
+      .post('/auth/token')
+      .send(userCredentials)
+      .end(function (err, response) {
+        chai.expect(err, "Cannot retrieve credentials").to.be.null;
+        token = response.text;
+        chai.request(baseUrl)
+          .delete(`/domains/${domain}/sensors/${sensor.id}`)
+          .set('Authorization', `Bearer ${token}`)
+          .end((err, res) => {
+            done();
+          })
+      });
+  });
 
 
-describe('Sensors', () => {
   describe('Get Sensors', () => {
-    it('it should GET all the the senseors', (done) => {
+    it('sensors are returned as an array', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors`)
         .end((err, res) => {
           res.should.have.status(200);
-          //res.body.should.be.a('array');
+          res.body.should.be.a('array');
           done();
         });
     });
   });
-  describe('Create sensors', () => {
-    it('it should POST a sensor ', (done) => {
+  describe('Create sensor', () => {
+    it('sensor is created', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/sensors`)
         .send(sensor)
@@ -47,7 +49,7 @@ describe('Sensors', () => {
           done();
         });
     });
-    it('it should Reject posting data with reapeted values', (done) => {
+    it('sensor with the same id is rejected', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/sensors`)
         .send(sensor)
@@ -56,7 +58,7 @@ describe('Sensors', () => {
           done();
         });
     });
-    it('it should Reject posting a sensor with invalid data', (done) => {
+    it('sensor with invalid data is rejected', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/sensors`)
         .send(invalidSensor)
@@ -67,24 +69,20 @@ describe('Sensors', () => {
     });
   });
 
-  describe('single sensor', () => {
-    it('it should GET a sensor by the given id', (done) => {
+  describe('Get single sensor', () => {
+    it('retrieved sensor has all the correct values', (done) => {
 
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors/${sensor.id}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          res.body.should.have.property('gateway_id');
-          res.body.should.have.property('name');
-          res.body.should.have.property('owner');
-          res.body.should.have.property('measurements');
-          res.body.should.have.property('location');
-          res.body.should.have.property('id').eql(sensor.id);
+          res.body.should.deep.include(sensor);
+
           done();
         });
     });
-    it('it should give a 404 err a sensor with none existent id', (done) => {
+    it('non existent id is rejected', (done) => {
 
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors/this-id-does-not-exist`)
@@ -96,15 +94,21 @@ describe('Sensors', () => {
     });
   });
 
-  describe('insert owner', () => {
-    it('it should update the owner field', (done) => {
+  describe('Insert owner', () => {
+    it('owner field should NOT be updated', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/owner`)
         .set('content-type', 'text/plain')
         .send("henok")
         .end((err, res) => {
-          res.should.have.status(403);
-          done();
+
+        res.should.have.status(403);
+        chai.request(baseUrl)
+          .get(`/domains/${domain}/sensors/${sensor.id}`)
+          .end((err, res) => {
+            res.body.owner.should.not.eql("henok");
+            done();
+            });
         });
 
     });
@@ -117,15 +121,17 @@ describe('Sensors', () => {
         .send("SEN1")
         .end((err, res) => {
           res.should.have.status(403);
-          done();
+          chai.request(baseUrl)
+            .get(`/domains/${domain}/sensors/${sensor.id}`)
+            .end((err, res) => {
+              res.body.owner.should.not.eql("SEN1");
+              done();
+              });
         });
-
     });
-
-
   });
   describe('insert location', () => {
-    it('it should update the location field', (done) => {
+    it('location should NOT be updated', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/location`)
         .send({
@@ -141,7 +147,7 @@ describe('Sensors', () => {
   });
 
   describe('insert sensor kind', () => {
-    it('it should update the sensor kind field', (done) => {
+    it('sensor kind should NOT be updated', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/sensor_kind`)
         .set('content-type', 'text/plain')
@@ -155,7 +161,7 @@ describe('Sensors', () => {
   });
 
   describe('Remove sensor', () => {
-    it('it should Remove a sensor by the given id', (done) => {
+    it('sensor should NOT be removed', (done) => {
       chai.request(baseUrl)
         .delete(`/domains/${domain}/sensors/${sensor.id}`)
         .end((err, res) => {

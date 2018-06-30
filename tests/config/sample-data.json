@@ -8,15 +8,9 @@
         {
           "id": "TC1",
           "name": "My garden temperature",
-          "dimension": "temperature",
-          "unit": "Degree C",
-          "sensor_kind": "Air temperature sensor",
-          "values": [
-            {
-              "value": "25.6",
-              "timestamp": "2016-06-08T18:20:27.873Z"
-            }
-          ]
+          "quantity_kind": "Temperature",
+          "unit": "DegreeCelcius",
+          "sensing_device": "Air temperature sensor"
         }
       ],
       "location": {
