@@ -46,14 +46,9 @@
     "measurement" : {
         "id": "0d710b12-27e8-433d-ab3a-e05b7127eeaa",
         "name": "TC1",
-        "dimension": "temperature",
-        "unit": "Degree C",
-        "values": [
-            {
-                "value": "25.6",
-                "timestamp": "2016-06-08T18:20:27.873Z"
-            }
-        ]
+        "sensing_device": "Thermometer",
+        "quantity_kind": "Temperature",
+        "unit": "Degree C"
     },
     "socials" : {
         "username": "cdupont",
