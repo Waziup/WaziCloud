@@ -37,7 +37,7 @@ describe('Measurements with admin previledges', () => {
       });
   });
   describe('Get Measurements', () => {
-    it('it should GET all the measurements for a given sensor', (done) => {
+    it('measurements are returned in an array', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors/${sensor.id}/measurements`)
         .set('Authorization', `Bearer ${token}`)
@@ -48,36 +48,34 @@ describe('Measurements with admin previledges', () => {
         });
     });
   });
-  describe('POST Measurements', () => {
-    it('it should add a measurement value for a given sensor', (done) => {
+  describe('Create measurement', () => {
+    it('measurement is created', (done) => {
       chai.request(baseUrl)
         .post(`/domains/${domain}/sensors/${sensor.id}/measurements`)
         .set('Authorization', `Bearer ${token}`)
         .send(measurement)
         .end((err, res) => {
           res.should.have.status(200);
-          //res.body.should.be.a('array');
-          //console.log(res);
           done();
         });
     });
   });
   describe('Get a single Measurement', () => {
-    it('it should GET all the measurements for a given sensor', (done) => {
+    it('retrieved measurement values are correct', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           res.should.have.status(200);
-          //res.body.should.be.a('array');
-          //console.log(res);
+          //all fields of original sensor should be here
+          res.body.should.deep.include(measurement);
           done();
         });
     });
   });
 
   describe('Update Name of a Measurement', () => {
-    it('it should update the name of the measurement field', (done) => {
+    it('name of measurement is updated', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/name`)
         .set('Authorization', `Bearer ${token}`)
@@ -92,56 +90,50 @@ describe('Measurements with admin previledges', () => {
               res.body.should.have.property('name').eql('ss1');
               done();
             })
-
         });
-
     });
   });
-  describe('Update Dimention of a Measurement', () => {
-    it('it should update the dimention of the measurement field', (done) => {
+  describe('Update quantity kind of a Measurement', () => {
+    it('quantity kind is updated', (done) => {
       chai.request(baseUrl)
-        .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/dimension`)
+        .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/quantity_kind`)
         .set('Authorization', `Bearer ${token}`)
         .set('content-type', 'text/plain')
-        .send("degree")
+        .send("Temperature")
         .end((err, res) => {
           res.should.have.status(200);
           chai.request(baseUrl)
             .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)
             .end((err, res) => {
-              //res.body.should.be.a('object');
-              //res.body.should.have.property('dimension').eql('degree');
+              res.body.should.be.a('object');
+              res.body.should.have.property('quantity_kind').eql('Temperature');
               done();
             })
-
         });
-
     });
   });
 
-  describe('Update dimention', () => {
-    it('it should update the dimention of the measurement field', (done) => {
+  describe('Update sensing device', () => {
+    it('sensing device is updated', (done) => {
       chai.request(baseUrl)
-        .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/dimension`)
+        .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/sensing_device`)
         .set('Authorization', `Bearer ${token}`)
         .set('content-type', 'text/plain')
-        .send("degree")
+        .send("Thermometer")
         .end((err, res) => {
           res.should.have.status(200);
           chai.request(baseUrl)
             .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)
             .end((err, res) => {
-              //res.body.should.be.a('object');
-              //res.body.should.have.property('dimension').eql('degree');
+              res.body.should.be.a('object');
+              res.body.should.have.property('sensing_device').eql('Thermometer');
               done();
             })
-
         });
-
     });
   });
   describe('Update unit', () => {
-    it('it should update the dimention of the measurement field', (done) => {
+    it('unit should be updated', (done) => {
       chai.request(baseUrl)
         .put(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/unit`)
         .set('Authorization', `Bearer ${token}`)
@@ -152,30 +144,28 @@ describe('Measurements with admin previledges', () => {
           chai.request(baseUrl)
             .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}`)
             .end((err, res) => {
-              //res.body.should.be.a('object');
-              //res.body.should.have.property('dimension').eql('degree');
+              res.body.should.be.a('object');
+              res.body.should.have.property('unit').eql('degree');
               done();
             })
-
         });
-
     });
   });
   describe('get measurement values', () => {
-    it('it should GET get measurement values', (done) => {
+    it('values are returned in an array', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/values`)
         .set('Authorization', `Bearer ${token}`)
         .end((err, res) => {
           res.should.have.status(200);
-          //res.body.should.be.a('array');
+          res.body.should.be.a('array');
           //console.log(res);
           done();
         });
     });
   });
   describe('get paginated measurement values', () => {
-    it('it should GET get measurement values', (done) => {
+    it('only a few values are returned', (done) => {
       chai.request(baseUrl)
         .get(`/domains/${domain}/sensors/${sensor.id}/measurements/${measurement.id}/values?vLimit=10&vOffset=0&vDateFrom=2016-01-01T00:00:00.000Z&vDateTo=2016-01-31T23:59:59.999Z`)
         .set('Authorization', `Bearer ${token}`)
