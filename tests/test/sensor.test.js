@@ -24,9 +24,9 @@ describe('Sensors', () => {
   //Retrieve the tokens and delete pre-existing sensor
   before(async function () {
     try {
-      withAdmin = utils.getAdminAuth()
-      withNormal = utils.getNormalAuth()
-      let t = await deleteSensor(sensor.id).set(withAdmin)
+      withAdmin = await utils.getAdminAuth()
+      withNormal = await utils.getNormalAuth()
+      await deleteSensor(sensor.id).set(withAdmin)
     } catch (err) {
       console.log('error:' + err)
     }
@@ -121,12 +121,22 @@ describe('Sensors', () => {
   });
 
   describe('Remove Sensor', () => {
-    it('sensor should be removed by admin', async () => {
+    it('admin can remove own sensor', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await deleteSensor(sensor.id).set(withAdmin)
       res.should.have.status(200);
     });
-    it('sensor should NOT be removed by normal', async () => {
+    it('admin can remove other sensor', async () => {
+      await createSensor(sensor).set(withNormal)
+      let res = await deleteSensor(sensor.id).set(withAdmin)
+      res.should.have.status(200);
+    });
+    it('normal user can remove own sensor', async () => {
+      await createSensor(sensor).set(withNormal)
+      let res = await deleteSensor(sensor.id).set(withNormal)
+      res.should.have.status(200);
+    });
+    it('normal user CANNOT remove sensor owned by other', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await deleteSensor(sensor.id).set(withNormal)
       res.should.have.status(403);

@@ -6,7 +6,7 @@ let domain = require('../config/enviroment').domain;
 let sensor = require('../config/sample-data').valid;
 let invalidSensor = require('../config/sample-data').invalid;
 let userCredentials = require('../config/sample-data').user.admin;
-let measurement = require('../config/sample-data').measurement;
+let measurement = require('../config/sample-data').valid.measurements[0];
 let utils = require('./utils');
 
 chai.use(chaiHttp);
@@ -27,8 +27,8 @@ describe('Measurements', () => {
   //Retrieve the tokens and create a new sensor
   before(async function () {
     try {
-      withAdmin = utils.getAdminAuth()
-      withNormal = utils.getNormalAuth()
+      withAdmin = await utils.getAdminAuth()
+      withNormal = await utils.getNormalAuth()
       await deleteSensor(sensor.id).set(withAdmin)
       await createSensor(sensor).set(withAdmin)
     } catch (err) {
@@ -37,7 +37,7 @@ describe('Measurements', () => {
   });
 
   //Clean after
-  after(async function () {
+  afterEach(async function () {
     try {
       await deleteSensor(sensor.id).set(withAdmin)
     } catch (err) {
@@ -54,17 +54,25 @@ describe('Measurements', () => {
     });
   });
   describe('Create measurement', () => {
-    it('measurement is created by admin', async () => {
+    it('admin can create a measurement', async () => {
+      await createSensor(sensor).set(withAdmin)
       let res = await createMeas(measurement).set(withAdmin)
       res.should.have.status(200);
     });
-    it('measurement is created by normal user', async () => {
+    it('normal user can create a measurement on his own sensor', async () => {
+      await createSensor(sensor).set(withNormal)
       let res = await createMeas(measurement).set(withNormal)
       res.should.have.status(200);
+    });
+    it('normal user CANNOT create a measurement on a sensor owned by other', async () => {
+      await createSensor(sensor).set(withAdmin)
+      let res = await createMeas(measurement).set(withNormal)
+      res.should.have.status(403);
     });
   });
   describe('Get a single Measurement', async () => {
     it('retrieved measurement values are correct', async () => {
+      await createSensor(sensor).set(withAdmin)
       let res = await getMeas(measurement.id).set(withAdmin)
       res.should.have.status(200);
       //all fields of original sensor should be here
@@ -74,18 +82,21 @@ describe('Measurements', () => {
 
   describe('Update Name of a Measurement', () => {
     it('name of measurement is updated', async () => {
+      await createSensor(sensor).set(withAdmin)
       let res = await putMeasAttr(measurement.id, "name", "ss1").set(withAdmin)
       res.should.have.status(200);
       let res2 = await getMeas(measurement.id).set(withAdmin)
       res2.body.should.have.property('name').eql('ss1');
     });
     it('normal user CANNOT update attribute of sensor that he does not own', async () => {
-      let res = await putMeasAttr(measurement.id, "name", "ss1").set(withAdmin)
+      await createSensor(sensor).set(withAdmin)
+      let res = await putMeasAttr(measurement.id, "name", "ss1").set(withNormal)
       res.should.have.status(403);
     });
   });
   describe('Update quantity kind of a Measurement', () => {
     it('quantity kind is updated', async () => {
+      await createSensor(sensor).set(withAdmin)
       let res = await putMeasAttr(measurement.id, "quantity_kind", "Temperature").set(withAdmin)
       res.should.have.status(200);
       let res2 = await getMeas(measurement.id).set(withAdmin)
@@ -95,6 +106,7 @@ describe('Measurements', () => {
 
   describe('Update sensing device', () => {
     it('sensing device is updated', async () => {
+      await createSensor(sensor).set(withAdmin)
       let res = await putMeasAttr(measurement.id, "sensing_device", "Thermometer").set(withAdmin)
       res.should.have.status(200);
       let res2 = await getMeas(measurement.id).set(withAdmin)
@@ -103,6 +115,7 @@ describe('Measurements', () => {
   });
   describe('Update unit', () => {
     it('unit should be updated', async () => {
+      await createSensor(sensor).set(withAdmin)
       let res = await putMeasAttr(measurement.id, "unit", "DegreeCelcius").set(withAdmin)
       res.should.have.status(200);
       let res2 = await getMeas(measurement.id).set(withAdmin)
@@ -111,6 +124,7 @@ describe('Measurements', () => {
   });
   describe('get measurement values', () => {
     it('values are returned in an array', async () => {
+      await createSensor(sensor).set(withAdmin)
       let res = await getMeasValues().set(withAdmin)
       res.should.have.status(200);
       res.body.should.be.a('array');
@@ -120,6 +134,7 @@ describe('Measurements', () => {
   });
   describe('push measurement value', () => {
     it('value is pushed', async () => {
+      await createSensor(sensor).set(withAdmin)
       let res = await pushMeasValue(measurement.id, {"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"}).set(withAdmin)
       res.should.have.status(200);
       let res2 = await getMeasValues().set(withAdmin)
