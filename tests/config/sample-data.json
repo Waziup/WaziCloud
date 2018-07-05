@@ -43,13 +43,6 @@
             "longitude": 4.0083
         }
     },
-    "measurement" : {
-        "id": "0d710b12-27e8-433d-ab3a-e05b7127eeaa",
-        "name": "TC1",
-        "sensing_device": "Thermometer",
-        "quantity_kind": "Temperature",
-        "unit": "Degree C"
-    },
     "socials" : {
         "username": "cdupont",
         "channel": "facebook",
@@ -66,9 +59,9 @@
         "username": "cdupont",
         "password": "password"
       },
-      "owner" : {
-        "username" : "test",
-        "password" : "test"
+      "normal" : {
+        "username" : "waziup",
+        "password" : "waziup"
       }
     },
     "notification" :{
