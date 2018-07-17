@@ -1,8 +1,8 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
-let baseUrl = require('../config/enviroment').baseUrl;
-let domain = require('../config/enviroment').domain;
+let baseUrl = require('../config/env').apiUrl;
+let domain = require('../config/env').domain;
 let sensor = require('../config/sample-data').valid;
 let invalidSensor = require('../config/sample-data').invalid;
 let userCredentials = require('../config/sample-data').user.admin;
@@ -138,7 +138,11 @@ describe('Measurements', () => {
       let res = await pushMeasValue(measurement.id, {"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"}).set(withAdmin)
       res.should.have.status(200);
       let res2 = await getMeasValues().set(withAdmin)
-      res2.body.should.be.an('array').that.includes({"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"});
+      console.log(JSON.stringify(res2))
+      //res2.body.should.be.an('array').that.includes({"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"});
+      let res3 = await getMeas(measurement.id).set(withAdmin)
+      res3.body.last_value.should.deep.include({"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"});
+      res3.body.last_value.should.have.property('date_received');
 
     });
   });

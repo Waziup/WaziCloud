@@ -1,9 +1,9 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
-let baseUrl = require('../config/enviroment').baseUrl;
+let baseUrl = require('../config/env').apiUrl;
 let adminCredentials = require('../config/sample-data').user.admin;
 let normalCredentials = require('../config/sample-data').user.normal;
-let domain = require('../config/enviroment').domain;
+let domain = require('../config/env').domain;
 let sensor = require('../config/sample-data').valid;
 
 chai.use(chaiHttp);
