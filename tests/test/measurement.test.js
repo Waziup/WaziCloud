@@ -50,7 +50,12 @@ describe('Measurements', () => {
       await createSensor(sensor).set(withAdmin)
       let res = await getMeass().set(withAdmin)
       res.should.have.status(200);
-      res.body.should.be.a('array');
+      chai.expect(res.body.map(m => m.id)).to.have.members(sensor.measurements.map(m => m.id));
+    });
+    it('normal user CANNOT see private measurements', async () => {
+      await createSensor({...sensor, visibility:'private'}).set(withAdmin)
+      let res = await getMeass().set(withNormal)
+      res.should.have.status(403);
     });
   });
   describe('Create measurement', () => {
@@ -129,8 +134,11 @@ describe('Measurements', () => {
       res.should.have.status(200);
       res.body.should.be.a('array');
     });
-  });
-  it('only a few values are returned', async () => {
+    it('normal user CANNOT see values of a private sensor', async () => {
+      await createSensor({...sensor, visibility: 'private'}).set(withAdmin)
+      let res = await getMeasValues().set(withNormal)
+      res.should.have.status(403);
+    });
   });
   describe('push measurement value', () => {
     it('value is pushed', async () => {
@@ -138,12 +146,19 @@ describe('Measurements', () => {
       let res = await pushMeasValue(measurement.id, {"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"}).set(withAdmin)
       res.should.have.status(200);
       let res2 = await getMeasValues().set(withAdmin)
-      console.log(JSON.stringify(res2))
-      //res2.body.should.be.an('array').that.includes({"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"});
       let res3 = await getMeas(measurement.id).set(withAdmin)
       res3.body.last_value.should.deep.include({"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"});
       res3.body.last_value.should.have.property('date_received');
-
+    });
+    it('normal user can push on public sensor', async () => {
+      await createSensor(sensor).set(withAdmin)
+      let res = await pushMeasValue(measurement.id, {"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"}).set(withNormal)
+      res.should.have.status(200);
+    });
+    it('normal user CANNOT push on private sensor', async () => {
+      await createSensor({...sensor, visibility: 'private'}).set(withAdmin)
+      let res = await pushMeasValue(measurement.id, {"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"}).set(withNormal)
+      res.should.have.status(403);
     });
   });
 })
