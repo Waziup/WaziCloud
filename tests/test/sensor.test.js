@@ -52,10 +52,30 @@ describe('Sensors', () => {
   });
 
   describe('Get Sensors', () => {
-    it2('sensors are returned as an array', async () => {
+    it('admin can get sensors', async () => {
+      await createSensor(sensor).set(withAdmin)
       let res = await getSensors().set(withAdmin)
-      res.should.have.status(200);
-      res.body.should.be.a('array');
+      chai.expect(res.body.map(s => s.id)).to.include(sensor.id);
+    });
+    it('admin can see private sensors', async () => {
+      await createSensor({...sensor, visibility: 'private'}).set(withNormal)
+      let res = await getSensors().set(withAdmin)
+      chai.expect(res.body.map(s => s.id)).to.include(sensor.id);
+    });
+    it('normal user can see public sensor', async () => {
+      await createSensor(sensor).set(withAdmin)
+      let res = await getSensors().set(withNormal)
+      chai.expect(res.body.map(s => s.id)).to.include(sensor.id);
+    });
+    it('normal user can see own sensor', async () => {
+      await createSensor({...sensor, visibility: 'private'}).set(withNormal)
+      let res = await getSensors().set(withNormal)
+      chai.expect(res.body.map(s => s.id)).to.include(sensor.id);
+    });
+    it('normal user CANNOT see private sensor', async () => {
+      await createSensor({...sensor, visibility: 'private'}).set(withAdmin)
+      let res = await getSensors().set(withNormal)
+      chai.expect(res.body.map(s => s.id)).to.not.include(sensor.id);
     });
   });
   describe('Create sensor', () => {
@@ -113,6 +133,12 @@ describe('Sensors', () => {
       let res2 = await getSensor(sensor.id).set(withAdmin);
       res2.body.should.have.property('name').eql('SEN1');
     });
+    it('normal user can update own sensor', async () => {
+      await createSensor(sensor).set(withNormal)
+      let res = await setSensorAttr(sensor.id, "name", "SEN1").set(withNormal)
+      let res2 = await getSensor(sensor.id).set(withNormal);
+      res2.body.should.have.property('name').eql('SEN1');
+    });
     it('normal user CANNOT update sensor that he does not own', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await setSensorAttr(sensor.id, "name", "SEN1").set(withNormal)
@@ -123,7 +149,6 @@ describe('Sensors', () => {
     it('Location field should be updated', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await setSensorLocation(sensor.id, {latitude: 5.36, longitude: 4.0083}).set(withAdmin)
-      //console.log(res.text)
       res.should.have.status(200);
       let res2 = await getSensor(sensor.id).set(withAdmin)
       res2.body.should.have.property('location').eql({"latitude": 5.36, "longitude": 4.0083});

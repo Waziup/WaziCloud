@@ -17,7 +17,8 @@
         "latitude": 5.36,
         "longitude": 4.0083
       },
-      "domain": "waziup"
+      "domain": "waziup",
+      "visibility": "public"
     },
     "invalid" : {
         "gateway_id": "0d710b12-27e8-433d-ab3a-e05b7127eeaa",
