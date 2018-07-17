@@ -145,10 +145,12 @@ describe('Measurements', () => {
       await createSensor(sensor).set(withAdmin)
       let res = await pushMeasValue(measurement.id, {"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"}).set(withAdmin)
       res.should.have.status(200);
-      let res2 = await getMeasValues().set(withAdmin)
-      let res3 = await getMeas(measurement.id).set(withAdmin)
-      res3.body.last_value.should.deep.include({"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"});
-      res3.body.last_value.should.have.property('date_received');
+      let res2 = await getMeas(measurement.id).set(withAdmin)
+      res2.body.last_value.should.deep.include({"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"});
+      res2.body.last_value.should.have.property('date_received');
+      let res3 = await getMeasValues(measurement.id).set(withAdmin)
+      chai.expect(res3.body[0]).to.deep.include({"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"});
+      res3.body[0].should.have.property('date_received');
     });
     it('normal user can push on public sensor', async () => {
       await createSensor(sensor).set(withAdmin)
@@ -159,6 +161,46 @@ describe('Measurements', () => {
       await createSensor({...sensor, visibility: 'private'}).set(withAdmin)
       let res = await pushMeasValue(measurement.id, {"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"}).set(withNormal)
       res.should.have.status(403);
+    });
+    it('number value is pushed', async () => {
+      await createSensor(sensor).set(withAdmin)
+      let res = await pushMeasValue(measurement.id, {"value": 25.6}).set(withAdmin)
+      let res2 = await getMeas(measurement.id).set(withAdmin)
+      let res3 = await getMeasValues(measurement.id).set(withAdmin)
+      res2.body.last_value.should.deep.include({"value": 25.6});
+      res3.body[0].should.deep.include({"value": 25.6});
+    });
+    it('string value is pushed', async () => {
+      await createSensor(sensor).set(withAdmin)
+      let res = await pushMeasValue(measurement.id, {"value": "A"}).set(withAdmin)
+      let res2 = await getMeas(measurement.id).set(withAdmin)
+      let res3 = await getMeasValues(measurement.id).set(withAdmin)
+      res2.body.last_value.should.deep.include({"value": "A"});
+      res3.body[0].should.deep.include({"value": "A"});
+    });
+    it('boolean value is pushed', async () => {
+      await createSensor(sensor).set(withAdmin)
+      let res = await pushMeasValue(measurement.id, {"value": true}).set(withAdmin)
+      let res2 = await getMeas(measurement.id).set(withAdmin)
+      let res3 = await getMeasValues(measurement.id).set(withAdmin)
+      res2.body.last_value.should.deep.include({"value": true});
+      res3.body[0].should.deep.include({"value": true});
+    });
+    it('array value is pushed', async () => {
+      await createSensor(sensor).set(withAdmin)
+      let res = await pushMeasValue(measurement.id, {"value": [true]}).set(withAdmin)
+      let res2 = await getMeas(measurement.id).set(withAdmin)
+      let res3 = await getMeasValues(measurement.id).set(withAdmin)
+      res2.body.last_value.should.deep.include({"value": [true]});
+      res3.body[0].should.deep.include({"value": [true]});
+    });
+    it('object value is pushed', async () => {
+      await createSensor(sensor).set(withAdmin)
+      let res = await pushMeasValue(measurement.id, {"value": {a:1, b:"2"}}).set(withAdmin)
+      let res2 = await getMeas(measurement.id).set(withAdmin)
+      let res3 = await getMeasValues(measurement.id).set(withAdmin)
+      res2.body.last_value.should.deep.include({"value": {a:1, b:"2"}});
+      res3.body[0].should.deep.include({"value": {a:1, b:"2"}});
     });
   });
 })

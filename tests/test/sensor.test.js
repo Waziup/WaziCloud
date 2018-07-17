@@ -78,6 +78,7 @@ describe('Sensors', () => {
       chai.expect(res.body.map(s => s.id)).to.not.include(sensor.id);
     });
   });
+
   describe('Create sensor', () => {
     it('sensor is created by admin', async () => {
       let res = await createSensor(sensor).set(withAdmin)
@@ -89,7 +90,7 @@ describe('Sensors', () => {
     });
     it('sensor with the same id is rejected', async () => {
       await createSensor(sensor).set(withAdmin)
-      let res = await createSensor(sensor).set(withAdmin)
+      let res = await createSensor(sensor).set(withNormal)
       res.should.have.status(422);
     });
     it('sensor with invalid data is rejected', async () => {
