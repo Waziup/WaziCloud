@@ -24,7 +24,7 @@ docker-compose pull
 docker-compose up
 ```
 
-You can then access Waziup platform on http://localhost
+This will take a while. Once finished, you can then access Waziup platform on http://localhost:3000
 
 See [this file](INSTALL.md) for the installation instructions on Cloud platforms.
 
