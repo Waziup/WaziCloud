@@ -1,0 +1,15 @@
+.login-pf body {
+    background: #1F4356;
+}
+
+#kc-header-wrapper {
+    background-image: url("../img/logo-waziup-white.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-size: 0px;
+    margin-top: 10px;
+    margin-left: 20px;
+    height: 60px;
+    width: 238px; 
+}
