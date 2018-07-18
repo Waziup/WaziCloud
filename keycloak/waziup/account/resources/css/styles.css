@@ -20,21 +20,28 @@ header .navbar {
 
 .navbar-title {
     background-image: url('../img/logo.png');
-    height: 25px;
+    background-size: 150px;
+    background-color: white;
+    height: 35px;
     background-repeat: no-repeat;
-    width: 123px;
+    width: 250px;
     margin: 3px 10px 5px;
     text-indent: -99999px;
 }
 
 .navbar-pf .navbar-utility {
-	right: 20px;
-    top: -34px;
+    right: 20px;
+    top: -36px;
     font-size: 12px;
 }
 
+.navbar-pf {
+    background-color: white !important;
+}
+
 .navbar-pf .navbar-utility > li > a {
-    color: #fff !important;
+    background-color: white !important;
+    color: black !important;
     padding-bottom: 12px;
     padding-top: 11px;
     border-left: medium none;
@@ -51,6 +58,10 @@ header .navbar {
     border-width: 0 1px;
     height: 100%;
     padding: 0 30px;
+}
+
+.margin-bottom {
+    margin-bottom: 10px;
 }
 
 /* Sidebar */
@@ -262,4 +273,12 @@ hr + .form-horizontal {
 }
 .kc-dropdown:hover ul{
     display:block;
+}
+
+
+#kc-totp-secret-key {
+    border: 1px solid #eee;
+    font-size: 16px;
+    padding: 10px;
+    margin: 50px 0;
 }
