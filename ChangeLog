@@ -1,0 +1,10 @@
+V1.0
+- API complete with auth, domains, sensors, entities, users, socials and notifications
+- Dashboard complete: sensors context and data, user management, notifications, map view, gateways
+- Keycloak configured with MySQL, providing basic authentication and authorization
+- Social module to send messsages on social networks
+- Orion module for sensor context data and notifications
+- Mongo DB for sensor data
+- Test suite
+- Waziup javascript library for interacting with the API
+- Deployement manifests for Kubernetes and Amazon
