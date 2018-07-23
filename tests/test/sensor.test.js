@@ -12,7 +12,8 @@ console.log("baseUrl:" + baseUrl)
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;
 
-let getSensors = () => chai.request(baseUrl).get(`/domains/${domain}/sensors`)
+let getPermissions = () => chai.request(baseUrl).get(`/auth/permissions`)
+let getSensors = () => chai.request(baseUrl).get(`/domains/${domain}/sensors?limit=100`)
 let createSensor = (s) => chai.request(baseUrl).post(`/domains/${domain}/sensors`).send(s)
 let getSensor = (id) => chai.request(baseUrl).get(`/domains/${domain}/sensors/${id}`)
 let setSensorAttr = (id, attr, value) => chai.request(baseUrl).put(`/domains/${domain}/sensors/${id}/${attr}`).set('content-type', 'text/plain').send(value)
@@ -51,6 +52,37 @@ describe('Sensors', () => {
     }
   });
 
+  describe('Get Permissions', () => {
+    it('admin have permissions on sensor', async () => {
+      await createSensor(sensor).set(withNormal)
+      let res = await getPermissions().set(withAdmin)
+      let scopes = res.body.find(p => p.resource == sensor.id).scopes
+      chai.expect(scopes).members(['sensors:view', 'sensors:update', 'sensors:delete', 'sensors-data:create', 'sensors-data:view']);
+    });
+    it('admin have permissions on private sensor', async () => {
+      await createSensor({...sensor, visibility: 'private'}).set(withNormal)
+      let res = await getPermissions().set(withAdmin)
+      let scopes = res.body.find(p => p.resource == sensor.id).scopes
+      chai.expect(scopes).members(['sensors:view', 'sensors:update', 'sensors:delete', 'sensors-data:create', 'sensors-data:view']);
+    });
+    it('normal user have permissions on own sensor', async () => {
+      await createSensor(sensor).set(withNormal)
+      let res = await getPermissions().set(withNormal)
+      let scopes = res.body.find(p => p.resource == sensor.id).scopes
+      chai.expect(scopes).members(['sensors:view', 'sensors:update', 'sensors:delete', 'sensors-data:create', 'sensors-data:view']);
+    });
+    it('normal user can just see other sensor', async () => {
+      await createSensor(sensor).set(withAdmin)
+      let res = await getPermissions().set(withNormal)
+      let scopes = res.body.find(p => p.resource == sensor.id).scopes
+      chai.expect(scopes).members(['sensors:view', 'sensors-data:view']);
+    });
+    it('normal user cannot see private sensor', async () => {
+      await createSensor({...sensor, visibility: 'private'}).set(withAdmin)
+      let res = await getPermissions().set(withNormal)
+      chai.expect(res.body.map(s => s.id)).to.not.include(sensor.id);
+    });
+  });
   describe('Get Sensors', () => {
     it('admin can get sensors', async () => {
       await createSensor(sensor).set(withAdmin)
@@ -62,17 +94,17 @@ describe('Sensors', () => {
       let res = await getSensors().set(withAdmin)
       chai.expect(res.body.map(s => s.id)).to.include(sensor.id);
     });
-    it('normal user can see public sensor', async () => {
+    it('normal user can see public sensors', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await getSensors().set(withNormal)
       chai.expect(res.body.map(s => s.id)).to.include(sensor.id);
     });
-    it('normal user can see own sensor', async () => {
+    it('normal user can see own sensors', async () => {
       await createSensor({...sensor, visibility: 'private'}).set(withNormal)
       let res = await getSensors().set(withNormal)
       chai.expect(res.body.map(s => s.id)).to.include(sensor.id);
     });
-    it('normal user CANNOT see private sensor', async () => {
+    it('normal user CANNOT see private sensors', async () => {
       await createSensor({...sensor, visibility: 'private'}).set(withAdmin)
       let res = await getSensors().set(withNormal)
       chai.expect(res.body.map(s => s.id)).to.not.include(sensor.id);
@@ -114,6 +146,26 @@ describe('Sensors', () => {
     it('non existent id is rejected', async () => {
       let res = await getSensor('this-id-does-not-exist').set(withAdmin)
       res.should.have.status(404);
+    });
+    it('admin can see private sensor', async () => {
+      await createSensor({...sensor, visibility: 'private'}).set(withNormal)
+      let res = await getSensor(sensor.id).set(withAdmin)
+      res.body.should.have.property('id').eql(sensor.id);
+    });
+    it('normal user can see public sensor', async () => {
+      await createSensor(sensor).set(withAdmin)
+      let res = await getSensor(sensor.id).set(withNormal)
+      res.body.should.have.property('id').eql(sensor.id);
+    });
+    it('normal user can see own sensor', async () => {
+      await createSensor({...sensor, visibility: 'private'}).set(withNormal)
+      let res = await getSensor(sensor.id).set(withNormal)
+      res.body.should.have.property('id').eql(sensor.id);
+    });
+    it('normal user CANNOT see private sensor', async () => {
+      await createSensor({...sensor, visibility: 'private'}).set(withAdmin)
+      let res = await getSensor(sensor.id).set(withNormal)
+      res.should.have.status(403);
     });
   });
 
