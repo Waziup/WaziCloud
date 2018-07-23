@@ -67,6 +67,30 @@ In order to see if Feeder is storing data into ElasticSearch:
 
 ```
 
+Backup
+------
+
+`mysqldump` is used to backup user database.
+```
+mysqldump -h dev.waziup.io -P 3306 -u root -proot_password --all-databases > /var/backups/mysqlbackups/`date +"%m-%d-%y"`
+```
+
+Restore the data:
+```
+mysql -u root -proot_password <  /var/backups/mysqlbackups/`date +"%m-%d-%y"`
+```
+
+`mongodump` is used to backup sensor data:
+```
+mongodump --host dev.waziup.io --port 27017 --out /var/backups/mongobackups/`date +"%m-%d-%y"`
+```
+
+This command restores it in the local instance:
+```
+mongorestore /var/backups/mongobackups/`date +"%m-%d-%y"`
+```
+
+
 Debug
 -----
 
