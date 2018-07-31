@@ -71,11 +71,11 @@ describe('Sensors', () => {
       let scopes = res.body.find(p => p.resource == sensor.id).scopes
       chai.expect(scopes).members(['sensors:view', 'sensors:update', 'sensors:delete', 'sensors-data:create', 'sensors-data:view']);
     });
-    it('normal user can just see other sensor', async () => {
+    it('normal user can see public sensor and add data', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await getPermissions().set(withNormal)
       let scopes = res.body.find(p => p.resource == sensor.id).scopes
-      chai.expect(scopes).members(['sensors:view', 'sensors-data:view']);
+      chai.expect(scopes).members(['sensors:view', 'sensors-data:view', 'sensors-data:create']);
     });
     it('normal user cannot see private sensor', async () => {
       await createSensor({...sensor, visibility: 'private'}).set(withAdmin)
