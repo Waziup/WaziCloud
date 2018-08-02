@@ -53,6 +53,9 @@ describe('Sensors', () => {
   });
 
   describe('Get Permissions', () => {
+    it('should return permissions', async () => {
+      await getPermissions().set(withAdmin)
+    });
     it('admin have permissions on sensor', async () => {
       await createSensor(sensor).set(withNormal)
       let res = await getPermissions().set(withAdmin)
