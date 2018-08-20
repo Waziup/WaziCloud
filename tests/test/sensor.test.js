@@ -145,6 +145,7 @@ describe('Sensors', () => {
       //read-only fields should be here
       res.body.should.have.property('date_created');
       res.body.should.have.property('date_modified');
+      res.body.should.have.property('owner').eql("cdupont");
     });
     it('non existent id is rejected', async () => {
       let res = await getSensor('this-id-does-not-exist').set(withAdmin)
