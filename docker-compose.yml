@@ -99,6 +99,15 @@ services:
     links:
       - mongo
 
+  proxy:
+    build: ./proxy
+    image: waziup/proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ${WAZIUP_DATA}/certs/:/certs/live/dev.waziup.io/'
+
 # ELS
   elasticsearch:
     build: ./elasticsearch
