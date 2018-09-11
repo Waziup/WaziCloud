@@ -1,35 +1,34 @@
 {
   "realm" : "waziup",
   "users" : [ {
-    "id" : "39575669-0fd7-4c01-8461-97252c15e540",
-    "createdTimestamp" : 1530019538772,
-    "username" : "1234you",
+    "id" : "d9d54300-3791-443c-884c-0c52c43d64db",
+    "createdTimestamp" : 1511536244995,
+    "username" : "guest",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
-    "firstName" : "djirimbail",
-    "lastName" : "diawara",
-    "email" : "diawarayouba@gmail.com",
+    "firstName" : "guest",
+    "lastName" : "guest",
     "credentials" : [ {
       "type" : "password",
-      "hashedSaltedValue" : "dV1Ul/CtjlvKrwmmvHeL9Ec9lSoL1ygqwDy2HxGfZLP3+eO1T+aHx1BY60d8YSMxa9+fGli25q4u59a1EnGXMw==",
-      "salt" : "8vgwMcq34bmq2GoBHqkSdg==",
+      "hashedSaltedValue" : "r3JQENqXF6fUy/66+dUNGD5JUgSpFoQyc1ww3hcucIMqukDXOMjSWYZ4vue9nLxB+AUNFm6LUsv6l/L7jCVMgg==",
+      "salt" : "RqqV7zS5zXyde4iuEb44vw==",
       "hashIterations" : 20000,
       "counter" : 0,
       "algorithm" : "pbkdf2-sha256",
       "digits" : 0,
       "period" : 0,
-      "createdDate" : 1530019538778,
+      "createdDate" : 1511536319262,
       "config" : { }
     } ],
     "disableableCredentialTypes" : [ "password" ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "realmRoles" : [ "unregistered_user", "offline_access", "uma_authorization" ],
     "clientRoles" : {
       "account" : [ "manage-account", "view-profile" ]
     },
     "notBefore" : 0,
-    "groups" : [ "/waziup" ]
+    "groups" : [ ]
   }, {
     "id" : "8c0aa630-26c3-4447-80dd-e3205cf16d31",
     "createdTimestamp" : 1527161993219,
