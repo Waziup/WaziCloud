@@ -5,4 +5,7 @@ ssl_session_cache  builtin:1000  shared:SSL:10m;
 ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
 ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
 ssl_prefer_server_ciphers on;
-
+proxy_buffering on;
+proxy_buffer_size 128k;
+proxy_buffers 4 256k;
+proxy_busy_buffers_size 256k;
