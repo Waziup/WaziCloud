@@ -7,6 +7,9 @@
     "enabled" : true,
     "totp" : false,
     "emailVerified" : false,
+    "firstName" : "admin",
+    "lastName" : "admin",
+    "email" : "cdupont@fbk.eu",
     "credentials" : [ {
       "type" : "password",
       "hashedSaltedValue" : "3OilHYj6dv4vGtacoZep7lVw+nfdDVZV6zrWpWDJnhBWW92jeKk7rP6hzlI45tkBpBCUAS+oI+uwAC59GcG5Ow==",

@@ -1,15 +1,770 @@
 {
   "realm" : "waziup",
   "users" : [ {
+    "id" : "39575669-0fd7-4c01-8461-97252c15e540",
+    "createdTimestamp" : 1530019538772,
+    "username" : "1234you",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "djirimbail",
+    "lastName" : "diawara",
+    "email" : "diawarayouba@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "dV1Ul/CtjlvKrwmmvHeL9Ec9lSoL1ygqwDy2HxGfZLP3+eO1T+aHx1BY60d8YSMxa9+fGli25q4u59a1EnGXMw==",
+      "salt" : "8vgwMcq34bmq2GoBHqkSdg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1530019538778,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "8c0aa630-26c3-4447-80dd-e3205cf16d31",
+    "createdTimestamp" : 1527161993219,
+    "username" : "214251787",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Mxondisi",
+    "lastName" : "Nsimbini",
+    "email" : "alignmj@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "iEjn6LHR6LtGvm4buZk07U7Mdo1PHsbBHxTxGBT/1Nj3Pj1X6Asx7DdJmk9CMKsjo6cYFKsNGU3wcSP084mAow==",
+      "salt" : "4DpV7Vc8+QdF8EtAqc946g==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1527161993225,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "bf48042c-3759-4d4a-8785-a9df0ccee3ec",
+    "createdTimestamp" : 1524662362916,
+    "username" : "abuu",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Absawidi Ramadhani",
+    "lastName" : "Mfanga",
+    "email" : "mfangaa@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "GiSZV893tRBdO96x1GELtlCzdL+pDBhYmydOvzbsM+oBuaTyYszfe/TEjD/OJ7XMfB/wJYwZbD7OUcZFs+QzhQ==",
+      "salt" : "R0PWowjZaVKQR7ZW+FYbSQ==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524727768424,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "0f88f86b-7ea9-413f-bd1b-0e1e9cd3156a",
+    "createdTimestamp" : 1529665484883,
+    "username" : "adjoa.maison",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Adjoa",
+    "lastName" : "Maison",
+    "email" : "adjoa@clouport.tech",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "s81uLIzUW1k0Lif93uSGUaB3Z3scmTRq1mscfDHB9LAT5Jw3s4rYzImXdz/3pz9bjuztg7sLnbm4OC1dRdJQqw==",
+      "salt" : "If1X1GuPVyCJyRMNpBdi2Q==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1529665484889,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "VERIFY_EMAIL" ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "06ffea55-149e-44bc-aded-f96ea518c627",
+    "createdTimestamp" : 1529667130932,
+    "username" : "adjoa_maison",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Adjoa",
+    "lastName" : "Maison",
+    "email" : "adjoa@cloudport.tech",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "NIHtDuHFAXLZzRUM5pYZ5B9OTSVOwTfRtCxoqrYQ1YUgp7yvozMdwjtWyT+jxJeQwPS2PVv6fxlFK5NaolMohQ==",
+      "salt" : "cnpAriGzopx+PEVCCRsoPg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1529667130938,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "a51c7609-2104-458d-abc6-57837c2d2525",
+    "createdTimestamp" : 1528964842488,
+    "username" : "alf141",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "servane",
+    "lastName" : "crave",
+    "email" : "servane.crave@orange.com",
+    "attributes" : {
+      "twitter" : [ "" ],
+      "address" : [ "" ],
+      "phone" : [ "+33685632413" ],
+      "subservice" : [ "" ],
+      "facebook" : [ "" ]
+    },
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "MEC/BSaQpzV7sRbjY8vtyY8LFzlsJ/IMNxF/FoDGU+tpqnmQpVpezfQuplAwWCC8PiSCpM9I5SK5x8sPpQt8FA==",
+      "salt" : "o+dub0cdI6gu5lI1ogKcmA==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1528964842501,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "7f8f5f53-4b76-4f47-a670-0d88560c4c15",
+    "createdTimestamp" : 1523888724852,
+    "username" : "amr.goncalves",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "António",
+    "lastName" : "Gonçalves",
+    "email" : "antonio.goncalves@unparallel.pt",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "2DO8sd27aHHVQPx0Fse3KVdIGYMjAFQ1sLTd2AszOwKfRl+Yrw5BMxhaBiSPIegx6NuINS8KP3ljnFwgP40ggA==",
+      "salt" : "3h0HV/jfXogwjKAMl9+1bg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1523888724861,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "38c82fe6-355b-4406-9520-9e9ea6ec5b59",
+    "createdTimestamp" : 1527580701597,
+    "username" : "andre101",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Andre",
+    "lastName" : "Lochner",
+    "email" : "andre.lochner@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "duDDDlt7LMTlL0cCZso2MGUdxKFhZ+QqTSHx6jDA+IMReqH7xKK7v3T7vw7SnxJngFqIyEsZIs9jvEevQxQh9w==",
+      "salt" : "Z3BW5gnftvUMWnoUWewSCw==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1527580701606,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "779112ec-c03c-46fc-b04c-9668cdb3cf49",
+    "createdTimestamp" : 1527859938477,
+    "username" : "andre102",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Andre",
+    "lastName" : "Lochner",
+    "email" : "andre.lochner@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "ZIPBFpignbC/4MloT+UfR3RcJQyCpoBBzGlC8y7ObDC7GbGkDN1MrWk7Q/du5jb2UhVNxmdXWaUlz/z1kcnu7g==",
+      "salt" : "Uenv3AxAH71Zg3gexlpZMw==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1527859938541,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "7fd983d2-1b0b-49fd-8588-b1e9f858b546",
+    "createdTimestamp" : 1525778783005,
+    "username" : "andree",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "tugume",
+    "lastName" : "andrew",
+    "email" : "andrewtugume2@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "+rioEspc5CEKhLQEeHW2gyAji+zp//aGuygpj4vGG3m2zfeaHuUIMrOUSpqdk/1/1BnPUXwb2IBFWp62zD7QOQ==",
+      "salt" : "nA1bGev1JjkdcfqDS4G1pg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1525778783010,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "a4e83bc2-7a99-48d4-9a34-5a1d8415ca39",
+    "createdTimestamp" : 1524580348637,
+    "username" : "aphrorwa",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Aphrodice",
+    "lastName" : "Rwagaju",
+    "email" : "aphrorwa@gmail.com",
+    "attributes" : {
+      "twitter" : [ "" ],
+      "address" : [ "" ],
+      "phone" : [ "+250788458261" ],
+      "subservice" : [ "" ],
+      "facebook" : [ "" ]
+    },
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "rgm6vj1a44Qnny/ZQl/7T7qBIZ1PkaWPAscrF6IVhOFCHU3irmiCLSYvqfMMdAZahiwPLdTMPTYnI8QQ1M7MNA==",
+      "salt" : "MOJoFCz3LKhFJ42dDblvHQ==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524580348645,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "09d95ffa-3de5-4c5e-90e7-dd1faa4af1a8",
+    "createdTimestamp" : 1520249204864,
+    "username" : "arahim",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "abdur",
+    "lastName" : "Rahim",
+    "email" : "rahim.biswas@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "X0XYAeajezrCIgawfoPsFv3OFGuYyiBuZK4iGXY/5VfLYGKnL5wneorqpWmWOSWFtUX6avrVF7WBuUMWEBZUWA==",
+      "salt" : "6rFjg8RX0U1r6iMb3Tyidg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1520249204899,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "87e0f8a5-012c-4ad1-bfab-39f8e076b952",
+    "createdTimestamp" : 1530380990730,
+    "username" : "armelo",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "MOUDINE",
+    "lastName" : "ARMEL",
+    "email" : "moudinearmel@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "+63PEbH6YayG9HyDQHk+5DgSwLaCjTYyp+886DAlPMjlwtEjJzQqcWdsV8dcimQGVEGLSQo3Ix7+f4jLvu/Rhg==",
+      "salt" : "I7m5V5+fEob/fqFRuICJmA==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1530380990739,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "5ee30c69-eadf-4864-b0fb-a22f25ce1960",
+    "createdTimestamp" : 1525590319799,
+    "username" : "ashiraf",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Ashiraf",
+    "lastName" : "Nsibambi Kyabainze",
+    "email" : "ashiraf35@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "Co5JCc9t7MlpoaYbmSN59x35B4k9X1MKzHdAI8IGafgkdIRglWuKlmGlWzX23KCsCtY5Q8GupDA/5XBTu065Uw==",
+      "salt" : "mFHeK0kTu/Pi93fqyItLtQ==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1525590319807,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "0b4fc712-559d-4d28-bdb2-4492412635c0",
+    "createdTimestamp" : 1523124994073,
+    "username" : "askia",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Ali",
+    "lastName" : "Kone",
+    "email" : "askia28@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "WjPiT293FeNuuNhhCBTJNCZEtU34n2ZoHEjUccfYIH1R4AhGghCMBXd4fhAsV1OA+MWm8+dtiVpHVgLXWX2Z7g==",
+      "salt" : "+2cq87fjom8MqJqJDeCQRg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1523124994087,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "VERIFY_EMAIL" ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "cd261a32-3b6e-4f0e-bcb7-45048aa49d8f",
+    "createdTimestamp" : 1520004463130,
+    "username" : "askiafinance",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Ali",
+    "lastName" : "Kane",
+    "email" : "askiafinance@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "Q7qSel2ZXrwDLnmGBSi6J+iKjFJYGU1w0hz2veN9lTWWCEH5qF2nW0PfwjTe1XyARDqvQLOFhClbJl1X6oleeg==",
+      "salt" : "PkLUzSrDjIAZ0Z4bn3p+2A==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1520004463156,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "VERIFY_EMAIL" ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "d6926dbd-9819-474f-a40a-f5f67495718d",
+    "createdTimestamp" : 1530516773341,
+    "username" : "baaalmart",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Martin",
+    "lastName" : "Bbaale",
+    "email" : "bbaalmart@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "1i340ldLckvXYRg7UR1aLQrhrvpg3NOz9Wszso/ulyPwlClbbOLMVDefYxQ/d033ffuxIyrj+dhDUuZBKOv5mg==",
+      "salt" : "3D0u3NMfRdoFdL/13746OA==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1530516773358,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "3e96cef7-14ca-4a09-a4bd-e2e8f710876f",
+    "createdTimestamp" : 1529764928575,
+    "username" : "baahbaggio",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Emmanuel",
+    "lastName" : "Amponsah Baah",
+    "email" : "baahbaggio@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "GXZ0BZ7E03MUXc8ljHIFwB5YMLvGfF5UQlh7AVVOPNksIQstQHLRAz1UcnOUrwblRF4Mv3+TRrQRXRFI7G6JXA==",
+      "salt" : "hiHbaaFygOl5Z9XmdBJNYg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1529764928584,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "df176613-1469-4e17-81f8-db8f0573b925",
+    "createdTimestamp" : 1523879754748,
+    "username" : "bmpalmeida",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Bruno",
+    "lastName" : "Almeida",
+    "email" : "bruno.almeida@unparallel.pt",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "j9R2Y7VHPbe73Q4PlPohbjvyD/6nfOhKOHM1HYNx+ih3EehhVKJIo4bpfBb2bei48ht6NtHDY4NdYrBjaqkr9Q==",
+      "salt" : "zqMAbDNySI8LsXw+1GMclA==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1523879754759,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "06c10061-25b5-4223-aa19-910b5a09940a",
+    "createdTimestamp" : 1524579603522,
+    "username" : "boniface",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Boniface",
+    "lastName" : "Kaghusa",
+    "email" : "bojosmuta@gmail.com",
+    "attributes" : {
+      "twitter" : [ "@KaghusaBoni" ],
+      "address" : [ "" ],
+      "phone" : [ "0785481627" ],
+      "subservice" : [ "" ],
+      "facebook" : [ "" ]
+    },
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "OifJRQSO3Y1xjpFzWT8JZwT+VfmBkVM3HdaKatPJNfvrFWvVv00JK8V/ZfgIcC/GoLZCzQW7eVPl64KqpeI03A==",
+      "salt" : "hm8GauumTIHInNcyp9Icrg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524579603537,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "5ce43d0f-2d33-44ae-9ba1-6305a3227241",
+    "createdTimestamp" : 1527941351880,
+    "username" : "bree",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Brendon",
+    "lastName" : "Clark",
+    "email" : "brendo.clark@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "1p4v6vKx2Js1bzxSUgiR4cXxoqJit3G+DyzQ7Fs41ZL9QtIoEhDOpA03ntBwbbGlgLAnoi21x4zL3rgbq4p7jg==",
+      "salt" : "GHTVJDJHYx/v+4iGzvXl4g==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1527941351890,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "85305b95-ecb0-40da-bafa-7df4d81e39d0",
+    "createdTimestamp" : 1525515126404,
+    "username" : "bridges",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Bridgette",
+    "lastName" : "Nalumu",
+    "email" : "lovebridge39@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "ccKNXwipr/2O+N5EoVwsxmd3iLqRZyu22I8q1a5nfGhQlQMB/84tytxvIJcNoKaHmSpowZgneHPoBZShnE9qLg==",
+      "salt" : "mNa9EE2bXy8nW++xJRZ/BQ==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1525515126414,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "8d390b81-ae66-4c42-93e9-bd599e013f67",
+    "createdTimestamp" : 1524647282425,
+    "username" : "butera.justin",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Justin",
+    "lastName" : "Butera",
+    "email" : "buterajustin1@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "8VR0r8KH/z74WyEMSYFakK8BYnVyrYzORvtky1ZWS+cKKre6zYe2RFGs/YUbF9qVXRkjk2E0Rd2ytGZ4dapkbA==",
+      "salt" : "5KqCdtte6+KwRabe0JnLqQ==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524647282432,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "ea55e192-52d8-416b-a85e-7aeee1001dbb",
+    "createdTimestamp" : 1524578478097,
+    "username" : "calorinekatushabe",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "calorine",
+    "lastName" : "katushabe",
+    "email" : "calorinekatushabe@gmail.com",
+    "attributes" : {
+      "twitter" : [ "" ],
+      "address" : [ "" ],
+      "phone" : [ "+256 706744875" ],
+      "subservice" : [ "" ],
+      "facebook" : [ "" ]
+    },
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "/fxbufzeh6ZHjUU32o6TpbAsrWB+16JEu8vOkGdJVU9zMWP1CpKM5J5Eh6YHMqGZ79IaCzu8bQ9VzfqGK4hbLQ==",
+      "salt" : "P+g2yFn8IN/NZcN7oeqdgQ==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524578478106,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
     "id" : "2ecfae24-f340-4ad0-a12e-02cdc60cd8ba",
     "createdTimestamp" : 1497371053621,
     "username" : "cdupont",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
-    "firstName" : "test",
-    "lastName" : "test",
+    "firstName" : "Corentin",
+    "lastName" : "Dupont",
     "email" : "cdupont@fbk.eu",
+    "attributes" : {
+      "twitter" : [ "corentindupont2" ],
+      "address" : [ "" ],
+      "phone" : [ "+393806412093" ],
+      "subservice" : [ "" ],
+      "facebook" : [ "corentin.dupont2" ]
+    },
     "credentials" : [ {
       "type" : "password",
       "hashedSaltedValue" : "AARIdAGdBDAnKNj+La6/PhzpIS2v9Rkl/NfrTqfffqY84e5xvBU9e55FBqI5ZSyZI3u1OmcJQQurZ/Kc4wsm+A==",
@@ -31,77 +786,49 @@
     "notBefore" : 0,
     "groups" : [ "/waziup" ]
   }, {
-    "id" : "d9d54300-3791-443c-884c-0c52c43d64db",
-    "createdTimestamp" : 1511536244995,
-    "username" : "guest",
-    "enabled" : true,
-    "totp" : false,
-    "emailVerified" : true,
-    "firstName" : "guest",
-    "lastName" : "guest",
-    "credentials" : [ {
-      "type" : "password",
-      "hashedSaltedValue" : "r3JQENqXF6fUy/66+dUNGD5JUgSpFoQyc1ww3hcucIMqukDXOMjSWYZ4vue9nLxB+AUNFm6LUsv6l/L7jCVMgg==",
-      "salt" : "RqqV7zS5zXyde4iuEb44vw==",
-      "hashIterations" : 20000,
-      "counter" : 0,
-      "algorithm" : "pbkdf2-sha256",
-      "digits" : 0,
-      "period" : 0,
-      "createdDate" : 1511536319262,
-      "config" : { }
-    } ],
-    "disableableCredentialTypes" : [ "password" ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "unregistered_user", "offline_access", "uma_authorization" ],
-    "clientRoles" : {
-      "account" : [ "manage-account", "view-profile" ]
-    },
-    "notBefore" : 0,
-    "groups" : [ ]
-  }, {
-    "id" : "5ed8a3ff-9b16-4830-ac01-b1a0b20f71fd",
-    "createdTimestamp" : 1511536214418,
-    "username" : "service-account-api-server",
-    "enabled" : true,
+    "id" : "97cb06b4-25ac-41d2-92e8-57d837796e5d",
+    "createdTimestamp" : 1536222744720,
+    "username" : "cdupont2",
+    "enabled" : false,
     "totp" : false,
     "emailVerified" : false,
-    "email" : "service-account-api-server@placeholder.org",
-    "serviceAccountClientId" : "api-server",
+    "firstName" : "Corentin",
+    "lastName" : "Dupont",
+    "email" : "test@gmail.com",
+    "attributes" : {
+      "twitter" : [ "@Test1" ],
+      "address" : [ "25 Test street" ],
+      "phone" : [ "+390000000" ],
+      "subservice" : [ "farm1" ],
+      "facebook" : [ "test1" ]
+    },
     "credentials" : [ ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
     "realmRoles" : [ "offline_access", "uma_authorization" ],
     "clientRoles" : {
-      "api-server" : [ "uma_protection" ],
       "account" : [ "manage-account", "view-profile" ]
     },
     "notBefore" : 0,
     "groups" : [ "/waziup" ]
   }, {
-    "id" : "269c1d25-04e9-43bf-b103-2c1468c9289e",
-    "createdTimestamp" : 1497529721219,
-    "username" : "test",
+    "id" : "43149b6d-be59-4770-9b22-ec283e75dc31",
+    "createdTimestamp" : 1534365004347,
+    "username" : "cdupont@fbk.eu",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
-    "firstName" : "test",
-    "lastName" : "test",
+    "firstName" : "Corentin",
+    "lastName" : "Dupont",
     "email" : "cdupont@fbk.eu",
-    "credentials" : [ {
-      "type" : "password",
-      "hashedSaltedValue" : "KXTltDJt4viZXV5I2CvhLhwznzmSjd22aoiSbNniB/CCF5u5kT4YgwVafcINYcXW/bALkK8bTPVyXnytLDdZng==",
-      "salt" : "yyPuplt4WvzOyQvGWZ5Y3A==",
-      "hashIterations" : 20000,
-      "counter" : 0,
-      "algorithm" : "pbkdf2",
-      "digits" : 0,
-      "period" : 0,
-      "createdDate" : 1497529721346,
-      "config" : { }
-    } ],
-    "disableableCredentialTypes" : [ "password" ],
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
+    "federatedIdentities" : [ {
+      "identityProvider" : "google",
+      "userId" : "106206904063994618985",
+      "userName" : "cdupont@fbk.eu"
+    } ],
     "realmRoles" : [ "offline_access", "uma_authorization" ],
     "clientRoles" : {
       "account" : [ "manage-account", "view-profile" ]
@@ -109,22 +836,25 @@
     "notBefore" : 0,
     "groups" : [ "/waziup" ]
   }, {
-    "id" : "03d06fc7-f8cd-48d5-8e05-4569ac72d27d",
-    "createdTimestamp" : 1511775301883,
-    "username" : "test2",
+    "id" : "2f084057-a8da-485c-8d8d-d9da76aa0e86",
+    "createdTimestamp" : 1528373686827,
+    "username" : "chege",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
+    "firstName" : "chege",
+    "lastName" : "james",
+    "email" : "chege@codeforafrica.org",
     "credentials" : [ {
       "type" : "password",
-      "hashedSaltedValue" : "UwyflogQrmlZmKL1/rl+rj2njlj5bQioZdHibSh6d9xt8ObOYbF3b3PPxxinSmzHsX4bHJ35YLN1lrzOV/lbvQ==",
-      "salt" : "cgxi/9iVDSTEBJOuoIgVsg==",
+      "hashedSaltedValue" : "3fQVdM99ci+rpCWt1/YdB9Jg089NQedK/ESqQjrFUI6EnSVXfx47uR81PhH3PIN09GW08fNyqDTs/syuoWKSBw==",
+      "salt" : "68rKZ8L9MS3RA5ZxmpXs4A==",
       "hashIterations" : 20000,
       "counter" : 0,
       "algorithm" : "pbkdf2-sha256",
       "digits" : 0,
       "period" : 0,
-      "createdDate" : 1511775334371,
+      "createdDate" : 1528373686837,
       "config" : { }
     } ],
     "disableableCredentialTypes" : [ "password" ],
@@ -136,25 +866,25 @@
     "notBefore" : 0,
     "groups" : [ "/waziup" ]
   }, {
-    "id" : "eb78eed6-d01a-4f69-b562-1f30002c08d9",
-    "createdTimestamp" : 1497370576385,
-    "username" : "waziup",
+    "id" : "09ffa9c6-2886-4c0a-9d02-097575c74136",
+    "createdTimestamp" : 1525352963172,
+    "username" : "cheikh",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
-    "firstName" : "test",
-    "lastName" : "test",
-    "email" : "cdupont@fbk.eu",
+    "firstName" : "Cheikh",
+    "lastName" : "GAYE",
+    "email" : "dieng.ousmane1@ugb.edu.sn",
     "credentials" : [ {
       "type" : "password",
-      "hashedSaltedValue" : "FYferPvUFugjm/omv0ZvMwfbln//dBV9+xyL/q5PAxIlwvRXAlZHgWRkdRJBanQGZkWVPjEcWxiV1TUawt9UBA==",
-      "salt" : "Uu/DJAGRQARJBEydNmGOdQ==",
+      "hashedSaltedValue" : "dkxA7O+4or/sndMu4qvv7Rd0e307ByiWdrNrk5uCP4w6r+GlBXWREjh01L5ebS8B209Dsbk1UfLgetcA8wP5Iw==",
+      "salt" : "a/mm4aTlvp/4/V+0B/jpQQ==",
       "hashIterations" : 20000,
       "counter" : 0,
       "algorithm" : "pbkdf2-sha256",
       "digits" : 0,
       "period" : 0,
-      "createdDate" : 1512056008514,
+      "createdDate" : 1525352963178,
       "config" : { }
     } ],
     "disableableCredentialTypes" : [ "password" ],
@@ -164,6 +894,664 @@
       "account" : [ "manage-account", "view-profile" ]
     },
     "notBefore" : 0,
-    "groups" : [ ]
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "e18994a1-8436-44a4-993b-55bad33d197b",
+    "createdTimestamp" : 1524638796098,
+    "username" : "chris",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Christian",
+    "lastName" : "Nyirumulinga",
+    "email" : "chrismulinga@gmail.com",
+    "attributes" : {
+      "twitter" : [ "" ],
+      "address" : [ "" ],
+      "phone" : [ "+250783030750" ],
+      "subservice" : [ "" ],
+      "facebook" : [ "" ]
+    },
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "d6JZFVxfRCP81e/xeyx1/zK4tGQgasE0WxrWjRIJRwZbwWUtpQbzOh6rI0ZIQN44JhU/MaQ1SRvrb6hIinaz4Q==",
+      "salt" : "3UdmX7pVU6GuQCb6xMDwyw==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524638796109,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "93734000-fe42-43d1-9a71-af9f1ca16d8a",
+    "createdTimestamp" : 1530012255524,
+    "username" : "christiannqn",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Christian",
+    "lastName" : "Ultimate",
+    "email" : "christian.callejon@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "2MzhAOqVW3CPm5b4Wzp1c1Zji52MlrflOuOgoIDRDtw9EcSUIf+m9mLkrhPL2U978R40ipo7xGPsDqLWRg+KOA==",
+      "salt" : "3i8J6Fsell/EqfduwGFtVw==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1530012255539,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "597d905b-ad42-4c54-8e90-75407e3c72fd",
+    "createdTimestamp" : 1522411561770,
+    "username" : "cpham",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Congduc",
+    "lastName" : "Pham",
+    "email" : "congduc.pham@univ-pau.fr",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "/lwOsUws2KsPJ9DkjLF0yvhRlakAYvEGjNvA0zzHUOW7hgtcb32ngKKtI2LhC5aw2PC8UmQUSHIbgg/zztbk/Q==",
+      "salt" : "SFJuJP3zcGekuq9dJIhnVg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1522411561782,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "VERIFY_EMAIL" ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "f3e61362-54fe-4c8d-b5d2-bc6f6a884656",
+    "createdTimestamp" : 1524650631861,
+    "username" : "damien",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Damien",
+    "lastName" : "Hanyurwimfura",
+    "email" : "hadamien@live.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "w8GxSPZKli8l9ZJUlDegin8BYNhKnVmJxqVIXhiHM+Lg+cIJKbYS3/85yMOEmDVOLu5CCwvlE4rwzlZOlwB3VA==",
+      "salt" : "pisQW8FS+M9lIDx9fvIZew==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524650631870,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "f6e691ba-260f-415a-af52-4187286a444c",
+    "createdTimestamp" : 1524993519602,
+    "username" : "debongo",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "OCIDENT",
+    "lastName" : "BONGOMIN",
+    "email" : "ocidentbongomin@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "Mn6QRDthYMHDz5H/MSQ4He3oCZ+9BwGWaDSYbIR+kc037N8ey19PJW6WH4D+wR/+f89pZpftTP5WuYsbi7lkSw==",
+      "salt" : "xXAjvKpSSZf3u4fR7bVYzQ==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524993519610,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "4ae92bc7-9969-4263-a6d3-232d98fd3311",
+    "createdTimestamp" : 1530052230502,
+    "username" : "djiri",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "youba",
+    "lastName" : "diaw",
+    "email" : "diawarayouba@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "4VWZICtt3HWBH6GZ3Nv3RTb5agB/6AA7uodym8N08d5dBK2Ylb0OEGJog5zPKIrCbKjsSLVQhg7WFMsJjK/6AA==",
+      "salt" : "M7y5meFFmtJT9OMHRan2oA==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1530052230510,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "VERIFY_EMAIL" ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "21eb6861-51eb-4281-b37b-2ca937bc1fe5",
+    "createdTimestamp" : 1530051658948,
+    "username" : "djirim",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "djirimbail",
+    "lastName" : "dia",
+    "email" : "diawarayouba@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "JZOoJUGWUd2lZrDwS+frzKEWTRpzg6AlMmnPlIbeIutaiDps2mUBMU4bYaB6XxFDu+6KiDnH5QAnHhLInT4H5A==",
+      "salt" : "6n2ws2Y90KaBYRJOVwuPgg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1530051658955,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "VERIFY_EMAIL" ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "8462d55b-b026-4813-8fd1-98c0de7646c4",
+    "createdTimestamp" : 1524638496207,
+    "username" : "e-solution",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Ndacyayisaba",
+    "lastName" : "raymond",
+    "email" : "rndacyayisaba@tct.ac.rw",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "wC9c34JjTsChasu6eR77AMZ93ILtcIPKPFLo3AMGJn4QVMGiC/VVxSrUq0t/qeBcsWU8GoVlm2KwDdlHkcTNnQ==",
+      "salt" : "80TwAi3IzR+odO1DDf+MXw==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524638496213,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "VERIFY_EMAIL" ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "5c8d4da4-c7c2-4b3d-9997-9ea12dbb2fc8",
+    "createdTimestamp" : 1525249987073,
+    "username" : "ekweyu",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Emmanuel",
+    "lastName" : "Kweyu",
+    "email" : "ekweyu@strathmore.edu",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "uPXUx+aJKeKmqAlb+ObbHSsXHqOfdps0UpgjJRZRvoMfDwev+CW+/uitbgSQVPw2iaYb5NBRAYssf3wdUHYmyQ==",
+      "salt" : "ncl3s6AW/JDmmP5ohV258A==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1525249987079,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "e8507bce-d794-46ad-8599-791533801953",
+    "createdTimestamp" : 1523529906489,
+    "username" : "eldert",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "eldert",
+    "lastName" : "van schagen",
+    "email" : "eldertvanschagen@gmail.om",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "a7vTfZtNCh+9KDCJrWekcwzF7mPPjyN31hSUS5xOETmR41zL1HNdv8XkQfXHho8OSn2DOU/9bFYn4/AtCqLixw==",
+      "salt" : "et8x8lCMQHygKCYNU13M6A==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1523529906501,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "VERIFY_EMAIL" ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "fc3ca477-850c-486d-b6ec-bd6399a3440b",
+    "createdTimestamp" : 1523530113529,
+    "username" : "eldert47",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "eldert",
+    "lastName" : "van schagen",
+    "email" : "eldertvanschagen@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "LTjQCXshA7iIfLe33H23UPcF5ztntbOEM4ddCiBbSBAzCldy7wg+J5PhMrVpotyVYxnGULYTbbY0Sk6ES9NNPw==",
+      "salt" : "zWeVMonsQw8xK07DPbk6mg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1523530113545,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "9d3108bb-40b4-4a51-8b2c-a53e1a4817b3",
+    "createdTimestamp" : 1524578558689,
+    "username" : "eliyahou",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Eliyahou",
+    "lastName" : "Zagabe",
+    "email" : "eliyazagabe@yahoo.fr",
+    "attributes" : {
+      "twitter" : [ "EliyahouZ" ],
+      "address" : [ "" ],
+      "phone" : [ "09876875267" ],
+      "subservice" : [ "" ],
+      "facebook" : [ "Try" ]
+    },
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "ul9e9Pv18RMli3+GxOBuUn460sdf9Ry8PigWLUOeITh4XZcHpX5cBTHqDBfgWROnCIF6Ki3wed9QSLiG+pn+FQ==",
+      "salt" : "G6W0cEEzZhelgGitDn954g==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524578558698,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "31608ca7-88f1-4b97-b79c-6994a558b661",
+    "createdTimestamp" : 1529580302431,
+    "username" : "erlix322",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "E",
+    "lastName" : "B",
+    "email" : "ericbrandt@gmx.de",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "PeGg5zIhtQabpr0CXXIWtD3nL5vnljn9xOLEiLHFxUPUeI6qJJTFPIQI59uKyDxpCGIOREACCx43S0XSM+ycRw==",
+      "salt" : "KeTPcQ2qvjhSXisBa4jKKw==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1529580302439,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "51e8fff8-3b4c-4d1f-b488-ec2e36f7fc67",
+    "createdTimestamp" : 1524650249320,
+    "username" : "erneste",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Erneste",
+    "lastName" : "NIYIGENA",
+    "email" : "erneste1991@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "s4B3iU/odAoNXEYEMvozXbLOTfRAdHh5BnFfo/ow89rlFmDb8q3dRY76SnjqFrc/49jV39gF7VeLjhiahldwzQ==",
+      "salt" : "j61B6010BwqOweSN9z0UGw==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524650249328,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "VERIFY_EMAIL" ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "ee50b6ce-605c-49f9-a64d-72080b6abd0a",
+    "createdTimestamp" : 1524652452900,
+    "username" : "erneste1",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Erneste",
+    "lastName" : "NIYIGENA",
+    "email" : "erneste1991@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "/jTe7PGZz3dMPt7J/pvvxJQKG3ryHfumWyrDJrTjOiuj4fOUCwPV/FoDLKc58RhAQFP0Cph1BE2zzXWamtrniw==",
+      "salt" : "kMTh2pQ5GN41VuUP6NKKMQ==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524652452909,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "6ac6a08e-b58c-47da-bc3b-4e167a0a54bd",
+    "createdTimestamp" : 1525521512034,
+    "username" : "ernestiot",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "kabahima ",
+    "lastName" : "Ernest",
+    "email" : "ernest575@outlook.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "vWqIkbf1Vt4TCyYaFH5kr6YzpKFdmsySQjKo+RRGRDySMPeufwBEMDRp0eORYlmzashDNLdUoC8pkNQwCNU+JA==",
+      "salt" : "LB4zP64kVH5R3fQnd0IL9w==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1525521512039,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "3caddc17-2c42-4562-a80d-b85902e9aa7a",
+    "createdTimestamp" : 1523896440427,
+    "username" : "esprit",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Ousmane",
+    "lastName" : "DIENG",
+    "email" : "diengousmane31@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "5oVV1AAOmG+AdBIRPU0p7xVNHU0iYwwER2Iod4j8nnSc7EICBEMmk0Ab5kRBnAQQhJlJQCUcPgkmaKdzDj3b6w==",
+      "salt" : "vVzibtVFlAYz3VGml7jiqw==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1523896440435,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "73cd9607-72e3-40f1-8a9e-d4ffb1e99f63",
+    "createdTimestamp" : 1528965536524,
+    "username" : "fiifibaidoo",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Fiifi",
+    "lastName" : "Baidoo",
+    "email" : "fiifi@ispacegh.com",
+    "attributes" : {
+      "twitter" : [ "" ],
+      "address" : [ "" ],
+      "phone" : [ "+233200219320" ],
+      "subservice" : [ "" ],
+      "facebook" : [ "" ]
+    },
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "HZrJO+nc3EymdXfPbOq3yiybRdQpQOlnC7eUN6P4w1Fi7RVbLSL1rwnIEJXlTlDbW7FTLQn/nUFXYNdC1MDWVg==",
+      "salt" : "X5huk+tFYqE7+cnQwXljAg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1528965536533,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "bd20330e-4209-4184-8f88-05ef43964715",
+    "createdTimestamp" : 1529764752631,
+    "username" : "gana bridget",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Bridget Nana-Ama",
+    "lastName" : "Gana",
+    "email" : "brich.bg@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "uxGV4xn7Z6jXoJx0BDos7tj+pYj4Fz0998mYVurufQKDlEAnoRQpA0GMNZsYVW8ZPE7aqRDfpKg8EGaW4eOl5A==",
+      "salt" : "DavfFEcFGmMzXP6Z+epgCA==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1529766982025,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "7b4f490b-647d-402a-893b-520a493d407f",
+    "createdTimestamp" : 1524640430368,
+    "username" : "gilbert",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "gilbert",
+    "lastName" : "tuyishime",
+    "email" : "tuyigilbert97@gmail.com",
+    "attributes" : {
+      "twitter" : [ "tuyishimegilbe2" ],
+      "address" : [ "" ],
+      "phone" : [ "+250780319585" ],
+      "subservice" : [ "" ],
+      "facebook" : [ "" ]
+    },
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "N+lejDI/vJgQWvySEjq11DdN4sOoq7XeFl7Ru4WldsSgwGWG4lpok4iQ/B2I9nV74HzOB8/BOzcMADBb5gxJ8g==",
+      "salt" : "8/r21fNX2IBbrucgdmZlbw==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1524640430373,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "c509dfa7-5e35-44e6-aab1-b1242ca8cf48",
+    "createdTimestamp" : 1530379126436,
+    "username" : "godwinmensah",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "Godwin",
+    "lastName" : "Mensah",
+    "email" : "godwinmensah128@gmail.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "OlKrlGlu375evsvdQReVDkWg48nz7DcGc6eZktltwKjvIkCgzkaGs+wCg0/06XabuOHZtDqkl2ufWqrOt5nVng==",
+      "salt" : "NsbG6IDAK5djKTNLz+qC+g==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1530379126446,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
   } ]
 }
