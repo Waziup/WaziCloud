@@ -16,7 +16,7 @@ services:
     hostname: orion
     ports:
       - "1026:1026"
-    command: -dbhost mongo -logLevel INFO
+    command: -dbhost mongo # -logLevel INFO
     network_mode: host
     extra_hosts:
       - "mongo:127.0.0.1"
@@ -24,7 +24,7 @@ services:
 
   api-server:
     build: ./api-server
-    image: waziup/api-server:1.0
+    image: waziup/api-server:1.1.cr1
     ports:
       - "80:80"
     environment:
@@ -46,7 +46,7 @@ services:
 # Users identification & authorization   
   keycloak:
     build: ./keycloak
-    image: waziup/keycloak:1.0
+    image: waziup/keycloak:1.1.cr1
     ports:
       - "8080:8080"
     environment:
@@ -59,7 +59,7 @@ services:
     volumes:
       - ${WAZIUP_DATA}/keycloak:/opt/jboss/keycloak/standalone/data/
     # If the realm "waziup" doesn't exists, create it from file
-    entrypoint: "/opt/jboss/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.strategy=IGNORE_EXISTING -Dkeycloak.migration.dir=/opt/jboss/keycloak/imports"
+    #entrypoint: "/opt/jboss/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.strategy=IGNORE_EXISTING -Dkeycloak.migration.dir=/opt/jboss/keycloak/imports"
     depends_on:
       - mysql
 
@@ -79,7 +79,7 @@ services:
 # Dashboard    
   dashboard:
     build: ./dashboard
-    image: waziup/dashboard:1.0
+    image: waziup/dashboard:1.1.cr1
     ports:
       - "3000:3000"
     environment:
@@ -91,7 +91,7 @@ services:
 #Socials
   socials:
     build: ./socials
-    image: waziup/socials:1.0
+    image: waziup/socials:1.1.cr1
     ports:
       - 9123:9123
     environment:
