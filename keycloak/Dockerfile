@@ -1,5 +1,5 @@
 #FROM jboss/keycloak:3.4.3.Final
-FROM jboss/keycloak:4.3.0.Final
+FROM jboss/keycloak:4.4.0.Final
 #FROM pedroigor/keycloak:jdk8
 
 # Copy Waziup theme
