@@ -101,7 +101,7 @@ sudo sysctl -w vm.max_map_count=262144
 
 To export the keycloak configuration, run:
 ```
-docker-compose run --entrypoint "/opt/jboss/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/opt/jboss/keycloak/standalone/data/" keycloak
+docker-compose run --entrypoint "/opt/jboss/tools/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/opt/jboss/keycloak/standalone/data/" keycloak
 #Stop keycloak when start-up is finished
 cd data/keycloak
 mv master-realm.json master-users-0.json waziup-realm.json waziup-users-0.json ../../keycloak/imports
