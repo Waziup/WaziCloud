@@ -1,0 +1,7 @@
+var context = $evaluation.getContext();
+var permission = $evaluation.getPermission();
+var identity = context.getIdentity();
+if (permission.getResource() &&
+    identity.id == permission.getResource().getOwner()) {
+    $evaluation.grant();
+}

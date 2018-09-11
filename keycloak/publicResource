@@ -1,0 +1,9 @@
+var permission = $evaluation.getPermission();
+if (permission.getResource()) {
+    if(permission.getResource().getAttributes().containsKey('visibility') && 
+       permission.getResource().getAttributes().get('visibility').get(0).equals('private')) {
+        $evaluation.deny();
+      } else {
+        $evaluation.grant();
+    }
+}
