@@ -1,19 +1,19 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
-let baseUrl = require('../config/env').apiUrl;
-let domain = require('../config/env').domain;
-let sensor = require('../config/sample-data').valid;
-let invalidSensor = require('../config/sample-data').invalid;
-let utils = require('./utils');
+let baseUrl = require('../../config/env').apiUrl;
+let sensor = require('./sample-data').valid;
+let invalidSensor = require('./sample-data').invalid;
+let utils = require('../utils');
 
 console.log("baseUrl:" + baseUrl)
 
+let domain = "waziup"
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;
 
 let getPermissions = () => chai.request(baseUrl).get(`/auth/permissions`)
-let getSensors = () => chai.request(baseUrl).get(`/domains/${domain}/sensors?limit=100`)
+let getSensors = () => chai.request(baseUrl).get(`/domains/${domain}/sensors?limit=1000`)
 let createSensor = (s) => chai.request(baseUrl).post(`/domains/${domain}/sensors`).send(s)
 let getSensor = (id) => chai.request(baseUrl).get(`/domains/${domain}/sensors/${id}`)
 let setSensorAttr = (id, attr, value) => chai.request(baseUrl).put(`/domains/${domain}/sensors/${id}/${attr}`).set('content-type', 'text/plain').send(value)

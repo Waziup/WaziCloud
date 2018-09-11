@@ -1,0 +1,12 @@
+{
+  "user" : {
+    "admin" : {
+      "username": "cdupont",
+      "password": "password"
+    },
+    "normal" : {
+      "username" : "waziup",
+      "password" : "waziup"
+    }
+  }
+}

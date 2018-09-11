@@ -44,8 +44,8 @@
     },
     "socials" : {
         "username": "cdupont",
-        "channel": "facebook",
-        "message": "Test message"
+        "channel": "twitter",
+        "message": "Test message2"
     },
     "domains" :{
       "id" : "testfarm"
