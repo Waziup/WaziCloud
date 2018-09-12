@@ -267,7 +267,9 @@
     "path" : "/waziup",
     "attributes" : { },
     "realmRoles" : [ "registered_user" ],
-    "clientRoles" : { },
+    "clientRoles" : {
+      "api-server" : [ "uma_protection" ]
+    },
     "subGroups" : [ ]
   } ],
   "defaultRoles" : [ "offline_access", "uma_authorization" ],
@@ -2704,6 +2706,6 @@
     "offlineSessionMaxLifespanEnabled" : "false",
     "waitIncrementSeconds" : "60"
   },
-  "keycloakVersion" : "4.3.0.Final",
+  "keycloakVersion" : "4.4.0.Final",
   "userManagedAccessAllowed" : true
 }
