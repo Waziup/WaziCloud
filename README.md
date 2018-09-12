@@ -41,6 +41,7 @@ To get the source code for each submodules, you need to clone with --recursive:
 # clone the platform with submodules
 git clone --recursive git@github.com:Waziup/Platform.git
 cd Platform
+git submodule update --remote --recursive
 docker-compose build
 ```
 
