@@ -777,7 +777,7 @@
         "logic" : "POSITIVE",
         "decisionStrategy" : "UNANIMOUS",
         "config" : {
-          "users" : "[\"fiifibaidoo\",\"arahim\",\"cdupont\"]"
+          "users" : "[\"cdupont\"]"
         }
       }, {
         "id" : "02525c27-f877-4d57-a1bf-4ddcdf2a2d2d",
