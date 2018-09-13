@@ -28,7 +28,7 @@ services:
     ports:
       - "80:80"
     environment:
-      - HTTP_PORT=80
+      - HTTP_PORT=800
       - HTTPS_PORT=443
       - KEYCLOAK_URL=http://${WAZIUP_URL}:8080/auth
       - ORION_URL=http://orion:1026
@@ -106,7 +106,13 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ${WAZIUP_DATA}/certs/:/certs/live/dev.waziup.io/'
+      - ${WAZIUP_DATA}/certs/:/certs/live/dev.waziup.io/
+    network_mode: host
+    extra_hosts:
+      - "api-server:127.0.0.1"
+      - "dashboard:127.0.0.1"
+      - "keycloak:127.0.0.1"
+      - "website:127.0.0.1"
 
 # ELS
   elasticsearch:
