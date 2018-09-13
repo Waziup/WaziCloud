@@ -1,55 +1,29 @@
 {
-    "valid" : {
-      "id": "Sensor2-ea0541de1ab7132a1d45b85f9b2139f5",
-      "gateway_id": "ea0541de1ab7132a1d45b85f9b2139f5",
-      "name": "My weather station",
-      "measurements": [
-        {
-          "id": "TC1",
-          "name": "My garden temperature",
-          "quantity_kind": "Temperature",
-          "unit": "DegreeCelcius",
-          "sensing_device": "Air temperature sensor"
-        }
-      ],
-      "location": {
-        "latitude": 5.36,
-        "longitude": 4.0083
-      },
-      "domain": "waziup",
-      "visibility": "public"
+  "valid" : {
+    "id": "Sensor2-ea0541de1ab7132a1d45b85f9b2139f5",
+    "gateway_id": "ea0541de1ab7132a1d45b85f9b2139f5",
+    "name": "My weather station",
+    "measurements": [{
+      "id": "TC1",
+      "name": "My garden temperature",
+      "quantity_kind": "Temperature",
+      "unit": "DegreeCelcius",
+      "sensing_device": "Air temperature sensor"}],
+    "location": {
+      "latitude": 5.36,
+      "longitude": 4.0083
     },
-    "invalid" : {
-        "gateway_id": "0d710b12-27e8-433d-ab3a-e05b7127eeaa",
-        "name": "Sensor1",
-        "sensor_kind": "Soil temperature sensor",
-        "measurements": [
-            {
-                "id": "0d710b12-27e8-433d-ab3a-e05b7127eeaa",
-                "name": "TC1",
-                "dimension": "temperature",
-                "unit": "Degree C",
-                "values": [
-                    {
-                        "value": "25.6",
-                        "timestamp": "2016-06-08T18:20:27.873Z"
-                    }
-                ]
-            }
-        ],
-        "location": {
-            "latitude": 5.36,
-            "longitude": 4.0083
-        }
+    "domain": "waziup",
+    "visibility": "public"
+  },
+  "user" : {
+    "admin" : {
+      "username": "cdupont",
+      "password": "password"
     },
-    "user" : {
-      "admin" : {
-        "username": "cdupont",
-        "password": "password"
-      },
-      "normal" : {
-        "username" : "waziup",
-        "password" : "waziup"
-      }
+    "normal" : {
+      "username" : "waziup",
+      "password" : "waziup"
     }
+  }
 }

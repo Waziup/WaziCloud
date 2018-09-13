@@ -1,51 +1,46 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
-let baseUrl = require('../config/env').apiUrl;
-let domain = require('../config/env').domain;
-let userCredentials = require('../config/sample-data').user.admin;
-let notification = require('../config/sample-data').notification;
+let baseUrl = require('../../config/env').apiUrl;
+let domain = require('../../config/env').domain;
+let userCredentials = require('./sample-data').user.admin;
+let notification = require('./sample-data').notification;
+let sensor = require('./sample-data').sensor;
 
 let createdDomianId = "";
 chai.use(chaiHttp);
 
-
+let domain = 'waziup'
 var sampleNotification = "";
-// create a sensor delete it
-before(function (done) {
-  chai.request(baseUrl)
-    .post('/auth/token')
-    .send(userCredentials)
-    .end(function (err, response) {
-      token = response.text;
-    });
-  //create sample notification
-  chai.request(baseUrl)
-    .post(`/domains/${domain}/notifications`)
-    .send(notification)
-    .end((err, res) => {
-      chai.request(baseUrl)
-        .get(`/domains/${domain}/notifications`)
-        .set('Authorization', `Bearer ${token}`)
-        .end((err, res) => {
-          sampleNotification = res.body[0];
-          done();
-        });
-    });
-});
+
+let getNotifs = () => chai.request(baseUrl).get(`/domains/${domain}/notifications`)
+let postNotif = (notif) => chai.request(baseUrl).post(`/domains/${domain}/notifications`).send(notif)
+let getNotif = (id) => chai.request(baseUrl).get(`/domains/${domain}/notifications/${id}`)
+let deleteNotif = (id) => chai.request(baseUrl).delete(`/domains/${domain}/notifications/${id}`)
+let createSensor = (s) => chai.request(baseUrl).post(`/domains/${domain}/sensors`).send(s)
+let deleteSensor = (id) => chai.request(baseUrl).delete(`/domains/${domain}/sensors/${id}`)
 
 describe('Notifications', () => {
-  describe('post a message to social networks', () => {
-    it('it should post a message to social networks', (done) => {
-      chai.request(baseUrl)
-        .post(`/domains/${domain}/notifications`)
-        .set('Authorization', `Bearer ${token}`)
-        .send(notification)
-        .end((err, res) => {
-          res.should.have.status(200);
-          done();
-        });
-    });
+  let withAdmin = null
+  let withNormal = null
+  
+  //Retrieve the tokens and delete pre-existing sensor
+  before(async function () {
+    try {
+      withAdmin = await utils.getAdminAuth()
+      withNormal = await utils.getNormalAuth()
+      let res = await createSensor(sensor).set(withAdmin)
+    } catch (err) {
+      console.log('error:' + err)
+    }
+  });
+  
+  after(async function () {
+    try {
+      await deleteSensor(sensor.id).set(withAdmin)
+    } catch (err) {
+      console.log('error:' + err)
+    }
   });
   describe('Get all notifications', () => {
     it('it should GET all the messages posted on social networks', (done) => {
