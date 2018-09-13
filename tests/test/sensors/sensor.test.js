@@ -21,12 +21,6 @@ let setSensorLocation = (id, value) => chai.request(baseUrl).put(`/domains/${dom
 let deleteSensor = (id) => chai.request(baseUrl).delete(`/domains/${domain}/sensors/${id}`)
 
 
-let it2 = (a, f) => {
-  it(a, async () => { try{
-    await f
-  } catch(err) { console.log(err)}})
-}
-
 describe('Sensors', () => {
   let withAdmin = null
   let withNormal = null
@@ -129,7 +123,9 @@ describe('Sensors', () => {
       res.should.have.status(422);
     });
     it('sensor with invalid data is rejected', async () => {
-      let res = await createSensor(invalidSensor).set(withAdmin)
+      let wrong = Object.assign({}, sensor)
+      delete(wrong.id)
+      let res = await createSensor(wrong).set(withAdmin)
       res.should.have.status(400);
     });
   });
