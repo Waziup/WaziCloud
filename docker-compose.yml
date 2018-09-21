@@ -113,6 +113,7 @@ services:
       - "dashboard:127.0.0.1"
       - "keycloak:127.0.0.1"
       - "website:127.0.0.1"
+      - "staging:127.0.0.1"
 
 # ELS
   elasticsearch:
