@@ -12,7 +12,7 @@ services:
       - ${WAZIUP_DATA}/mongo:/data/db'
 
   orion:
-    image: fiware/orion:1.7.0
+    image: fiware/orion:1.15.0
     hostname: orion
     ports:
       - "1026:1026"
@@ -101,12 +101,10 @@ services:
 
   proxy:
     build: ./proxy
-    image: waziup/proxy
+    image: waziup/proxy:1.1.cr1
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - ${WAZIUP_DATA}/certs/:/certs/live/dev.waziup.io/
     network_mode: host
     extra_hosts:
       - "api-server:127.0.0.1"
@@ -114,6 +112,9 @@ services:
       - "keycloak:127.0.0.1"
       - "website:127.0.0.1"
       - "staging:127.0.0.1"
+    environment:
+      - WAZIUP_BASE_URL=waziup.io
+    entrypoint: "/etc/nginx/conf.d/docker-entrypoint.sh"
 
 # ELS
   elasticsearch:
