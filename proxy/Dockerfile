@@ -1,2 +1,3 @@
 FROM nginx:alpine
-ADD nginx.conf /etc/nginx/conf.d/default.conf
+ADD nginx.template /etc/nginx/conf.d/nginx.template
+ADD docker-entrypoint.sh /etc/nginx/conf.d/
