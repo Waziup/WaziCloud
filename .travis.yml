@@ -9,10 +9,17 @@ services:
 git:
     submodules: false
 
+notifications:
+  email:
+    #recipients:
+    #  - cdupont@fbk.eu
+    on_success: change # default: change
+    on_failure: always # default: always
+
 # Use sed to replace the SSH URL with the public URL, then initialize submodules
 before_install:
 - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-- git submodule update --remote --recursive
+- git submodule update --remote --recursive --init
 
 before_script:
 - docker-compose build
@@ -22,8 +29,9 @@ script:
 - docker-compose up & 
 - until $(curl --output /dev/null --silent --head --fail http://localhost:800/api/v1/domains/waziup/sensors); do printf '.'; sleep 5; done
 - cd tests
-- ./platform_tests.sh
+- npm install
 - npm test
 
 after_script:
 - docker-compose down
+- echo "Platform test results" | mutt -a "/mochawesome-report/mochawesome.html" -s "Platform test reports" -- cdupont@fbk.eu
