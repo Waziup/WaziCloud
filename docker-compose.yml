@@ -117,56 +117,56 @@ services:
     entrypoint: "/etc/nginx/conf.d/docker-entrypoint.sh"
 
 # ELS
-  elasticsearch:
-    build: ./elasticsearch
-    image: waziup/elasticsearch
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    environment:
-      ES_JAVA_OPTS: "-Xms2g -Xmx2g"
-    mem_limit: 1500000000  
-    volumes:
-      - ${WAZIUP_DATA}/els:/usr/share/elasticsearch/data
-
-  kibana:
-    build: ./kibana
-    image: waziup/kibana
-    ports:
-      - "5601:5601"
-    depends_on:
-      - elasticsearch
-    environment:
-      ELASTICSEARCH_URL: http://api-server:80/api/v1/history
-
-  kibana-backend:
-    build: kibana-backend/
-    image: waziup/kibana-backend
-    ports:
-      - "6565:6565"
-      - "5602:5602"
-    environment:
-      - SERVER_PORT=6565
-      - ELSPROXY_PORT=9201 
-      - SERVER_URL=http://localhost:6565
-      - KEYCLOAK_URL=http://keycloak:8080/auth
-      - KIBANA_URL=http://kibana:5601
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
-
-  els-feeder:
-    build: ./els-feeder
-    image: waziup/els-feeder
-    ports:
-      - "9100:9100"
-    depends_on:
-      - elasticsearch
-      - orion
-    environment:
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
-      - ELASTICSEARCH_PREFIX=waziup
-      - ORION_URL=http://orion:1026
-      - SERVER_PORT=9100
-      - FEEDER_NAME=http://els-feeder
+#  elasticsearch:
+#    build: ./elasticsearch
+#    image: waziup/elasticsearch
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
+#    environment:
+#      ES_JAVA_OPTS: "-Xms2g -Xmx2g"
+#    mem_limit: 1500000000  
+#    volumes:
+#      - ${WAZIUP_DATA}/els:/usr/share/elasticsearch/data
+#
+#  kibana:
+#    build: ./kibana
+#    image: waziup/kibana
+#    ports:
+#      - "5601:5601"
+#    depends_on:
+#      - elasticsearch
+#    environment:
+#      ELASTICSEARCH_URL: http://api-server:80/api/v1/history
+#
+#  kibana-backend:
+#    build: kibana-backend/
+#    image: waziup/kibana-backend
+#    ports:
+#      - "6565:6565"
+#      - "5602:5602"
+#    environment:
+#      - SERVER_PORT=6565
+#      - ELSPROXY_PORT=9201 
+#      - SERVER_URL=http://localhost:6565
+#      - KEYCLOAK_URL=http://keycloak:8080/auth
+#      - KIBANA_URL=http://kibana:5601
+#      - ELASTICSEARCH_URL=http://elasticsearch:9200
+#
+#  els-feeder:
+#    build: ./els-feeder
+#    image: waziup/els-feeder
+#    ports:
+#      - "9100:9100"
+#    depends_on:
+#      - elasticsearch
+#      - orion
+#    environment:
+#      - ELASTICSEARCH_URL=http://elasticsearch:9200
+#      - ELASTICSEARCH_PREFIX=waziup
+#      - ORION_URL=http://orion:1026
+#      - SERVER_PORT=9100
+#      - FEEDER_NAME=http://els-feeder
 
 # CEP
 #  cepheus:
