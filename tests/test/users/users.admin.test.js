@@ -1,17 +1,13 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
-let baseUrl = require('../config/env').apiUrl;
-let domain = require('../config/env').domain;
-let userCredentials = require('../config/sample-data').user.admin;
-let userData = require('../config/sample-data.json').sampleUser;
+let baseUrl = require('../../config/env').apiUrl;
+let domain = require('../../config/env').domain;
+let userCredentials = require('./sample-data').user.admin;
+let userData = require('./sample-data.json').sampleUser;
 
 let createdDomianId = "";
 chai.use(chaiHttp);
-
-
-
-
 
 describe('Users with admin Previledges', () => {
   before(function (done) {

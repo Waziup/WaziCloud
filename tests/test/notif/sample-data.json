@@ -38,27 +38,25 @@
     "description": "Send text message",
     "subject": {
       "entityNames": [
-        "Sensor1"
+        "Sensor2-ea0541de1ab7132a1d45b85f9b2139f5"
       ],
       "condition": {
         "attrs": [
-          "SM1"
+          "TC1"
         ],
-        "expression": "SM1>40"
+        "expression": "TC1>40"
       }
     },
     "notification": {
       "usernames": [
-        "cdupont",
-        "arahim"
+        "cdupont"
       ],
       "channels": [
-        "facebook",
-        "sms"
+        "twitter"
       ],
       "message": "Test message"
     },
-    "expires": "2017-10-13T14:51:22.12Z",
+    "expires": "2017-10-13T14:51:22.00Z",
     "throttling": 3600
   }
 }

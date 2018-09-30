@@ -11,18 +11,19 @@ git:
 
 # Use sed to replace the SSH URL with the public URL, then initialize submodules
 before_install:
-    - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-    - git submodule update --init --recursive
+- sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+- git submodule update --init --recursive
 
 before_script:
 - docker-compose build
-- mkdir -p data/mongo data/keycloak/content data/els
 - chmod -R 777 data
 
 script:
 - docker-compose up & 
-- sleep 60
-- ./tests/platform_tests.sh
+- until $(curl --output /dev/null --silent --head --fail http://localhost:800/api/v1/domains/waziup/sensors); do printf '.'; sleep 5; done
+- cd tests
+- ./platform_tests.sh
+- npm test
 
 after_script:
 - docker-compose down

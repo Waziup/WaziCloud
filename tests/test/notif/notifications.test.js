@@ -2,19 +2,19 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
 let baseUrl = require('../../config/env').apiUrl;
-let domain = require('../../config/env').domain;
 let userCredentials = require('./sample-data').user.admin;
-let notification = require('./sample-data').notification;
+let notif = require('./sample-data').notification;
 let sensor = require('./sample-data').sensor;
+let utils = require('../utils');
 
 let createdDomianId = "";
 chai.use(chaiHttp);
 
-let domain = 'waziup'
+let domain = 'waziup';
 var sampleNotification = "";
 
 let getNotifs = () => chai.request(baseUrl).get(`/domains/${domain}/notifications`)
-let postNotif = (notif) => chai.request(baseUrl).post(`/domains/${domain}/notifications`).send(notif)
+let createNotif = (notif) => chai.request(baseUrl).post(`/domains/${domain}/notifications`).send(notif)
 let getNotif = (id) => chai.request(baseUrl).get(`/domains/${domain}/notifications/${id}`)
 let deleteNotif = (id) => chai.request(baseUrl).delete(`/domains/${domain}/notifications/${id}`)
 let createSensor = (s) => chai.request(baseUrl).post(`/domains/${domain}/sensors`).send(s)
@@ -42,56 +42,49 @@ describe('Notifications', () => {
       console.log('error:' + err)
     }
   });
-  describe('Get all notifications', () => {
-    it('it should GET all the messages posted on social networks', (done) => {
-      chai.request(baseUrl)
-        .get(`/domains/${domain}/notifications`)
-        .set('Authorization', `Bearer ${token}`)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('array');
-          done();
-        });
+  describe('Get notifications', () => {
+    it('it should GET all the notifications', async () => {
+      await createNotif(notif).set(withAdmin)
+      let res = await getNotifs()
+      res.should.have.status(200);
+      res.body.should.be.a('array');
     });
   });
-  describe('Get a one message', () => {
-    it('it should get a single notificaion', (done) => {
-      chai.request(baseUrl)
-        .get(`/domains/${domain}/notifications/${sampleNotification.id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .end((err, res) => {
-          res.should.have.status(200);
-          done();
-        });
-    });
-    it('it should return not found for notification that doesnt exist', (done) => {
-      chai.request(baseUrl)
-        .get(`/domains/${domain}/notifications/this-id-doesnt-exist${Date.now()}`)
-        .set('Authorization', `Bearer ${token}`)
-        .end((err, res) => {
-          res.should.have.status(400);
-          done();
-        });
+  describe('Create notifications', () => {
+    it('it should get a single notification', async () => {
+      res = await createNotif(notif).set(withAdmin)
+      let res2 = await getNotif(res.text)
+      res2.should.have.status(200);
+      res2.body.should.be.a('object');
+      //all fields of original notif should be here
+      res2.body.should.deep.include(notif);
     });
   });
-  describe('delete a message to social networks', () => {
-    it('it should delete a message to social networks', (done) => {
-      chai.request(baseUrl)
-        .delete(`/domains/${domain}/notifications/${sampleNotification.id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .end((err, res) => {
-          res.should.have.status(200);
-          done();
-        });
+  describe('Get one notification', () => {
+    it('it should return not found for notification that doesnt exist', async () => {
+      let res = await getNotif(123)
+      res.should.have.status(400);
+    });
+  });
+  describe('delete a notification', () => {
+    it('it should delete a message to social networks', async () => {
+      res = await createNotif(notif)
+      let res2 = await deleteNotif(res.text)
+      res2.should.have.status(200);
     })
-    it('it should return not found for message that doesnt exist', (done) => {
-      chai.request(baseUrl)
-        .delete(`/domains/${domain}/notifications/this-id-doesnt-exist${Date.now()}`)
-        .set('Authorization', `Bearer ${token}`)
-        .end((err, res) => {
-          res.should.have.status(404);
-          done();
-        });
+    it('it should return not found for notif that doesnt exist', async () => {
+      let res = await deleteNotif(123)
+      res.should.have.status(404);
     })
   })
+  describe('Trigger notifications', () => {
+    it('Message should be sent upon notification creation', async () => {
+      res = await createNotif(notif).set(withAdmin)
+      let res2 = await getNotif(res.text)
+      res2.should.have.status(200);
+      res2.body.should.be.a('object');
+      //all fields of original notif should be here
+      res2.body.should.deep.include(notif);
+    });
+  });
 })
