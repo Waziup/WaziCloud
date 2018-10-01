@@ -21,6 +21,7 @@ notifications:
 before_install:
 - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
 - git submodule update --remote --recursive --init
+- ./travis_install.sh
 
 before_script:
 - docker-compose build
