@@ -27,7 +27,7 @@ before_script:
 - chmod -R 777 data
 
 script:
-- docker-compose mysql mongo orion keycloak api-server & 
+- docker-compose up mysql mongo orion keycloak api-server & 
 - until $(curl --output /dev/null --silent --head --fail http://localhost:800/api/v1/domains/waziup/sensors); do printf '.'; sleep 5; done
 - cd tests
 - npm install
