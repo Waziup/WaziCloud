@@ -40,9 +40,8 @@ setup_dependencies() {
   chmod +x docker-compose
   sudo mv docker-compose /usr/local/bin
 
-  sudo npm cache clean -f
-  sudo npm install -g n
-  sudo n 9
+  curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+  sudo apt-get install nodejs
 
   docker-compose --version
   docker info
