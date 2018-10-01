@@ -36,4 +36,4 @@ script:
 
 after_script:
 - docker-compose down
-- echo "Platform test results" | mutt -a "./mochawesome-report/mochawesome.html" -s "Platform test reports" -- cdupont@fbk.eu
+- echo "Platform test results" | mail -A "./mochawesome-report/mochawesome.html" -s "Platform test reports" cdupont@fbk.eu
