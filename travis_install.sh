@@ -40,8 +40,13 @@ setup_dependencies() {
   chmod +x docker-compose
   sudo mv docker-compose /usr/local/bin
 
+  sudo npm cache clean -f
+  sudo npm install -g n
+  sudo n 9
+
   docker-compose --version
   docker info
+  node --version
 }
 
 main
