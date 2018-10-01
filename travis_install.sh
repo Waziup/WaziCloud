@@ -27,6 +27,7 @@ setup_dependencies() {
   echo "INFO:
   Setting up dependencies.
   "
+  sudo service mysql stop
 
   sudo apt update -y
   sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
