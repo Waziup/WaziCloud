@@ -28,19 +28,8 @@ before_script:
 - chmod -R 777 data
 
 script:
-- docker-compose up mysql mongo orion keycloak api-server & 
-- ./wait_up.sh 
-- cd tests
-- npm install
-- npm test
+- ./run_tests 
 
 after_script:
-- docker-compose down
-- echo "Platform test results" | mail -A "./mochawesome-report/mochawesome.html" -s "Platform test reports" cdupont@fbk.eu
+- echo "Platform test results" | mail -A "./tests/mochawesome-report/mochawesome.html" -s "Platform test reports" cdupont@fbk.eu
 
-deploy:
-- provider: s3
-- access_key_id: "KIAIJWZVVK327Y5WOSA" 
-- secret_access_key: "22l4kGRy4FXL2tTxdFMns3+exgTxRhifD4Md6N0/"
-- bucket: "waziup"
-- local_dir: tests

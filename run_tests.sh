@@ -1,3 +1,5 @@
+
+docker-compose up &
 attempt_counter=0
 max_attempts=40
 
@@ -11,3 +13,12 @@ until $(curl --output /dev/null --silent --head --fail  http://localhost:800/api
     attempt_counter=$(($attempt_counter+1))
     sleep 5
 done
+
+cd tests
+npm install
+npm test 2>&1 > log.txt
+exit_code=$?
+docker-compose down
+cat log.txt
+exit $exit_code
+
