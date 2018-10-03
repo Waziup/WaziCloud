@@ -16,7 +16,7 @@ services:
     hostname: orion
     ports:
       - "1026:1026"
-    command: -dbhost mongo -logLevel DEBUG 
+    command: -dbhost mongo -logLevel WARN 
     network_mode: host
     extra_hosts:
       - "mongo:127.0.0.1"
