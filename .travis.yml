@@ -28,7 +28,7 @@ before_script:
 - chmod -R 777 data
 
 script:
-- ./run_tests 
+- ./run_tests.sh 
 
 after_script:
 - echo "Platform test results" | mail -A "./tests/mochawesome-report/mochawesome.html" -s "Platform test reports" cdupont@fbk.eu
