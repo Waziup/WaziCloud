@@ -1,5 +1,5 @@
 
-docker-compose up &
+docker-compose up > /dev/null &
 attempt_counter=0
 max_attempts=40
 
