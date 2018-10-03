@@ -9,7 +9,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ${WAZIUP_DATA}/mongo:/data/db'
+      - ${WAZIUP_DATA}/mongo:/data/db
 
   orion:
     image: fiware/orion:1.15.0
