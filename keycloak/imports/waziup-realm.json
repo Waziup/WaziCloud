@@ -728,7 +728,7 @@
         "logic" : "POSITIVE",
         "decisionStrategy" : "UNANIMOUS",
         "config" : {
-          "code" : "var permission = $evaluation.getPermission();\nvar res = permission.getResource();\nprint(\"start2\");\nif (res) {\n    print(\"res2: \" + res.getName());\n    var attrs = res.getAttributes();\n    if(attrs.containsKey('visibility') && \n       attrs.get('visibility').get(0).equals('private')) {\n        print(\"not public\");\n        $evaluation.deny();\n      } else {\n        print(\"public\");\n        $evaluation.grant();\n    }\n} else {\n    print(\"scope only2\");\n    $evaluation.grant();\n}"
+          "code" : "var permission = $evaluation.getPermission();\nvar res = permission.getResource();\nif (res) {\n    var attrs = res.getAttributes();\n    if(attrs.containsKey('visibility') && \n       attrs.get('visibility').get(0).equals('private')) {\n        $evaluation.deny();\n      } else {\n        $evaluation.grant();\n    }\n} else {\n    $evaluation.grant();\n}"
         }
       }, {
         "id" : "7d999811-c54f-4fbc-a11d-852cd0f606aa",
@@ -738,7 +738,7 @@
         "logic" : "POSITIVE",
         "decisionStrategy" : "UNANIMOUS",
         "config" : {
-          "code" : "var context = $evaluation.getContext();\nvar permission = $evaluation.getPermission();\nvar identity = context.getIdentity();\nvar res = permission.getResource();\nprint(\"start\");\nif(res) {\n  print(\"res: \" + res.getName());\n  if (identity.id == res.getOwner()) {\n    $evaluation.grant();\n    print(\"owner\");\n  } else {\n    $evaluation.deny();\n    print(\"not owner\");\n  }\n} else {\n    print(\"scope only\");\n    $evaluation.grant();\n}"
+          "code" : "var context = $evaluation.getContext();\nvar permission = $evaluation.getPermission();\nvar identity = context.getIdentity();\nvar res = permission.getResource();\nif(res) {\n  if (identity.id == res.getOwner()) {\n    $evaluation.grant();\n  } else {\n    $evaluation.deny();\n  }\n} else {\n  $evaluation.grant();\n}"
         }
       }, {
         "id" : "8529efc5-1b4b-413d-bb89-d449b1914935",
@@ -1526,12 +1526,12 @@
     "redirectUris" : [ ],
     "webOrigins" : [ ],
     "notBefore" : 0,
-    "bearerOnly" : true,
+    "bearerOnly" : false,
     "consentRequired" : false,
     "standardFlowEnabled" : true,
     "implicitFlowEnabled" : false,
     "directAccessGrantsEnabled" : false,
-    "serviceAccountsEnabled" : false,
+    "serviceAccountsEnabled" : true,
     "authorizationServicesEnabled" : true,
     "publicClient" : false,
     "frontchannelLogout" : false,
@@ -2645,31 +2645,7 @@
     "providerId" : "CONFIGURE_TOTP",
     "enabled" : true,
     "defaultAction" : false,
-    "priority" : 0,
-    "config" : { }
-  }, {
-    "alias" : "UPDATE_PASSWORD",
-    "name" : "Update Password",
-    "providerId" : "UPDATE_PASSWORD",
-    "enabled" : true,
-    "defaultAction" : false,
-    "priority" : 0,
-    "config" : { }
-  }, {
-    "alias" : "UPDATE_PROFILE",
-    "name" : "Update Profile",
-    "providerId" : "UPDATE_PROFILE",
-    "enabled" : true,
-    "defaultAction" : false,
-    "priority" : 0,
-    "config" : { }
-  }, {
-    "alias" : "VERIFY_EMAIL",
-    "name" : "Verify Email",
-    "providerId" : "VERIFY_EMAIL",
-    "enabled" : true,
-    "defaultAction" : false,
-    "priority" : 0,
+    "priority" : 10,
     "config" : { }
   }, {
     "alias" : "terms_and_conditions",
@@ -2677,7 +2653,31 @@
     "providerId" : "terms_and_conditions",
     "enabled" : false,
     "defaultAction" : false,
-    "priority" : 0,
+    "priority" : 20,
+    "config" : { }
+  }, {
+    "alias" : "UPDATE_PASSWORD",
+    "name" : "Update Password",
+    "providerId" : "UPDATE_PASSWORD",
+    "enabled" : true,
+    "defaultAction" : false,
+    "priority" : 30,
+    "config" : { }
+  }, {
+    "alias" : "UPDATE_PROFILE",
+    "name" : "Update Profile",
+    "providerId" : "UPDATE_PROFILE",
+    "enabled" : true,
+    "defaultAction" : false,
+    "priority" : 40,
+    "config" : { }
+  }, {
+    "alias" : "VERIFY_EMAIL",
+    "name" : "Verify Email",
+    "providerId" : "VERIFY_EMAIL",
+    "enabled" : true,
+    "defaultAction" : false,
+    "priority" : 50,
     "config" : { }
   } ],
   "browserFlow" : "browser",
