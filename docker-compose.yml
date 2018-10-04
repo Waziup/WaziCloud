@@ -21,6 +21,8 @@ services:
     extra_hosts:
       - "mongo:127.0.0.1"
       - "localhost:127.0.0.1"
+    depends_on:
+      - mongo
 
   api-server:
     build: ./api-server
