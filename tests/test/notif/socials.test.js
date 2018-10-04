@@ -37,14 +37,14 @@ describe('Socials', () => {
     });
   });
   describe('post a message to social networks', () => {
-    it('it should post a message to twitter', async () => {
+    it.skip('it should post a message to twitter', async () => {
       let res = await postSocialMsg(socialData).set(withNormal)
       res.should.have.status(200);
       console.log(JSON.stringify(res.body));
     });
   });
   describe('Get one message sent', () => {
-    it('it should GET the messages sent', async () => {
+    it.skip('it should GET the messages sent', async () => {
       let res = await getSocialMsg().set(withNormal)
       res.should.have.status(200);
       res.body.should.be.a('array');
