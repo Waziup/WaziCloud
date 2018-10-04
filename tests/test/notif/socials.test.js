@@ -32,15 +32,12 @@ describe('Socials', () => {
       let res = await getSocialMsgs().set(withNormal)
       res.should.have.status(200);
       res.body.should.be.a('array');
-      console.log(JSON.stringify(res.body));
-     
     });
   });
   describe('post a message to social networks', () => {
     it.skip('it should post a message to twitter', async () => {
       let res = await postSocialMsg(socialData).set(withNormal)
       res.should.have.status(200);
-      console.log(JSON.stringify(res.body));
     });
   });
   describe('Get one message sent', () => {
@@ -48,8 +45,6 @@ describe('Socials', () => {
       let res = await getSocialMsg().set(withNormal)
       res.should.have.status(200);
       res.body.should.be.a('array');
-      console.log(JSON.stringify(res.body));
-     
     });
   });
 })
