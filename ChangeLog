@@ -1,3 +1,13 @@
+V1.1
+- HTTPS activated on all endpoints (https://api.waziup.io, https://dashboard.waziup.io, https://keycloak.waziup.io)
+- compound data types (e.g. for GPS)
+- better ownership of sensors (e.g. display only your sensors in the dashboard)
+- sharing of sensors
+- sensor visibility (public, private)
+- datapoints timestamps can be from device or from Cloud
+- faster response time
+- download sensor data in CSV format from the dashboard
+
 V1.0
 - API complete with auth, domains, sensors, entities, users, socials and notifications
 - Dashboard complete: sensors context and data, user management, notifications, map view, gateways
