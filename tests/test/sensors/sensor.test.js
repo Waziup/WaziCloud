@@ -77,7 +77,16 @@ describe('Sensors', () => {
     it('normal user cannot see private sensor', async () => {
       await createSensor({...sensor, visibility: 'private'}).set(withAdmin)
       let res = await getPermissions().set(withNormal)
-      chai.expect(res.body.map(s => s.id)).to.not.include(sensor.id);
+      res.status.should.satisfy((s) => {
+        switch (s) {
+          case 200:
+            return ! res.body.map(s => s.id).includes(sensor.id);
+          case 403:
+            return true;
+          default:
+            return false;
+        }
+      });
     });
   });
   describe('Get Sensors', () => {
@@ -104,7 +113,16 @@ describe('Sensors', () => {
     it('normal user CANNOT see private sensors', async () => {
       await createSensor({...sensor, visibility: 'private'}).set(withAdmin)
       let res = await getSensors().set(withNormal)
-      chai.expect(res.body.map(s => s.id)).to.not.include(sensor.id);
+      res.status.should.satisfy((s) => {
+        switch (s) {
+          case 200:
+            return ! res.body.map(s => s.id).includes(sensor.id);
+          case 403:
+            return true;
+          default:
+            return false;
+        }
+      });
     });
   });
 
