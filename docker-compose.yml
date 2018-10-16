@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 
 services:
 
@@ -10,6 +10,13 @@ services:
       - "27017:27017"
     volumes:
       - ${WAZIUP_DATA}/mongo:/data/db
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo localhost:27017/local --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    extra_hosts:
+      - "localhost:127.0.0.1"
 
   orion:
     image: fiware/orion:1.15.0
@@ -22,7 +29,8 @@ services:
       - "mongo:127.0.0.1"
       - "localhost:127.0.0.1"
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy 
 
   api-server:
     build: ./api-server
@@ -88,7 +96,6 @@ services:
       - SERVER_PORT=3000
       - KEYCLOAK_URL=http://${WAZIUP_URL}:8080/auth
       - API_SERVER_URL=http://${WAZIUP_URL}/api
-    mem_limit: 1000000000  
 
 #Socials
   socials:
