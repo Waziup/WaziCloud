@@ -6,12 +6,11 @@ let socialData = require('./sample-data').socials;
 let utils = require('../utils');
 
 chai.use(chaiHttp);
-let domain = 'waziup'
 
-let getSocialMsgs = () => chai.request(baseUrl).get(`/domains/${domain}/socials`)
-let postSocialMsg = (msg) => chai.request(baseUrl).post(`/domains/${domain}/socials`).send(msg)
-let getSocialMsg = (id) => chai.request(baseUrl).get(`/domains/${domain}/socials/${id}`)
-let deleteSocialMsg = (id) => chai.request(baseUrl).delete(`/domains/${domain}/socials/${id}`)
+let getSocialMsgs = () => chai.request(baseUrl).get(`/socials`)
+let postSocialMsg = (msg) => chai.request(baseUrl).post(`/socials`).send(msg)
+let getSocialMsg = (id) => chai.request(baseUrl).get(`/socials/${id}`)
+let deleteSocialMsg = (id) => chai.request(baseUrl).delete(`/socials/${id}`)
 
 describe('Socials', () => {
   let withAdmin = null

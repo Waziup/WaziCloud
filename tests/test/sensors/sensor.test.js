@@ -8,17 +8,16 @@ let utils = require('../utils');
 
 console.log("baseUrl:" + baseUrl)
 
-let domain = "waziup"
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;
 
 let getPermissions = () => chai.request(baseUrl).get(`/auth/permissions`)
-let getSensors = () => chai.request(baseUrl).get(`/domains/${domain}/sensors?limit=1000`)
-let createSensor = (s) => chai.request(baseUrl).post(`/domains/${domain}/sensors`).send(s)
-let getSensor = (id) => chai.request(baseUrl).get(`/domains/${domain}/sensors/${id}`)
-let setSensorAttr = (id, attr, value) => chai.request(baseUrl).put(`/domains/${domain}/sensors/${id}/${attr}`).set('content-type', 'text/plain').send(value)
-let setSensorLocation = (id, value) => chai.request(baseUrl).put(`/domains/${domain}/sensors/${id}/location`).set('content-type', 'application/json').send(value)
-let deleteSensor = (id) => chai.request(baseUrl).delete(`/domains/${domain}/sensors/${id}`)
+let getSensors = () => chai.request(baseUrl).get(`/sensors?limit=1000`)
+let createSensor = (s) => chai.request(baseUrl).post(`/sensors`).send(s)
+let getSensor = (id) => chai.request(baseUrl).get(`/sensors/${id}`)
+let setSensorAttr = (id, attr, value) => chai.request(baseUrl).put(`/sensors/${id}/${attr}`).set('content-type', 'text/plain').send(value)
+let setSensorLocation = (id, value) => chai.request(baseUrl).put(`/sensors/${id}/location`).set('content-type', 'application/json').send(value)
+let deleteSensor = (id) => chai.request(baseUrl).delete(`/sensors/${id}`)
 
 
 describe('Sensors', () => {
@@ -113,6 +112,7 @@ describe('Sensors', () => {
     it('normal user CANNOT see private sensors', async () => {
       await createSensor({...sensor, visibility: 'private'}).set(withAdmin)
       let res = await getSensors().set(withNormal)
+      console.log(JSON.stringify(res.body));
       res.status.should.satisfy((s) => {
         switch (s) {
           case 200:

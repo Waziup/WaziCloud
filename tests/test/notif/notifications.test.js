@@ -10,15 +10,14 @@ let utils = require('../utils');
 let createdDomianId = "";
 chai.use(chaiHttp);
 
-let domain = 'waziup';
 var sampleNotification = "";
 
-let getNotifs = () => chai.request(baseUrl).get(`/domains/${domain}/notifications`)
-let createNotif = (notif) => chai.request(baseUrl).post(`/domains/${domain}/notifications`).send(notif)
-let getNotif = (id) => chai.request(baseUrl).get(`/domains/${domain}/notifications/${id}`)
-let deleteNotif = (id) => chai.request(baseUrl).delete(`/domains/${domain}/notifications/${id}`)
-let createSensor = (s) => chai.request(baseUrl).post(`/domains/${domain}/sensors`).send(s)
-let deleteSensor = (id) => chai.request(baseUrl).delete(`/domains/${domain}/sensors/${id}`)
+let getNotifs = () => chai.request(baseUrl).get(`/notifications`)
+let createNotif = (notif) => chai.request(baseUrl).post(`/notifications`).send(notif)
+let getNotif = (id) => chai.request(baseUrl).get(`/notifications/${id}`)
+let deleteNotif = (id) => chai.request(baseUrl).delete(`/notifications/${id}`)
+let createSensor = (s) => chai.request(baseUrl).post(`/sensors`).send(s)
+let deleteSensor = (id) => chai.request(baseUrl).delete(`/sensors/${id}`)
 
 describe('Notifications', () => {
   let withAdmin = null

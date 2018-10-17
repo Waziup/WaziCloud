@@ -2,7 +2,6 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
 let baseUrl = require('../../config/env').apiUrl;
-let domain = require('../../config/env').domain;
 let userCredentials = require('./sample-data').user.admin;
 let userData = require('./sample-data.json').sampleUser;
 let utils = require('../utils');
@@ -10,11 +9,11 @@ let utils = require('../utils');
 let createdDomianId = "";
 chai.use(chaiHttp);
 
-let getUsers = () => chai.request(baseUrl).get(`/domains/${domain}/users`)
-let createUser = (u) => chai.request(baseUrl).post(`/domains/${domain}/users`).send(u)
-let getUser = (id) => chai.request(baseUrl).get(`/domains/${domain}/users/${id}`)
-let findUsers = (r) => chai.request(baseUrl).get(`/domains/${domain}/users/search/${r}`)
-let deleteUser = (id) => chai.request(baseUrl).delete(`/domains/${domain}/users/${id}`)
+let getUsers = () => chai.request(baseUrl).get(`/users`)
+let createUser = (u) => chai.request(baseUrl).post(`/users`).send(u)
+let getUser = (id) => chai.request(baseUrl).get(`/users/${id}`)
+let findUsers = (r) => chai.request(baseUrl).get(`/users/search/${r}`)
+let deleteUser = (id) => chai.request(baseUrl).delete(`/users/${id}`)
 
 describe('Users', () => {
   let withAdmin = null

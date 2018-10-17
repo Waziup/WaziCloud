@@ -2,7 +2,6 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
 let baseUrl = require('../../config/env').apiUrl;
-let domain = require('../../config/env').domain;
 let sensor = require('./sample-data').valid;
 let userCredentials = require('./sample-data').user.admin;
 let measurement = require('./sample-data').valid.measurements[0];
@@ -11,14 +10,14 @@ let utils = require('../utils');
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;
 
-let createSensor = (s) => chai.request(baseUrl).post(`/domains/${domain}/sensors`).send(s)
-let deleteSensor = (id) => chai.request(baseUrl).delete(`/domains/${domain}/sensors/${id}`)
-let getMeass = () => chai.request(baseUrl).get(`/domains/${domain}/sensors/${sensor.id}/measurements`)
-let createMeas = (m) => chai.request(baseUrl).post(`/domains/${domain}/sensors/${sensor.id}/measurements`).send(m)
-let getMeas = (id) => chai.request(baseUrl).get(`/domains/${domain}/sensors/${sensor.id}/measurements/${id}`)
-let putMeasAttr = (id, attr, val) => chai.request(baseUrl).put(`/domains/${domain}/sensors/${sensor.id}/measurements/${id}/${attr}`).set('content-type', 'text/plain').send(val)
-let getMeasValues = (id) => chai.request(baseUrl).get(`/domains/${domain}/sensors/${sensor.id}/measurements/${id}/values`)
-let pushMeasValue = (id, val) => chai.request(baseUrl).post(`/domains/${domain}/sensors/${sensor.id}/measurements/${id}/values`).set('content-type', 'application/json').send(val)
+let createSensor = (s) => chai.request(baseUrl).post(`/sensors`).send(s)
+let deleteSensor = (id) => chai.request(baseUrl).delete(`/sensors/${id}`)
+let getMeass = () => chai.request(baseUrl).get(`/sensors/${sensor.id}/measurements`)
+let createMeas = (m) => chai.request(baseUrl).post(`/sensors/${sensor.id}/measurements`).send(m)
+let getMeas = (id) => chai.request(baseUrl).get(`/sensors/${sensor.id}/measurements/${id}`)
+let putMeasAttr = (id, attr, val) => chai.request(baseUrl).put(`/sensors/${sensor.id}/measurements/${id}/${attr}`).set('content-type', 'text/plain').send(val)
+let getMeasValues = (id) => chai.request(baseUrl).get(`/sensors/${sensor.id}/measurements/${id}/values`)
+let pushMeasValue = (id, val) => chai.request(baseUrl).post(`/sensors/${sensor.id}/measurements/${id}/values`).set('content-type', 'application/json').send(val)
 
 describe('Measurements', () => {
   let withAdmin = null

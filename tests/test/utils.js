@@ -3,7 +3,6 @@ let chaiHttp = require('chai-http');
 let baseUrl = require('../config/env').apiUrl;
 let adminCredentials = require('../config/creds').user.admin;
 let normalCredentials = require('../config/creds').user.normal;
-let domain = require('../config/env').domain;
 
 chai.use(chaiHttp);
 
