@@ -52,6 +52,10 @@ services:
       - "elasticsearch:127.0.0.1"
       - "mongo:127.0.0.1"
       - "socials:127.0.0.1"
+    depends_on:
+      - orion
+      - keycloak
+      - socials
 
 # Users identification & authorization   
   keycloak:
