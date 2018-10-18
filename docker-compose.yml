@@ -34,7 +34,7 @@ services:
 
   api-server:
     build: ./api-server
-    image: waziup/api-server:1.1.cr1
+    image: waziup/api-server:1.1.cr2
     ports:
       - "80:80"
     environment:
@@ -60,7 +60,7 @@ services:
 # Users identification & authorization   
   keycloak:
     build: ./keycloak
-    image: waziup/keycloak:1.1.cr1
+    image: waziup/keycloak:1.1.cr2
     ports:
       - "8080:8080"
     environment:
@@ -93,7 +93,7 @@ services:
 # Dashboard    
   dashboard:
     build: ./dashboard
-    image: waziup/dashboard:1.1.cr1
+    image: waziup/dashboard:1.1.cr2
     ports:
       - "3000:3000"
     environment:
@@ -104,7 +104,7 @@ services:
 #Socials
   socials:
     build: ./socials
-    image: waziup/socials:1.1.cr1
+    image: waziup/socials:1.1.cr2
     ports:
       - 9123:9123
     environment:
@@ -114,7 +114,7 @@ services:
 
   proxy:
     build: ./proxy
-    image: waziup/proxy:1.1.cr1
+    image: waziup/proxy:1.1.cr2
     ports:
       - "80:80"
       - "443:443"
