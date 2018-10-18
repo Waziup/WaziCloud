@@ -20,6 +20,7 @@ cd Platform
 
 Then pull the images and run it:
 ```
+sudo chmod 777 data/* -R
 docker-compose pull
 docker-compose up
 ```
@@ -50,22 +51,12 @@ Tests
 
 You can run the test campain like this:
 ```
-docker-compose up
-./tests/platform_tests.sh
+./run_tests.sh
 ```
 
 Or view the API documentation:
 ```
 firefox localhost/docs
-```
-
-## Feeder Tests
-
-In order to see if Feeder is storing data into ElasticSearch:
-
-```
- curl -X GET 'http://localhost:9200/waziup/_search?q=entity_id:Sensor2-ea0541de1ab7132a1d45b85f9b2139f5&sort=received_time:desc' | jq
-
 ```
 
 Backup
@@ -78,7 +69,7 @@ mysqldump -h dev.waziup.io -P 3306 -u root -proot_password --all-databases > /va
 
 Restore the data:
 ```
-mysql -u root -proot_password <  /var/backups/mysqlbackups/`date +"%m-%d-%y"`
+mysql -u root -proot_password -h 127.0.0.1 <  /var/backups/mysqlbackups/`date +"%m-%d-%y"`
 ```
 
 `mongodump` is used to backup sensor data:
@@ -90,7 +81,6 @@ This command restores it in the local instance:
 ```
 mongorestore /var/backups/mongobackups/`date +"%m-%d-%y"`
 ```
-
 
 Debug
 -----
