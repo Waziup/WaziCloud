@@ -17,7 +17,9 @@ let createNotif = (notif) => chai.request(baseUrl).post(`/notifications`).send(n
 let getNotif = (id) => chai.request(baseUrl).get(`/notifications/${id}`)
 let deleteNotif = (id) => chai.request(baseUrl).delete(`/notifications/${id}`)
 let createSensor = (s) => chai.request(baseUrl).post(`/sensors`).send(s)
+let getSensor = (id) => chai.request(baseUrl).get(`/sensors/${id}`)
 let deleteSensor = (id) => chai.request(baseUrl).delete(`/sensors/${id}`)
+let pushMeasValue = (id, val) => chai.request(baseUrl).post(`/sensors/${sensor.id}/measurements/${id}/values`).set('content-type', 'application/json').send(val)
 
 describe('Notifications', () => {
   let withAdmin = null
@@ -28,7 +30,7 @@ describe('Notifications', () => {
     try {
       withAdmin = await utils.getAdminAuth()
       withNormal = await utils.getNormalAuth()
-      let res = await createSensor(sensor).set(withAdmin)
+      //let res = await createSensor(sensor).set(withAdmin)
     } catch (err) {
       console.log('error:' + err)
     }
@@ -36,7 +38,7 @@ describe('Notifications', () => {
   
   after(async function () {
     try {
-      await deleteSensor(sensor.id).set(withAdmin)
+      //await deleteSensor(sensor.id).set(withAdmin)
     } catch (err) {
       console.log('error:' + err)
     }
@@ -50,16 +52,21 @@ describe('Notifications', () => {
     });
   });
   describe('Create notifications', () => {
-    it('it should get a single notification', async () => {
+    it('notification is created', async () => {
       res = await createNotif(notif).set(withAdmin)
-      let res2 = await getNotif(res.text)
-      res2.should.have.status(200);
-      res2.body.should.be.a('object');
-      //all fields of original notif should be here
-      res2.body.should.deep.include(notif);
+      res.should.have.status(200);
+      res.text.should.be.a('string');
     });
   });
   describe('Get one notification', () => {
+    it('retrieved notification has all correct values', async () => {
+      let res = await createNotif(notif).set(withAdmin)
+      let res2 = await getNotif(res.text)
+      res2.should.have.status(200);
+      //all fields of original notif should be here
+      res2.body.should.deep.include(notif);
+      res2.body.should.have.property('status');
+    });
     it('it should return not found for notification that doesnt exist', async () => {
       let res = await getNotif(123)
       res.should.have.status(400);
@@ -78,12 +85,20 @@ describe('Notifications', () => {
   })
   describe('Trigger notifications', () => {
     it('Message should be sent upon notification creation', async () => {
+      await createSensor(sensor).set(withAdmin)
       res = await createNotif(notif).set(withAdmin)
+      await pushMeasValue("TC1", {"value": "10"}).set(withAdmin) 
+      await pushMeasValue("TC1", {"value": 20}).set(withAdmin) 
       let res2 = await getNotif(res.text)
+      console.log(JSON.stringify(res2))
       res2.should.have.status(200);
       res2.body.should.be.a('object');
       //all fields of original notif should be here
       res2.body.should.deep.include(notif);
+      res2.body.should.have.property('last_notification');
+      res2.body.should.have.property('times_sent').eql(1);
+      res2.body.should.have.property('status').eql("active");
+      await deleteSensor(sensor.id).set(withAdmin)
     });
   });
 })
