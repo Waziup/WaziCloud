@@ -93,7 +93,8 @@ services:
 # Dashboard    
   dashboard:
     build: ./dashboard
-    image: waziup/dashboard:1.1.cr2
+    # As a front-end app, specific images should be generated for each environment (local, staging, production).
+    image: waziup/dashboard:1.1.cr2-${WAZIUP_URL}
     ports:
       - "3000:3000"
     environment:
