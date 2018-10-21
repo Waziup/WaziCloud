@@ -7,6 +7,7 @@ V1.1
 - datapoints timestamps can be from device or from Cloud
 - faster response time
 - download sensor data in CSV format from the dashboard
+- domain has been removed from API
 
 V1.0
 - API complete with auth, domains, sensors, entities, users, socials and notifications
