@@ -50,6 +50,7 @@ describe('Notifications', () => {
       let res = await getNotifs()
       res.should.have.status(200);
       res.body.should.be.a('array');
+      await deleteNotif(res.text)
     });
   });
   describe('Create notifications', () => {
@@ -57,6 +58,7 @@ describe('Notifications', () => {
       res = await createNotif(notif).set(withAdmin)
       res.should.have.status(200);
       res.text.should.be.a('string');
+      await deleteNotif(res.text)
     });
   });
   describe('Get one notification', () => {
@@ -67,6 +69,7 @@ describe('Notifications', () => {
       //all fields of original notif should be here
       res2.body.should.deep.include(notif);
       res2.body.should.have.property('status').eql("active");
+      await deleteNotif(res.text)
     });
     it('it should return not found for notification that doesnt exist', async () => {
       let res = await getNotif(123)
@@ -78,6 +81,7 @@ describe('Notifications', () => {
       res = await createNotif(notif)
       let res2 = await deleteNotif(res.text)
       res2.should.have.status(200);
+      await deleteNotif(res.text)
     })
     it('it should return not found for notif that doesnt exist', async () => {
       let res = await deleteNotif(123)

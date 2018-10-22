@@ -112,7 +112,6 @@ describe('Sensors', () => {
     it('normal user CANNOT see private sensors', async () => {
       await createSensor({...sensor, visibility: 'private'}).set(withAdmin)
       let res = await getSensors().set(withNormal)
-      console.log(JSON.stringify(res.body));
       res.status.should.satisfy((s) => {
         switch (s) {
           case 200:
