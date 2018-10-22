@@ -21,7 +21,7 @@ npm install
 #run tests
 npm test 2>&1 > log.txt
 exit_code=$?
-echo "******** Tests finished, shuting down the platform... *********"
+echo "******** Tests finished, stand by for the result... *********"
 docker-compose down
 echo "******** Tests results: ********"
 cat log.txt
