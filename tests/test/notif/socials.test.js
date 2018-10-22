@@ -34,9 +34,13 @@ describe('Socials', () => {
     });
   });
   describe('post a message to social networks', () => {
-    it.skip('it should post a message to twitter', async () => {
+    it('it should post a message to twitter', async () => {
       let res = await postSocialMsg(socialData).set(withNormal)
       res.should.have.status(200);
+    });
+    it('it should fail with bad username', async () => {
+      let res = await postSocialMsg({...socialData, username: "5sd54fd5zryetasgsds444444ddd"}).set(withNormal)
+      res.should.have.status(500);
     });
   });
   describe('Get one message sent', () => {
