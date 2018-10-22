@@ -15,6 +15,7 @@ var sampleNotification = "";
 let getNotifs = () => chai.request(baseUrl).get(`/notifications`)
 let createNotif = (notif) => chai.request(baseUrl).post(`/notifications`).send(notif)
 let getNotif = (id) => chai.request(baseUrl).get(`/notifications/${id}`)
+let putNotifStatus = (id, st) => chai.request(baseUrl).put(`/notifications/${id}/status`).set('content-type', 'text/plain').send("inactive")
 let deleteNotif = (id) => chai.request(baseUrl).delete(`/notifications/${id}`)
 let createSensor = (s) => chai.request(baseUrl).post(`/sensors`).send(s)
 let getSensor = (id) => chai.request(baseUrl).get(`/sensors/${id}`)
@@ -65,7 +66,7 @@ describe('Notifications', () => {
       res2.should.have.status(200);
       //all fields of original notif should be here
       res2.body.should.deep.include(notif);
-      res2.body.should.have.property('status');
+      res2.body.should.have.property('status').eql("active");
     });
     it('it should return not found for notification that doesnt exist', async () => {
       let res = await getNotif(123)
@@ -84,21 +85,37 @@ describe('Notifications', () => {
     })
   })
   describe('Trigger notifications', () => {
-    it('Message should be sent upon notification creation', async () => {
+    before(async function () {
       await createSensor(sensor).set(withAdmin)
-      res = await createNotif(notif).set(withAdmin)
-      await pushMeasValue("TC1", {"value": "10"}).set(withAdmin) 
-      await pushMeasValue("TC1", {"value": 20}).set(withAdmin) 
-      let res2 = await getNotif(res.text)
-      console.log(JSON.stringify(res2))
-      res2.should.have.status(200);
-      res2.body.should.be.a('object');
-      //all fields of original notif should be here
-      res2.body.should.deep.include(notif);
-      res2.body.should.have.property('last_notification');
-      res2.body.should.have.property('times_sent').eql(1);
-      res2.body.should.have.property('status').eql("active");
+      await pushMeasValue("TC1", {"value": 10}).set(withAdmin) 
+    });
+    
+    after(async function () {
       await deleteSensor(sensor.id).set(withAdmin)
+    });
+    it('Message should be sent upon notification creation', async () => {
+      utils.sleep(5000)
+      let res = await createNotif(notif).set(withAdmin)
+      utils.sleep(1000)
+      await pushMeasValue("TC1", {"value": 10}).set(withAdmin) 
+      utils.sleep(2000)
+      await pushMeasValue("TC1", {"value": 11}).set(withAdmin) 
+      utils.sleep(1000)
+      let res2 = await getNotif(res.text)
+      //fields showing that the notification has been sent
+      res2.body.should.have.property('last_notification');
+      res2.body.should.have.property('times_sent').eql(2);
+      await deleteNotif(res.text)
+    });
+    it('inactive notification should do nothing', async () => {
+      let res = await createNotif(notif).set(withAdmin)
+      await putNotifStatus(res.text, "inactive")
+      await pushMeasValue("TC1", {"value": 10}).set(withAdmin) 
+      let res2 = await getNotif(res.text)
+      //all fields of original notif should be here
+      res2.body.should.have.property('status').eql("inactive");
+      res2.body.should.have.property('times_sent').eql(1);
+      await deleteNotif(res.text)
     });
   });
 })

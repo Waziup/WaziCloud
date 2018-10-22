@@ -20,4 +20,8 @@ async function getNormalAuth() {
   return {'authorization': `Bearer ${res.text}`}
 }
 
-module.exports={getAdminAuth, getNormalAuth, getAdminToken}
+function sleep(millis) {
+  return new Promise(resolve => setTimeout(resolve, millis));
+}
+
+module.exports={getAdminAuth, getNormalAuth, getAdminToken, sleep}
