@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3'
 
 services:
 
@@ -29,8 +29,8 @@ services:
       - "mongo:127.0.0.1"
       - "localhost:127.0.0.1"
     depends_on:
-      mongo:
-        condition: service_healthy 
+      - "mongo"
+         # condition: "service_healthy" 
 
   api-server:
     build: ./api-server
@@ -92,15 +92,16 @@ services:
 
 # Dashboard    
   dashboard:
-    build: ./dashboard
-    # As a front-end app, specific images should be generated for each environment (local, staging, production).
-    image: waziup/dashboard:1.1.cr2-${WAZIUP_URL}
+    build:
+      context: ./dashboard
+      args:
+        - SERVER_PORT=3000
+        - KEYCLOAK_URL=http://keycloak.staging.waziup.io/auth
+        - API_SERVER_URL=http://api.staging.waziup.io/api
+    # Specific images should be built for each environment (local, staging, production).
+    image: waziup/dashboard:1.1.cr2-staging
     ports:
       - "3000:3000"
-    environment:
-      - SERVER_PORT=3000
-      - KEYCLOAK_URL=http://${WAZIUP_URL}:8080/auth
-      - API_SERVER_URL=http://${WAZIUP_URL}/api
 
 #Socials
   socials:
