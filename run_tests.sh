@@ -4,7 +4,7 @@ docker-compose up > /dev/null &
 attempt_counter=0
 max_attempts=40
 #Wait until the platform started
-until $(curl --output /dev/null --silent --head --fail  http://localhost:800/api/v1/domains/waziup/sensors); do
+until $(curl --output /dev/null --silent --head --fail  http://localhost:800/api/v1/sensors); do
     if [ ${attempt_counter} -eq ${max_attempts} ];then
       echo "Max attempts reached: platform didn't start correctly"
       exit 1
