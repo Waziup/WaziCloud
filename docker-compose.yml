@@ -23,24 +23,23 @@ services:
     hostname: orion
     ports:
       - "1026:1026"
-    command: -dbhost mongo -logLevel WARN 
+    command: -dbhost mongo -logLevel INFO 
     network_mode: host
     extra_hosts:
       - "mongo:127.0.0.1"
       - "localhost:127.0.0.1"
     depends_on:
       - "mongo"
-         # condition: "service_healthy" 
 
   api-server:
     build: ./api-server
-    image: waziup/api-server:1.1.cr2
+    image: waziup/api-server:1.1
     ports:
       - "80:80"
     environment:
       - HTTP_PORT=800
       - HTTPS_PORT=443
-      - KEYCLOAK_URL=http://${WAZIUP_URL}:8080/auth
+      - KEYCLOAK_URL=http://localhost:8080/auth
       - ORION_URL=http://orion:1026
       - ELASTICSEARCH_URL=http://elasticsearch:9200
       - MONGODB_URL=mongodb://mongo:27017/waziup_history
@@ -60,7 +59,7 @@ services:
 # Users identification & authorization   
   keycloak:
     build: ./keycloak
-    image: waziup/keycloak:1.1.cr2
+    image: waziup/keycloak:1.1
     ports:
       - "8080:8080"
     environment:
@@ -92,25 +91,27 @@ services:
 
 # Dashboard    
   dashboard:
+    # Specific images should be built for each environment (local, staging, production).
+    #image: waziup/dashboard:1.1-staging
+    image: waziup/dashboard:1.1-production
     build:
       context: ./dashboard
       args:
         - SERVER_PORT=3000
-        - KEYCLOAK_URL=http://keycloak.staging.waziup.io/auth
-        - API_SERVER_URL=http://api.staging.waziup.io/api
-    # Specific images should be built for each environment (local, staging, production).
-    image: waziup/dashboard:1.1.cr2-staging
+        - SERVER_URL=https://dashboard.waziup.io
+        - KEYCLOAK_URL=https://keycloak.waziup.io/auth
+        - API_SERVER_URL=https://api.waziup.io/api
     ports:
       - "3000:3000"
 
 #Socials
   socials:
     build: ./socials
-    image: waziup/socials:1.1.cr2
+    image: waziup/socials
     ports:
       - 9123:9123
     environment:
       - MONGODB_URL=mongodb://localhost:27017/waziup_socials
-    links:
+    depends_on:
       - mongo
 
