@@ -92,15 +92,14 @@ services:
 # Dashboard    
   dashboard:
     # Specific images should be built for each environment (local, staging, production).
-    #image: waziup/dashboard:1.1-staging
-    image: waziup/dashboard:1.1-production
+    image: waziup/dashboard:1.1-localhost
     build:
       context: ./dashboard
       args:
         - SERVER_PORT=3000
-        - SERVER_URL=https://dashboard.waziup.io
-        - KEYCLOAK_URL=https://keycloak.waziup.io/auth
-        - API_SERVER_URL=https://api.waziup.io/api
+        - SERVER_URL=http://localhost:3000
+        - KEYCLOAK_URL=http://localhost:8080/auth
+        - API_SERVER_URL=http://localhost:800/api
     ports:
       - "3000:3000"
 
