@@ -14,7 +14,7 @@ Install
 
 To install the platform, first clone it:
 ```
-git clone git@github.com:Waziup/Platform.git
+git clone https://github.com/Waziup/Platform.git
 cd Platform
 ```
 
