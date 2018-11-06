@@ -92,7 +92,7 @@ services:
 # Dashboard    
   dashboard:
     # Specific images should be built for each environment (local, staging, production).
-    image: waziup/dashboard:1.1-localhost
+    image: waziup/dashboard:1.1.1-localhost
     build:
       context: ./dashboard
       args:
@@ -106,7 +106,7 @@ services:
 #Socials
   socials:
     build: ./socials
-    image: waziup/socials
+    image: waziup/socials:1.1
     ports:
       - 9123:9123
     environment:
