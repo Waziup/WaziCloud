@@ -14,7 +14,7 @@ Install
 
 To install the platform, first clone it:
 ```
-git clone git@github.com:Waziup/Platform.git
+git clone https://github.com/Waziup/Platform.git
 cd Platform
 ```
 
@@ -26,13 +26,6 @@ docker-compose up
 ```
 
 This will take a while. Once finished, you can then access Waziup platform on http://localhost:3000
-
-See [this file](INSTALL.md) for the installation instructions on Cloud platforms.
-
-To run a light version of the platform, run:
-```
-docker-compose up api-server orion mongo dashboard keycloak socials
-```
 
 Develop
 -------
@@ -56,7 +49,7 @@ You can run the test campain like this:
 
 Or view the API documentation:
 ```
-firefox localhost/docs
+firefox localhost:800/docs
 ```
 
 Backup
