@@ -19,11 +19,11 @@ services:
       - "localhost:127.0.0.1"
 
   orion:
-    image: fiware/orion:1.15.0
+    image: fiware/orion:2.0.0
     hostname: orion
     ports:
       - "1026:1026"
-    command: -dbhost mongo -logLevel INFO 
+    command: -dbhost mongo -logLevel DEBUG 
     network_mode: host
     extra_hosts:
       - "mongo:127.0.0.1"
@@ -55,6 +55,26 @@ services:
       - orion
       - keycloak
       - socials
+
+  servant:
+    build: ./servant
+    image: waziup/servant
+    ports:
+      - "8081:8081"
+    environment:
+      - KEYCLOAK_URL=http://localhost:8080/auth
+      - ORION_URL=http://orion:1026
+      - MONGODB_URL=mongodb://mongo:27017/waziup_history
+      - LOG_LEVEL=debug
+    network_mode: host
+    extra_hosts:
+      - "orion:127.0.0.1"
+      - "elasticsearch:127.0.0.1"
+      - "mongo:127.0.0.1"
+      - "socials:127.0.0.1"
+    depends_on:
+      - orion
+      - keycloak
 
 # Users identification & authorization   
   keycloak:
