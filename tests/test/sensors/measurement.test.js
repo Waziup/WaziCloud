@@ -15,7 +15,7 @@ let deleteSensor = (id) => chai.request(baseUrl).delete(`/sensors/${id}`)
 let getMeass = () => chai.request(baseUrl).get(`/sensors/${sensor.id}/measurements`)
 let createMeas = (m) => chai.request(baseUrl).post(`/sensors/${sensor.id}/measurements`).send(m)
 let getMeas = (id) => chai.request(baseUrl).get(`/sensors/${sensor.id}/measurements/${id}`)
-let putMeasAttr = (id, attr, val) => chai.request(baseUrl).put(`/sensors/${sensor.id}/measurements/${id}/${attr}`).set('content-type', 'text/plain').send(val)
+let putMeasAttr = (id, attr, val) => chai.request(baseUrl).put(`/sensors/${sensor.id}/measurements/${id}/${attr}`).set('content-type', 'text/plain;charset=utf-8').send(val)
 let getMeasValues = (id) => chai.request(baseUrl).get(`/sensors/${sensor.id}/measurements/${id}/values`)
 let pushMeasValue = (id, val) => chai.request(baseUrl).post(`/sensors/${sensor.id}/measurements/${id}/values`).set('content-type', 'application/json').send(val)
 
@@ -60,12 +60,12 @@ describe('Measurements', () => {
     it('admin can create a measurement', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await createMeas(measurement).set(withAdmin)
-      res.should.have.status(200);
+      res.should.have.status(204);
     });
     it('normal user can create a measurement on his own sensor', async () => {
       await createSensor(sensor).set(withNormal)
       let res = await createMeas(measurement).set(withNormal)
-      res.should.have.status(200);
+      res.should.have.status(204);
     });
     it('normal user CANNOT create a measurement on a sensor owned by other', async () => {
       await createSensor(sensor).set(withAdmin)
@@ -87,7 +87,7 @@ describe('Measurements', () => {
     it('name of measurement is updated', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await putMeasAttr(measurement.id, "name", "ss1").set(withAdmin)
-      res.should.have.status(200);
+      res.should.have.status(204);
       let res2 = await getMeas(measurement.id).set(withAdmin)
       res2.body.should.have.property('name').eql('ss1');
     });
@@ -101,7 +101,7 @@ describe('Measurements', () => {
     it('quantity kind is updated', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await putMeasAttr(measurement.id, "quantity_kind", "Temperature").set(withAdmin)
-      res.should.have.status(200);
+      res.should.have.status(204);
       let res2 = await getMeas(measurement.id).set(withAdmin)
       res2.body.should.have.property('quantity_kind').eql('Temperature');
     });
@@ -110,17 +110,17 @@ describe('Measurements', () => {
   describe('Update sensing device', () => {
     it('sensing device is updated', async () => {
       await createSensor(sensor).set(withAdmin)
-      let res = await putMeasAttr(measurement.id, "sensing_device", "Thermometer").set(withAdmin)
-      res.should.have.status(200);
+      let res = await putMeasAttr(measurement.id, "sensor_kind", "Thermometer").set(withAdmin)
+      res.should.have.status(204);
       let res2 = await getMeas(measurement.id).set(withAdmin)
-      res2.body.should.have.property('sensing_device').eql('Thermometer');
+      res2.body.should.have.property('sensor_kind').eql('Thermometer');
     });
   });
   describe('Update unit', () => {
     it('unit should be updated', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await putMeasAttr(measurement.id, "unit", "DegreeCelcius").set(withAdmin)
-      res.should.have.status(200);
+      res.should.have.status(204);
       let res2 = await getMeas(measurement.id).set(withAdmin)
       res2.body.should.have.property('unit').eql('DegreeCelcius');
     });

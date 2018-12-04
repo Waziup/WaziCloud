@@ -15,7 +15,7 @@ let getPermissions = () => chai.request(baseUrl).get(`/auth/permissions`)
 let getSensors = () => chai.request(baseUrl).get(`/sensors?limit=1000`)
 let createSensor = (s) => chai.request(baseUrl).post(`/sensors`).send(s)
 let getSensor = (id) => chai.request(baseUrl).get(`/sensors/${id}`)
-let setSensorAttr = (id, attr, value) => chai.request(baseUrl).put(`/sensors/${id}/${attr}`).set('content-type', 'text/plain').send(value)
+let setSensorAttr = (id, attr, value) => chai.request(baseUrl).put(`/sensors/${id}/${attr}`).set('content-type', 'text/plain;charset=utf-8').send(value)
 let setSensorLocation = (id, value) => chai.request(baseUrl).put(`/sensors/${id}/location`).set('content-type', 'application/json').send(value)
 let deleteSensor = (id) => chai.request(baseUrl).delete(`/sensors/${id}`)
 
@@ -127,12 +127,13 @@ describe('Sensors', () => {
 
   describe('Create sensor', () => {
     it('sensor is created by admin', async () => {
+      console.log("Before")
       let res = await createSensor(sensor).set(withAdmin)
-      res.should.have.status(200);
+      res.should.have.status(204);
     });
     it('sensor is created by normal user', async () => {
       let res = await createSensor(sensor).set(withNormal)
-      res.should.have.status(200);
+      res.should.have.status(204);
     });
     it('sensor with the same id is rejected', async () => {
       await createSensor(sensor).set(withAdmin)
@@ -186,20 +187,11 @@ describe('Sensors', () => {
     });
   });
 
-  //describe('Insert Owner', () => {
-   // it('owner field should be updated', async () => {
-   //   await createSensor(sensor).set(withAdmin)
-   //   let res = await setSensorAttr(sensor.id, "owner", "henok").set(withAdmin);
-   //   res.should.have.status(200);
-   //   let res2 = await getSensor(sensor.id).set(withAdmin);
-   //   res2.body.should.have.property('owner').eql('henok')
-   // });
-  //});
   describe('Insert Name', () => {
     it('name field should be updated', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await setSensorAttr(sensor.id, "name", "SEN1").set(withAdmin)
-      res.should.have.status(200);
+      res.should.have.status(204);
       let res2 = await getSensor(sensor.id).set(withAdmin);
       res2.body.should.have.property('name').eql('SEN1');
     });
@@ -219,9 +211,18 @@ describe('Sensors', () => {
     it('Location field should be updated', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await setSensorLocation(sensor.id, {latitude: 5.36, longitude: 4.0083}).set(withAdmin)
-      res.should.have.status(200);
+      res.should.have.status(204);
       let res2 = await getSensor(sensor.id).set(withAdmin)
       res2.body.should.have.property('location').eql({"latitude": 5.36, "longitude": 4.0083});
+    });
+  });
+  describe('Insert Gateway', () => {
+    it('gateway field should be updated', async () => {
+      await createSensor(sensor).set(withAdmin)
+      let res = await setSensorAttr(sensor.id, "gateway_id", "GW1").set(withAdmin)
+      res.should.have.status(204);
+      let res2 = await getSensor(sensor.id).set(withAdmin);
+      res2.body.should.have.property('gateway_id').eql('GW1');
     });
   });
 
@@ -229,17 +230,17 @@ describe('Sensors', () => {
     it('admin can remove own sensor', async () => {
       await createSensor(sensor).set(withAdmin)
       let res = await deleteSensor(sensor.id).set(withAdmin)
-      res.should.have.status(200);
+      res.should.have.status(204);
     });
     it('admin can remove other sensor', async () => {
       await createSensor(sensor).set(withNormal)
       let res = await deleteSensor(sensor.id).set(withAdmin)
-      res.should.have.status(200);
+      res.should.have.status(204);
     });
     it('normal user can remove own sensor', async () => {
       await createSensor(sensor).set(withNormal)
       let res = await deleteSensor(sensor.id).set(withNormal)
-      res.should.have.status(200);
+      res.should.have.status(204);
     });
     it('normal user CANNOT remove sensor owned by other', async () => {
       await createSensor(sensor).set(withAdmin)
