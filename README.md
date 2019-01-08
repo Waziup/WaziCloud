@@ -78,11 +78,6 @@ mongorestore /var/backups/mongobackups/`date +"%m-%d-%y"`
 Debug
 -----
 
-If elasticsearch complains about virtual memory, run this command and restart:
-```
-sudo sysctl -w vm.max_map_count=262144
-```
-
 To export the keycloak configuration, run:
 ```
 docker-compose run --entrypoint "/opt/jboss/tools/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/opt/jboss/keycloak/standalone/data/" keycloak
