@@ -23,7 +23,8 @@ services:
     hostname: orion
     ports:
       - "1026:1026"
-    command: -dbhost mongo -logLevel DEBUG 
+    entrypoint: ["sh", "-c", "rm /tmp/contextBroker.pid; /usr/bin/contextBroker -fg -multiservice -dbhost mongo -logLevel DEBUG"]
+    restart: always
     network_mode: host
     extra_hosts:
       - "mongo:127.0.0.1"
