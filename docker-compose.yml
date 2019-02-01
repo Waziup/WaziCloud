@@ -33,39 +33,16 @@ services:
       - "mongo"
 
   api-server:
-    build: ./api-server
-    image: waziup/api-server:1.1
-    ports:
-      - "80:80"
-    environment:
-      - HTTP_PORT=800
-      - HTTPS_PORT=443
-      - KEYCLOAK_URL=http://localhost:8080/auth
-      - ORION_URL=http://orion:1026
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
-      - MONGODB_URL=mongodb://mongo:27017/waziup_history
-      - SOCIALS_URL=http://socials:9123
-      - LOG_LEVEL=debug
-    network_mode: host
-    extra_hosts:
-      - "orion:127.0.0.1"
-      - "elasticsearch:127.0.0.1"
-      - "mongo:127.0.0.1"
-      - "socials:127.0.0.1"
-    depends_on:
-      - orion
-      - keycloak
-      - socials
-
-  servant:
     build: ./servant
     image: waziup/servant
     ports:
-      - "8081:8081"
+      - "800:800"
     environment:
+      - HTTP_PORT=800
+      - HTTP_URL=http://localhost:800
       - KEYCLOAK_URL=http://localhost:8080/auth
       - ORION_URL=http://orion:1026
-      - MONGODB_URL=mongodb://mongo:27017/waziup_history
+      - MONGODB_URL=mongo:27017
       - LOG_LEVEL=debug
     network_mode: host
     extra_hosts:
@@ -76,11 +53,20 @@ services:
     depends_on:
       - orion
       - keycloak
+      - mongo
+      - mqtt
+  
+  mqtt:
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"
+    network_mode: host
+
 
 # Users identification & authorization   
   keycloak:
     build: ./keycloak
-    image: waziup/keycloak:1.1
+    image: waziup/keycloak
     ports:
       - "8080:8080"
     environment:
