@@ -43,7 +43,10 @@ htmlcov/
 nosetests.xml
 coverage.xml
 .hypothesis/
-
+*/tests/mochawesome-report/assets/app.css
+*/tests/mochawesome-report/assets/app.js
+*/tests/mochawesome-report/mochawesome.html
+*/tests/mochawesome-report/mochawesome.json
 # Translations
 *.mo
 *.pot
