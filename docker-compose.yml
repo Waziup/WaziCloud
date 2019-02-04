@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
 # Broker
   mongo:
     image: mongo:3.2.8
@@ -31,33 +30,8 @@ services:
     depends_on:
       - "mongo"
 
-  api-server:
-    build: ./api-server
-    image: waziup/api-server:1.1
-    ports:
-      - "80:80"
-    environment:
-      - HTTP_PORT=800
-      - HTTPS_PORT=443
-      - KEYCLOAK_URL=http://localhost:8080/auth
-      - ORION_URL=http://orion:1026
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
-      - MONGODB_URL=mongodb://mongo:27017/waziup_history
-      - SOCIALS_URL=http://socials:9123
-      - LOG_LEVEL=debug
-    network_mode: host
-    extra_hosts:
-      - "orion:127.0.0.1"
-      - "elasticsearch:127.0.0.1"
-      - "mongo:127.0.0.1"
-      - "socials:127.0.0.1"
-    depends_on:
-      - orion
-      - keycloak
-      - socials
-
   servant:
-    build: ./servant
+    #build: ./servant
     image: waziup/servant
     ports:
       - "8081:8081"
@@ -133,4 +107,3 @@ services:
       - MONGODB_URL=mongodb://localhost:27017/waziup_socials
     depends_on:
       - mongo
-
