@@ -6,7 +6,7 @@ let device = require('./sample-data').valid;
 let invalidDevice = require('./sample-data').invalid;
 let utils = require('../utils');
 
-console.log("baseUrl:" + baseUrl)
+console.log("baseUrl: " + baseUrl)
 
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;
@@ -127,7 +127,6 @@ describe('Devices', () => {
 
   describe('Create device', () => {
     it('device is created by admin', async () => {
-      console.log("Before")
       let res = await createDevice(device).set(withAdmin)
       res.should.have.status(204);
     });

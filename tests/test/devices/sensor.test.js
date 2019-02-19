@@ -124,7 +124,7 @@ describe('Sensors', () => {
     });
   });
   describe('push sensor value', () => {
-    it('value is pushed', async () => {
+    it('string value is pushed', async () => {
       await createDevice(device).set(withAdmin)
       let res = await pushSensorValue(sensor.id, {"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"})
       res.should.have.status(204);

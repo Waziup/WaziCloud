@@ -2,7 +2,6 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
 let baseUrl = require('../../config/env').apiUrl;
-let userCredentials = require('./sample-data').user.admin;
 let userData = require('./sample-data.json').sampleUser;
 let utils = require('../utils');
 
@@ -22,8 +21,7 @@ describe('Users', () => {
   //Retrieve the tokens and delete pre-existing sensor
   before(async function () {
     try {
-      withAdmin = await utils.getAdminAuth()
-      withNormal = await utils.getNormalAuth()
+      withAdmin = await utils.getRootAdminAuth()
     } catch (err) {
       console.log('error:' + err)
     }

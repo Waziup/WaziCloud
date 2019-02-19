@@ -1,111 +1,13 @@
 {
-    "valid" : {
-      "id": "Sensor2-ea0541de1ab7132a1d45b85f9b2139f5",
-      "gateway_id": "ea0541de1ab7132a1d45b85f9b2139f5",
-      "name": "My weather station",
-      "measurements": [
-        {
-          "id": "TC1",
-          "name": "My garden temperature",
-          "quantity_kind": "Temperature",
-          "unit": "DegreeCelcius",
-          "sensing_device": "Air temperature sensor"
-        }
-      ],
-      "location": {
-        "latitude": 5.36,
-        "longitude": 4.0083
-      },
-      "domain": "waziup",
-      "visibility": "public"
-    },
-    "invalid" : {
-        "gateway_id": "0d710b12-27e8-433d-ab3a-e05b7127eeaa",
-        "name": "Sensor1",
-        "sensor_kind": "Soil temperature sensor",
-        "measurements": [
-            {
-                "id": "0d710b12-27e8-433d-ab3a-e05b7127eeaa",
-                "name": "TC1",
-                "dimension": "temperature",
-                "unit": "Degree C",
-                "values": [
-                    {
-                        "value": "25.6",
-                        "timestamp": "2016-06-08T18:20:27.873Z"
-                    }
-                ]
-            }
-        ],
-        "location": {
-            "latitude": 5.36,
-            "longitude": 4.0083
-        }
-    },
-    "socials" : {
-        "username": "cdupont",
-        "channel": "twitter",
-        "message": "Test message2"
-    },
-    "domains" :{
-      "id" : "testfarm"
-    },
-    "domainAlt" : {
-      "id" : "dreamFarm"
-    },
     "user" : {
       "admin" : {
-        "username": "cdupont",
-        "password": "password"
+        "username": "admin",
+        "password": "admin"
       },
       "normal" : {
         "username" : "waziup",
         "password" : "waziup"
       }
-    },
-    "notification" :{
-      "description": "Send text message",
-      "subject": {
-        "entityNames": [
-          "Sensor1"
-        ],
-        "condition": {
-          "attrs": [
-            "SM1"
-          ],
-          "expression": "SM1>40"
-        }
-      },
-      "notification": {
-        "usernames": [
-          "cdupont",
-          "arahim"
-        ],
-        "channels": [
-          "facebook",
-          "sms"
-        ],
-        "message": "Test message"
-      },
-      "expires": "2017-10-13T14:51:22.12Z",
-      "throttling": 3600
-    },
-    "entities" : {
-      "id": "Barn4",
-      "type": "Room",
-      "attribute1": [
-        "Text Content.."
-      ],
-      "attribute2": [
-        "27"
-      ],
-      "attributeN": [
-        {
-          "latitude": 51.412,
-          "longitude": 12.564
-        }
-      ],
-      "additionalProp1": {}
     },
     "sampleUser" : {
       "id": "eb78eed6-d01a-4f69-b562-1f30002c08d9",
