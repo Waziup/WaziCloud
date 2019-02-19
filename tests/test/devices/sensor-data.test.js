@@ -1,23 +1,17 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
-let baseUrl = require('../../config/env').apiUrl;
 let device = require('./sample-data').valid;
-let userCredentials = require('./sample-data').user.admin;
 let sensor = require('./sample-data').valid.sensors[0];
-let utils = require('../utils');
+const { getAdminAuth, getNormalAuth, 
+  createDevice,
+  deleteDevice,
+  pushSensorValue,
+  getSensorData
+} = require('../utils');
 
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;
-
-let createDevice = (s) => chai.request(baseUrl).post(`/devices`).send(s)
-let deleteDevice = (id) => chai.request(baseUrl).delete(`/devices/${id}`)
-let getSensors = () => chai.request(baseUrl).get(`/devices/${device.id}/sensors`)
-let createSensor = (m) => chai.request(baseUrl).post(`/devices/${device.id}/sensors`).send(m)
-let getSensor = (id) => chai.request(baseUrl).get(`/devices/${device.id}/sensors/${id}`)
-let putSensorAttr = (id, attr, val) => chai.request(baseUrl).put(`/devices/${device.id}/sensors/${id}/${attr}`).set('content-type', 'text/plain;charset=utf-8').send(val)
-let pushSensorValue = (id, val) => chai.request(baseUrl).post(`/devices/${device.id}/sensors/${id}/value`).set('content-type', 'application/json').send(val)
-let getSensorData = (id) => chai.request(baseUrl).get(`/sensors_data?device_id=${device.id}&sensor_id=${id}`)
 
 describe('Sensor-data', () => {
   let withAdmin = null
@@ -25,8 +19,8 @@ describe('Sensor-data', () => {
   //Retrieve the tokens and create a new device
   before(async function () {
     try {
-      withAdmin = await utils.getAdminAuth()
-      withNormal = await utils.getNormalAuth()
+      withAdmin = await getAdminAuth()
+      withNormal = await getNormalAuth()
       await deleteDevice(device.id).set(withAdmin)
     } catch (err) {
       console.log('error:' + err)
