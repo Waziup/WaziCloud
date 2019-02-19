@@ -2,7 +2,7 @@
   "name": "test",
   "version": "1.1.0",
   "scripts": {
-    "test": "find ./test -name '*.test.js' | xargs mocha -R spec --timeout 20000 --reporter mochawesome"
+    "test": "find ./test/ -name '*.test.js' | xargs mocha -R spec --timeout 40000 --reporter mochawesome"
   },
   "devDependencies": {
     "chai": "^4.1.2",
@@ -10,5 +10,7 @@
     "mocha": "^4.1.0",
     "mochawesome": "^3.0.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "async-mqtt": "^2.0.0"
+  }
 }

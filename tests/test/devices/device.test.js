@@ -250,6 +250,3 @@ describe('Devices', () => {
   });
 
 });
-
-
-module.exports={createDevice, deleteDevice}

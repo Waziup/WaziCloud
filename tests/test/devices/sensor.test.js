@@ -27,7 +27,6 @@ describe('Sensors', () => {
       withAdmin = await utils.getAdminAuth()
       withNormal = await utils.getNormalAuth()
       await deleteDevice(device.id).set(withAdmin)
-      await createDevice(device).set(withAdmin)
     } catch (err) {
       console.log('error:' + err)
     }
@@ -127,7 +126,7 @@ describe('Sensors', () => {
   describe('push sensor value', () => {
     it('value is pushed', async () => {
       await createDevice(device).set(withAdmin)
-      let res = await pushSensorValue(sensor.id, {"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"}).set(withAdmin)
+      let res = await pushSensorValue(sensor.id, {"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"})
       res.should.have.status(204);
       let res2 = await getSensor(sensor.id).set(withAdmin)
       res2.body.value.should.deep.include({"value": "25.6", "timestamp": "2016-06-08T18:20:27Z"});
@@ -135,7 +134,7 @@ describe('Sensors', () => {
     });
     it('normal user can push on public device', async () => {
       await createDevice(device).set(withAdmin)
-      let res = await pushSensorValue(sensor.id, {"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"}).set(withNormal)
+      let res = await pushSensorValue(sensor.id, {"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"})
       res.should.have.status(204);
     });
     it('normal user CANNOT push on private device', async () => {
@@ -145,31 +144,36 @@ describe('Sensors', () => {
     });
     it('number value is pushed', async () => {
       await createDevice(device).set(withAdmin)
-      let res = await pushSensorValue(sensor.id, {"value": 25.6}).set(withAdmin)
+      let res = await pushSensorValue(sensor.id, {"value": 25.6})
+      res.should.have.status(204);
       let res2 = await getSensor(sensor.id).set(withAdmin)
       res2.body.value.should.deep.include({"value": 25.6});
     });
     it('string value is pushed', async () => {
       await createDevice(device).set(withAdmin)
-      let res = await pushSensorValue(sensor.id, {"value": "A"}).set(withAdmin)
+      let res = await pushSensorValue(sensor.id, {"value": "A"})
+      res.should.have.status(204);
       let res2 = await getSensor(sensor.id).set(withAdmin)
       res2.body.value.should.deep.include({"value": "A"});
     });
     it('boolean value is pushed', async () => {
       await createDevice(device).set(withAdmin)
-      let res = await pushSensorValue(sensor.id, {"value": true}).set(withAdmin)
+      let res = await pushSensorValue(sensor.id, {"value": true})
+      res.should.have.status(204);
       let res2 = await getSensor(sensor.id).set(withAdmin)
       res2.body.value.should.deep.include({"value": true});
     });
     it('array value is pushed', async () => {
       await createDevice(device).set(withAdmin)
-      let res = await pushSensorValue(sensor.id, {"value": [true]}).set(withAdmin)
+      let res = await pushSensorValue(sensor.id, {"value": [true]})
+      res.should.have.status(204);
       let res2 = await getSensor(sensor.id).set(withAdmin)
       res2.body.value.should.deep.include({"value": [true]});
     });
     it('object value is pushed', async () => {
       await createDevice(device).set(withAdmin)
-      let res = await pushSensorValue(sensor.id, {"value": {a:1, b:"2"}}).set(withAdmin)
+      let res = await pushSensorValue(sensor.id, {"value": {a:1, b:"2"}})
+      res.should.have.status(204);
       let res2 = await getSensor(sensor.id).set(withAdmin)
       res2.body.value.should.deep.include({"value": {a:1, b:"2"}});
     });
