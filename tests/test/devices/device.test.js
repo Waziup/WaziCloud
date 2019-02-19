@@ -127,7 +127,6 @@ describe('Devices', () => {
 
   describe('Create device', () => {
     it('device is created by admin', async () => {
-      console.log("Before")
       let res = await createDevice(device).set(withAdmin)
       res.should.have.status(204);
     });
