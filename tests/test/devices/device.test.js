@@ -1,24 +1,18 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
-let baseUrl = require('../../config/env').apiUrl;
 let device = require('./sample-data').valid;
-let invalidDevice = require('./sample-data').invalid;
-let utils = require('../utils');
-
-console.log("baseUrl: " + baseUrl)
+const { getAdminAuth, getNormalAuth,
+  getPermissions,
+  createDevice,
+  deleteDevice,
+  getDevices,
+  getDevice,
+  setDeviceAttr,
+  setDeviceLocation } = require('../utils');
 
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;
-
-let getPermissions = () => chai.request(baseUrl).get(`/auth/permissions`)
-let getDevices = () => chai.request(baseUrl).get(`/devices?limit=1000`)
-let createDevice = (s) => chai.request(baseUrl).post(`/devices`).send(s)
-let getDevice = (id) => chai.request(baseUrl).get(`/devices/${id}`)
-let setDeviceAttr = (id, attr, value) => chai.request(baseUrl).put(`/devices/${id}/${attr}`).set('content-type', 'text/plain;charset=utf-8').send(value)
-let setDeviceLocation = (id, value) => chai.request(baseUrl).put(`/devices/${id}/location`).set('content-type', 'application/json').send(value)
-let deleteDevice = (id) => chai.request(baseUrl).delete(`/devices/${id}`)
-
 
 describe('Devices', () => {
   let withAdmin = null
@@ -27,14 +21,14 @@ describe('Devices', () => {
   //Retrieve the tokens and delete pre-existing device
   before(async function () {
     try {
-      withAdmin = await utils.getAdminAuth()
-      withNormal = await utils.getNormalAuth()
+      withAdmin = await getAdminAuth()
+      withNormal = await getNormalAuth()
       await deleteDevice(device.id).set(withAdmin)
     } catch (err) {
       console.log('error:' + err)
     }
   });
-  
+
   //Clean after each test
   afterEach(async function () {
     try {
@@ -56,7 +50,7 @@ describe('Devices', () => {
       chai.expect(scopes).members(['devices:view', 'devices:update', 'devices:delete', 'devices-data:create', 'devices-data:view']);
     });
     it('admin have permissions on private device', async () => {
-      await createDevice({...device, visibility: 'private'}).set(withNormal)
+      await createDevice({ ...device, visibility: 'private' }).set(withNormal)
       let res = await getPermissions().set(withAdmin)
       let scopes = res.body.find(p => p.resource == device.id).scopes
       chai.expect(scopes).members(['devices:view', 'devices:update', 'devices:delete', 'devices-data:create', 'devices-data:view']);
@@ -74,12 +68,12 @@ describe('Devices', () => {
       chai.expect(scopes).members(['devices:view', 'devices-data:view', 'devices-data:create']);
     });
     it('normal user cannot see private device', async () => {
-      await createDevice({...device, visibility: 'private'}).set(withAdmin)
+      await createDevice({ ...device, visibility: 'private' }).set(withAdmin)
       let res = await getPermissions().set(withNormal)
       res.status.should.satisfy((s) => {
         switch (s) {
           case 200:
-            return ! res.body.map(s => s.id).includes(device.id);
+            return !res.body.map(s => s.id).includes(device.id);
           case 403:
             return true;
           default:
@@ -95,7 +89,7 @@ describe('Devices', () => {
       chai.expect(res.body.map(s => s.id)).to.include(device.id);
     });
     it('admin can see private devices', async () => {
-      await createDevice({...device, visibility: 'private'}).set(withNormal)
+      await createDevice({ ...device, visibility: 'private' }).set(withNormal)
       let res = await getDevices().set(withAdmin)
       chai.expect(res.body.map(s => s.id)).to.include(device.id);
     });
@@ -105,17 +99,17 @@ describe('Devices', () => {
       chai.expect(res.body.map(s => s.id)).to.include(device.id);
     });
     it('normal user can see own devices', async () => {
-      await createDevice({...device, visibility: 'private'}).set(withNormal)
+      await createDevice({ ...device, visibility: 'private' }).set(withNormal)
       let res = await getDevices().set(withNormal)
       chai.expect(res.body.map(s => s.id)).to.include(device.id);
     });
     it('normal user CANNOT see private devices', async () => {
-      await createDevice({...device, visibility: 'private'}).set(withAdmin)
+      await createDevice({ ...device, visibility: 'private' }).set(withAdmin)
       let res = await getDevices().set(withNormal)
       res.status.should.satisfy((s) => {
         switch (s) {
           case 200:
-            return ! res.body.map(s => s.id).includes(device.id);
+            return !res.body.map(s => s.id).includes(device.id);
           case 403:
             return true;
           default:
@@ -141,7 +135,7 @@ describe('Devices', () => {
     });
     it('device with invalid data is rejected', async () => {
       let wrong = Object.assign({}, device)
-      delete(wrong.id)
+      delete (wrong.id)
       let res = await createDevice(wrong).set(withAdmin)
       res.should.have.status(400);
     });
@@ -149,8 +143,10 @@ describe('Devices', () => {
 
   describe('Get a Single Device', () => {
     it('retrieved device has all the correct values', async () => {
-      await createDevice(device).set(withAdmin)
+      const resC = await createDevice(device).set(withAdmin);
+      resC.should.have.status(204);
       let res = await getDevice(device.id).set(withAdmin)
+      console.log(res.body);
       res.should.have.status(200);
       res.body.should.be.a('object');
       //all fields of original device should be here
@@ -165,7 +161,7 @@ describe('Devices', () => {
       res.should.have.status(404);
     });
     it('admin can see private device', async () => {
-      await createDevice({...device, visibility: 'private'}).set(withNormal)
+      await createDevice({ ...device, visibility: 'private' }).set(withNormal)
       let res = await getDevice(device.id).set(withAdmin)
       res.body.should.have.property('id').eql(device.id);
     });
@@ -175,12 +171,12 @@ describe('Devices', () => {
       res.body.should.have.property('id').eql(device.id);
     });
     it('normal user can see own device', async () => {
-      await createDevice({...device, visibility: 'private'}).set(withNormal)
+      await createDevice({ ...device, visibility: 'private' }).set(withNormal)
       let res = await getDevice(device.id).set(withNormal)
       res.body.should.have.property('id').eql(device.id);
     });
     it('normal user CANNOT see private device', async () => {
-      await createDevice({...device, visibility: 'private'}).set(withAdmin)
+      await createDevice({ ...device, visibility: 'private' }).set(withAdmin)
       let res = await getDevice(device.id).set(withNormal)
       res.should.have.status(403);
     });
@@ -209,10 +205,10 @@ describe('Devices', () => {
   describe('Insert Location', () => {
     it('Location field should be updated', async () => {
       await createDevice(device).set(withAdmin)
-      let res = await setDeviceLocation(device.id, {latitude: 5.36, longitude: 4.0083}).set(withAdmin)
+      let res = await setDeviceLocation(device.id, { latitude: 5.36, longitude: 4.0083 }).set(withAdmin)
       res.should.have.status(204);
       let res2 = await getDevice(device.id).set(withAdmin)
-      res2.body.should.have.property('location').eql({"latitude": 5.36, "longitude": 4.0083});
+      res2.body.should.have.property('location').eql({ "latitude": 5.36, "longitude": 4.0083 });
     });
   });
   describe('Insert Gateway', () => {
@@ -249,6 +245,3 @@ describe('Devices', () => {
   });
 
 });
-
-
-module.exports={createDevice, deleteDevice}

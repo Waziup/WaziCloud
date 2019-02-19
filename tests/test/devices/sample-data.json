@@ -1,15 +1,26 @@
 {
-  "valid" : {
+  "valid": {
     "id": "Sensor2-ea0541de1ab7132a1d45b85f9b2139f5",
     "gateway_id": "ea0541de1ab7132a1d45b85f9b2139f5",
     "name": "My weather station",
-    "sensors": [{
-      "id": "TC1",
-      "name": "My garden temperature",
-      "quantity_kind": "Temperature",
-      "unit": "DegreeCelcius",
-      "sensor_kind": "Air temperature sensor"}],
-    "actuators": [],
+    "sensors": [
+      {
+        "id": "TC1",
+        "name": "My garden temperature",
+        "quantity_kind": "Temperature",
+        "unit": "DegreeCelcius",
+        "sensor_kind": "Air temperature sensor"
+      }
+    ],
+    "actuators": [
+      {
+        "actuator_value_type": "string",
+        "value": "true",
+        "actuator_kind": "Buzzer",
+        "name": "My buzzer",
+        "id": "Act1"
+      }
+    ],
     "location": {
       "latitude": 5.36,
       "longitude": 4.0083
@@ -17,14 +28,14 @@
     "domain": "waziup",
     "visibility": "public"
   },
-  "user" : {
-    "admin" : {
+  "user": {
+    "admin": {
       "username": "cdupont",
       "password": "password"
     },
-    "normal" : {
-      "username" : "waziup",
-      "password" : "waziup"
+    "normal": {
+      "username": "waziup",
+      "password": "waziup"
     }
   }
 }

@@ -7,16 +7,17 @@ let utils = require('../utils');
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;
 
-let getProjects = () => chai.request(baseUrl).get(`/projects`);
+let getProjects = () => chai.request(baseUrl).get('/projects');
 let getProject = (id) => chai.request(baseUrl).get(`/projects/${id}`);
-let createProject = (p) => chai.request(baseUrl).post(`/projects`).send(p);
+let createProject = (p) => chai.request(baseUrl).post('/projects').set('content-type', 'application/json').send(p);
 let deleteProject = (id) => chai.request(baseUrl).delete(`/projects/${id}`);
-let updateProjectDevices = (id, p) => chai.request(baseUrl).put(`/projects/${id}/devices`).send(p);
-let updateProjectGateways = (id, p) => chai.request(baseUrl).put(`/projects/${id}/gateways`).send(p);
+let updateProjectDevices = (id, p) => chai.request(baseUrl).put(`/projects/${id}/devices`).set('content-type', 'application/json').send(p);
+let updateProjectGateways = (id, p) => chai.request(baseUrl).put(`/projects/${id}/gateways`).set('content-type', 'application/json').send(p);
 
 describe('Projects', () => {
     let withAdmin = null;
     let withNormal = null;
+    //This is an existing project in API staging. We assume this exists in new contexts, otherwise tests would fail.
     const project = {
         "name": "MyProject",
         "id": "5c33d34c41dabe0006000000",
@@ -26,19 +27,22 @@ describe('Projects', () => {
     //Retrieve the tokens
     before(async function () {
         try {
-            withAdmin = await utils.getAdminAuth()
-            withNormal = await utils.getNormalAuth()
-        } catch (err) {
-            console.log('error:' + err)
-        }
-    });
+            withAdmin = await utils.getAdminAuth();
+            withNormal = await utils.getNormalAuth();
+            const newProject = {
+                "name": "NewProject 8",
+                "gateways": ['GW3', 'GW2'],
+                "devices": ['D1', 'D2']
+            };
 
-    //Clean after each test
-    afterEach(async function () {
-        try {
+            let res2 = await getProjects().set(withAdmin);
+            res2.should.have.status(200);
+            res2.body.should.be.a('array');
+            let entry = res2.body.find(p => p.name === newProject.name);
+            const delRes = await deleteProject(entry.id).set(withAdmin);
+            delRes.should.have.status(204);
         } catch (err) {
             console.log('error:' + err)
-            throw err
         }
     });
 
