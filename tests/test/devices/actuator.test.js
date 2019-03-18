@@ -58,14 +58,6 @@ describe('actuators', () => {
       res.should.have.status(204);
     });
 
-    it('Actuator with the same id is rejected', async () => {
-      let cRes = await createActuator(device.id, actuator).set(withAdmin)
-      cRes.should.have.status(204);
-
-      let res = await createActuator(device.id, actuator).set(withAdmin)
-      res.should.have.status(400);
-    });
-
     it('Actuator with invalid data is rejected', async () => {
       let wrong = Object.assign({}, actuator)
       delete (wrong.id)

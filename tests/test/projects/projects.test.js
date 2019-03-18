@@ -15,114 +15,64 @@ let updateProjectDevices = (id, p) => chai.request(baseUrl).put(`/projects/${id}
 let updateProjectGateways = (id, p) => chai.request(baseUrl).put(`/projects/${id}/gateways`).set('content-type', 'application/json').send(p);
 
 describe('Projects', () => {
-    let withAdmin = null;
-    let withNormal = null;
-    //This is an existing project in API staging. We assume this exists in new contexts, otherwise tests would fail.
-    const project = {
-        "name": "MyProject",
-        "id": "5c33d34c41dabe0006000000",
-        "gateways": [],
-        "devices": []
-    };
-    //Retrieve the tokens
-    before(async function () {
-        try {
-            withAdmin = await utils.getAdminAuth();
-            withNormal = await utils.getNormalAuth();
-            const newProject = {
-                "name": "NewProject 8",
-                "gateways": ['GW3', 'GW2'],
-                "devices": ['D1', 'D2']
-            };
+  let withAdmin = null;
+  let withNormal = null;
+  //This is an existing project in API staging. We assume this exists in new contexts, otherwise tests would fail.
+  const project = {
+      "name": "MyProject",
+      "gateways": ['GW3', 'GW2'],
+      "devices": ['D1', 'D2']
+  };
+  //Retrieve the tokens
+  before(async function () {
+      try {
+          withAdmin = await utils.getAdminAuth();
+          withNormal = await utils.getNormalAuth();
+      } catch (err) {
+          console.log('error:' + err)
+      }
+  });
 
-            let res2 = await getProjects().set(withAdmin);
-            res2.should.have.status(200);
-            res2.body.should.be.a('array');
-            let entry = res2.body.find(p => p.name === newProject.name);
-            const delRes = await deleteProject(entry.id).set(withAdmin);
-            delRes.should.have.status(204);
-        } catch (err) {
-            console.log('error:' + err)
-        }
-    });
-
+  describe('Get Projects', () => {
     it('an admin gets list of projects', async () => {
+        await createProject(project).set(withNormal);
         let res = await getProjects().set(withAdmin);
+        chai.expect(res.body.map(s => s.name)).to.include(project.name);
         res.should.have.status(200);
-        res.body.should.be.a('array');
-        res.body.should.deep.include(project);
-        res.body[0].should.have.property('name');
-        res.body[0].should.have.property('id');
-        res.body[0].should.have.property('gateways');
-        res.body[0].should.have.property('devices');
+        await deleteProject(res.text).set(withAdmin);
     });
-
-    it('an admin gets a project with its id', async () => {
-        let res = await getProject(project.id).set(withAdmin);
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.deep.include(project);
-        res.body.should.have.property('name');
-        res.body.should.have.property('id');
-        res.body.should.have.property('gateways');
-        res.body.should.have.property('devices');
-    });
-
-    it('a normal user can create a project, get, and delete project', async () => {
-        const newProject = {
-            "name": "NewProject 4",
-            "gateways": ['GW3', 'GW2'],
-            "devices": ['D1', 'D2']
-        };
-
-        let res = await createProject(newProject).set(withNormal);
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-
-        let res2 = await getProjects().set(withAdmin);
+    it('an admin get a project with its id', async () => {
+        let res = await createProject(project).set(withNormal);
+        let res2 = await getProject(res.text).set(withAdmin);
         res2.should.have.status(200);
-        res2.body.should.be.a('array');
-        let entry = res2.body.find(p => p.name === newProject.name);
-        entry.should.deep.include(newProject);
-        
-        const delRes = await deleteProject(entry.id).set(withAdmin);
-        delRes.should.have.status(204);
+        res2.body.should.deep.include(project);
+        res2.body.should.have.property('id');
+        await deleteProject(res.text).set(withAdmin);
     });
-
-    it('a normal user can create a project, get, update its devices, gateways, and delete project', async () => {
-        const newProject = {
-            "name": "NewProject 8",
-            "gateways": ['GW3', 'GW2'],
-            "devices": ['D1', 'D2']
-        };
-        const newProjectAfterUpdates = {
-            "name": "NewProject 8",
-            "gateways": ['G6', 'G7'],
-            "devices": ['D6', 'D7']
-        };
-
-        let res = await createProject(newProject).set(withNormal);
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-
-        let res2 = await getProjects().set(withAdmin);
-        res2.should.have.status(200);
-        res2.body.should.be.a('array');
-        let entry = res2.body.find(p => p.name === newProject.name);
-        entry.should.deep.include(newProject);
-
-        const updateDevRes = await updateProjectDevices(entry.id, ['D6', 'D7']).set(withAdmin);
-        updateDevRes.should.have.status(204);
-        const updateGwRes = await updateProjectGateways(entry.id, ['G6', 'G7']).set(withAdmin);
-        updateGwRes.should.have.status(204);
-
-        let res3 = await getProject(entry.id).set(withAdmin);
-        res3.should.have.status(200);
-        entry2 = res3.body;
-        entry2.should.deep.include(newProjectAfterUpdates);
-
-        const delRes = await deleteProject(entry.id).set(withAdmin);
-        //console.log(entry, entry2)
+  });
+  describe('Delete Projects', () => {
+    it('a normal user can delete a project', async () => {
+        let res = await createProject(project).set(withNormal);
+        const delRes = await deleteProject(res.text).set(withAdmin);
         delRes.should.have.status(204);
+        let res2 = await getProject(res.text).set(withAdmin);
+        res2.should.have.status(404);
     });
+  });
+  describe('Update Projects', () => {
+    it('a normal user can update devices and gateways', async () => {
+        let res = await createProject(project).set(withNormal);
+        let res2 = await updateProjectDevices(res.text, ['D6', 'D7']).set(withAdmin);
+        res2.should.have.status(204);
+        let res3 = await updateProjectGateways(res.text, ['G6', 'G7']).set(withAdmin);
+        res3.should.have.status(204);
+
+        let res4 = await getProject(res.text).set(withAdmin);
+        res4.should.have.status(200);
+        res4.body.should.have.property('gateways').eql(['G6', 'G7']);
+        res4.body.should.have.property('devices').eql(['D6', 'D7']);
+
+        await deleteProject(res.text).set(withAdmin);
+    });
+  });
 });
