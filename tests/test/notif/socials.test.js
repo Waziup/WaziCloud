@@ -40,14 +40,23 @@ describe('Socials', () => {
     });
     it('it should fail with bad username', async () => {
       let res = await postSocialMsg({...socialData, username: "5sd54fd5zryetasgsds444444ddd"}).set(withNormal)
-      res.should.have.status(500);
+      res.should.have.status(400);
     });
   });
   describe('Get one message sent', () => {
-    it.skip('it should GET the messages sent', async () => {
-      let res = await getSocialMsg().set(withNormal)
-      res.should.have.status(200);
-      res.body.should.be.a('array');
+    it('it should GET the messages sent', async () => {
+      let res = await postSocialMsg(socialData).set(withNormal)
+      let res2 = await getSocialMsg(res.text).set(withNormal)
+      res2.should.have.status(200);
+    });
+  });
+  describe('Delete one message', () => {
+    it('it should DELETE the message', async () => {
+      let res = await postSocialMsg(socialData).set(withNormal)
+      let res2 = await deleteSocialMsg(res.text).set(withNormal)
+      let res3 = await getSocialMsg(res.text).set(withNormal)
+      res2.should.have.status(200);
+      res3.should.have.status(404);
     });
   });
 })
