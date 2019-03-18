@@ -88,6 +88,6 @@ ENV/
 # Rope project settings
 .ropeproject
 
-deis/workflow-v2.8.0/tpl/generate_params.toml
 data/
 old/
+.env
