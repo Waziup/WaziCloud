@@ -4,6 +4,8 @@ let should = chai.should();
 let expect = chai.expect;
 let device = require('../devices/sample-data').valid;
 let sensor = require('../devices/sample-data').valid.sensors[0];
+let mqttUrl = require('../../config/env').mqttUrl;
+
 const mqtt = require('mqtt');
 const { getAdminAuth, getNormalAuth,
   createDevice,
@@ -21,7 +23,6 @@ chai.config.includeStack = true;
 
 
 describe('MQTT Unit Tests', () => {
-  const mqttUrl = 'mqtt://35.157.161.231:3883';
   let withAdmin = null
   let withNormal = null
   //Retrieve the tokens and delete pre-existing device

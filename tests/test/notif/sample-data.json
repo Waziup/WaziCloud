@@ -17,16 +17,16 @@
   "notification" :{
     "description": "Send text message",
     "condition": {
-      "sensors": ["MySensor"],
-      "measurements": ["TC1"],
+      "sensors": ["TC1"],
+      "devices": ["MyDevice"],
       "expression": "TC1<40"
     },
-    "notification": {
+    "action": {
       "usernames": ["cdupont"],
       "channels": ["twitter"],
       "message": "Test message"
     },
-    "expires": "2100-10-13T14:51:22.00Z",
-    "throttling": 3600
+    "expires": "2100-10-13T14:51:22Z",
+    "throttling": 1
   }
 }

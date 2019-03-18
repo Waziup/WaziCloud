@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 let getNotifs = () => chai.request(baseUrl).get(`/notifications`)
 let createNotif = (notif) => chai.request(baseUrl).post(`/notifications`).send(notif)
 let getNotif = (id) => chai.request(baseUrl).get(`/notifications/${id}`)
-let putNotifStatus = (id, st) => chai.request(baseUrl).put(`/notifications/${id}/status`).set('content-type', 'text/plain').send("inactive")
+let putNotifStatus = (id, st) => chai.request(baseUrl).put(`/notifications/${id}/status`).set('content-type', 'text/plain;charset=utf-8').send("inactive")
 let deleteNotif = (id) => chai.request(baseUrl).delete(`/notifications/${id}`)
 
 describe('Notifications', () => {
@@ -67,7 +67,7 @@ describe('Notifications', () => {
     it('it should delete a message to social networks', async () => {
       res = await createNotif(notif)
       let res2 = await deleteNotif(res.text)
-      res2.should.have.status(200);
+      res2.should.have.status(204);
       await deleteNotif(res.text)
     })
     it('it should return not found for notif that doesnt exist', async () => {
@@ -93,8 +93,9 @@ describe('Notifications', () => {
       await pushSensorValue("TC1", { "value": 11 }).set(withAdmin)
       sleep(1000)
       let res2 = await getNotif(res.text)
+      console.log(res2)
       //fields showing that the notification has been sent
-      res2.body.should.have.property('last_notification');
+      res2.body.should.have.property('last_notif');
       res2.body.should.have.property('times_sent').eql(2);
       await deleteNotif(res.text)
     });

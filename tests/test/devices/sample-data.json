@@ -1,6 +1,6 @@
 {
   "valid": {
-    "id": "Sensor2-ea0541de1ab7132a1d45b85f9b2139f5",
+    "id": "MyDevice",
     "gateway_id": "ea0541de1ab7132a1d45b85f9b2139f5",
     "name": "My weather station",
     "sensors": [
