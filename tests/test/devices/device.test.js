@@ -146,7 +146,6 @@ describe('Devices', () => {
       const resC = await createDevice(device).set(withAdmin);
       resC.should.have.status(204);
       let res = await getDevice(device.id).set(withAdmin)
-      console.log(res.body);
       res.should.have.status(200);
       res.body.should.be.a('object');
       //all fields of original device should be here

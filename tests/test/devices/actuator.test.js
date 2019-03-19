@@ -47,7 +47,6 @@ describe('actuators', () => {
       cRes.should.have.status(204);
 
       let res = await getActuators(device.id).set(withAdmin);
-      console.log(res.body);
       chai.expect(res.body.map(s => s.id)).to.include(actuator.id);
     });
   });

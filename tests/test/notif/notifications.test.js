@@ -93,7 +93,6 @@ describe('Notifications', () => {
       await pushSensorValue("TC1", { "value": 11 }).set(withAdmin)
       sleep(1000)
       let res2 = await getNotif(res.text)
-      console.log(res2)
       //fields showing that the notification has been sent
       res2.body.should.have.property('last_notif');
       res2.body.should.have.property('times_sent').eql(2);
