@@ -91,3 +91,9 @@ ENV/
 data/
 old/
 .env
+
+*node_modules*
+*mochawesome*
+*.swp
+*.swo
+
