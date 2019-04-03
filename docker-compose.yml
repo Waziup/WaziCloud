@@ -31,9 +31,9 @@ services:
     depends_on:
       - "mongo"
 
-  servant:
-    build: ./servant
-    image: waziup/servant
+  waziup-api:
+    build: ./waziup-api
+    image: waziup/waziup-api
     ports:
       - "800:800"
       - "3883:3883"
@@ -58,9 +58,7 @@ services:
     restart: always
     extra_hosts:
       - "orion:127.0.0.1"
-      - "elasticsearch:127.0.0.1"
       - "mongo:127.0.0.1"
-      - "socials:127.0.0.1"
       - "mqtt:127.0.0.1"
     depends_on:
       - orion

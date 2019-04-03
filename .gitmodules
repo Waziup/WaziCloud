@@ -10,3 +10,6 @@
 [submodule "waziup-js"]
 	path = waziup-js
 	url = git@github.com:Waziup/waziup-js.git
+[submodule "waziup-api"]
+	path = waziup-api
+	url = git@github.com:Waziup/waziup-api.git
