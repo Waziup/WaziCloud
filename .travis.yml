@@ -19,12 +19,12 @@ notifications:
 
 # Use sed to replace the SSH URL with the public URL, then initialize submodules
 before_install:
-- sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-- git submodule update --remote --recursive --init
-- ./travis_install.sh
+#- sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+#- git submodule update --remote --recursive --init
+#- ./travis_install.sh
 
 before_script:
-- docker-compose build
+#- docker-compose build
 - chmod -R 777 data
 
 script:
