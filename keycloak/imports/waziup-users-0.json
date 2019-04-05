@@ -144,12 +144,11 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "unregistered_user", "offline_access", "uma_authorization" ],
     "clientRoles" : {
-      "realm-management" : [ "view-users" ],
       "api-server" : [ "uma_protection" ],
       "account" : [ "manage-account", "view-profile" ]
     },
     "notBefore" : 0,
-    "groups" : [ ]
+    "groups" : [ "/waziup" ]
   }, {
     "id" : "d2d60e27-abb6-4c82-a826-82ea7f8cc780",
     "createdTimestamp" : 1548699276935,
@@ -191,7 +190,6 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "offline_access", "uma_authorization" ],
     "clientRoles" : {
-      "realm-management" : [ "view-users" ],
       "account" : [ "manage-account", "view-profile" ]
     },
     "notBefore" : 0,

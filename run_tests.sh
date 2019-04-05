@@ -1,5 +1,5 @@
 echo "******** Starting the platform... **********"
-docker-compose up > /dev/null &
+docker-compose up > log_platform.txt &
 
 attempt_counter=0
 max_attempts=40
