@@ -24,7 +24,7 @@ before_install:
 #- ./travis_install.sh
 
 before_script:
-#- docker-compose build
+- docker-compose pull
 - chmod -R 777 data
 
 script:
