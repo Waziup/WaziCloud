@@ -8,7 +8,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ${WAZIUP_DATA}/mongo:/data/db
+      - ./data/mongo:/data/db
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost:27017/local --quiet
       interval: 5s
@@ -88,7 +88,7 @@ services:
       - MYSQL_PORT_3306_TCP_ADDR=mysql
       - MYSQL_PORT_3306_TCP_PORT=3306
     volumes:
-      - ${WAZIUP_DATA}/keycloak:/opt/jboss/keycloak/standalone/data/
+      - ./data/keycloak:/opt/jboss/keycloak/standalone/data/
     # If the realm "waziup" doesn't exists, create it from file
     entrypoint: "/opt/jboss/tools/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.strategy=IGNORE_EXISTING -Dkeycloak.migration.dir=/opt/jboss/keycloak/imports"
     depends_on:
@@ -100,7 +100,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ${WAZIUP_DATA}/mysql:/var/lib/mysql/
+      - ./data/mysql:/var/lib/mysql/
     environment:
       - MYSQL_DATABASE=keycloak
       - MYSQL_USER=keycloak
