@@ -99,7 +99,7 @@ describe('MQTT', () => {
       await client.publish(`devices/${device.id}/sensors/TC1/value`, JSON.stringify(value), { qos: 1 })
       //get the result
       let res2 = await getSensor(sensor.id).set(withAdmin);
-      res2.body.should.not.have.property(value);
+      res2.body.should.not.have.property("value");
       client.end();
     });
   });
