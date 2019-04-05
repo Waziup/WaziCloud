@@ -12,7 +12,7 @@ This demo shows how to use Orion to:
 Copy and run this command, after changing your phone number:
 
 ```
-curl broker.waziup.io/v2/subscriptions -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service:waziup' --header 'Fiware-ServicePath:/UPPA' -d @- <<EOF
+curl lcoalhost:1026/v2/subscriptions -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service:waziup' --header 'Fiware-ServicePath:/UPPA' -d @- <<EOF
 {
   "description": "A subscription to get info about Sensor10",
   "subject": {

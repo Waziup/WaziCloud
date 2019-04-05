@@ -1,6 +1,6 @@
 
-Facebook demo
-=============
+Facebook demo with Orion
+========================
 
 This demo shows how to use Orion to send a notification containing the sensor data.
 
@@ -9,7 +9,7 @@ This demo shows how to use Orion to send a notification containing the sensor da
 If the sensor WS_UPPA_Sensor2 is not existing, create it:
 
 ```
-$ curl broker.waziup.io/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath:/UPPA/TESTS' --header 'Fiware-Service:watersense' -X POST -d @- <<EOF
+$ curl localhost:1026/v2/entities -s -S --header 'Content-Type: application/json' --header 'Fiware-ServicePath:/UPPA/TESTS' --header 'Fiware-Service:watersense' -X POST -d @- <<EOF
 {
   "id": "WS_UPPA_Sensor2",
   "type": "SensingDevice",
@@ -49,7 +49,7 @@ EOF
 Register a notification with Facebook:
 
 ```
-curl broker.waziup.io/v2/subscriptions -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service:watersense' --header 'Fiware-ServicePath:/UPPA/TESTS' -d @- <<EOF
+curl localhost:1026/v2/subscriptions -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Fiware-Service:watersense' --header 'Fiware-ServicePath:/UPPA/TESTS' -d @- <<EOF
 {
   "description": "A subscription to get info about WS_UPPA_Sensor2",
   "subject": {
