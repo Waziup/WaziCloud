@@ -144,6 +144,7 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "unregistered_user", "offline_access", "uma_authorization" ],
     "clientRoles" : {
+      "realm-management" : [ "view-users" ],
       "api-server" : [ "uma_protection" ],
       "account" : [ "manage-account", "view-profile" ]
     },
@@ -190,6 +191,7 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "offline_access", "uma_authorization" ],
     "clientRoles" : {
+      "realm-management" : [ "view-users" ],
       "account" : [ "manage-account", "view-profile" ]
     },
     "notBefore" : 0,
