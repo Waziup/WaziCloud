@@ -191,61 +191,26 @@ describe('MQTT', () => {
       chai.assert(data == null);
       mqttClient.end();
     });
-  });
 
-
-  it('Test SUB private sensor', (done) => {
-    createDevice({ ...device, visibility: 'private' }).set(withAdmin).then(async () => {
-      const value = { "value": "255.6", "timestamp": "2016-06-08T18:20:27Z" };
-      const mqttClient = mqtt.connect(mqttUrl); //, { username: 'guest', password: 'guest' }
-      let res = await createSensor(sensor).set(withAdmin);
-      res.should.have.status(204);
-      mqttClient.on('connect', async function () {
-        mqttClient.subscribe(`devices/${device.id}/sensors/${sensor.id}/value`, { qos: 1 });
-        mqttClient.publish(`devices/${device.id}/sensors/${sensor.id}/value`, JSON.stringify(value),
-          { qos: 1 }, async (err) => {
-            if (!err) {
-              let res2 = await getSensor(sensor.id).set(withAdmin);
-              expect(res2.body).to.not.have.property('value');
-              expect(res2.body).to.not.have.property('timestamp');
-              res2.body.should.deep.include(sensor);
-            } else
-              console.log('callback of publish', err);
-
-            mqttClient.end();
-            done();
-          });
-      });
-    });
-  });
-
-  it('Test SUB Actuator', (done) => {
-    const actuator = require('../devices/sample-data').valid.actuators[0];
-    createDevice(device).set(withAdmin).then(async () => {
-      const mqttClient = mqtt.connect(mqttUrl);
-      const value = { "value": "false" };
-
-      const resC = await createActuator(device.id, actuator).set(withAdmin);
-      resC.should.have.status(204);
-
-      mqttClient.on('message', function (topic, message) {
-        const data = JSON.parse(message.toString());
-
-        console.log(`Message ${message} received on topic ${topic}`, data);
-        data.should.deep.include(value);
-        mqttClient.end();
-      });
-
-      mqttClient.on('connect', async function () {
-        mqttClient.subscribe(`devices/${device.id}/actuators/${sensor.id}/value`, { qos: 1 });
-
-        let res = await setActuatorValue(device.id, actuator.id, "false").set(withAdmin);
-        res.should.have.status(204);
-
-        let res2 = await getActuator(device.id, actuator.id).set(withAdmin);
-        res2.body.should.have.property('value').eql(false);
-        done();
-      });
+    it('Normal user can subscribe on existing actuator and receive published values', async () => {
+      let data = null
+      let count = 0;
+      const value = "50";
+      //Create the device
+      await createDevice(device).set(withNormal)
+      //Connect
+      let mqttClient = await connect();
+      //register callback
+      mqttClient.on('message', function (topic, message) {data = message;});
+      //subscribe
+      await mqttClient.subscribe(`devices/${device.id}/actuators/{actuator.id}/value`)
+      //publish a value
+      await mqttClient.publish(`devices/${device.id}/actuators/{actuator.id}/value`, value, { qos: 1 })
+      //wait for the subscription trigger
+      while (data == null && count <20) {await sleep(100); count++}
+      //Check the result
+      chai.assert(data == value);
+      mqttClient.end();
     });
   });
 

@@ -69,7 +69,7 @@ services:
   mqtt:
     image: eclipse-mosquitto
     ports:
-      - "1883:1883"
+      - "6883:6883"
     network_mode: host
     entrypoint: "/usr/sbin/mosquitto -p 6883" 
 
