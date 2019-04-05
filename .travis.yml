@@ -26,6 +26,7 @@ before_install:
 before_script:
 - docker-compose pull
 - chmod -R 777 data
+- sudo /etc/init.d/mysql stop
 
 script:
 - ./run_tests.sh 
