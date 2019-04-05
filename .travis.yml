@@ -31,5 +31,5 @@ script:
 - ./run_tests.sh 
 
 after_script:
-- echo "Platform test results" | mail -A "./tests/mochawesome-report/mochawesome.html" -s "Platform test reports" cdupont@fbk.eu
+- echo "Platform test results" | mail -A "./tests/mochawesome-report/mochawesome.html" -s "Platform test reports" corentin.dupont@innotec21.de
 

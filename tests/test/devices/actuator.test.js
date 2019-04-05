@@ -13,7 +13,7 @@ const { getAdminAuth, getNormalAuth,
 
 chai.use(chaiHttp);
 
-describe('actuators', () => {
+describe('Actuators', () => {
   let withAdmin = null
   let withNormal = null
 
