@@ -34,7 +34,7 @@ describe('Socials', () => {
     });
   });
   describe('post a message to social networks', () => {
-    it('it should post a message to twitter', async () => {
+    it.skip('it should post a message to twitter', async () => {
       let res = await postSocialMsg(socialData).set(withNormal)
       res.should.have.status(200);
     });
