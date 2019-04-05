@@ -7,11 +7,13 @@ let sensor = require('../devices/sample-data').valid.sensors[0];
 let mqttUrl = require('../../config/env').mqttUrl;
 
 const mqtt = require('mqtt');
+const MQTT = require("async-mqtt");
 const { getAdminAuth, getNormalAuth,
   createDevice,
   deleteDevice,
   createSensor,
   getSensor,
+  getDevice,
   pushSensorValue,
   createActuator,
   setActuatorValue,
@@ -22,9 +24,26 @@ chai.use(chaiHttp);
 chai.config.includeStack = true;
 
 
-describe('MQTT Unit Tests', () => {
+function sleep(ms){
+  return new Promise(resolve=>{
+    setTimeout(resolve,ms)
+  })
+}
+
+let connect = function () {
+  let connectedPromise = new Promise(
+      function (resolve, reject) {
+          var client = MQTT.connect(mqttUrl); 
+          client.on('connect', () => { resolve(client) })
+      });
+  return connectedPromise;
+}
+
+
+describe('MQTT', () => {
   let withAdmin = null
   let withNormal = null
+
   //Retrieve the tokens and delete pre-existing device
   before(async function () {
     try {
@@ -36,6 +55,13 @@ describe('MQTT Unit Tests', () => {
     }
   });
 
+  beforeEach(async function () {
+    try {
+    } catch (err) {
+      console.log('error:' + err)
+      throw err;
+    }
+  });
   //Clean after each test
   afterEach(async function () {
     try {
@@ -45,116 +71,128 @@ describe('MQTT Unit Tests', () => {
       throw err;
     }
   });
+ 
+  describe('Test PUBLISH', () => {
 
-  it('Test PUB', (done) => {
-    createDevice(device).set(withAdmin).then(async () => {
-      const mqttClient = mqtt.connect(mqttUrl);
-
-      let res = await createSensor(sensor).set(withAdmin)
-      res.should.have.status(204);
-
-      mqttClient.on('connect', function () {
-        const value = { "value": "55.6", "timestamp": "2016-06-08T18:20:27Z" };
-
-        mqttClient.publish(`devices/${device.id}/sensors/${sensor.id}/value`, JSON.stringify(value),
-          { qos: 1 }, async (err) => {
-            if (!err) {
-              let res2 = await getSensor(sensor.id).set(withAdmin);
-              res2.body.value.should.deep.include(value);
-              res2.body.value.should.have.property('date_received');
-            } else
-              console.log('callback of publish', err);
-
-            mqttClient.end();
-            done();
-          });
-      });
+    it('admin can publish to existing sensor', async () => {
+      const value = { "value": "55.6", "timestamp": "2016-06-08T18:20:27Z" };
+      //create the device  
+      await createDevice(device).set(withNormal)
+      //The connect should be always AFTER device creation. This is because the permissions on all devices are collected during the connect.
+      let client = await connect()
+      //publish the value
+      await client.publish(`devices/${device.id}/sensors/TC1/value`, JSON.stringify(value), { qos: 1 })
+      //get the result
+      let res2 = await getSensor(sensor.id).set(withAdmin);
+      res2.body.value.should.deep.include(value);
+      res2.body.value.should.have.property('date_received');
+      client.end();
+    });
+  
+    it('Normal user CANNOT publish to private sensor', async () => {
+      const value = { "value": "55.6", "timestamp": "2016-06-08T18:20:27Z" };
+      //create the device in private 
+      await createDevice({ ...device, visibility: 'private' }).set(withAdmin)
+      //The connect should be always AFTER device creation. This is because the permissions on all devices are collected during the connect.
+      let client = await connect()
+      //publish the value
+      await client.publish(`devices/${device.id}/sensors/TC1/value`, JSON.stringify(value), { qos: 1 })
+      //get the result
+      let res2 = await getSensor(sensor.id).set(withAdmin);
+      res2.body.should.not.have.property(value);
+      client.end();
     });
   });
 
-  it('Test SUB 2', (done) => {
-    createDevice(device).set(withAdmin).then(async () => {
-      const mqttClient = mqtt.connect(mqttUrl);
-      const value = { "value": "155.6", "timestamp": "2016-06-08T18:20:27Z" };
+  describe('Test SUBSCRIBE', () => { 
+    it('Normal user can subscribe on existing sensor and receive published values', async () => {
+      let data = null
+      let count = 0;
+      const value = { "value": "56.6", "timestamp": "2016-06-08T18:20:27Z" };
+      //Create the device
+      await createDevice(device).set(withNormal)
+      //Connect
+      let mqttClient = await connect();
+      //register callback
+      mqttClient.on('message', function (topic, message) {data = message;});
+      //subscribe
+      await mqttClient.subscribe(`devices/${device.id}/sensors/{sensor.id}/value`)
+      //publish a value
+      await mqttClient.publish(`devices/${device.id}/sensors/{sensor.id}/value`, JSON.stringify(value), { qos: 1 })
+      //wait for the subscription trigger
+      while (data == null && count <20) {await sleep(100); count++}
+      //Check the result
+      const res = JSON.parse(data.toString());
+      res.should.deep.include(value);
+      mqttClient.end();
+    });
 
-      mqttClient.on('message', function (topic, message) {
-        const data = JSON.parse(message.toString());
+    it('Normal user can subscribe on existing sensor and receive posted values', async () => {
+      let data = null; 
+      let count = 0;
+      const value = { "value": "56.6", "timestamp": "2016-06-08T18:20:27Z" };
+      //Create the device
+      await createDevice(device).set(withNormal)
+      //Connect
+      let mqttClient = await connect();
+      //register callback
+      mqttClient.on('message', function (topic, message) {data = message;});
+      //subscribe
+      await mqttClient.subscribe(`devices/${device.id}/sensors/TC1/value`)
+      //post a value
+      await pushSensorValue(sensor.id, value).set(withNormal);
+      //wait for the subscription trigger
+      while (data == null && count <20) {await sleep(100); count++}
+      //Check the result
+      const res = JSON.parse(data.toString());
+      res.should.deep.include(value);
+      mqttClient.end();
+    });
 
-        console.log(`Message ${message} received on topic ${topic}`, data);
-        data.should.deep.include(value);
-        mqttClient.end();
-        done();
-      });
+    it('Normal user can subscribe with wildcard', async () => {
+      let data = null; 
+      let count = 0;
+      const value = { "value": "56.6", "timestamp": "2016-06-08T18:20:27Z" };
+      //Create the device
+      await createDevice(device).set(withNormal)
+      //Connect
+      let mqttClient = await connect();
+      //register callback
+      mqttClient.on('message', function (topic, message) {data = message;});
+      //subscribe
+      await mqttClient.subscribe(`devices/+/sensors/{sensor.id}/value`)
+      //publish a value
+      await mqttClient.publish(`devices/${device.id}/sensors/{sensor.id}/value`, JSON.stringify(value), { qos: 1 })
+      //wait for the subscription trigger
+      while (data == null && count <20) {await sleep(100); count++}
+      //Check the result
+      const res = JSON.parse(data.toString());
+      res.should.deep.include(value);
+      mqttClient.end();
+    });
 
-      let res = await createSensor(sensor).set(withAdmin);
-      res.should.have.status(204);
-
-      mqttClient.on('connect', async function () {
-        mqttClient.subscribe(`devices/${device.id}/sensors/${sensor.id}/value`, { qos: 1 });
-
-        let res = await pushSensorValue(sensor.id, value).set(withAdmin);
-        res.should.have.status(204);
-
-        let res2 = await getSensor(sensor.id).set(withAdmin);
-        res2.body.value.should.deep.include(value);
-        res2.body.value.should.have.property('date_received');
-      });
+    it('Normal user can subscribe on private sensor but will NOT receive posted values', async () => {
+      let data = null; 
+      let count = 0;
+      const value = { "value": "56.6", "timestamp": "2016-06-08T18:20:27Z" };
+      //create the device in private 
+      await createDevice({ ...device, visibility: 'private' }).set(withAdmin)
+      //Connect
+      let mqttClient = await connect();
+      //register callback
+      mqttClient.on('message', function (topic, message) {data = message;});
+      //subscribe
+      await mqttClient.subscribe(`devices/${device.id}/sensors/TC1/value`)
+      //post a value
+      await pushSensorValue(sensor.id, value).set(withAdmin);
+      //wait for the subscription trigger
+      while (data == null && count <20) {await sleep(100); count++}
+      //Check the result
+      chai.assert(data == null);
+      mqttClient.end();
     });
   });
 
-  it('Test SUB WILDCARD +', (done) => {
-    createDevice(device).set(withAdmin).then(async () => {
-      const mqttClient = mqtt.connect(mqttUrl);
-      const value = { "value": "255.6", "timestamp": "2016-06-08T18:20:27Z" };
-
-      mqttClient.on('message', function (topic, message) {
-        const data = JSON.parse(message.toString());
-
-        console.log(`Message ${message} received on topic ${topic}`, data);
-        data.should.deep.include(value);
-        mqttClient.end();
-        done();
-      });
-
-      let res = await createSensor(sensor).set(withAdmin);
-      res.should.have.status(204);
-
-      mqttClient.on('connect', async function () {
-        mqttClient.subscribe(`devices/+/sensors/+/value`, { qos: 1 });
-
-        let res = await pushSensorValue(sensor.id, value).set(withAdmin);
-        res.should.have.status(204);
-
-        let res2 = await getSensor(sensor.id).set(withAdmin);
-        res2.body.value.should.deep.include(value);
-        res2.body.value.should.have.property('date_received');
-      });
-    });
-  });
-
-  // it('Test PUB private sensor', (done) => {
-  //   createDevice({ ...device, visibility: 'private' }).set(withAdmin).then(async () => {
-  //     const value = { "value": "255.6", "timestamp": "2016-06-08T18:20:27Z" };
-  //     const mqttClient = mqtt.connect(mqttUrl); //, { username: 'guest', password: 'guest' }
-  //     let res = await createSensor(sensor).set(withAdmin);
-  //     res.should.have.status(204);
-  //     mqttClient.on('connect', async function () {
-  //       //it does not allow you to publish. Here it gets blocked. I can set a timeout.
-  //       mqttClient.publish(`devices/${device.id}/sensors/${sensor.id}/value`, JSON.stringify(value),
-  //         { qos: 1, connectTimeout: 3 * 1000, keepalive: 3 }, async (err) => {
-  //           if (!err) {
-  //             //- check the value did NOT arrive on the sensor (GET)
-  //             let res2 = await getSensor(sensor.id).set(withAdmin);
-  //             res2.body.value.should.deep.include(value);
-  //           } else
-  //             console.log('callback of publish', err);
-
-  //           mqttClient.end();
-  //           done();
-  //         });
-  //     });
-  //   });
-  // });
 
   it('Test SUB private sensor', (done) => {
     createDevice({ ...device, visibility: 'private' }).set(withAdmin).then(async () => {

@@ -11,6 +11,7 @@
     "mochawesome": "^3.0.3"
   },
   "dependencies": {
-    "mqtt": "^2.18.8"
+    "mqtt": "^2.18.8",
+    "async-mqtt": "2.2.1"
   }
 }
