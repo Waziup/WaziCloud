@@ -18,7 +18,7 @@ services:
       - "localhost:127.0.0.1"
 
   orion:
-    image: fiware/orion:2.0.0
+    image: fiware/orion:2.2.0
     hostname: orion
     ports:
       - "1026:1026"
@@ -110,7 +110,7 @@ services:
 # Dashboard    
   dashboard:
     # Specific images should be built for each environment (local, staging, production).
-    image: waziup/dashboard:1.1.1-localhost
+    image: waziup/dashboard:2.0-localhost
     build:
       context: ./dashboard
       args:
