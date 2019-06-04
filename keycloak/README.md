@@ -41,7 +41,7 @@ curl -X POST http://localhost:8080/auth/realms/waziup/protocol/openid-connect/to
 
 Get all permissions:
 ```
-curl -X POST http://localhost:8080/auth/realms/waziup/protocol/openid-connect/token -H "Authorization: Bearer $USERTOKEN" -d "grant_type=urn:ietf:params:oauth:grant-type:uma-ticket&audience=api-server&permission=#sensors:view" | jq .access_token -r | cut -d "." -f2 | base64 -d | jq ".authorization.permissions"
+curl -X POST http://localhost:8080/auth/realms/waziup/protocol/openid-connect/token -H "Authorization: Bearer $USERTOKEN" -d "grant_type=urn:ietf:params:oauth:grant-type:uma-ticket&audience=api-server&permission=#devices:view&response_mode=permissions"
 ```
 
 *UMA*
