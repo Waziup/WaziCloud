@@ -31,7 +31,7 @@ function sleep(millis) {
 }
 
 
-const getPermissions = () => chai.request(baseUrl).get(`/auth/permissions`)
+const getPermissions = () => chai.request(baseUrl).get(`/auth/permissions/devices`)
 
 const createDevice = (s) => chai.request(baseUrl).post(`/devices`).send(s)
 const deleteDevice = (id) => chai.request(baseUrl).delete(`/devices/${id}`)
