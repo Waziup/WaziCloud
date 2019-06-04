@@ -19,17 +19,18 @@ notifications:
 
 # Use sed to replace the SSH URL with the public URL, then initialize submodules
 before_install:
-- sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-- git submodule update --remote --recursive --init
-- ./travis_install.sh
+#- sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+#- git submodule update --remote --recursive --init
+#- ./travis_install.sh
 
 before_script:
-- docker-compose build
+- docker-compose pull
 - chmod -R 777 data
+- sudo /etc/init.d/mysql stop
 
 script:
 - ./run_tests.sh 
 
 after_script:
-- echo "Platform test results" | mail -A "./tests/mochawesome-report/mochawesome.html" -s "Platform test reports" cdupont@fbk.eu
+- echo "Platform test results" | mail -A "./tests/mochawesome-report/mochawesome.html" -s "Platform test reports" corentin.dupont@innotec21.de
 

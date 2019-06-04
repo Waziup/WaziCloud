@@ -43,7 +43,10 @@ htmlcov/
 nosetests.xml
 coverage.xml
 .hypothesis/
-
+*/tests/mochawesome-report/assets/app.css
+*/tests/mochawesome-report/assets/app.js
+*/tests/mochawesome-report/mochawesome.html
+*/tests/mochawesome-report/mochawesome.json
 # Translations
 *.mo
 *.pot
@@ -85,6 +88,12 @@ ENV/
 # Rope project settings
 .ropeproject
 
-deis/workflow-v2.8.0/tpl/generate_params.toml
 data/
 old/
+.env
+
+*node_modules*
+*mochawesome*
+*.swp
+*.swo
+

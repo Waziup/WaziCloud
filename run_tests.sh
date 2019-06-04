@@ -1,10 +1,10 @@
 echo "******** Starting the platform... **********"
-docker-compose up > /dev/null &
+docker-compose up > log_platform.txt &
 
 attempt_counter=0
 max_attempts=40
 #Wait until the platform started
-until $(curl --output /dev/null --silent --head --fail  http://localhost:800/api/v1/sensors); do
+until $(curl --output /dev/null --silent --head --fail  http://localhost:800/api/v2/devices); do
     if [ ${attempt_counter} -eq ${max_attempts} ];then
       echo "Max attempts reached: platform didn't start correctly"
       exit 1

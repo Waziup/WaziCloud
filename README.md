@@ -7,7 +7,7 @@ WAZIUP platform
 The WAZIUP platform is an IoT Big Data platform.
 It allows to create IoT applications and deploy them both in the Cloud and in the local gateway.
 
-For information and documentation: http://www.waziup.io
+For information and documentation: https://www.waziup.io
 
 Install
 -------

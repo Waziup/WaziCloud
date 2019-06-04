@@ -1,35 +1,6 @@
 {
   "realm" : "waziup",
   "users" : [ {
-    "id" : "d9d54300-3791-443c-884c-0c52c43d64db",
-    "createdTimestamp" : 1511536244995,
-    "username" : "guest",
-    "enabled" : true,
-    "totp" : false,
-    "emailVerified" : true,
-    "firstName" : "guest",
-    "lastName" : "guest",
-    "credentials" : [ {
-      "type" : "password",
-      "hashedSaltedValue" : "r3JQENqXF6fUy/66+dUNGD5JUgSpFoQyc1ww3hcucIMqukDXOMjSWYZ4vue9nLxB+AUNFm6LUsv6l/L7jCVMgg==",
-      "salt" : "RqqV7zS5zXyde4iuEb44vw==",
-      "hashIterations" : 20000,
-      "counter" : 0,
-      "algorithm" : "pbkdf2-sha256",
-      "digits" : 0,
-      "period" : 0,
-      "createdDate" : 1511536319262,
-      "config" : { }
-    } ],
-    "disableableCredentialTypes" : [ "password" ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "unregistered_user", "offline_access", "uma_authorization" ],
-    "clientRoles" : {
-      "account" : [ "manage-account", "view-profile" ]
-    },
-    "notBefore" : 0,
-    "groups" : [ ]
-  }, {
     "id" : "8c0aa630-26c3-4447-80dd-e3205cf16d31",
     "createdTimestamp" : 1527161993219,
     "username" : "214251787",
@@ -55,6 +26,34 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "offline_access", "uma_authorization" ],
     "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "f117f587-7fe3-4d02-b3c7-e5e3f1b74b7e",
+    "createdTimestamp" : 1548846969161,
+    "username" : "admin",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "KlQ9XVFiFlCXK+1Umdx5Ok5MAD4cytZ2XRAFciypGTICwuDSCGmbUGwIyPBWbh+O16wnHKvoxJnEkhY/Hf9ywA==",
+      "salt" : "cdJlTaVOvONehMfYW2nMDA==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1548846980050,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "realm-management" : [ "view-users" ],
       "account" : [ "manage-account", "view-profile" ]
     },
     "notBefore" : 0,
@@ -114,6 +113,81 @@
       "userId" : "106206904063994618985",
       "userName" : "cdupont@fbk.eu"
     } ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "d9d54300-3791-443c-884c-0c52c43d64db",
+    "createdTimestamp" : 1511536244995,
+    "username" : "guest",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "guest",
+    "lastName" : "guest",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "r3JQENqXF6fUy/66+dUNGD5JUgSpFoQyc1ww3hcucIMqukDXOMjSWYZ4vue9nLxB+AUNFm6LUsv6l/L7jCVMgg==",
+      "salt" : "RqqV7zS5zXyde4iuEb44vw==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1511536319262,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "unregistered_user", "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "api-server" : [ "uma_protection" ],
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "d2d60e27-abb6-4c82-a826-82ea7f8cc780",
+    "createdTimestamp" : 1548699276935,
+    "username" : "service-account-api-server",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "email" : "service-account-api-server@placeholder.org",
+    "serviceAccountClientId" : "api-server",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "/waziup" ]
+  }, {
+    "id" : "68f02584-0bb3-4935-943d-f64d4ab70ad9",
+    "createdTimestamp" : 1548693654383,
+    "username" : "waziup",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "Yb9CsJCZ8DWGSorNhpuZMqSF9nisRpwWZtqBjN+HSmZjSs0y1rqL1NLFJfU1HlCgZ0FVqHavQl+D71KiK1fCpg==",
+      "salt" : "DDdlwAAKODw5qtcu69yYdg==",
+      "hashIterations" : 20000,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1548693664740,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
     "realmRoles" : [ "offline_access", "uma_authorization" ],
     "clientRoles" : {
       "account" : [ "manage-account", "view-profile" ]

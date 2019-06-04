@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
 # Broker
   mongo:
     image: mongo:3.2.8
@@ -9,7 +8,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ${WAZIUP_DATA}/mongo:/data/db
+      - ./data/mongo:/data/db
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost:27017/local --quiet
       interval: 5s
@@ -19,11 +18,12 @@ services:
       - "localhost:127.0.0.1"
 
   orion:
-    image: fiware/orion:1.15.0
+    image: fiware/orion:2.2.0
     hostname: orion
     ports:
       - "1026:1026"
-    command: -dbhost mongo -logLevel INFO 
+    entrypoint: ["sh", "-c", "rm /tmp/contextBroker.pid; /usr/bin/contextBroker -fg -multiservice -dbhost mongo -logLevel DEBUG"]
+    restart: always
     network_mode: host
     extra_hosts:
       - "mongo:127.0.0.1"
@@ -31,35 +31,52 @@ services:
     depends_on:
       - "mongo"
 
-  api-server:
-    build: ./api-server
-    image: waziup/api-server:1.1
+  waziup-api:
+    build: ./waziup-api
+    image: waziup/waziup-api
     ports:
-      - "80:80"
+      - "800:800"
+      - "3883:3883"
     environment:
       - HTTP_PORT=800
-      - HTTPS_PORT=443
+      - MQTT_PORT=3883
+      - HTTP_URL=http://localhost:800
       - KEYCLOAK_URL=http://localhost:8080/auth
       - ORION_URL=http://orion:1026
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
-      - MONGODB_URL=mongodb://mongo:27017/waziup_history
-      - SOCIALS_URL=http://socials:9123
+      - MONGODB_URL=mongo
       - LOG_LEVEL=debug
+      - MOSQ_URL=mqtt
+      - MOSQ_PORT=6883
+      - TWITTER_CONSUMER_KEY=$TWITTER_CONSUMER_KEY
+      - TWITTER_CONSUMER_SECRET=$TWITTER_CONSUMER_SECRET
+      - TWITTER_ACCESS_TOKEN=$TWITTER_ACCESS_TOKEN
+      - TWITTER_ACCESS_TOKEN_SECRET=$TWITTER_ACCESS_TOKEN_SECRET
+      - PLIVO_ID=$PLIVO_ID
+      - PLIVO_TOKEN=$PLIVO_TOKEN
     network_mode: host
+    restart: always
     extra_hosts:
       - "orion:127.0.0.1"
-      - "elasticsearch:127.0.0.1"
       - "mongo:127.0.0.1"
-      - "socials:127.0.0.1"
+      - "mqtt:127.0.0.1"
     depends_on:
       - orion
       - keycloak
-      - socials
+      - mongo
+      - mqtt
+  
+  mqtt:
+    image: eclipse-mosquitto
+    ports:
+      - "6883:6883"
+    network_mode: host
+    entrypoint: "/usr/sbin/mosquitto -p 6883" 
+
 
 # Users identification & authorization   
   keycloak:
     build: ./keycloak
-    image: waziup/keycloak:1.1
+    image: waziup/keycloak
     ports:
       - "8080:8080"
     environment:
@@ -70,7 +87,7 @@ services:
       - MYSQL_PORT_3306_TCP_ADDR=mysql
       - MYSQL_PORT_3306_TCP_PORT=3306
     volumes:
-      - ${WAZIUP_DATA}/keycloak:/opt/jboss/keycloak/standalone/data/
+      - ./data/keycloak:/opt/jboss/keycloak/standalone/data/
     # If the realm "waziup" doesn't exists, create it from file
     entrypoint: "/opt/jboss/tools/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.strategy=IGNORE_EXISTING -Dkeycloak.migration.dir=/opt/jboss/keycloak/imports"
     depends_on:
@@ -82,7 +99,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ${WAZIUP_DATA}/mysql:/var/lib/mysql/
+      - ./data/mysql:/var/lib/mysql/
     environment:
       - MYSQL_DATABASE=keycloak
       - MYSQL_USER=keycloak
@@ -92,7 +109,7 @@ services:
 # Dashboard    
   dashboard:
     # Specific images should be built for each environment (local, staging, production).
-    image: waziup/dashboard:1.1.1-localhost
+    image: waziup/dashboard:2.0-localhost
     build:
       context: ./dashboard
       args:
@@ -102,15 +119,4 @@ services:
         - API_SERVER_URL=http://localhost:800/api
     ports:
       - "3000:3000"
-
-#Socials
-  socials:
-    build: ./socials
-    image: waziup/socials:1.1
-    ports:
-      - 9123:9123
-    environment:
-      - MONGODB_URL=mongodb://localhost:27017/waziup_socials
-    depends_on:
-      - mongo
 

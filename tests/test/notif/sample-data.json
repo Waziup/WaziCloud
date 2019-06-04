@@ -1,27 +1,7 @@
 {
-  "sensor" : {
-    "id": "MySensor",
-    "gateway_id": "ea0541de1ab7132a1d45b85f9b2139f5",
-    "name": "My weather station",
-    "measurements": [
-      {
-        "id": "TC1",
-        "name": "My garden temperature",
-        "quantity_kind": "Temperature",
-        "unit": "DegreeCelcius",
-        "sensing_device": "Air temperature sensor"
-      }
-    ],
-    "location": {
-      "latitude": 5.36,
-      "longitude": 4.0083
-    },
-    "domain": "waziup",
-    "visibility": "public"
-  },
   "socials" : {
     "username": "cdupont",
-    "channel": "twitter",
+    "channel": "none",
     "message": "Test message2"
   },
   "user" : {
@@ -37,16 +17,16 @@
   "notification" :{
     "description": "Send text message",
     "condition": {
-      "sensors": ["MySensor"],
-      "measurements": ["TC1"],
+      "sensors": ["TC1"],
+      "devices": ["MyDevice"],
       "expression": "TC1<40"
     },
-    "notification": {
+    "action": {
       "usernames": ["cdupont"],
       "channels": ["twitter"],
       "message": "Test message"
     },
-    "expires": "2100-10-13T14:51:22.00Z",
-    "throttling": 3600
+    "expires": "2100-10-13T14:51:22Z",
+    "throttling": 1
   }
 }
