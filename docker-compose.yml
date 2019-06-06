@@ -16,6 +16,8 @@ services:
       retries: 12
     extra_hosts:
       - "localhost:127.0.0.1"
+    #command: mongod --auth
+    command: mongod
 
   orion:
     image: fiware/orion:2.2.0
@@ -23,6 +25,7 @@ services:
     ports:
       - "1026:1026"
     entrypoint: ["sh", "-c", "rm /tmp/contextBroker.pid; /usr/bin/contextBroker -fg -multiservice -dbhost mongo -logLevel DEBUG"]
+    #entrypoint: ["sh", "-c", "rm /tmp/contextBroker.pid; /usr/bin/contextBroker -fg -multiservice -dbhost mongo -dbuser $MONGODB_USER -dbpwd $MONGODB_PASS -logLevel DEBUG"]
     restart: always
     network_mode: host
     extra_hosts:
@@ -44,6 +47,8 @@ services:
       - KEYCLOAK_URL=http://localhost:8080/auth
       - ORION_URL=http://orion:1026
       - MONGODB_URL=mongo
+      #- MONGODB_USER=$MONGODB_USER
+      #- MONGODB_PASS=$MONGODB_PASS
       - LOG_LEVEL=debug
       - MOSQ_URL=mqtt
       - MOSQ_PORT=6883
@@ -89,7 +94,7 @@ services:
     volumes:
       - ./data/keycloak:/opt/jboss/keycloak/standalone/data/
     # If the realm "waziup" doesn't exists, create it from file
-    entrypoint: "/opt/jboss/tools/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.strategy=IGNORE_EXISTING -Dkeycloak.migration.dir=/opt/jboss/keycloak/imports"
+    #entrypoint: "/opt/jboss/tools/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.strategy=IGNORE_EXISTING -Dkeycloak.migration.dir=/opt/jboss/keycloak/imports"
     depends_on:
       - mysql
 
