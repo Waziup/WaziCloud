@@ -7,6 +7,18 @@ Keycloak is in charge of access control on the Waziup platform.
 Development
 -----------
 
+*Database management*
+
+Re-create the Keycloak DB:
+```
+mysql -u root -proot_password -h 127.0.0.1
+
+$ drop database keycloak;
+$ CREATE DATABASE keycloak CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+$ GRANT ALL PRIVILEGES ON keycloak.* TO 'keycloak'@'%';
+```
+This should allow Keycloak to restart fresh.
+
 
 *Tokens*
 
