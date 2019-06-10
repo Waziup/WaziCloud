@@ -9,9 +9,9 @@ services:
       - "27017:27017"
     volumes:
       - ./data/mongo:/data/db
-    environment:
-    #  - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
-    #  - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASS
+    # environment:
+    # - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+    # - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASS
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost:27017/local --quiet
       interval: 5s
