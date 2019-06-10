@@ -1,0 +1,11 @@
+version: '3'
+
+# this file should be used to initialize the Waziup platform for the first time.
+# In will import the Keycloak configuration.
+# Usage: docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up
+
+services:
+
+# Users identification & authorization   
+  keycloak:
+    entrypoint: "/opt/jboss/tools/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.strategy=IGNORE_EXISTING -Dkeycloak.migration.dir=/opt/jboss/keycloak/imports"

@@ -9,9 +9,6 @@ services:
       - "27017:27017"
     volumes:
       - ./data/mongo:/data/db
-    # environment:
-    # - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
-    # - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASS
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost:27017/local --quiet
       interval: 5s
@@ -27,7 +24,6 @@ services:
     ports:
       - "1026:1026"
     entrypoint: ["sh", "-c", "rm /tmp/contextBroker.pid; /usr/bin/contextBroker -fg -multiservice -dbhost mongo -logLevel DEBUG"]
-    #entrypoint: ["sh", "-c", "rm /tmp/contextBroker.pid; /usr/bin/contextBroker -fg -multiservice -dbhost mongo -dbuser $MONGODB_USER -dbpwd $MONGODB_PASS -logLevel DEBUG"]
     restart: always
     network_mode: host
     extra_hosts:
@@ -49,8 +45,6 @@ services:
       - KEYCLOAK_URL=http://localhost:8080/auth
       - ORION_URL=http://orion:1026
       - MONGODB_URL=mongo
-      #- MONGODB_USER=$MONGODB_USER
-      #- MONGODB_PASS=$MONGODB_PASS
       - LOG_LEVEL=debug
       - MOSQ_URL=mqtt
       - MOSQ_PORT=6883
