@@ -3,12 +3,15 @@ version: '3'
 services:
 # Broker
   mongo:
-    image: mongo:3.2.8
+    image: mongo:3.4
     hostname: mongo
     ports:
       - "27017:27017"
     volumes:
       - ./data/mongo:/data/db
+    environment:
+    #  - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+    #  - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASS
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost:27017/local --quiet
       interval: 5s
@@ -16,7 +19,6 @@ services:
       retries: 12
     extra_hosts:
       - "localhost:127.0.0.1"
-    #command: mongod --auth
     command: mongod
 
   orion:
