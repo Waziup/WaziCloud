@@ -26,7 +26,7 @@ chai.config.includeStack = true;
 
 function sleep(ms){
   return new Promise(resolve=>{
-    setTimeout(resolve,ms)
+    setTimeout(resolve, ms)
   })
 }
 
@@ -80,6 +80,7 @@ describe('MQTT', () => {
       await createDevice(device).set(withNormal)
       //The connect should be always AFTER device creation. This is because the permissions on all devices are collected during the connect.
       let client = await connect()
+      //await sleep(1 * 70 * 1000) //1 min
       //publish the value
       await client.publish(`devices/${device.id}/sensors/TC1/value`, JSON.stringify(value), { qos: 1 })
       //get the result

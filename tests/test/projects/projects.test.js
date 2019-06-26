@@ -17,7 +17,6 @@ let updateProjectGateways = (id, p) => chai.request(baseUrl).put(`/projects/${id
 describe('Projects', () => {
   let withAdmin = null;
   let withNormal = null;
-  //This is an existing project in API staging. We assume this exists in new contexts, otherwise tests would fail.
   const project = {
       "name": "MyProject",
       "gateways": ['GW3', 'GW2'],
