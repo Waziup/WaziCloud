@@ -3,6 +3,7 @@ let chaiHttp = require('chai-http');
 let should = chai.should();
 let baseUrl = require('../../config/env').apiUrl;
 let utils = require('../utils');
+const {getPermissionsProjects } = require('../utils');
 
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;
@@ -32,11 +33,37 @@ describe('Projects', () => {
       }
   });
 
+  describe('Get Permissions', () => {
+    it('should return permissions', async () => {
+      await getPermissionsProjects().set(withAdmin)
+    });
+    it('admin have permissions on project', async () => {
+      res = await createProject(project).set(withNormal)
+      let res1 = await getPermissionsProjects().set(withAdmin)
+      //console.log(res.body)
+      let scopes = res1.body.find(p => p.resource == res.text).scopes
+      chai.expect(scopes).members(['projects:view', 'projects:update', 'projects:delete']);
+    });
+    it('normal user have permissions on own project', async () => {
+      let res = await createProject(project).set(withNormal)
+      let res1 = await getPermissionsProjects().set(withNormal)
+      let scopes = res1.body.find(p => p.resource == res.text).scopes
+      chai.expect(scopes).members(['projects:view', 'projects:update', 'projects:delete']);
+    });
+  });
+
   describe('Get Projects', () => {
     it('an admin gets list of projects', async () => {
-        await createProject(project).set(withNormal);
+        res0 = await createProject(project).set(withNormal);
         let res = await getProjects().set(withAdmin);
-        chai.expect(res.body.map(s => s.name)).to.include(project.name);
+        chai.expect(res.body.map(s => s.id)).to.include(res0.text);
+        res.should.have.status(200);
+        await deleteProject(res.text).set(withAdmin);
+    });
+    it('a normal user cannot see a project not owned', async () => {
+        let res0 = await createProject(project).set(withAdmin);
+        let res = await getProjects().set(withNormal);
+        chai.expect(res.body.map(s => s.id)).to.not.include(res0.text);
         res.should.have.status(200);
         await deleteProject(res.text).set(withAdmin);
     });

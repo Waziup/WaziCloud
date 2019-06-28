@@ -35,8 +35,8 @@ describe('Sensor-data', () => {
       console.log('error:' + err)
     }
   });
-  describe('push sensor data', () => {
-    it('data is pushed', async () => {
+  describe('Read sensor data', () => {
+    it('data with timestamp', async () => {
       const resC = await createDevice(device).set(withAdmin);
       resC.should.have.status(204);
 
@@ -44,9 +44,8 @@ describe('Sensor-data', () => {
       res.should.have.status(204);
       let res3 = await getSensorData(sensor.id).set(withAdmin)
       chai.expect(res3.body[0]).to.deep.include({"value": "25.6", "timestamp": "2016-06-08T18:20:27.873Z"});
-      //res3.body[0].should.have.property('date_received');
     });
-    it('number data is pushed', async () => {
+    it('number data is read', async () => {
       const resC = await createDevice(device).set(withAdmin);
       resC.should.have.status(204);
       let res = await pushSensorValue(sensor.id, {"value": 25.6})
@@ -54,7 +53,7 @@ describe('Sensor-data', () => {
       let res3 = await getSensorData(sensor.id).set(withAdmin)
       res3.body[0].should.deep.include({"value": 25.6});
     });
-    it('string data is pushed', async () => {
+    it('string data is read', async () => {
       const resC = await createDevice(device).set(withAdmin);
       resC.should.have.status(204);
       let res = await pushSensorValue(sensor.id, {"value": "A"})
@@ -62,7 +61,7 @@ describe('Sensor-data', () => {
       let res3 = await getSensorData(sensor.id).set(withAdmin)
       res3.body[0].should.deep.include({"value": "A"});
     });
-    it('boolean data is pushed', async () => {
+    it('boolean data is read', async () => {
       const resC = await createDevice(device).set(withAdmin);
       resC.should.have.status(204);
       let res = await pushSensorValue(sensor.id, {"value": true})
@@ -70,7 +69,7 @@ describe('Sensor-data', () => {
       let res3 = await getSensorData(sensor.id).set(withAdmin)
       res3.body[0].should.deep.include({"value": true});
     });
-    it('array data is pushed', async () => {
+    it('array data is read', async () => {
       const resC = await createDevice(device).set(withAdmin);
       resC.should.have.status(204);
       let res = await pushSensorValue(sensor.id, {"value": [true]})
@@ -78,7 +77,7 @@ describe('Sensor-data', () => {
       let res3 = await getSensorData(sensor.id).set(withAdmin)
       res3.body[0].should.deep.include({"value": [true]});
     });
-    it('object data is pushed', async () => {
+    it('object data is read', async () => {
       const resC = await createDevice(device).set(withAdmin);
       resC.should.have.status(204);
       let res = await pushSensorValue(sensor.id, {"value": {a:1, b:"2"}})

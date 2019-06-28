@@ -3,6 +3,7 @@ let chaiHttp = require('chai-http');
 let should = chai.should();
 let baseUrl = require('../../config/env').apiUrl;
 let utils = require('../utils');
+const {getPermissionsGateways } = require('../utils');
 
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;
@@ -18,7 +19,8 @@ describe('Gateways', () => {
   let withNormal = null;
   const gateway = {
       "name": "MyGateway",
-      "id": "GW95",
+      "id": "GW46",
+      "visibility": "public"
   };
   //Retrieve the tokens
   before(async function () {
@@ -28,6 +30,30 @@ describe('Gateways', () => {
       } catch (err) {
           console.log('error:' + err)
       }
+  });
+
+  describe('Get Permissions', () => {
+    it('should return permissions', async () => {
+      await getPermissionsGateways().set(withAdmin)
+    });
+    it('admin have permissions on gateway', async () => {
+      await createGateway(gateway).set(withNormal)
+      let res = await getPermissionsGateways().set(withAdmin)
+      let scopes = res.body.find(p => p.resource == gateway.id).scopes
+      chai.expect(scopes).members(['gateways:view', 'gateways:update', 'gateways:delete']);
+    });
+    it('admin have permissions on private gateway', async () => {
+      await createGateway({ ...gateway, visibility: 'private' }).set(withNormal)
+      let res = await getPermissionsGateways().set(withAdmin)
+      let scopes = res.body.find(p => p.resource == gateway.id).scopes
+      chai.expect(scopes).members(['gateways:view', 'gateways:update', 'gateways:delete']);
+    });
+    it('normal user have permissions on own gateway', async () => {
+      await createGateway(gateway).set(withNormal)
+      let res = await getPermissionsGateways().set(withNormal)
+      let scopes = res.body.find(p => p.resource == gateway.id).scopes
+      chai.expect(scopes).members(['gateways:view', 'gateways:update', 'gateways:delete']);
+    });
   });
 
   describe('Get Gateways', () => {
@@ -46,6 +72,11 @@ describe('Gateways', () => {
         res2.body.should.have.property('id');
         await deleteGateway(gateway.id).set(withAdmin);
     });
+    it('normal user CANNOT see private gateway', async () => {
+      await createGateway({ ...gateway, visibility: 'private' }).set(withAdmin)
+      let res = await getGateway(gateway.id).set(withNormal)
+      res.should.have.status(403);
+    });
   });
   describe('Delete Gateways', () => {
     it('a normal user can delete a gateway', async () => {
@@ -54,6 +85,11 @@ describe('Gateways', () => {
         delRes.should.have.status(204);
         let res2 = await getGateway(gateway.id).set(withAdmin);
         res2.should.have.status(404);
+    });
+    it('normal user CANNOT remove gateway owned by other', async () => {
+      await createGateway(gateway).set(withAdmin)
+      let res = await deleteGateway(gateway.id).set(withNormal)
+      res.should.have.status(403);
     });
   });
   describe('Update Gateways', () => {

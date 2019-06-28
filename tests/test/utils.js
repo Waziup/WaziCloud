@@ -31,7 +31,9 @@ function sleep(millis) {
 }
 
 
-const getPermissions = () => chai.request(baseUrl).get(`/auth/permissions/devices`)
+const getPermissionsDevices = () => chai.request(baseUrl).get(`/auth/permissions/devices`)
+const getPermissionsProjects = () => chai.request(baseUrl).get(`/auth/permissions/projects`)
+const getPermissionsGateways = () => chai.request(baseUrl).get(`/auth/permissions/gateways`)
 
 const createDevice = (s) => chai.request(baseUrl).post(`/devices`).send(s)
 const deleteDevice = (id) => chai.request(baseUrl).delete(`/devices/${id}`)
@@ -59,7 +61,7 @@ const getSensorData = (id) => chai.request(baseUrl).get(`/sensors_data?device_id
 
 module.exports = {
   getAdminAuth, getNormalAuth, getRootAdminAuth, getAdminToken, sleep,
-  getPermissions,
+  getPermissionsDevices, getPermissionsProjects, getPermissionsGateways,
   createDevice,
   deleteDevice,
   getDevices,

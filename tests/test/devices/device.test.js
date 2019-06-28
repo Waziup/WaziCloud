@@ -3,7 +3,7 @@ let chaiHttp = require('chai-http');
 let should = chai.should();
 let device = require('./sample-data').valid;
 const { getAdminAuth, getNormalAuth,
-  getPermissions,
+  getPermissionsDevices,
   createDevice,
   deleteDevice,
   getDevices,
@@ -41,35 +41,35 @@ describe('Devices', () => {
 
   describe('Get Permissions', () => {
     it('should return permissions', async () => {
-      await getPermissions().set(withAdmin)
+      await getPermissionsDevices().set(withAdmin)
     });
     it('admin have permissions on device', async () => {
       await createDevice(device).set(withNormal)
-      let res = await getPermissions().set(withAdmin)
+      let res = await getPermissionsDevices().set(withAdmin)
       let scopes = res.body.find(p => p.resource == device.id).scopes
       chai.expect(scopes).members(['devices:view', 'devices:update', 'devices:delete', 'devices-data:create', 'devices-data:view']);
     });
     it('admin have permissions on private device', async () => {
       await createDevice({ ...device, visibility: 'private' }).set(withNormal)
-      let res = await getPermissions().set(withAdmin)
+      let res = await getPermissionsDevices().set(withAdmin)
       let scopes = res.body.find(p => p.resource == device.id).scopes
       chai.expect(scopes).members(['devices:view', 'devices:update', 'devices:delete', 'devices-data:create', 'devices-data:view']);
     });
     it('normal user have permissions on own device', async () => {
       await createDevice(device).set(withNormal)
-      let res = await getPermissions().set(withNormal)
+      let res = await getPermissionsDevices().set(withNormal)
       let scopes = res.body.find(p => p.resource == device.id).scopes
       chai.expect(scopes).members(['devices:view', 'devices:update', 'devices:delete', 'devices-data:create', 'devices-data:view']);
     });
     it('normal user can see public device and add data', async () => {
       await createDevice(device).set(withAdmin)
-      let res = await getPermissions().set(withNormal)
+      let res = await getPermissionsDevices().set(withNormal)
       let scopes = res.body.find(p => p.resource == device.id).scopes
       chai.expect(scopes).members(['devices:view', 'devices-data:view', 'devices-data:create']);
     });
     it('normal user cannot see private device', async () => {
       await createDevice({ ...device, visibility: 'private' }).set(withAdmin)
-      let res = await getPermissions().set(withNormal)
+      let res = await getPermissionsDevices().set(withNormal)
       res.status.should.satisfy((s) => {
         switch (s) {
           case 200:

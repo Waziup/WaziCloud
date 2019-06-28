@@ -4,7 +4,7 @@
   "notBefore" : 1512054406,
   "revokeRefreshToken" : false,
   "refreshTokenMaxReuse" : 0,
-  "accessTokenLifespan" : 60,
+  "accessTokenLifespan" : 600,
   "accessTokenLifespanForImplicitFlow" : 54000,
   "ssoSessionIdleTimeout" : 1800,
   "ssoSessionMaxLifespan" : 36000,
@@ -267,10 +267,7 @@
     "path" : "/waziup",
     "attributes" : { },
     "realmRoles" : [ "registered_user" ],
-    "clientRoles" : {
-      "realm-management" : [ "view-users" ],
-      "api-server" : [ "uma_protection" ]
-    },
+    "clientRoles" : { },
     "subGroups" : [ ]
   } ],
   "defaultRoles" : [ "offline_access", "uma_authorization" ],
