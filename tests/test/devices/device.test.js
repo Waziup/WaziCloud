@@ -2,6 +2,7 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
 let device = require('./sample-data').valid;
+const baseUrl = require('../../config/env').apiUrl;
 const { getAdminAuth, getNormalAuth,
   getPermissionsDevices,
   createDevice,
@@ -116,6 +117,16 @@ describe('Devices', () => {
             return false;
         }
       });
+    });
+    it('Limit devices', async () => {
+      await createDevice(device).set(withAdmin)
+      let res = await chai.request(baseUrl).get(`/devices?limit=1`).set(withAdmin)
+      chai.expect(res.body.length).to.equal(1);
+    });
+    it('Offset devices', async () => {
+      await createDevice(device).set(withAdmin)
+      let res = await chai.request(baseUrl).get(`/devices?limit=1&offset=1`).set(withAdmin)
+      chai.expect(res.body.length).to.equal(1);
     });
   });
 
