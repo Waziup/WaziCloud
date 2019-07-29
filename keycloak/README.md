@@ -36,7 +36,7 @@ CLIENTTOKEN=`curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -
 
 Create a resource:
 ```
-curl -X POST "http://localhost:8080/auth/realms/waziup/authz/protection/resource_set" -H "Authorization: Bearer $CLIENTTOKEN" -H "Content-Type: application/json" -d '{"name":"Sensortest3", "scopes":["sensors:create","sensors:view","sensors:update","sensors:delete"],"owner":"cdupont", "ownerManagedAccess": true}'
+curl -X POST "http://localhost:8080/auth/realms/waziup/authz/protection/resource_set" -H "Authorization: Bearer $CLIENTTOKEN" -H "Content-Type: application/json" -d '{"name":"Sensortest3", "scopes":["devices:view","devices:update","devices:delete"],"owner":"cdupont", "ownerManagedAccess": true}'
 ```
 
 Read resources:

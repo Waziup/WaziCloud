@@ -2,7 +2,7 @@
   "name": "test",
   "version": "1.1.0",
   "scripts": {
-    "test": "find ./test/ -name '*.test.js' | xargs mocha -R spec --timeout 4000 --reporter mochawesome"
+    "test": "find ./test/ -name '*.test.js' | xargs mocha -R spec --timeout 8000 --reporter mochawesome --reporter-options inline=true"
   },
   "devDependencies": {
     "chai": "^4.1.2",

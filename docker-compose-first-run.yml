@@ -8,4 +8,4 @@ services:
 
 # Users identification & authorization   
   keycloak:
-    entrypoint: "/opt/jboss/tools/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.strategy=IGNORE_EXISTING -Dkeycloak.migration.dir=/opt/jboss/keycloak/imports"
+    entrypoint: "/opt/jboss/tools/docker-entrypoint.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.strategy=OVERWRITE_EXISTING -Dkeycloak.migration.dir=/opt/jboss/keycloak/imports"

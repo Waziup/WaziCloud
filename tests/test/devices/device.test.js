@@ -125,8 +125,10 @@ describe('Devices', () => {
     });
     it('Offset devices', async () => {
       await createDevice(device).set(withAdmin)
+      await createDevice({...device, id: 'test2'}).set(withAdmin)
       let res = await chai.request(baseUrl).get(`/devices?limit=1&offset=1`).set(withAdmin)
       chai.expect(res.body.length).to.equal(1);
+      await deleteDevice('test2').set(withAdmin)
     });
   });
 

@@ -14,8 +14,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 12
-    extra_hosts:
-      - "localhost:127.0.0.1"
     command: mongod
 
   orion:
@@ -25,10 +23,6 @@ services:
       - "1026:1026"
     entrypoint: ["sh", "-c", "rm /tmp/contextBroker.pid; /usr/bin/contextBroker -fg -multiservice -dbhost mongo -logLevel DEBUG"]
     restart: always
-    network_mode: host
-    extra_hosts:
-      - "mongo:127.0.0.1"
-      - "localhost:127.0.0.1"
     depends_on:
       - "mongo"
 
@@ -70,7 +64,6 @@ services:
     image: eclipse-mosquitto
     ports:
       - "6883:6883"
-    network_mode: host
     entrypoint: "/usr/sbin/mosquitto -p 6883" 
 
 
@@ -97,8 +90,8 @@ services:
   mysql:
     image: mysql:5.7
     hostname: mysql
-    ports:
-      - "3306:3306"
+    #ports:
+    #  - "3306:3306"
     volumes:
       - ./data/mysql:/var/lib/mysql/
     environment:
