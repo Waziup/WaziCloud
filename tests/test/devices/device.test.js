@@ -232,6 +232,18 @@ describe('Devices', () => {
       res2.body.should.have.property('gateway_id').eql('GW1');
     });
   });
+  describe('Change owner', () => {
+    it('owner should be updated', async () => {
+      await createDevice(device).set(withNormal)
+      let res = await setDeviceAttr(device.id, "owner", "cdupont").set(withAdmin)
+      res.should.have.status(204);
+      let res2 = await getDevice(device.id).set(withAdmin);
+      res2.body.should.have.property('owner').eql('cdupont');
+      let res3 = await getPermissionsDevices().set(withNormal)
+      let scopes = res3.body.find(p => p.resource == device.id).scopes
+      chai.expect(scopes).members(['devices:view', 'devices-data:create', 'devices-data:view']);
+    });
+  });
 
   describe('Remove Device', () => {
     it('admin can remove own device', async () => {

@@ -13,6 +13,7 @@ let getGateway = (id) => chai.request(baseUrl).get(`/gateways/${id}`);
 let createGateway = (p) => chai.request(baseUrl).post('/gateways').set('content-type', 'application/json').send(p);
 let deleteGateway = (id) => chai.request(baseUrl).delete(`/gateways/${id}`);
 let updateGatewayName = (id, p) => chai.request(baseUrl).put(`/gateways/${id}/name`).set('content-type', 'application/json').send(p);
+let updateGatewayOwner = (id, p) => chai.request(baseUrl).put(`/gateways/${id}/owner`).set('content-type', 'application/json').send(p);
 
 describe('Gateways', () => {
   let withAdmin = null;
@@ -101,6 +102,17 @@ describe('Gateways', () => {
         let res4 = await getGateway(gateway.id).set(withAdmin);
         res4.should.have.status(200);
         res4.body.should.have.property('name').eql('MyGateway2');
+
+        await deleteGateway(gateway.id).set(withAdmin);
+    });
+    it('admin can change gateway owner', async () => {
+        let res = await createGateway(gateway).set(withNormal);
+        let res2 = await updateGatewayOwner(gateway.id, "\"cdupont\"").set(withAdmin);
+        res2.should.have.status(204);
+
+        let res4 = await getGateway(gateway.id).set(withAdmin);
+        res4.should.have.status(200);
+        res4.body.should.have.property('owner').eql('cdupont');
 
         await deleteGateway(gateway.id).set(withAdmin);
     });
