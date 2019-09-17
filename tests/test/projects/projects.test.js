@@ -12,16 +12,16 @@ let getProjects = () => chai.request(baseUrl).get('/projects');
 let getProject = (id) => chai.request(baseUrl).get(`/projects/${id}`);
 let createProject = (p) => chai.request(baseUrl).post('/projects').set('content-type', 'application/json').send(p);
 let deleteProject = (id) => chai.request(baseUrl).delete(`/projects/${id}`);
-let updateProjectDevices = (id, p) => chai.request(baseUrl).put(`/projects/${id}/devices`).set('content-type', 'application/json').send(p);
-let updateProjectGateways = (id, p) => chai.request(baseUrl).put(`/projects/${id}/gateways`).set('content-type', 'application/json').send(p);
+let updateProjectDevices = (id, p) => chai.request(baseUrl).put(`/projects/${id}/device_ids`).set('content-type', 'application/json').send(p);
+let updateProjectGateways = (id, p) => chai.request(baseUrl).put(`/projects/${id}/gateway_ids`).set('content-type', 'application/json').send(p);
 
 describe('Projects', () => {
   let withAdmin = null;
   let withNormal = null;
   const project = {
       "name": "MyProject",
-      "gateways": ['GW3', 'GW2'],
-      "devices": ['D1', 'D2']
+      "gateway_ids": ['GW3', 'GW2'],
+      "device_ids": ['D1', 'D2']
   };
   //Retrieve the tokens
   before(async function () {
@@ -40,7 +40,6 @@ describe('Projects', () => {
     it('admin have permissions on project', async () => {
       res = await createProject(project).set(withNormal)
       let res1 = await getPermissionsProjects().set(withAdmin)
-      //console.log(res.body)
       let scopes = res1.body.find(p => p.resource == res.text).scopes
       chai.expect(scopes).members(['projects:view', 'projects:update', 'projects:delete']);
     });
@@ -95,8 +94,8 @@ describe('Projects', () => {
 
         let res4 = await getProject(res.text).set(withAdmin);
         res4.should.have.status(200);
-        res4.body.should.have.property('gateways').eql(['G6', 'G7']);
-        res4.body.should.have.property('devices').eql(['D6', 'D7']);
+        res4.body.should.have.property('gateway_ids').eql(['G6', 'G7']);
+        res4.body.should.have.property('device_ids').eql(['D6', 'D7']);
 
         await deleteProject(res.text).set(withAdmin);
     });
