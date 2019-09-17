@@ -1,3 +1,10 @@
+V2.0
+- Gateway registration 
+- Actuators support
+- Projects support
+- Calibration of sensors online
+- Detailled permissions for devices/gateways/projects
+
 V1.1
 - HTTPS activated on all endpoints (https://api.waziup.io, https://dashboard.waziup.io, https://keycloak.waziup.io)
 - compound data types (e.g. for GPS)
