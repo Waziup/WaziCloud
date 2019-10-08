@@ -13,3 +13,9 @@
     height: 60px;
     width: 238px; 
 }
+
+.loginMsg {
+    font-weight: bold;
+    margin-bottom: 10pt;
+    font-size: 11pt;
+}

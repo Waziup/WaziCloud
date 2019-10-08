@@ -69,25 +69,8 @@
                 </div>
             </div>
             </#if>
-
-            <div class="form-group">
-               <div class="${properties.kcLabelWrapperClass!}">
-                   <label for="user.attributes.phone" class="${properties.kcLabelClass!}">Phone number</label>
-               </div>
-            
-               <div class="${properties.kcInputWrapperClass!}">
-                   <input type="text" class="${properties.kcInputClass!}"  id="user.attributes.phone" name="user.attributes.phone"/>
-               </div>
-            </div>
-
-            <div class="form-group">
-               <div class="${properties.kcLabelWrapperClass!}">
-                   <label for="user.attributes.twitter" class="${properties.kcLabelClass!}">Twitter</label>
-               </div>
-            
-               <div class="${properties.kcInputWrapperClass!}">
-                   <input type="text" class="${properties.kcInputClass!}"  id="user.attributes.twitter" name="user.attributes.twitter"/>
-               </div>
+            <div class="loginMsg">  
+              IMPORTANT: Remember your password, it will be used to register your gateway.
             </div>
 
             <div class="${properties.kcFormGroupClass!}">

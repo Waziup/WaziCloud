@@ -62,7 +62,7 @@
            </div>
         
            <div class="col-sm-10 col-md-10">
-               <input type="text" class="form-control" id="user.attributes.phone" name="user.attributes.phone" value="${(account.attributes.phone!'')}"/>
+               <input type="text" class="form-control" id="user.attributes.phone" name="user.attributes.phone" value="${(account.attributes.phone!'')}" placeholder="+330000000" title="Your phone number with the international prefix"/>
            </div>
         </div>
 
@@ -72,7 +72,7 @@
            </div>
         
            <div class="col-sm-10 col-md-10">
-               <input type="text" class="form-control" id="user.attributes.twitter" name="user.attributes.twitter" value="${(account.attributes.twitter!'')}"/>
+               <input type="text" class="form-control" id="user.attributes.twitter" name="user.attributes.twitter" value="${(account.attributes.twitter!'')}" placeholder="yourTwitterID" title="Your Twitter ID without the @"/>
            </div>
         </div>
 
