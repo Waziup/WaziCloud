@@ -69,7 +69,7 @@
                 </div>
             </div>
             </#if>
-            <div class="loginMsg">  
+            <div class="importantMsg">  
               IMPORTANT: Remember your password, it will be used to register your gateway.
             </div>
 

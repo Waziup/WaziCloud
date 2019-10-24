@@ -75,6 +75,10 @@
                <input type="text" class="form-control" id="user.attributes.twitter" name="user.attributes.twitter" value="${(account.attributes.twitter!'')}" placeholder="yourTwitterID" title="Your Twitter ID without the @"/>
            </div>
         </div>
+        <div class="importantMsg">  
+          ATTENTION: to receive Waziup notifications on Twitter, you need to <a href="https://twitter.com/waziupNotifs?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @waziupNotif</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+          You can test your social accounts in the <a href="https://dashboard.waziup.io/Settings>settings page</a>.
+        </div>
 
         <div class="form-group">
             <div id="kc-form-buttons" class="col-md-offset-2 col-md-10 submit">
