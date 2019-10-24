@@ -76,8 +76,8 @@
            </div>
         </div>
         <div class="importantMsg">  
-          ATTENTION: to receive Waziup notifications on Twitter, you need to <a href="https://twitter.com/waziupNotifs?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @waziupNotif</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
-          You can test your social accounts in the <a href="https://dashboard.waziup.io/Settings>settings page</a>.
+          ATTENTION: to receive Waziup notifications on Twitter, you need to <a href="https://twitter.com/waziupNotifs?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @waziupNotif</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>. 
+          You can test your social accounts in the <a href="https://dashboard.waziup.io/Settings">settings page</a>.
         </div>
 
         <div class="form-group">
