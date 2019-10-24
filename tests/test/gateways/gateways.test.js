@@ -8,7 +8,9 @@ const { getGateways,
         deleteGateway,
         updateGatewayName, 
         updateGatewayOwner, 
-        getPermissionsGateways } = require('../utils');
+        getPermissionsGateways,
+        getAdminAuth,
+        getNormalAuth} = require('../utils');
 
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;
@@ -24,8 +26,8 @@ describe('Gateways', () => {
   //Retrieve the tokens
   before(async function () {
       try {
-          withAdmin = await utils.getAdminAuth();
-          withNormal = await utils.getNormalAuth();
+          withAdmin = await getAdminAuth();
+          withNormal = await getNormalAuth();
       } catch (err) {
           console.log('error:' + err)
       }
