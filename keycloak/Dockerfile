@@ -10,5 +10,7 @@ COPY waziup /opt/jboss/keycloak/themes/waziup/
 COPY imports /opt/jboss/keycloak/imports
 
 COPY standalone.xml /opt/jboss/keycloak/standalone/configuration/
+COPY docker-entrypoint.sh /opt/jboss/tools/docker-entrypoint.sh
 
-EXPOSE 8080 8443
+EXPOSE 8080
+
