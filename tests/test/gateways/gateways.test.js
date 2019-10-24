@@ -8,13 +8,6 @@ const {getPermissionsGateways } = require('../utils');
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;
 
-let getGateways = () => chai.request(baseUrl).get('/gateways');
-let getGateway = (id) => chai.request(baseUrl).get(`/gateways/${id}`);
-let createGateway = (p) => chai.request(baseUrl).post('/gateways').set('content-type', 'application/json').send(p);
-let deleteGateway = (id) => chai.request(baseUrl).delete(`/gateways/${id}`);
-let updateGatewayName = (id, p) => chai.request(baseUrl).put(`/gateways/${id}/name`).set('content-type', 'application/json').send(p);
-let updateGatewayOwner = (id, p) => chai.request(baseUrl).put(`/gateways/${id}/owner`).set('content-type', 'application/json').send(p);
-
 describe('Gateways', () => {
   let withAdmin = null;
   let withNormal = null;

@@ -64,3 +64,10 @@ curl http://localhost:8080/auth/realms/waziup/authz/protection/uma-policy/d157a5
 
 
 USERTOKEN=`curl -X POST  -H "Content-Type: application/x-www-form-urlencoded" -d 'username=cdupont&password=password&grant_type=password&client_id=api-server&client_secret=4e9dcb80-efcd-484c-b3d7-1e95a0096ac0' "http://localhost:8080/auth/realms/waziup/protocol/openid-connect/token" | jq .access_token -r`; curl -v -X POST http://localhost:8080/auth/realms/waziup/protocol/openid-connect/token -H "Authorization: Bearer $USERTOKEN" -d "grant_type=urn:ietf:params:oauth:grant-type:uma-ticket&audience=api-server&permission=#sensors:view&response_mode=permissions" | jq
+
+
+*Users*
+```
+curl -X GET "http://localhost:8080/admin/realms/waziup/users" -H "Authorization: Bearer $CLIENTTOKEN" -v
+```
+
