@@ -2,8 +2,13 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
 let baseUrl = require('../../config/env').apiUrl;
-let utils = require('../utils');
-const {getPermissionsGateways } = require('../utils');
+const { getGateways,
+        getGateway,
+        createGateway,
+        deleteGateway,
+        updateGatewayName, 
+        updateGatewayOwner, 
+        getPermissionsGateways } = require('../utils');
 
 chai.use(chaiHttp);
 chai.Assertion.includeStack = true;

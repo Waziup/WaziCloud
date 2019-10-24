@@ -59,6 +59,13 @@ const setActuatorName = (device_id, a_id, val) => chai.request(baseUrl).put(`/de
 
 const getSensorData = (id) => chai.request(baseUrl).get(`/sensors_data?device_id=${device.id}&sensor_id=${id}`)
 
+const getGateways = () => chai.request(baseUrl).get('/gateways');
+const getGateway = (id) => chai.request(baseUrl).get(`/gateways/${id}`);
+const createGateway = (p) => chai.request(baseUrl).post('/gateways').set('content-type', 'application/json').send(p);
+const deleteGateway = (id) => chai.request(baseUrl).delete(`/gateways/${id}`);
+const updateGatewayName = (id, p) => chai.request(baseUrl).put(`/gateways/${id}/name`).set('content-type', 'application/json').send(p);
+const updateGatewayOwner = (id, p) => chai.request(baseUrl).put(`/gateways/${id}/owner`).set('content-type', 'application/json').send(p);
+
 module.exports = {
   getAdminAuth, getNormalAuth, getRootAdminAuth, getAdminToken, sleep,
   getPermissionsDevices, getPermissionsProjects, getPermissionsGateways,
@@ -81,5 +88,10 @@ module.exports = {
   setActuatorValue,
   setActuatorValueType,
   deleteActuator,
-  getSensorData
-}
+  getSensorData,
+  getGateways,
+  getGateway,
+  createGateway,
+  deleteGateway,
+  updateGatewayName, 
+  updateGatewayOwner}

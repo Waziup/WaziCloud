@@ -27,6 +27,6 @@
       "message": "Test message"
     },
     "expires": "2100-10-13T14:51:22Z",
-    "throttling": 1
+    "throttling": 200
   }
 }

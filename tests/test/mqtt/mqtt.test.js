@@ -5,6 +5,7 @@ let expect = chai.expect;
 let device = require('../devices/sample-data').valid;
 let sensor = require('../devices/sample-data').valid.sensors[0];
 let mqttUrl = require('../../config/env').mqttUrl;
+let utils = require('../utils');
 
 const mqtt = require('mqtt');
 const MQTT = require("async-mqtt");
@@ -23,17 +24,10 @@ const { getAdminAuth, getNormalAuth,
 chai.use(chaiHttp);
 chai.config.includeStack = true;
 
-
-function sleep(ms){
-  return new Promise(resolve=>{
-    setTimeout(resolve, ms)
-  })
-}
-
-let connect = function () {
+let connect = function (connId) {
   let connectedPromise = new Promise(
       function (resolve, reject) {
-          var client = MQTT.connect(mqttUrl); 
+          var client = MQTT.connect(mqttUrl, {clientId: connId}); 
           client.on('connect', () => { resolve(client) })
       });
   return connectedPromise;
@@ -214,5 +208,33 @@ describe('MQTT', () => {
       mqttClient.end();
     });
   });
+  
+  describe('Test Gateway', () => { 
+    it('A gateway can connect with its own ID', async () => {
+      let data = null; 
+      let count = 0;
+       const gateway = {
+           "name": "MyGateway",
+           "id": "GW1",
+           "visibility": "public"
+       };
+      //create a gateway 
+      await utils.createGateway(gateway).set(withAdmin)
+      //Connect
+      let mqttClient = await connect("GW1");
+      await sleep(1000) 
+      let res = await utils.getGateway("GW1").set(withAdmin)
+      console.log(JSON.stringify(res.body))
+      res.body.should.have.property('connected').eql(true);
+      mqttClient.end();
+    });
+  });
 
 });
+
+function sleep(ms){
+  return new Promise(resolve=>{
+    setTimeout(resolve, ms)
+  })
+}
+
