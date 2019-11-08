@@ -18,7 +18,7 @@ It should look like that:
 
 [This gnuplot program](traceGraph.g) will generate the graph.
 
-[runtime](img/trace analysis.png)
+![runtime](./img/trace%20analysis.png)
 
 
 Response time
@@ -33,7 +33,7 @@ ab -n 100 -c 2 -H "Authorization: Bearer $USERTOKEN" http://localhost:800/api/v2
 ```
 Once this is done, run [This gnuplot program](responseTime.g) to generate the graph.
 
-[response time](img/response time.png)
+![response time](./img/response%20time.png)
 
 Concurrency
 -----------
@@ -50,5 +50,5 @@ The output data should look like:
 
 Then run [this gnuplot program](concGraph.g).
 
-[concurrency](img/concurrency.png)
+![concurrency](./img/concurrency.png)
 
