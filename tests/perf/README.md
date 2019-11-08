@@ -18,7 +18,7 @@ It should look like that:
 
 [This gnuplot program](traceGraph.g) will generate the graph.
 
-![runtime](./img/traceanalysis.png)
+![runtime](./img/trace%20analysis.png)
 
 
 Response time
