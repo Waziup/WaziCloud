@@ -227,6 +227,7 @@ describe('MQTT', () => {
       console.log(JSON.stringify(res.body))
       res.body.should.have.property('connected').eql(true);
       mqttClient.end();
+      await sleep(1000) 
       res.body.should.have.property('connected').eql(false);
     });
   });
