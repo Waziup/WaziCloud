@@ -22,10 +22,16 @@ Then pull the images and run it:
 ```
 sudo chmod 777 data/* -R
 docker-compose pull
-docker-compose up
+docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up
 ```
 
-This will take a while. Once finished, you can then access Waziup platform on http://localhost:3000
+This will create the default users and configuration for Waziup.
+Once the boot up finished, you can then access Waziup platform on http://localhost:3000
+
+To start the platform in the future, just type:
+```
+docker-compose up
+```
 
 Develop
 -------
