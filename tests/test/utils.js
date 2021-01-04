@@ -37,7 +37,7 @@ const getPermissionsGateways = () => chai.request(baseUrl).get(`/auth/permission
 
 const createDevice = (s) => chai.request(baseUrl).post(`/devices`).send(s)
 const deleteDevice = (id) => chai.request(baseUrl).delete(`/devices/${id}`)
-const getDevices = () => chai.request(baseUrl).get(`/devices?limit=1000`)
+const getDevices = () => chai.request(baseUrl).get(`/devices`)
 const getDevice = (id) => chai.request(baseUrl).get(`/devices/${id}`)
 const setDeviceAttr = (id, attr, value) => chai.request(baseUrl).put(`/devices/${id}/${attr}`).set('content-type', 'text/plain;charset=utf-8').send(value)
 const setDeviceLocation = (id, value) => chai.request(baseUrl).put(`/devices/${id}/location`).set('content-type', 'application/json').send(value)
@@ -47,6 +47,7 @@ const getSensors = () => chai.request(baseUrl).get(`/devices/${device.id}/sensor
 const getSensor = (id) => chai.request(baseUrl).get(`/devices/${device.id}/sensors/${id}`)
 const putSensorAttr = (id, attr, val) => chai.request(baseUrl).put(`/devices/${device.id}/sensors/${id}/${attr}`).set('content-type', 'text/plain;charset=utf-8').send(val)
 const pushSensorValue = (id, val) => chai.request(baseUrl).post(`/devices/${device.id}/sensors/${id}/value`).set('content-type', 'application/json').send(val)
+const pushSensorValuePlain = (id, val) => chai.request(baseUrl).post(`/devices/${device.id}/sensors/${id}/value`).set('content-type', 'text/plain;charset=utf-8').send(val)
 
 const createActuator = (device_id, s) => chai.request(baseUrl).post(`/devices/${device_id}/actuators`).send(s);
 const getActuators = (device_id) => chai.request(baseUrl).get(`/devices/${device_id}/actuators`);
@@ -80,6 +81,7 @@ module.exports = {
   getSensor,
   putSensorAttr,
   pushSensorValue,
+  pushSensorValuePlain,
   createActuator,
   getActuators,
   getActuator,

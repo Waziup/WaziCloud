@@ -152,6 +152,11 @@ describe('Devices', () => {
       let res = await createDevice(wrong).set(withAdmin)
       res.should.have.status(400);
     });
+    it('device with the invalid id is rejected', async () => {
+      await createDevice(device).set(withAdmin)
+      let res = await createDevice({...device, id: '='}).set(withNormal)
+      res.should.have.status(400);
+    });
   });
 
   describe('Get a Single Device', () => {

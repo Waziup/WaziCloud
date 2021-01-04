@@ -15,7 +15,7 @@
     "actuators": [
       {
         "actuator_value_type": "string",
-        "value": "true",
+        "value": "test",
         "actuator_kind": "Buzzer",
         "name": "My buzzer",
         "id": "Act1"

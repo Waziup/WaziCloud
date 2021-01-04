@@ -14,6 +14,7 @@ const {
   getSensor,
   putSensorAttr,
   pushSensorValue,
+  pushSensorValuePlain,
 } = require('../utils');
 
 chai.use(chaiHttp);
@@ -177,6 +178,13 @@ describe('Sensors', () => {
       res.should.have.status(204);
       let res2 = await getSensor(sensor.id).set(withAdmin)
       res2.body.value.should.deep.include({ "value": { a: 1, b: "2" } });
+    });
+    it('plain/text number value is pushed', async () => {
+      await createDevice(device).set(withAdmin)
+      let res = await pushSensorValuePlain(sensor.id, "26.6")
+      res.should.have.status(204);
+      let res2 = await getSensor(sensor.id).set(withAdmin)
+      res2.body.value.should.deep.include({ "value": "26.6" });
     });
   });
 })
