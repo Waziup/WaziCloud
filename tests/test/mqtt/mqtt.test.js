@@ -4,6 +4,7 @@ let should = chai.should();
 let expect = chai.expect;
 let device = require('../devices/sample-data').valid;
 let sensor = require('../devices/sample-data').valid.sensors[0];
+let actuator = require('../devices/sample-data').valid.actuators[0];
 let mqttUrl = require('../../config/env').mqttUrl;
 let utils = require('../utils');
 
@@ -111,9 +112,9 @@ describe('MQTT', () => {
       //register callback
       mqttClient.on('message', function (topic, message) {data = message;});
       //subscribe
-      await mqttClient.subscribe(`devices/${device.id}/sensors/{sensor.id}/value`)
+      await mqttClient.subscribe(`devices/${device.id}/sensors/${sensor.id}/value`)
       //publish a value
-      await mqttClient.publish(`devices/${device.id}/sensors/{sensor.id}/value`, JSON.stringify(value), { qos: 1 })
+      await mqttClient.publish(`devices/${device.id}/sensors/${sensor.id}/value`, JSON.stringify(value), { qos: 1 })
       //wait for the subscription trigger
       while (data == null && count <20) {await sleep(100); count++}
       //Check the result
@@ -155,9 +156,9 @@ describe('MQTT', () => {
       //register callback
       mqttClient.on('message', function (topic, message) {data = message;});
       //subscribe
-      await mqttClient.subscribe(`devices/+/sensors/{sensor.id}/value`)
+      await mqttClient.subscribe(`devices/+/sensors/${sensor.id}/value`)
       //publish a value
-      await mqttClient.publish(`devices/${device.id}/sensors/{sensor.id}/value`, JSON.stringify(value), { qos: 1 })
+      await mqttClient.publish(`devices/${device.id}/sensors/${sensor.id}/value`, JSON.stringify(value), { qos: 1 })
       //wait for the subscription trigger
       while (data == null && count <20) {await sleep(100); count++}
       //Check the result
@@ -198,13 +199,35 @@ describe('MQTT', () => {
       //register callback
       mqttClient.on('message', function (topic, message) {data = message;});
       //subscribe
-      await mqttClient.subscribe(`devices/${device.id}/actuators/{actuator.id}/value`)
+      await mqttClient.subscribe(`devices/${device.id}/actuators/${actuator.id}/value`)
       //publish a value
-      await mqttClient.publish(`devices/${device.id}/actuators/{actuator.id}/value`, value, { qos: 1 })
+      await mqttClient.publish(`devices/${device.id}/actuators/${actuator.id}/value`, value, { qos: 1 })
       //wait for the subscription trigger
       while (data == null && count <20) {await sleep(100); count++}
       //Check the result
       chai.assert(data == value);
+      mqttClient.end();
+    });
+
+    it('Normal user can subscribe on existing actuator and receive posted values', async () => {
+      let data = null; 
+      let count = 0;
+      const value = 56.6;
+      //Create the device
+      await createDevice(device).set(withNormal)
+      //Connect
+      let mqttClient = await connect();
+      //register callback
+      mqttClient.on('message', function (topic, message) {data = message;});
+      //subscribe
+      await mqttClient.subscribe(`devices/${device.id}/actuators/${actuator.id}/value`)
+      //post a value
+      await setActuatorValue(device.id, actuator.id, value).set(withNormal);
+      //wait for the subscription trigger
+      while (data == null && count <20) {await sleep(100); count++}
+      //Check the result
+      const res = JSON.parse(data.toString());
+      res.should.equal(value);
       mqttClient.end();
     });
   });
@@ -224,10 +247,10 @@ describe('MQTT', () => {
       let mqttClient = await connect("GW1");
       await sleep(1000) 
       let res = await utils.getGateway("GW1").set(withAdmin)
-      console.log(JSON.stringify(res.body))
       res.body.should.have.property('connected').eql(true);
       mqttClient.end();
       await sleep(1000) 
+      res = await utils.getGateway("GW1").set(withAdmin)
       res.body.should.have.property('connected').eql(false);
     });
   });
