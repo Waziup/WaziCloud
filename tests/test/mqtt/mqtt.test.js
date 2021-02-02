@@ -34,6 +34,15 @@ let connect = function (connId) {
   return connectedPromise;
 }
 
+let connectLogin = function (connId) {
+  let connectedPromise = new Promise(
+      function (resolve, reject) {
+          var client = MQTT.connect(mqttUrl, {clientId: connId, username: "cdupont", password: "password"}); 
+          client.on('connect', () => { resolve(client) })
+      });
+  return connectedPromise;
+}
+
 
 describe('MQTT', () => {
   let withAdmin = null
@@ -74,7 +83,7 @@ describe('MQTT', () => {
       //create the device  
       await createDevice(device).set(withNormal)
       //The connect should be always AFTER device creation. This is because the permissions on all devices are collected during the connect.
-      let client = await connect()
+      let client = await connectLogin()
       //await sleep(1 * 70 * 1000) //1 min
       //publish the value
       await client.publish(`devices/${device.id}/sensors/TC1/value`, JSON.stringify(value), { qos: 1 })
