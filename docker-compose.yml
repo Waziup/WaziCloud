@@ -21,8 +21,9 @@ services:
     hostname: orion
     ports:
       - "1026:1026"
-    entrypoint: ["sh", "-c", "rm /tmp/contextBroker.pid; /usr/bin/contextBroker -fg -multiservice -dbhost mongo -logLevel DEBUG"]
+    entrypoint: ["sh", "-c", "rm /tmp/contextBroker.pid; /usr/bin/contextBroker -fg -multiservice -dbhost localhost -logLevel DEBUG"]
     restart: always
+    network_mode: host
     depends_on:
       - "mongo"
 
@@ -37,9 +38,9 @@ services:
       - MQTT_PORT=3883
       - HTTP_URL=http://localhost:800
       - KEYCLOAK_URL=http://localhost:8080/auth
-      - ORION_URL=http://orion:1026
+      - ORION_URL=http://localhost:1026
       - MONGODB_URL=mongo
-      - LOG_LEVEL=debug
+      - LOG_LEVEL=DEBUG
       - MOSQ_URL=mqtt
       - MOSQ_PORT=6883
       - TWITTER_CONSUMER_KEY=$TWITTER_CONSUMER_KEY
@@ -48,6 +49,7 @@ services:
       - TWITTER_ACCESS_TOKEN_SECRET=$TWITTER_ACCESS_TOKEN_SECRET
       - PLIVO_ID=$PLIVO_ID
       - PLIVO_TOKEN=$PLIVO_TOKEN
+      - NOTIF_MIN_INTERVAL=0
     network_mode: host
     restart: always
     extra_hosts:
