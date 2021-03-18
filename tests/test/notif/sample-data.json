@@ -14,19 +14,39 @@
       "password" : "waziup"
     }
   },
-  "notification" :{
+  "notif_social" :{
     "description": "Send text message",
     "condition": {
       "sensors": ["TC1"],
       "devices": ["MyDevice"],
-      "expression": "TC1<40"
+      "expression": "TC1>40"
     },
     "action": {
-      "usernames": ["cdupont"],
-      "channels": ["twitter"],
-      "message": "Test message"
+      "type": "SocialAction",
+      "value": {
+        "usernames": ["cdupont"],
+        "channels": ["twitter"],
+        "message": "Test message"
+      }
+    },
+    "expires": "2100-10-13T14:51:22Z"
+  },
+  "notif_actuation" :{
+    "description": "Send text message",
+    "condition": {
+      "sensors": ["TC1"],
+      "devices": ["MyDevice"],
+      "expression": "TC1>40"
+    },
+    "action": {
+      "type": "ActuationAction",
+      "value": {
+        "device_id": "MyDevice",
+        "actuator_id": "Act1",
+        "actuator_value": "NewVal"
+      }
     },
     "expires": "2100-10-13T14:51:22Z",
-    "throttling": 200
+    "throttling": 1
   }
 }

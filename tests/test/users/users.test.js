@@ -10,6 +10,7 @@ chai.use(chaiHttp);
 let getUsers = () => chai.request(baseUrl).get(`/users`)
 let createUser = (u) => chai.request(baseUrl).post(`/users`).send(u)
 let getUser = (id) => chai.request(baseUrl).get(`/users/${id}`)
+let getUserMe = () => chai.request(baseUrl).get(`/users`)
 let deleteUser = (id) => chai.request(baseUrl).delete(`/users/${id}`)
 
 describe('Users', () => {
@@ -41,7 +42,7 @@ describe('Users', () => {
     });
   });
   describe('get users by username', () => {
-    it.skip('should search users with username', async () => {
+    it('should search users with username', async () => {
       let res = await getUsers("{firstName: cdupont}").set(withAdmin)
       res.should.have.status(200);
     });
@@ -55,6 +56,10 @@ describe('Users', () => {
   describe('Get user', () => {
     it('should get a specific user', async () => {
       let res2 = await getUser("2ecfae24-f340-4ad0-a12e-02cdc60cd8ba").set(withAdmin)
+      res2.should.have.status(200);
+    });
+    it('should get myself', async () => {
+      let res2 = await getUserMe().set(withAdmin)
       res2.should.have.status(200);
     });
   });
