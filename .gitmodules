@@ -1,9 +1,9 @@
 [submodule "dashboard"]
 	path = dashboard
-	url = git@github.com:Waziup/waziup-dashboard.git
+	url = https://github.com/Waziup/waziup-dashboard
 [submodule "waziup-js"]
 	path = waziup-js
-	url = git@github.com:Waziup/waziup-js.git
+	url = https://github.com/Waziup/waziup-js
 [submodule "waziup-api"]
 	path = waziup-api
-	url = git@github.com:Waziup/waziup-api.git
+	url = https://github.com/Waziup/waziup-api
