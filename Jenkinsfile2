@@ -22,8 +22,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'cd tests'
-                sh 'npm test'
+                sh 'cd tests; npm test'
             }
         }
     }
