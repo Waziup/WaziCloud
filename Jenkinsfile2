@@ -13,16 +13,26 @@ pipeline {
                 sh 'sudo rm -fr data/*'
                 checkout scm
                 sh 'docker-compose pull'
+                dir("tests") {
+                   sh 'npm install'
+                }
             }
         }
         stage('Run') {
             steps {
                 sh 'docker-compose up -d'
+                waitUntil {
+                    sh 'curl --output /dev/null --silent --head --fail  http://localhost:800/api/v2/devices'
+                }
+
             }
         }
         stage('Test') {
             steps {
-                sh 'cd tests; npm test'
+                dir("tests") {
+                   sh 'npm install'
+                   sh 'npm test'
+                }
             }
         }
     }
