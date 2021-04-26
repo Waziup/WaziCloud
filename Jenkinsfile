@@ -7,6 +7,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'git submodule update --init --recursive'
                 sh 'docker-compose build'
             }
         }
@@ -17,19 +18,17 @@ pipeline {
         }
         stage('Test') {
             steps {
+                sh 'cd tests'
                 sh 'npm test'
             }
         }
     }
     post {
-        always {
-            echo 'This will always run'
-        }
         success {
-            echo 'This will run only if successful'
+            echo 'Success!'
         }
         failure {
-            echo 'This will run only if failed'
+            echo 'Failure!'
         }
         unstable {
             echo 'This will run only if the run was marked as unstable'
