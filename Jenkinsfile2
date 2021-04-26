@@ -4,10 +4,14 @@ pipeline {
         API_URL  = 'http://localhost:800/api/v2'
         MQTT_URL = 'tcp://localhost:3883'
     }
+    options {
+        skipDefaultCheckout true
+    }
     stages {
         stage('Prepare') {
             steps {
                 sh 'rm data/*'
+                checkout scm
                 sh 'docker-compose pull'
             }
         }
