@@ -1,10 +1,21 @@
 pipeline {
     agent any
+    environment {
+        API_URL  = 'http://localhost:800/api/v2'
+        MQTT_URL = 'tcp://localhost:3883'
+    }
     stages {
-        stage('Test') {
+        stage('Build') {
             steps {
                 sh 'docker-compose build'
+            }
+        stage('Run') {
+            steps {
                 sh 'docker-compose up -d'
+            }
+        stage('Test') {
+            steps {
+                sh 'npm test'
             }
         }
     }
