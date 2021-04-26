@@ -7,6 +7,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'git submodule update --init --recursive'
                 sh 'docker-compose build'
             }
         }
