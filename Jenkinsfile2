@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                sh 'rm -fr data/*'
+                sh 'sudo rm -fr data/*'
                 checkout scm
                 sh 'docker-compose pull'
             }
