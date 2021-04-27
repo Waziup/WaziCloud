@@ -2,13 +2,15 @@
   "name": "test",
   "version": "1.1.0",
   "scripts": {
-    "test": "find ./test/ -name '*.test.js' | xargs mocha -R spec --timeout 8000 --reporter mochawesome --reporter-options inline=true --exit"
+    "test": "find ./test/ -name '*.test.js' | xargs mocha -R spec --timeout 8000 --reporter mochawesome --reporter-options inline=true --exit",
+    "test_jenkins": "find ./test/ -name '*.test.js' | xargs mocha --timeout 8000 --reporter mocha-jenkins-reporter"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "mocha": "^4.1.0",
-    "mochawesome": "^3.0.3"
+    "mochawesome": "^3.0.3",
+    "mocha-jenkins-reporter": "latest"
   },
   "dependencies": {
     "mqtt": "^2.18.8",
