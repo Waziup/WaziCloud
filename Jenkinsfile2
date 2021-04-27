@@ -45,7 +45,7 @@ pipeline {
     stage('Finalize') {
       steps {
         sh 'docker-compose down'
-        junit 'tests/test-results.xml'
+        junit 'tests/report.xml'
       }
     }
   }
