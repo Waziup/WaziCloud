@@ -34,9 +34,11 @@ pipeline {
     }
     stage('Test') {
       steps {
-        dir("tests") {
-          sh 'npm install'
-          sh 'npm run test_jenkins; exit 0'
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          dir("tests") {
+            sh 'npm install'
+            sh 'npm run test_jenkins; exit 0'
+          }
         }
       }
     }
