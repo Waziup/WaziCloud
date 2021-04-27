@@ -12,7 +12,7 @@ pipeline {
             steps {
                 sh 'sudo rm -fr data/*'
                 checkout scm
-                sudo chmod 777 data/* -R
+                sh 'sudo chmod 777 data/* -R'
                 sh 'docker-compose pull'
                 dir("tests") {
                    sh 'npm install'
