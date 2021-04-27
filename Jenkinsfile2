@@ -37,15 +37,13 @@ pipeline {
         dir("tests") {
           sh 'npm install'
           sh 'npm test 2>&1 > log.txt'
-          sh 'exit_code=$?'
         }
       }
     }
     stage('Finalize') {
       steps {
         sh 'docker-compose down'
-        sh 'cat tests/log.txt'
-        sh 'exit $exit_code'
+        junit 'tests/test-results.xml'
       }
     }
   }
