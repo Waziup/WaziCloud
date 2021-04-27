@@ -75,6 +75,7 @@ services:
     image: waziup/keycloak
     ports:
       - "8080:8080"
+    restart: always
     environment:
       - DB_VENDOR=mysql
       - KEYCLOAK_USER=admin
