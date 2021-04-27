@@ -1,8 +1,8 @@
 pipeline {
   agent any
   environment {
-    API_URL  = 'http://localhost:800/api/v2'
-    MQTT_URL = 'tcp://localhost:3883'
+    API_URL  = 'http://localhost:800/api'
+    MQTT_URL = 'tcp://localhost:3883/auth'
   }
   options {
     skipDefaultCheckout true
@@ -22,7 +22,6 @@ pipeline {
     stage('Run') {
       steps {
         sh 'docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up > log_platform.txt &'
-        wait(10)
         script {
           timeout(unit: 'SECONDS', time: 600) {
             waitUntil {
@@ -38,7 +37,7 @@ pipeline {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
           dir("tests") {
             sh 'npm install'
-            sh 'npm run test_jenkins; exit 0'
+            sh 'npm run test_jenkins'
           }
         }
       }
@@ -60,11 +59,7 @@ pipeline {
       echo 'Failure!'
     }
     unstable {
-      echo 'This will run only if the run was marked as unstable'
-    }
-    changed {
-      echo 'This will run only if the state of the Pipeline has changed'
-      echo 'For example, if the Pipeline was previously failing but is now successful'
+      echo 'Unstable'
     }
   }
 }
