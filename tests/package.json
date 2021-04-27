@@ -6,14 +6,14 @@
     "test_jenkins": "find ./test/ -name '*.test.js' | xargs mocha --timeout 8000 --reporter mocha-jenkins-reporter"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
-    "mocha": "^4.1.0",
-    "mochawesome": "^3.0.3",
-    "mocha-jenkins-reporter": "latest"
+    "chai": "^4.3",
+    "chai-http": "^4.3",
+    "mocha": "^8",
+    "mocha-jenkins-reporter": "latest",
+    "mochawesome": "^6.2"
   },
   "dependencies": {
-    "mqtt": "^2.18.8",
-    "async-mqtt": "2.2.1"
+    "async-mqtt": "2.2.1",
+    "mqtt": "^2.18.8"
   }
 }
