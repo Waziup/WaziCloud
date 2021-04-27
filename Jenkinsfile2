@@ -36,7 +36,7 @@ pipeline {
       steps {
         dir("tests") {
           sh 'npm install'
-          sh 'npm test_jenkins 2>&1 > log.txt; exit 0'
+          sh 'npm run test_jenkins; exit 0'
         }
       }
     }
