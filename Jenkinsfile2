@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Run') {
             steps {
-                sh 'docker-compose up'
+                sh 'docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up'
                 timeout(5) {
                      waitUntil {
                          sh 'wget --retry-connrefused --tries=120 --waitretry=1 -q http://localhost:800/api/v2/devices -O /dev/null'
