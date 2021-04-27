@@ -22,15 +22,11 @@ pipeline {
     stage('Run') {
       steps {
         sh 'docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up > log_platform.txt &'
-        timeout(5) {
-          waitUntil {
-            sh 'wget --retry-connrefused --tries=120 --waitretry=1 -q http://localhost:800/api/v2/devices -O /dev/null'
-
-            try {
-              sh 'wget -q http://localhost:800/api/v2/devices -O /dev/null'
-              return true
-            } catch (exception) {
-              return false
+        script {
+          timeout(unit: 'SECONDS', 60) {
+            waitUntil {
+                def r = sh script: "wget -q http://localhost:800/api/v2/devices -O /dev/null", returnStatus: true
+                return r == 0
             }
           }
         }
