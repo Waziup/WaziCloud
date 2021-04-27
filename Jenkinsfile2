@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Run') {
             steps {
-                sh 'docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up'
+                sh 'docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up > log_platform.txt &'
                 timeout(5) {
                      waitUntil {
                          sh 'wget --retry-connrefused --tries=120 --waitretry=1 -q http://localhost:800/api/v2/devices -O /dev/null'
@@ -34,8 +34,16 @@ pipeline {
             steps {
                 dir("tests") {
                    sh 'npm install'
-                   sh 'npm test'
+                   sh 'npm test 2>&1 > log.txt'
+                   sh 'exit_code=$?'
                 }
+            }
+        }
+        stage('Finalize') {
+            steps {
+                   sh 'docker-compose down'
+                   sh 'cat tests/log.txt'
+                   sh 'exit $exit_code'
             }
         }
     }
