@@ -22,7 +22,7 @@ pipeline {
     stage('Run') {
       steps {
         sh 'docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up > log_platform.txt &'
-        wait(60)
+        wait(10)
         script {
           timeout(unit: 'SECONDS', time: 600) {
             waitUntil {
