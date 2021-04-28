@@ -72,8 +72,9 @@
       "twitter" : [ "corentindupont2" ],
       "address" : [ "" ],
       "phone" : [ "+393806412093" ],
-      "subservice" : [ "" ],
-      "facebook" : [ "corentin.dupont2" ]
+      "facebook" : [ "corentin.dupont2" ],
+      "admin" : [ "true" ],
+      "subservice" : [ "" ]
     },
     "credentials" : [ {
       "type" : "password",
