@@ -1,41 +1,65 @@
 pipeline {
-    agent any
-    environment {
-        API_URL  = 'http://localhost:800/api/v2'
-        MQTT_URL = 'tcp://localhost:3883'
+  agent any
+  environment {
+    API_URL  = 'http://localhost:800/api/v2'
+    MQTT_URL = 'tcp://localhost:3883'
+  }
+  options {
+    skipDefaultCheckout true
+  }
+  stages {
+    stage('Prepare') {
+      steps {
+        sh 'sudo rm -fr data/*'
+        checkout scm
+        sh 'sudo chmod 777 data/* -R'
+        sh 'docker-compose pull'
+        dir("tests") {
+           sh 'npm install'
+        }
+      }
     }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'git submodule update --init --recursive'
-                sh 'docker-compose build'
+    stage('Run') {
+      steps {
+        sh 'docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up > log_platform.txt &'
+        script {
+          timeout(unit: 'SECONDS', time: 600) {
+            waitUntil {
+                def r = sh script: "wget -q http://localhost:800/api/v2/devices -O /dev/null", returnStatus: true
+                return r == 0
             }
+          }
         }
-        stage('Run') {
-            steps {
-                sh 'docker-compose up -d'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'cd tests'
-                sh 'npm test'
-            }
-        }
+      }
     }
-    post {
-        success {
-            echo 'Success!'
+    stage('Test') {
+      steps {
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          dir("tests") {
+            sh 'npm install'
+            sh 'npm run test_jenkins'
+          }
         }
-        failure {
-            echo 'Failure!'
-        }
-        unstable {
-            echo 'This will run only if the run was marked as unstable'
-        }
-        changed {
-            echo 'This will run only if the state of the Pipeline has changed'
-            echo 'For example, if the Pipeline was previously failing but is now successful'
-        }
+      }
     }
+    stage('Finalize') {
+      steps {
+        sh 'docker-compose down'
+      }
+    }
+  }
+  post {
+    always {
+      junit 'tests/report.xml'
+    }
+    success {
+      echo 'Success!'
+    }
+    failure {
+      echo 'Failure!'
+    }
+    unstable {
+      echo 'Unstable'
+    }
+  }
 }
