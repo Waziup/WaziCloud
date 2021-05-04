@@ -4,14 +4,9 @@ pipeline {
     API_URL  = 'http://localhost:800/api/v2'
     MQTT_URL = 'tcp://localhost:3883'
   }
-  options {
-    skipDefaultCheckout true
-  }
   stages {
     stage('Prepare') {
       steps {
-        sh 'sudo rm -fr data/*'
-        checkout scm
         sh 'sudo chmod 777 data/* -R'
         sh 'docker-compose pull'
         dir("tests") {
@@ -36,7 +31,6 @@ pipeline {
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
           dir("tests") {
-            sh 'npm install'
             sh 'npm run test_jenkins'
           }
         }
