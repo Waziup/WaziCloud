@@ -28,7 +28,7 @@ services:
       - "mongo"
 
   waziup-api:
-    build: ./waziup-api
+    build: ./waziup-api:${PLATFORM_VER}
     image: waziup/waziup-api
     ports:
       - "800:800"
@@ -72,7 +72,7 @@ services:
 # Users identification & authorization   
   keycloak:
     build: ./keycloak
-    image: waziup/keycloak
+    image: waziup/keycloak:${PLATFORM_VER}
     ports:
       - "8080:8080"
     restart: always
@@ -106,7 +106,7 @@ services:
 # Dashboard    
   dashboard:
     # Specific images should be built for each environment (local, staging, production).
-    image: waziup/dashboard:2.0-localhost
+    image: waziup/dashboard:${PLATFORM_VER}-localhost
     build:
       context: ./dashboard
       args:
