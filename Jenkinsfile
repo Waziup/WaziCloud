@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    PLATFORM_VER = $BUILD_ID
+    PLATFORM_VER = '${BUILD_ID}'
     API_URL  = 'http://localhost:800/api/v2'
     MQTT_URL = 'tcp://localhost:3883'
   }
