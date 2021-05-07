@@ -8,6 +8,7 @@ pipeline {
   stages {
     stage('Prepare') {
       steps {
+        sh 'echo Build ${BUILD_ID}'
         sh 'sudo chmod 777 data/* -R'
         dir("tests") {
            sh 'npm install'
