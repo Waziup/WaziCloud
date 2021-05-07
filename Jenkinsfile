@@ -1,6 +1,7 @@
 pipeline {
   agent any
   environment {
+    PLATFORM_VER = $BUILD_ID
     API_URL  = 'http://localhost:800/api/v2'
     MQTT_URL = 'tcp://localhost:3883'
   }
@@ -8,10 +9,14 @@ pipeline {
     stage('Prepare') {
       steps {
         sh 'sudo chmod 777 data/* -R'
-        sh 'docker-compose pull'
         dir("tests") {
            sh 'npm install'
         }
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'docker-compose build'
       }
     }
     stage('Run') {
