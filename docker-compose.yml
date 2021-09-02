@@ -19,8 +19,6 @@ services:
   orion:
     image: fiware/orion:2.2.0
     hostname: orion
-    ports:
-      - "1026:1026"
     entrypoint: ["sh", "-c", "rm /tmp/contextBroker.pid; /usr/bin/contextBroker -fg -multiservice -dbhost localhost -logLevel DEBUG"]
     restart: always
     network_mode: host
@@ -30,9 +28,6 @@ services:
   waziup-api:
     build: ./waziup-api
     image: waziup/waziup-api:${PLATFORM_VER}
-    ports:
-      - "800:800"
-      - "3883:3883"
     environment:
       - HTTP_PORT=800
       - MQTT_PORT=3883
@@ -93,8 +88,8 @@ services:
   mysql:
     image: mysql:5.7
     hostname: mysql
-    #ports:
-    #  - "3306:3306"
+    ports:
+      - "3306:3306"
     volumes:
       - ./data/mysql:/var/lib/mysql/
     environment:
