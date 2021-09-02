@@ -9,7 +9,6 @@ pipeline {
     stage('Prepare') {
       steps {
         sh 'echo Build ${BUILD_ID}'
-        sh 'git submodule update --remote --recursive'
         sh 'sudo chmod 777 data/* -R'
         dir("tests") {
            sh 'npm install'
