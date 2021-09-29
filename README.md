@@ -21,6 +21,7 @@ cd Platform
 Then pull the images and run it:
 ```
 sudo chmod 777 data/* -R
+export PLATFORM_VER=latest
 docker-compose pull
 docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up
 ```
