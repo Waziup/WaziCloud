@@ -33,6 +33,11 @@ To start the platform in the future, just type:
 docker-compose up
 ```
 
+You can now access the Waziup dashboard on http://localhost
+Keycloak is available at http://localhost:8080. 
+Default login/password in Keycloak is admin/admin. You need to change it!
+
+
 Develop
 -------
 

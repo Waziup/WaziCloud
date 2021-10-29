@@ -1,0 +1,23 @@
+pipeline {
+  agent any
+  environment {
+    PLATFORM_VER = "nightly"
+  }
+  stages {
+    stage('Prepare') {
+      steps {
+        sh 'sudo chmod 777 data/* -R'
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'docker-compose build'
+      }
+    }
+    stage('Push') {
+      steps {
+        sh 'docker-compose push'
+      }
+    }
+  }
+}
