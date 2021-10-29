@@ -14,14 +14,16 @@ Install
 
 To install the platform, first clone it:
 ```
-git clone https://github.com/Waziup/Platform.git
-cd Platform
+git clone https://github.com/Waziup/WaziCloud.git
+cd WaziCloud
 ```
 
 Then pull the images and run it:
 ```
 sudo chmod 777 data/* -R
+export PLATFORM_VER=latest
 docker-compose pull
+docker-compose build dashboard
 docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up
 ```
 
@@ -43,9 +45,9 @@ Develop
 
 To get the source code for each submodules, you need to clone with --recursive:
 ```
-# clone the platform with submodules
-git clone --recursive git@github.com:Waziup/Platform.git
-cd Platform
+# clone the WaziCloud with submodules
+git clone --recursive https://github.com/Waziup/WaziCloud.git
+cd WaziCloud
 git submodule update --remote --recursive
 docker-compose build
 ```
