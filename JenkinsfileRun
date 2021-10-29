@@ -6,9 +6,10 @@ pipeline {
     MQTT_URL = 'tcp://localhost:3883'
   }
   stages {
-    stage('Clean') {
+    stage('Prepare') {
       steps {
         sh 'docker-compose down'
+        sh 'sudo chmod 777 data/* -R'
       }
     }
     stage('Run') {
