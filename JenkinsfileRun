@@ -1,0 +1,16 @@
+pipeline {
+  agent any
+  environment {
+    PLATFORM_VER = "nightly"
+    API_URL  = 'http://localhost:800/api/v2'
+    MQTT_URL = 'tcp://localhost:3883'
+  }
+  stages {
+    stage('Run') {
+      steps {
+        sh 'docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up -d > log_platform.txt &'
+        }
+      }
+    }
+  }
+}
