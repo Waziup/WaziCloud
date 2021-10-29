@@ -6,6 +6,13 @@ pipeline {
     MQTT_URL = 'tcp://localhost:3883'
   }
   stages {
+    stage('Clean') {
+      steps {
+        sh 'docker-compose down'
+      }
+    }
+  }
+  stages {
     stage('Run') {
       steps {
         sh 'docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up -d'
