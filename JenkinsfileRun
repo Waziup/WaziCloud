@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Run') {
       steps {
-        sh 'docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up -d > log_platform.txt &'
+        sh 'docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up -d'
       }
     }
   }
