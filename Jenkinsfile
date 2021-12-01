@@ -2,14 +2,19 @@ pipeline {
   agent any
   environment {
     PLATFORM_VER = "nightly"
-    API_URL  = 'http://localhost:800/api/v2'
-    MQTT_URL = 'tcp://localhost:3883'
   }
   stages {
     stage('Prepare') {
       steps {
-        sh 'docker-compose down'
         sh 'sudo chmod 777 data/* -R'
+        dir("tests") {
+           sh 'npm install'
+        }
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'docker-compose build'
       }
     }
     stage('Run') {
@@ -24,6 +29,25 @@ pipeline {
           }
         }
       }
+    }
+    stage('Test') {
+      steps {
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          dir("WaziCloud/tests") {
+            sh 'npm run test_jenkins'
+          }
+        }
+      }
+    }
+    stage('Push') {
+      steps {
+        sh 'docker-compose push'
+      }
+    }
+  }
+  post {
+    always {
+      junit 'tests/report.xml'
     }
   }
 }
