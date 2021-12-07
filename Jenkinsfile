@@ -19,6 +19,7 @@ pipeline {
     }
     stage('Run') {
       steps {
+        sh 'docker-compose down'
         sh 'docker-compose -f docker-compose.yml -f docker-compose-first-run.yml up -d'
         script {
           timeout(unit: 'SECONDS', time: 600) {
@@ -33,7 +34,7 @@ pipeline {
     stage('Test') {
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-          dir("WaziCloud/tests") {
+          dir("tests") {
             sh 'npm run test_jenkins'
           }
         }
