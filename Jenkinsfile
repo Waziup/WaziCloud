@@ -33,7 +33,7 @@ pipeline {
     stage('Test') {
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-          dir("WaziCloud/tests") {
+          dir("tests") {
             sh 'npm run test_jenkins'
           }
         }
