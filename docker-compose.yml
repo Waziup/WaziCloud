@@ -31,8 +31,8 @@ services:
     environment:
       - HTTP_PORT=800
       - MQTT_PORT=3883
-      - HTTP_URL=http://localhost:800
-      - KEYCLOAK_URL=http://localhost:8080/auth
+      - HTTP_URL=${PLATFORM_URL}:800
+      - KEYCLOAK_URL=${PLATFORM_URL}:8080/auth
       - ORION_URL=http://localhost:1026
       - MONGODB_URL=mongo
       - LOG_LEVEL=DEBUG
