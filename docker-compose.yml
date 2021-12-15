@@ -106,9 +106,9 @@ services:
       context: ./dashboard
       args:
         - SERVER_PORT=3000
-        - SERVER_URL=http://localhost:3000
-        - KEYCLOAK_URL=http://localhost:8080/auth
-        - API_SERVER_URL=http://localhost:800/api
+        - SERVER_URL=${PLATFORM_URL}:3000
+        - KEYCLOAK_URL=${PLATFORM_URL}:8080/auth
+        - API_SERVER_URL=${PLATFORM_URL}:800/api
     ports:
       - "3000:3000"
 
