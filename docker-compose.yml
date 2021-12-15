@@ -58,11 +58,11 @@ services:
       - mqtt
   
   mqtt:
-    image: eclipse-mosquitto
+    image: waziup/mosquitto
+    build: ./mosquitto
     ports:
       - "6883:6883"
-    entrypoint: "/usr/sbin/mosquitto -p 6883" 
-
+      - "8083:8083"
 
 # Users identification & authorization   
   keycloak:
