@@ -31,8 +31,8 @@ services:
     environment:
       - HTTP_PORT=800
       - MQTT_PORT=3883
-      - HTTP_URL=${PLATFORM_URL}:800
-      - KEYCLOAK_URL=${PLATFORM_URL}:8080/auth
+      - HTTP_URL=${API_URL}
+      - KEYCLOAK_URL=${KEYCLOAK_URL}/auth
       - ORION_URL=http://localhost:1026
       - MONGODB_URL=mongo
       - LOG_LEVEL=DEBUG
@@ -106,9 +106,9 @@ services:
       context: ./dashboard
       args:
         - SERVER_PORT=3000
-        - SERVER_URL=${PLATFORM_URL}:3000
-        - KEYCLOAK_URL=${PLATFORM_URL}:8080/auth
-        - API_SERVER_URL=${PLATFORM_URL}:800/api
+        - SERVER_URL=${DASHBOARD_URL}
+        - KEYCLOAK_URL=${KEYCLOAK_URL}/auth
+        - API_SERVER_URL=${API_URL}/api
     ports:
       - "3000:3000"
 
