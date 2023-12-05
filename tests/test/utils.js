@@ -8,6 +8,10 @@ const device = require('./devices/sample-data').valid;
 
 chai.use(chaiHttp);
 
+if(process.env.CLOUD_ADMIN_PASSWORD) {
+  adminCredentials.password = process.env.CLOUD_ADMIN_PASSWORD
+}
+
 async function getAdminToken() {
   const res = await chai.request(baseUrl).post('/auth/token').send(adminCredentials)
   return res.text
