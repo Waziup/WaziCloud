@@ -47,6 +47,7 @@ describe('Devices', () => {
     it('admin have permissions on device', async () => {
       await createDevice(device).set(withNormal)
       let res = await getPermissionsDevices().set(withAdmin)
+      console.log('res:' + res)
       let scopes = res.body.find(p => p.resource == device.id).scopes
       chai.expect(scopes).members(['devices:view', 'devices:update', 'devices:delete', 'devices-data:create', 'devices-data:view']);
     });
