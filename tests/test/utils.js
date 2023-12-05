@@ -11,6 +11,7 @@ chai.use(chaiHttp);
 if(process.env.CLOUD_ADMIN_PASSWORD) {
   adminCredentials.password = process.env.CLOUD_ADMIN_PASSWORD
 }
+console.log(adminCredentials)
 
 async function getAdminToken() {
   const res = await chai.request(baseUrl).post('/auth/token').send(adminCredentials)
