@@ -1,8 +1,8 @@
 {
   "user" : {
     "admin" : {
-      "username": "cdupont",
-      "password": "password"
+      "username": "admin",
+      "password": "admin"
     },
     "normal" : {
       "username" : "waziup",
