@@ -10,6 +10,7 @@ const { getAdminAuth, getNormalAuth,
   getDevices,
   getDevice,
   setDeviceAttr,
+  setDeviceMetaField,
   setDeviceLocation } = require('../utils');
 
 chai.use(chaiHttp);
@@ -217,6 +218,15 @@ describe('Devices', () => {
       await createDevice(device).set(withAdmin)
       let res = await setDeviceAttr(device.id, "name", "SEN1").set(withNormal)
       res.should.have.status(403);
+    });
+  });
+  describe('Insert Meta Field', () => {
+    it('meta field should be updated', async () => {
+      await createDevice(device).set(withAdmin)
+      let res = await setDeviceMetaField(device.id, {"name":"test"}).set(withAdmin)
+      res.should.have.status(204);
+      let res2 = await getDevice(device.id).set(withAdmin);
+      res2.body.should.have.property('meta').eql({"name":"test"});
     });
   });
   describe('Insert Location', () => {
