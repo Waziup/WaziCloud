@@ -45,12 +45,14 @@ const deleteDevice = (id) => chai.request(baseUrl).delete(`/devices/${id}`)
 const getDevices = () => chai.request(baseUrl).get(`/devices`)
 const getDevice = (id) => chai.request(baseUrl).get(`/devices/${id}`)
 const setDeviceAttr = (id, attr, value) => chai.request(baseUrl).put(`/devices/${id}/${attr}`).set('content-type', 'text/plain;charset=utf-8').send(value)
+const setDeviceMetaField = (id, value) => chai.request(baseUrl).put(`/devices/${id}/meta`).set('content-type', 'application/json').send(value)
 const setDeviceLocation = (id, value) => chai.request(baseUrl).put(`/devices/${id}/location`).set('content-type', 'application/json').send(value)
 
 const createSensor = (m) => chai.request(baseUrl).post(`/devices/${device.id}/sensors`).send(m)
 const getSensors = () => chai.request(baseUrl).get(`/devices/${device.id}/sensors`)
 const getSensor = (id) => chai.request(baseUrl).get(`/devices/${device.id}/sensors/${id}`)
 const putSensorAttr = (id, attr, val) => chai.request(baseUrl).put(`/devices/${device.id}/sensors/${id}/${attr}`).set('content-type', 'text/plain;charset=utf-8').send(val)
+const putSensorMetaField = (id, val) => chai.request(baseUrl).put(`/devices/${device.id}/sensors/${id}/meta`).set('content-type', 'application/json').send(val)
 const pushSensorValue = (id, val) => chai.request(baseUrl).post(`/devices/${device.id}/sensors/${id}/value`).set('content-type', 'application/json').send(val)
 const pushSensorValuePlain = (id, val) => chai.request(baseUrl).post(`/devices/${device.id}/sensors/${id}/value`).set('content-type', 'text/plain;charset=utf-8').send(val)
 
@@ -62,6 +64,7 @@ const setActuatorValueType = (device_id, a_id, val) => chai.request(baseUrl).put
 const setActuatorKind = (device_id, a_id, val) => chai.request(baseUrl).put(`/devices/${device_id}/actuators/${a_id}/actuator_kind`).set('content-type', 'text/plain;charset=utf-8').send(val);
 const setActuatorValue = (device_id, a_id, val) => chai.request(baseUrl).put(`/devices/${device_id}/actuators/${a_id}/value`).set('content-type', 'application/json').send(val);
 const setActuatorName = (device_id, a_id, val) => chai.request(baseUrl).put(`/devices/${device_id}/actuators/${a_id}/name`).set('content-type', 'text/plain;charset=utf-8').send(val);
+const setActuatorMetaField = (device_id, a_id, val) => chai.request(baseUrl).put(`/devices/${device_id}/actuators/${a_id}/meta`).set('content-type', 'application/json').send(val);
 
 const getSensorData = (id) => chai.request(baseUrl).get(`/sensors_data?device_id=${device.id}&sensor_id=${id}`)
 
@@ -80,11 +83,13 @@ module.exports = {
   getDevices,
   getDevice,
   setDeviceAttr,
+  setDeviceMetaField,
   setDeviceLocation,
   createSensor,
   getSensors,
   getSensor,
   putSensorAttr,
+  putSensorMetaField,
   pushSensorValue,
   pushSensorValuePlain,
   createActuator,
@@ -92,6 +97,7 @@ module.exports = {
   getActuator,
   setActuatorKind,
   setActuatorName,
+  setActuatorMetaField,
   setActuatorValue,
   setActuatorValueType,
   deleteActuator,
