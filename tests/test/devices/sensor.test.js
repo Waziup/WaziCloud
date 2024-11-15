@@ -13,6 +13,7 @@ const {
   getSensors,
   getSensor,
   putSensorAttr,
+  putSensorMetaField,
   pushSensorValue,
   pushSensorValuePlain,
 } = require('../utils');
@@ -94,6 +95,20 @@ describe('Sensors', () => {
     it('normal user CANNOT update attribute of device that he does not own', async () => {
       await createDevice(device).set(withAdmin)
       let res = await putSensorAttr(sensor.id, "name", "ss1").set(withNormal)
+      res.should.have.status(403);
+    });
+  });
+  describe('Update Meta field of a Sensor', () => {
+    it('name of sensor is updated', async () => {
+      await createDevice(device).set(withAdmin)
+      let res = await putSensorMetaField(sensor.id,  {"name":"test"}).set(withAdmin)
+      res.should.have.status(204);
+      let res2 = await getSensor(sensor.id).set(withAdmin)
+      res2.body.should.have.property('meta').eql({"name":"test"});
+    });
+    it('normal user CANNOT update attribute of device that he does not own', async () => {
+      await createDevice(device).set(withAdmin)
+      let res = await putSensorMetaField(sensor.id,  {"name":"test"}).set(withNormal)
       res.should.have.status(403);
     });
   });
