@@ -8,6 +8,7 @@ const { getAdminAuth, getNormalAuth,
   deleteDevice,
   createActuator, getActuators, deleteActuator, setActuatorKind,
   setActuatorName,
+  setActuatorMetaField,
   setActuatorValue,
   setActuatorValueType, getActuator } = require('../utils');
 
@@ -101,6 +102,19 @@ describe('Actuators', () => {
 
       let res2 = await getActuator(device.id, actuator.id).set(withAdmin);
       res2.body.should.have.property('name').eql("My Actuator Buzzer");
+    });
+    
+  });
+  describe('Insert Meta Field', () => {
+    it('meta field should be updated', async () => {
+      let cRes = await createActuator(device.id, actuator).set(withAdmin);
+      cRes.should.have.status(204);
+
+      let res = await setActuatorMetaField(device.id, actuator.id, {"name":"test"}).set(withAdmin);
+      res.should.have.status(204);
+
+      let res2 = await getActuator(device.id, actuator.id).set(withAdmin);
+      res2.body.should.have.property('meta').eql({"name":"test"});
     });
   });
 
