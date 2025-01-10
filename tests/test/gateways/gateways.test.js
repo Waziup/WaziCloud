@@ -38,13 +38,13 @@ describe('Gateways', () => {
       await getPermissionsGateways().set(withAdmin)
     });
     it('admin have permissions on gateway', async () => {
-      await createGateway(gateway).set(withNormal)
+      await createGateway(gateway).set(withAdmin)
       let res = await getPermissionsGateways().set(withAdmin)
       let scopes = res.body.find(p => p.resource == gateway.id).scopes
       chai.expect(scopes).members(['gateways:view', 'gateways:update', 'gateways:delete']);
     });
     it('admin have permissions on private gateway', async () => {
-      await createGateway({ ...gateway, visibility: 'private' }).set(withNormal)
+      await createGateway({ ...gateway, visibility: 'private' }).set(withAdmin)
       let res = await getPermissionsGateways().set(withAdmin)
       let scopes = res.body.find(p => p.resource == gateway.id).scopes
       chai.expect(scopes).members(['gateways:view', 'gateways:update', 'gateways:delete']);
