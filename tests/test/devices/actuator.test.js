@@ -167,7 +167,7 @@ describe('Actuators', () => {
     });
 
     it('normal user can remove own Actuator', async () => {
-      const resD = await deleteDevice(device.id).set(withAdmin);
+      const resD = await deleteDevice(device.id).set(withNormal);
       resD.should.have.status(204);
 
       const resC = await createDevice(device).set(withNormal);
