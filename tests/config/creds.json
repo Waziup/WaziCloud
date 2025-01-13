@@ -1,10 +1,10 @@
 {
   "user" : {
-    "normal" : {
+    "admin" : {
       "username": "admin",
       "password": "admin"
     },
-    "admin" : {
+    "normal" : {
       "username" : "waziup",
       "password" : "waziup"
     },
