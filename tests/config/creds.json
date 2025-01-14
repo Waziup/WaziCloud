@@ -1,10 +1,10 @@
 {
   "user" : {
-    "normal" : {
-      "username": "kemeioliver2000@gmail.com",
-      "password": "Oliver8677"
-    },
     "admin" : {
+      "username": "admin",
+      "password": "admin"
+    },
+    "normal" : {
       "username" : "waziup",
       "password" : "waziup"
     },
