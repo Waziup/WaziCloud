@@ -38,7 +38,7 @@
     "totp" : false,
     "emailVerified" : true,
     "attributes" : {
-      "admin" : [ "true" ],
+      "admin" : [ "true" ]
     },
     "credentials" : [ {
       "type" : "password",
