@@ -37,6 +37,9 @@
     "enabled" : true,
     "totp" : false,
     "emailVerified" : true,
+    "attributes" : {
+      "admin" : [ "true" ],
+    },
     "credentials" : [ {
       "type" : "password",
       "hashedSaltedValue" : "KlQ9XVFiFlCXK+1Umdx5Ok5MAD4cytZ2XRAFciypGTICwuDSCGmbUGwIyPBWbh+O16wnHKvoxJnEkhY/Hf9ywA==",
