@@ -3,6 +3,8 @@ let chaiHttp = require('chai-http');
 let should = chai.should();
 let device = require('./sample-data').valid;
 const baseUrl = require('../../config/env').apiUrl;
+console.log("baseUrl: " + baseUrl)
+
 const { getAdminAuth, getNormalAuth,
   getPermissionsDevices,
   createDevice,
