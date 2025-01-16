@@ -2,7 +2,7 @@ module.exports ={
   "user" : {
     "admin" : {
       "username": "admin",
-      "password": "admin"
+      "password": process.env.ADMIN_PASS || "admin"
     },
     "normal" : {
       "username" : "waziup",
