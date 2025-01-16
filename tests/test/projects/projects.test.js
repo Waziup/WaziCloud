@@ -32,6 +32,14 @@ describe('Projects', () => {
           console.log('error:' + err)
       }
   });
+  afterEach(async function () {
+    try {
+      await deleteProject(project.id).set(withAdmin)
+    } catch (err) {
+      console.log('error:' + err)
+      throw err
+    }
+  });
 
   describe('Get Permissions', () => {
     it('should return permissions', async () => {
@@ -53,7 +61,7 @@ describe('Projects', () => {
 
   describe('Get Projects', () => {
     it('an admin gets list of projects', async () => {
-        res0 = await createProject(project).set(withNormal);
+        let res0 = await createProject(project).set(withNormal);
         let res = await getProjects().set(withAdmin);
         chai.expect(res.body.map(s => s.id)).to.include(res0.text);
         res.should.have.status(200);
