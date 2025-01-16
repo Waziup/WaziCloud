@@ -32,6 +32,14 @@ describe('Gateways', () => {
           console.log('error:' + err)
       }
   });
+  afterEach(async function () {
+    try {
+      await deleteGateway(gateway.id).set(withAdmin)
+    } catch (err) {
+      console.log('error:' + err)
+      throw err
+    }
+  });
 
   describe('Get Permissions', () => {
     it('should return permissions', async () => {
