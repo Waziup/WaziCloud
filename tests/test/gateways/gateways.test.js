@@ -52,7 +52,7 @@ describe('Gateways', () => {
       chai.expect(scopes).members(['gateways:view', 'gateways:update', 'gateways:delete']);
     });
     it('admin have permissions on private gateway', async () => {
-      await createGateway({ ...gateway, visibility: 'private' }).set(withAdmin)
+      await createGateway({ ...gateway, visibility: 'private' }).set(withNormal)
       let res = await getPermissionsGateways().set(withAdmin)
       let scopes = res.body.find(p => p.resource == gateway.id).scopes
       chai.expect(scopes).members(['gateways:view', 'gateways:update', 'gateways:delete']);
