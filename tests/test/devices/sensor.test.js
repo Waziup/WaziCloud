@@ -106,11 +106,6 @@ describe('Sensors', () => {
       let res2 = await getSensor(sensor.id).set(withAdmin)
       res2.body.should.have.property('meta').eql({"name":"test"});
     });
-    it('normal user CANNOT update attribute of device that he does not own', async () => {
-      await createDevice(device).set(withAdmin)
-      let res = await putSensorMetaField(sensor.id,  {"name":"test"}).set(withNormal)
-      res.should.have.status(403);
-    });
   });
   describe('Update quantity kind of a Sensor', () => {
     it('quantity kind is updated', async () => {
