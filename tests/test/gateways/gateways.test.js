@@ -32,13 +32,21 @@ describe('Gateways', () => {
           console.log('error:' + err)
       }
   });
+  afterEach(async function () {
+    try {
+      await deleteGateway(gateway.id).set(withAdmin)
+    } catch (err) {
+      console.log('error:' + err)
+      throw err
+    }
+  });
 
   describe('Get Permissions', () => {
     it('should return permissions', async () => {
       await getPermissionsGateways().set(withAdmin)
     });
     it('admin have permissions on gateway', async () => {
-      await createGateway(gateway).set(withNormal)
+      await createGateway(gateway).set(withAdmin)
       let res = await getPermissionsGateways().set(withAdmin)
       let scopes = res.body.find(p => p.resource == gateway.id).scopes
       chai.expect(scopes).members(['gateways:view', 'gateways:update', 'gateways:delete']);

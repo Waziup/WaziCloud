@@ -174,7 +174,7 @@ describe('Devices', () => {
       //read-only fields should be here
       res.body.should.have.property('date_created');
       res.body.should.have.property('date_modified');
-      res.body.should.have.property('owner').eql("cdupont");
+      res.body.should.have.property('owner').eql("admin");
     });
     it('non existent id is rejected', async () => {
       let res = await getDevice('this-id-does-not-exist').set(withAdmin)

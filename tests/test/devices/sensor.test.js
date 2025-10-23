@@ -99,7 +99,7 @@ describe('Sensors', () => {
     });
   });
   describe('Update Meta field of a Sensor', () => {
-    it('name of sensor is updated', async () => {
+    it('meta field of sensor is updated', async () => {
       await createDevice(device).set(withAdmin)
       let res = await putSensorMetaField(sensor.id,  {"name":"test"}).set(withAdmin)
       res.should.have.status(204);

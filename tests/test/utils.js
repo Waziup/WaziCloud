@@ -8,9 +8,6 @@ const device = require('./devices/sample-data').valid;
 
 chai.use(chaiHttp);
 
-if(process.env.CLOUD_ADMIN_PASSWORD) {
-  adminCredentials.password = process.env.CLOUD_ADMIN_PASSWORD
-}
 console.log(adminCredentials)
 
 async function getAdminToken() {
