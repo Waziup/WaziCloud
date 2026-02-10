@@ -32,7 +32,7 @@ services:
       - HTTP_PORT=800
       - MQTT_PORT=3883
       - HTTP_URL=${API_URL}
-      - KEYCLOAK_URL=${KEYCLOAK_URL}/auth
+      - KEYCLOAK_URL=http://${KEYCLOAK_URL}/auth
       - ORION_URL=http://localhost:1026
       - MONGODB_URL=mongo
       - LOG_LEVEL=DEBUG
@@ -45,6 +45,7 @@ services:
       - PLIVO_ID=$PLIVO_ID
       - PLIVO_TOKEN=$PLIVO_TOKEN
       - NOTIF_MIN_INTERVAL=0
+      - VPN_SERVER_URL=http://3.125.6.177:5000
     network_mode: host
     restart: always
     extra_hosts:
