@@ -32,7 +32,7 @@ services:
       - HTTP_PORT=800
       - MQTT_PORT=3883
       - HTTP_URL=${API_URL}
-      - KEYCLOAK_URL=http://${KEYCLOAK_URL}/auth
+      - KEYCLOAK_URL=${KEYCLOAK_URL}/auth
       - ORION_URL=http://localhost:1026
       - MONGODB_URL=mongo
       - LOG_LEVEL=DEBUG
