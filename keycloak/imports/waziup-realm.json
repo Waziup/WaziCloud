@@ -1560,7 +1560,22 @@
         "claim.name" : "family_name",
         "jsonType.label" : "String"
       }
-    } ],
+    }, {
+        "id": "d4d6b74b-621a-4403-920b-6a46dccf4d5f",
+        "name": "admin",
+        "protocol": "openid-connect",
+        "protocolMapper": "oidc-usermodel-attribute-mapper",
+        "consentRequired": false,
+        "config": {
+          "userinfo.token.claim": "true",
+          "user.attribute": "admin",
+          "id.token.claim": "true",
+          "access.token.claim": "true",
+          "claim.name": "admin",
+          "jsonType.label": "boolean"
+        }
+      }
+    ],
     "defaultClientScopes" : [ ],
     "optionalClientScopes" : [ "offline_access" ]
   }, {
