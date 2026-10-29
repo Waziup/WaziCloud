@@ -48,7 +48,8 @@ pipeline {
   }
   post {
     always {
-      junit 'tests/report.xml'
+      // no report exists when the Test stage was skipped after an earlier failure
+      junit allowEmptyResults: true, testResults: 'tests/report.xml'
     }
   }
 }
